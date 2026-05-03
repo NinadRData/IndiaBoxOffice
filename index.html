@@ -8,7 +8,97 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#F5C518;--blue:#4fc3f7;--purple:#c084fc;--green:#22c55e;--orange:#f97316;--bg:#0a0a0a;--bg2:#111;--bg3:#161616;--border:rgba(255,255,255,0.08);--dim:rgba(255,255,255,0.55)}
+:root{--gold:#F5C518;--blue:#4fc3f7;--purple:#c084fc;--green:#22c55e;--orange:#f97316;--bg:#0a0a0a;--bg2:#111;--bg3:#161616;--border:rgba(255,255,255,0.08);--dim:rgba(255,255,255,0.55);--text:#fff;--text-dim:rgba(255,255,255,0.55);--text-muted:rgba(255,255,255,0.25);--nav-bg:rgba(0,0,0,0.92)}
+body.light{--bg:#f0f0f0;--bg2:#e4e4e4;--bg3:#d8d8d8;--border:rgba(0,0,0,0.1);--dim:rgba(0,0,0,0.6);--text:#111;--text-dim:rgba(0,0,0,0.6);--text-muted:rgba(0,0,0,0.35);--nav-bg:rgba(240,240,240,0.95)}
+body.light{background:var(--bg);color:var(--text)}
+body.light nav{background:var(--nav-bg);border-bottom:1px solid var(--border)}
+body.light .nav-links a{color:rgba(0,0,0,0.45)}
+body.light .nav-links a:hover,body.light .nav-links a.active{color:#000}
+body.light .stat-card,body.light .chart-box,body.light .rec-row,body.light .ff-row,body.light .table-row,body.light .pcard-title,body.light .pcard-amt{color:var(--text)}
+body.light .pcard-img{filter:brightness(0.92)}
+body.light footer{color:rgba(0,0,0,0.25);border-top-color:rgba(0,0,0,0.08)}
+body.light .fi{background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.18);color:#111}
+body.light .lf{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.15)}
+body.light .lf:hover{background:rgba(0,0,0,0.07)}
+body.light .rec-tab{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.15)}
+body.light .sort-btn{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.15)}
+body.light .sort-btn:hover{background:rgba(0,0,0,0.07)}
+body.light select{background:#e0e0e0!important;color:#111!important;border-color:rgba(0,0,0,0.2)!important}
+body.light select option{background:#e0e0e0!important;color:#111!important}
+body.light #actorSelect,body.light #actressSelect,body.light #directorSelect,
+body.light #cmpA,body.light #cmpB{background:#e0e0e0!important;color:#111!important;border-color:rgba(0,0,0,0.2)!important}
+/* Dropdown arrow labels */
+body.light #actorSelect+div,body.light #actressSelect+div,
+body.light #directorSelect+div,body.light #cmpA+div,body.light #cmpB+div{color:rgba(0,0,0,0.45)!important}
+/* Wrapper panels around the selects */
+body.light #page-actors [style*="background:#1a1a2e"],
+body.light #page-actresses [style*="background:#1a0020"],
+body.light #page-actresses [style*="background:#0a1a10"],
+body.light #page-compare [style*="background:#1e1e2e"]{background:#e0e0e0!important}
+/* Compare A/B panel cards */
+body.light #page-compare [style*="background:var(--bg3)"]{background:#d8d8d8!important}
+body.light #page-compare [style*="Actor A"],
+body.light #page-compare [style*="Actor B"]{color:rgba(0,0,0,0.55)!important}
+/* "VS" divider */
+body.light #page-compare [style*="color:rgba(255,255,255,.15)"]{color:rgba(0,0,0,0.2)!important}
+
+/* Light mode: override all white inline text to black equivalents */
+body.light *{color:inherit}
+body.light{color:#111}
+body.light [style*="color:rgba(255,255,255"],[style*="color:#fff"],[style*="color:white"]{color:#111!important}
+body.light [style*="color:rgba(255,255,255,.8"]{color:rgba(0,0,0,0.82)!important}
+body.light [style*="color:rgba(255,255,255,.7"]{color:rgba(0,0,0,0.72)!important}
+body.light [style*="color:rgba(255,255,255,.6"]{color:rgba(0,0,0,0.62)!important}
+body.light [style*="color:rgba(255,255,255,.5"]{color:rgba(0,0,0,0.55)!important}
+body.light [style*="color:rgba(255,255,255,.4"]{color:rgba(0,0,0,0.45)!important}
+body.light [style*="color:rgba(255,255,255,.3"]{color:rgba(0,0,0,0.35)!important}
+body.light [style*="color:rgba(255,255,255,.2"]{color:rgba(0,0,0,0.28)!important}
+body.light [style*="color:rgba(255,255,255,.1"]{color:rgba(0,0,0,0.15)!important}
+body.light [style*="color:#fff"]{color:#111!important}
+body.light [style*="color:white"]{color:#111!important}
+#page-film-bhoot-bhangla *{color:inherit}
+#page-film-bhoot-bhangla{color:#fff}
+/* Keep accent colors intact */
+body.light [style*="color:var(--gold)"],[style*="color:#F5C518"],[style*="color:#f5c518"]{color:#b8920a!important}
+body.light [style*="color:var(--blue)"],[style*="color:#4fc3f7"]{color:#0277bd!important}
+body.light [style*="color:var(--purple)"],[style*="color:#c084fc"]{color:#7c3aed!important}
+body.light [style*="color:var(--green)"],[style*="color:#22c55e"]{color:#15803d!important}
+body.light [style*="color:var(--orange)"],[style*="color:#f97316"]{color:#c2410c!important}
+body.light [style*="color:#fb7185"]{color:#be123c!important}
+body.light [style*="color:#f472b6"]{color:#be185d!important}
+body.light [style*="color:#4ade80"]{color:#166534!important}
+body.light [style*="color:#facc15"]{color:#92400e!important}
+body.light [style*="color:#f87171"]{color:#b91c1c!important}
+body.light [style*="color:#2ec4b6"]{color:#0e7490!important}
+/* Backgrounds */
+body.light [style*="background:#0"],[style*="background:#1"]{background:var(--bg3)!important}
+body.light [style*="background:var(--bg3)"]{background:#d8d8d8!important}
+body.light [style*="background:var(--bg2)"]{background:#e4e4e4!important}
+body.light [style*="background:rgba(255,255,255,.0"]{background:rgba(0,0,0,0.03)!important}
+body.light [style*="background:rgba(255,255,255,.1"]{background:rgba(0,0,0,0.08)!important}
+body.light [style*="background:rgba(255,255,255,.2"]{background:rgba(0,0,0,0.12)!important}
+body.light [style*="border-color:rgba(255,255,255"]{border-color:rgba(0,0,0,0.12)!important}
+body.light [style*="border:0.5px solid rgba(255,255,255"]{border-color:rgba(0,0,0,0.12)!important}
+/* Headings and strong text */
+body.light h1,body.light h2,body.light h3,body.light h4,body.light strong{color:#111}
+body.light .ff-title,body.light .table-title,body.light .rec-name{color:rgba(0,0,0,0.85)!important}
+body.light .ff-meta,body.light .stat-lbl,body.light .stat-sub{color:rgba(0,0,0,0.4)!important}
+body.light .stat-val{color:#111!important}
+body.light .table-yr{color:rgba(0,0,0,0.4)!important}
+body.light .table-dim{color:rgba(0,0,0,0.25)!important}
+body.light .empty-state{color:rgba(0,0,0,0.3)!important}
+body.light .chart-lbl{color:rgba(0,0,0,0.35)!important}
+body.light .chart-bar-yr{color:rgba(0,0,0,0.3)!important}
+body.light .ff-note{background:rgba(0,0,0,0.04)!important;border-left-color:rgba(0,0,0,0.15)!important}
+body.light .pcard-bg-text{color:rgba(0,0,0,0.08)!important}
+body.light .nav-logo{color:#111!important}
+/* Sticky header in top grossers */
+body.light [style*="position:sticky"]{background:#e4e4e4!important}
+/* Hero gradient overlay text always white */
+body.light .hero-bottom h2,body.light .hero-bottom .ey{color:#fff!important}
+body.light .panel-info h3,body.light .panel-info .eyebrow,body.light .panel-info .sub{color:#fff!important}
+body.light .page-hero *{color:#fff!important}
+body.light .page-hero [style*="color:rgba(255,255,255"]{color:rgba(255,255,255,0.85)!important}
 html{scroll-behavior:smooth}
 body{font-family:'Barlow',sans-serif;background:var(--bg);color:#fff;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.9rem 2rem;background:rgba(0,0,0,.92);backdrop-filter:blur(8px)}
@@ -121,6 +211,7 @@ textarea.fi{resize:vertical}
 .chart-bar:hover{filter:brightness(1.3)}
 .chart-bar-yr{font-size:.45rem;color:rgba(255,255,255,.2);writing-mode:vertical-rl;white-space:nowrap;max-height:48px;overflow:hidden}
 footer{font-size:.6rem;color:rgba(255,255,255,.15);text-align:center;padding:2rem;border-top:0.5px solid rgba(255,255,255,.05);margin-top:2rem}
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
 </style>
 </head>
 <body>
@@ -134,10 +225,14 @@ footer{font-size:.6rem;color:rgba(255,255,255,.15);text-align:center;padding:2re
     <li><a onclick="showPage('actors')" id="nav-actors" style="color:var(--purple);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Actors</a></li>
     <li><a onclick="showPage('records')" id="nav-records" style="color:var(--gold);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Records</a></li>
     <li><a onclick="showPage('predictions')" id="nav-predictions" style="color:var(--green);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Predictions</a></li>
-    <li><a onclick="showPage('actresses')" id="nav-actresses" style="color:#fb7185;opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Actresses</a></li>
+    <li><a onclick="showPage('actresses')" id="nav-actresses" style="color:#fb7185;opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Celebrities</a></li>
     <li><a onclick="showPage('compare')" id="nav-compare" style="color:#f472b6;opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Compare</a></li>
     <li><a onclick="showPage('action')" id="nav-action" style="color:#fb923c;opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Analysis</a></li>
   </ul>
+  <button id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode"
+    style="display:flex;align-items:center;gap:6px;font-family:'Barlow',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:1px;padding:5px 12px;border-radius:20px;border:0.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);cursor:pointer;transition:all .2s;margin-right:.5rem">
+    <span id="theme-icon">☀️</span><span id="theme-label">Light</span>
+  </button>
   <div style="position:relative">
     <input id="global-search" type="text" placeholder="⌕  Search films, actors…"
       oninput="handleGlobalSearch(this.value)"
@@ -338,7 +433,7 @@ var ACTOR_SUPP = {
     // Set 1
     // unique supp entries (master DB films excluded via deduplication)
     {n:'Abhimaan',y:1973,lb:3.5,bo:null,ff:7.4},
-    {n:'Namak Haraam',y:1973,lb:3.4,bo:null,ff:8.7},
+    {n:'Namak Haraam',y:1973,lb:3.4,bo:null,ff:8.7}, // shared with Rajesh Khanna
     {n:'Bombay To Goa',y:1973,lb:null,bo:null,ff:null},
     {n:'Chupke Chupke',y:1975,lb:3.7,bo:null,ff:8.51},
     {n:'Kabhi Kabhie',y:1976,lb:3.4,bo:null,ff:15.4},
@@ -401,10 +496,11 @@ var ACTOR_SUPP = {
     {n:'Sarkar 3',y:2017,lb:null,bo:null,ff:1.28},
     {n:'102 Not Out',y:2018,lb:null,bo:115,ff:4.12},
     {n:'Runway 34',y:2022,lb:null,bo:53,ff:1.25},
-    {n:'Vettaiyan',y:2024,lb:null,bo:253,ff:10.5},
+  
     {n:'Thugs of Hindustan',y:2018,lb:1.8,bo:148,ff:11.21},
     {n:'Piku',y:2015,lb:3.8,bo:78,ff:4.2},
     {n:'Badla',y:2019,lb:3.7,bo:98,ff:2.1},
+    {n:'Vettaiyan',y:2024,lb:null,bo:253,ff:10.5},
   ],
   'Salman Khan': [
     {n:'Maine Pyar Kiya',y:1989,lb:3.2,bo:null,ff:70},
@@ -432,7 +528,7 @@ var ACTOR_SUPP = {
     {n:'Baghbaan',y:2003,lb:3.1,bo:null,ff:7.97},
     {n:'Mujhse Shaadi Karogi',y:2004,lb:3.1,bo:null,ff:10.48},
     {n:'No Entry',y:2005,lb:2.8,bo:70,ff:13.24},
-    {n:'Sarkar',                  y:2005, bo:39.3, ff:7.54,  lb:3.2},
+
     {n:'Maine Pyar Kyun Kiya',y:2005,lb:2.7,bo:null,ff:7.97},
     {n:'Jaan E Mann',y:2006,lb:3.0,bo:null,ff:6.68},
     {n:'Partner',y:2007,lb:3.0,bo:99,ff:14.48},
@@ -713,11 +809,34 @@ var ACTOR_SUPP = {
   ],  'Rajinikanth': [
     {n:'Baasha',y:1995,lb:null,bo:null,ff:25},{n:'Muthu',y:1995,lb:null,bo:null,ff:18.3},
     {n:'Padaiyappa',y:1999,lb:null,bo:null,ff:24.8},{n:'Chandramukhi',y:2005,lb:null,bo:null,ff:23.8},
-    {n:'Sivaji',y:2007,lb:null,bo:null,ff:23.4},{n:'Kabali',y:2016,lb:2.8,bo:292,ff:19},
-    {n:'Petta',y:2019,lb:3.2,bo:232,ff:null},{n:'Darbar',y:2020,lb:2.7,bo:247,ff:null},
-    {n:'Vettaiyan',y:2024,lb:null,bo:253,ff:10.5},
+    {n:'Sivaji',y:2007,lb:null,bo:null,ff:23.4},    {n:'Lingaa',y:2014,lb:null,bo:152,ff:6.0},
+    {n:'Kabali',y:2016,lb:2.8,bo:292,ff:19},
+    {n:'Kaala',y:2018,lb:null,bo:160,ff:7.0},
+    {n:'Petta',y:2019,lb:3.2,bo:232,ff:9.5},
+    {n:'Darbar',y:2020,lb:2.7,bo:247,ff:10.0},
     {n:'Annaatthe',y:2021,lb:null,bo:172,ff:6.5},
-  ],  'Vijay': [
+    {n:'Vettaiyan',y:2024,lb:null,bo:253,ff:10.5},
+  ],  'Chiranjeevi': [
+    {n:'Pasivadi Pranam',                    y:1987, lb:null, bo:null, ff:15.0},
+    {n:'Yamudiki Mogudu',                    y:1988, lb:null, bo:null, ff:16.7},
+    {n:'Athaku Yamudu Ammayiki Mogudu',      y:1989, lb:null, bo:null, ff:15.6},
+    {n:'Jagadeka Veerudu Athiloka Sundari',  y:1990, lb:null, bo:null, ff:18.5},
+    {n:'Kondaveeti Donga',                   y:1990, lb:null, bo:null, ff:15.5},
+    {n:'Gang Leader',                        y:1991, lb:null, bo:null, ff:16.3},
+    {n:'Rowdy Alludu',                       y:1991, lb:null, bo:null, ff:15.4},
+    {n:'Gharana Mogudu',                     y:1992, lb:null, bo:null, ff:18.3},
+    {n:'Choodalani Vundi',                   y:1998, lb:null, bo:null, ff:15.3},
+    {n:'Indra',                              y:2002, lb:null, bo:null, ff:19.1},
+    {n:'Tagore',                             y:2003, lb:null, bo:null, ff:18.6},
+    {n:'Shankar Dada MBBS',                  y:2004, lb:null, bo:null, ff:17.8},
+    {n:'Khaidi No. 150',                     y:2017, lb:null, bo:150,  ff:10.0},
+    {n:'Sye Raa Narasimha Reddy',            y:2019, lb:null, bo:285,  ff:15.8},
+    {n:'Godfather',                          y:2022, lb:null, bo:107,  ff:5.0},
+    {n:'Bhola Shankar',                      y:2023, lb:null, bo:42,   ff:2.5},
+    {n:'Walter Veeraiyya',                   y:2023, lb:null, bo:219,  ff:12.1},
+
+  ],
+  'Vijay': [
     {n:'Thuppakki',       y:2012, lb:3.5, bo:null, ff:15.3},
     {n:'Jilla',           y:2014, lb:3.0, bo:null, ff:11.2},
     {n:'Kaththi',         y:2014, lb:3.4, bo:null, ff:12.8},
@@ -727,11 +846,31 @@ var ACTOR_SUPP = {
     {n:'Mersal',          y:2017, lb:3.3, bo:253,  ff:15.8},
     {n:'Sarkar',          y:2018, lb:3.0, bo:252,  ff:15.0},
     {n:'Bigil',           y:2019, lb:3.1, bo:295,  ff:16.3},
-    {n:'Master',          y:2021, lb:3.4, bo:223,  ff:null},
-    {n:'Beast',           y:2022, lb:2.4, bo:216,  ff:null},
-    {n:'Varisu',          y:2023, lb:2.8, bo:297,  ff:null},
+    {n:'Master',          y:2021, lb:3.4, bo:223,  ff:12.0},
+    {n:'Beast',           y:2022, lb:2.4, bo:216,  ff:10.0},
+    {n:'Varisu',          y:2023, lb:2.8, bo:297,  ff:14.1},
     {n:'Leo',             y:2023, lb:3.3, bo:605,  ff:24.3},
     {n:'The GOAT',        y:2024, lb:3.0, bo:457,  ff:17.5},
+  ],
+  'Rajesh Khanna': [
+    {n:'Aradhana',          y:1969, lb:3.9, bo:null, ff:36.8},
+    {n:'Do Raaste',         y:1969, lb:3.4, bo:null, ff:34.2},
+    {n:'Kati Patang',       y:1970, lb:3.5, bo:null, ff:null},
+    {n:'Sachaa Jhutha',     y:1970, lb:3.3, bo:null, ff:27.5},
+    {n:'Safar',             y:1970, lb:3.4, bo:null, ff:null},
+    {n:'Johny Mera Naam',   y:1970, lb:3.2, bo:null, ff:39.0},
+    {n:'Anand',             y:1971, lb:4.1, bo:null, ff:null},
+    {n:'Haathi Mere Saathi',y:1971, lb:3.2, bo:null, ff:33.4},
+    {n:'Dushmun',           y:1971, lb:3.0, bo:null, ff:26.2},
+    {n:'Daag',              y:1973, lb:3.3, bo:null, ff:28.3},
+    {n:'Namak Haraam',      y:1973, lb:3.4, bo:null, ff:8.7},
+    {n:'Avishkaar',         y:1974, lb:3.5, bo:null, ff:null},
+    {n:'Prem Nagar',        y:1974, lb:3.2, bo:null, ff:null},
+    {n:'Aap Ki Kasam',      y:1974, lb:3.1, bo:null, ff:null},
+    {n:'Souten',            y:1983, lb:3.0, bo:null, ff:null},
+    {n:'Avtaar',            y:1983, lb:3.2, bo:null, ff:null},
+    {n:'Farz Aur Kanoon',   y:1982, lb:null,bo:null, ff:27.1},
+    {n:'Swarg',             y:1990, lb:3.0, bo:null, ff:null},
   ],
   'Kamal Haasan': [
     {n:'Ek Duuje Ke Liye',y:1981,lb:null,bo:null,ff:29.2},{n:'Nayakan',y:1987,lb:null,bo:null,ff:17.8},
@@ -741,7 +880,7 @@ var ACTOR_SUPP = {
   'Prabhas': [
     {n:'Baahubali',y:2015,lb:null,bo:650,ff:48},
     {n:'Radhe Shyam',y:2022,lb:null,bo:180,ff:3.2},
-    {n:'Raja Saab',y:2026,lb:null,bo:180,ff:7.4},
+  
   ],
 };
 
@@ -946,7 +1085,7 @@ var FF_SORTED = [
   {n:'Qurbani',                 y:1980, l:'Hindi',   ff:39.3, actors:['Feroz Khan','Vinod Khanna','Zeenat Aman']},
   {n:'Jawan',                   y:2023, l:'Hindi',   ff:39.2, actors:['Shah Rukh Khan','Nayanthara','Vijay Sethupathi']},
   {n:'The Savage Princess',    y:1948, l:'Hindi',   ff:39,   actors:[]},
-  {n:'Johny Mera Naam',        y:1970, l:'Hindi',   ff:39,   actors:['Dev Anand','Hema Malini']},
+  {n:'Johny Mera Naam',     y:1970, l:'Hindi',   ff:39,   actors:['Dev Anand','Hema Malini','Rajesh Khanna']},
   {n:'Waqt',                    y:1965, l:'Hindi',   ff:38.7, actors:['Sunil Dutt','Raaj Kumar','Shashi Kapoor']},
   {n:'Meri Aawaz Suno',        y:1981, l:'Hindi',   ff:38.5, actors:['Jeetendra','Hema Malini']},
   {n:'Thirst',                  y:1950, l:'Hindi',   ff:37.5, actors:[]},
@@ -961,7 +1100,6 @@ var FF_SORTED = [
   {n:'Kalki 2898 AD',          y:2024, l:'Telugu',  ff:36.4, actors:['Prabhas','Deepika Padukone','Amitabh Bachchan','Kamal Haasan']},
   {n:'Ankhen',                  y:1968, l:'Hindi',   ff:36.1, actors:['Dharmendra','Mala Sinha']},
   {n:'Sanyaasi',                y:1975, l:'Hindi',   ff:36,   actors:['Manoj Kumar','Hema Malini']},
-  {n:'Betaab',                  y:1983, l:'Hindi',   ff:36,   actors:['Sunny Deol','Amrita Singh']},
   {n:'Kuch Kuch Hota Hai',     y:1998, l:'Hindi',   ff:35.66,actors:['Shah Rukh Khan','Kajol','Salman Khan']},
   {n:'Bajrangi Bhaijaan',      y:2015, l:'Hindi',   ff:35.42,actors:['Salman Khan','Harshaali Malhotra']},
   {n:'Love Story',              y:1981, l:'Hindi',   ff:35.4, actors:['Kumar Gaurav','Vijayta Pandit']},
@@ -1072,7 +1210,7 @@ var TOP50 = [
   {n:'Dangal',                      y:2016, l:'Hindi',   ww:2070, india:1300},
   {n:'Baahubali 2',                 y:2017, l:'Telugu',  ww:1810, india:1430},
   {n:'Pushpa 2',                    y:2024, l:'Telugu',  ww:1742, india:1234},
-  {n:'Dhurandhar 2',                y:2026, l:'Hindi',   ww:1750, india:1122},
+      {n:'Dhurandhar 2',                y:2026, l:'Hindi',   ww:1775, india:1132.79},
   {n:'Dhurandhar',                  y:2025, l:'Hindi',   ww:1349, india:1050},
   {n:'RRR',                         y:2022, l:'Telugu',  ww:1230, india:900},
   {n:'KGF 2',                       y:2022, l:'Kannada', ww:1215, india:1000},
@@ -1146,35 +1284,37 @@ var UPCOMING = [
 // Yearly data
 var YR_DATA = {
   '2026': [
-    {n:'Dhurandhar 2',   l:'Hindi',  ow:450,    india:1122,   ww:1750,  studio:'Jio Studios'},
-    {n:'Border 2',       l:'Hindi',  ow:129.89, india:341.70, ww:464.5, studio:'Zee Studios / T-Series'},
-    {n:'Bhoot Bhangla',  l:'Hindi',  ow:null,   india:null,   ww:null,  studio:'Balaji / Cape of Good Films', liveKey:'bhoot-bhangla'},
-    {n:'RajaSaab',       l:'Telugu', ow:null,   india:180,    ww:180,   studio:'TBA'},
-  ],
-  '2025': [
+    {n:'Dhurandhar 2',              l:'Hindi',   ow:308.5,  india:1132.79, ww:1775,  studio:'Jio Studios'},
+    {n:'Border 2',                  l:'Hindi',   ow:129.89, india:341.70,  ww:464.5, studio:'Zee Studios / T-Series'},
+    {n:'Mana ShankaraVaraprasad Garu', l:'Telugu', ow:56,  india:258,     ww:320,   studio:'TBA'},
+    {n:'RajaSaab',                  l:'Telugu',  ow:98,     india:146,     ww:208,   studio:'Mythri'},
+    {n:'Bhoot Bhangla',             l:'Hindi',   ow:61.75,  india:128.60,  ww:198,   studio:'Tips Films', liveKey:'bhoot-bhangla'},
+  ],  '2025': [
     {n:'Dhurandhar',              l:'Hindi',   ow:106.50, india:895,  ww:1349,  studio:'Jio Studios'},
     {n:'Kantara: Chapter 1',      l:'Kannada', ow:163,    india:622,  ww:852,   studio:'Hombale'},
-    {n:'Chaava',                  l:'Hindi',   ow:121.43, india:700,  ww:797,   studio:'Maddock'},
+    {n:'Chaava',                  l:'Hindi',   ow:121.43, india:600,  ww:797,   studio:'Maddock'},
     {n:'Saiyaara',                l:'Hindi',   ow:84.50,  india:505,  ww:577,   studio:'YRF'},
-    {n:'Coolie',                  l:'Tamil',   ow:129,    india:285,  ww:518,   studio:'Sun Pictures'},
     {n:'War 2',                   l:'Hindi',   ow:122,    india:236.55, ww:364, studio:'YRF'},
     {n:'Mahavtar Narsimha',       l:'Hindi',   ow:15,     india:251,  ww:326,   studio:'TBA'},
-    {n:'Sitaare Zameen Par',      l:'Hindi',   ow:25,     india:184,  ww:266,   studio:'Aamir Khan Prod.'},
+    {n:'Sitaare Zameen Par',      l:'Hindi',   ow:57.3,   india:165.7,ww:266,   studio:'Aamir Khan Prod.'},
     {n:'Sikandar',                l:'Hindi',   ow:40,     india:176,  ww:220,   studio:'YRF'},
     {n:'Sky Force',               l:'Hindi',   ow:35,     india:180,  ww:210,   studio:'Jio Studios'},
     {n:'Jaat',                    l:'Hindi',   ow:30,     india:119,  ww:140,   studio:'Mythri'},
+    {n:'Coolie',                  l:'Tamil',   ow:129,    india:285,  ww:518,   studio:'Sun Pictures'},
     {n:'Raid 2',                  l:'Hindi',   ow:54,     india:178,  ww:243,   studio:'T-Series'},
-    {n:'Lokah: Chapter 1',        l:'Malayalam',ow:14,    india:157,  ww:303,   studio:'TBA'},
   ],
   '2024': [
-    {n:'Pushpa 2',           l:'Telugu', ow:388,    india:1234,  ww:1742, studio:'Mythri'},
-    {n:'Kalki 2898 AD',      l:'Telugu', ow:213,    india:646,  ww:1042, studio:'Vyjayanthi'},
-    {n:'Stree 2',            l:'Hindi',  ow:139.20, india:627,  ww:874,  studio:'Maddock'},
-    {n:'The GOAT',           l:'Tamil',  ow:92,     india:252,  ww:457,  studio:'Agni Studios'},
-    {n:'Devara',             l:'Telugu', ow:160,    india:292,  ww:428,  studio:'Sithara'},
-    {n:'Bhool Bhulaiyaa 3',  l:'Hindi',  ow:110,    india:283,  ww:423,  studio:'T-Series'},
-    {n:'Singham Again',      l:'Hindi',  ow:125,    india:268,  ww:389,  studio:'Jio Studios'},
-    {n:'Fighter',            l:'Hindi',  ow:75,     india:248,  ww:344,  studio:'Excel'},
+    {n:'Pushpa 2',           l:'Telugu', ow:353,    india:1234,  ww:1742, studio:'Mythri'},
+    {n:'Kalki 2898 AD',      l:'Telugu', ow:213,    india:646,   ww:1042, studio:'Vyjayanthi'},
+    {n:'Stree 2',            l:'Hindi',  ow:139.20, india:627,   ww:874,  studio:'Maddock'},
+    {n:'The GOAT',           l:'Tamil',  ow:92,     india:252,   ww:457,  studio:'Agni Studios'},
+    {n:'Devara',             l:'Telugu', ow:160,    india:292,   ww:428,  studio:'Sithara'},
+    {n:'Bhool Bhulaiyaa 3',  l:'Hindi',  ow:110,    india:283,   ww:423,  studio:'T-Series'},
+    {n:'Singham Again',      l:'Hindi',  ow:125,    india:268,   ww:389,  studio:'Jio Studios'},
+    {n:'Fighter',            l:'Hindi',  ow:90,     india:248,   ww:344,  studio:'Excel'},
+    {n:'Vettaiyan',            l:'Tamil',   ow:73,     india:147,  ww:253,   studio:'Sun Pictures'},
+    {n:'Vettaiyan',          l:'Tamil',  ow:73,     india:147,   ww:253,  studio:'Sun Pictures'},
+    {n:'HanuMan',            l:'Telugu', ow:41,     india:202,   ww:295,  studio:'Primeshow'},
   ],
   '2023': [
     {n:'Jawan',              l:'Hindi',  ow:211,    india:643,  ww:1148, studio:'Red Chillies'},
@@ -1186,7 +1326,7 @@ var YR_DATA = {
     {n:'Jailer',             l:'Tamil',  ow:116,    india:348,  ww:604,  studio:'Sun Pictures'},
     {n:'Dunki',              l:'Hindi',  ow:73.50,  india:212,  ww:470,  studio:'Red Chillies'},
     {n:'Tiger 3',            l:'Hindi',  ow:148.50, india:285,  ww:466,  studio:'YRF'},
-    {n:'Adipurush',          l:'Telugu', ow:77,     india:260,  ww:393,  studio:'T-Series'},
+    {n:'Adipurush',          l:'Telugu', ow:220,    india:288,  ww:393,  studio:'T-Series'},
   ],
 };
 </script>
@@ -1199,6 +1339,20 @@ var YR_DATA = {
       <div class="ey">All-Time Top 3 · Worldwide Gross</div>
       <h2 id="heroTitle"></h2>
     </div>
+  </div>
+
+  <!-- ═══ LIVE TRACKER ═══ -->
+  <div style="padding:1.75rem 2rem 0" id="live-tracker-section">
+    <div class="sh" style="margin-bottom:1rem">
+      <h2>Live Tracker</h2>
+      <span>Currently in theatres · Updated daily</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;margin-left:.75rem;font-size:.6rem;font-weight:700;padding:2px 9px;border-radius:10px;background:rgba(239,68,68,.12);border:0.5px solid rgba(239,68,68,.3);color:#ef4444">
+        <span style="width:6px;height:6px;border-radius:50%;background:#ef4444;animation:livePulse 1.4s ease-in-out infinite"></span>
+        LIVE
+      </span>
+    </div>
+    <div id="live-tracker-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;margin-bottom:.75rem"></div>
+    <div style="font-size:.6rem;color:rgba(255,255,255,.18);padding:.5rem 0 0">Last updated: Wednesday, April 29 2026 · Figures are India nett in ₹ Crore · Click any card to open full film page</div>
   </div>
 
   <div style="padding:1.5rem 2rem 0">
@@ -1275,7 +1429,7 @@ var YR_DATA = {
 
     <!-- WW LIST -->
     <div id="tg-sublist-ww">
-      <div style="display:grid;grid-template-columns:40px 1fr 70px 90px 90px;gap:0;padding:.4rem 8px;margin-bottom:4px">
+      <div style="position:sticky;top:44px;z-index:10;display:grid;grid-template-columns:40px 1fr 70px 90px 90px;gap:0;padding:.4rem 8px;background:#0a0a0a;border-bottom:1px solid rgba(249,115,22,.18);backdrop-filter:blur(8px)">
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">#</div>
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Film</div>
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Year</div>
@@ -1287,7 +1441,7 @@ var YR_DATA = {
 
     <!-- INDIA NET LIST -->
     <div id="tg-sublist-india" style="display:none">
-      <div style="display:grid;grid-template-columns:40px 1fr 70px 90px 90px;gap:0;padding:.4rem 8px;margin-bottom:4px">
+      <div style="position:sticky;top:44px;z-index:10;display:grid;grid-template-columns:40px 1fr 70px 90px 90px;gap:0;padding:.4rem 8px;background:#0a0a0a;border-bottom:1px solid rgba(249,115,22,.18);backdrop-filter:blur(8px)">
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">#</div>
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Film</div>
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Year</div>
@@ -1299,7 +1453,7 @@ var YR_DATA = {
 
     <!-- OW LIST -->
     <div id="tg-sublist-ow" style="display:none">
-      <div style="display:grid;grid-template-columns:40px 1fr 70px 90px 90px;gap:0;padding:.4rem 8px;margin-bottom:4px">
+      <div style="position:sticky;top:44px;z-index:10;display:grid;grid-template-columns:40px 1fr 70px 90px 90px;gap:0;padding:.4rem 8px;background:#0a0a0a;border-bottom:1px solid rgba(249,115,22,.18);backdrop-filter:blur(8px)">
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">#</div>
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Film</div>
         <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Year</div>
@@ -1326,7 +1480,7 @@ var YR_DATA = {
     <div id="ff-stats" class="stat-grid"></div>
     <div style="position:relative;margin-bottom:1rem">
       <input id="ff-search" type="text" placeholder="Search films…" oninput="renderFF()"
-        style="width:100%;background:rgba(255,255,255,.05);border:0.5px solid rgba(79,195,247,.25);border-radius:4px;color:#fff;font-family:'Barlow',sans-serif;font-size:.85rem;padding:.55rem 2.5rem .55rem 2.75rem;outline:none;box-sizing:border-box">
+        style="width:100%;background:rgba(255,255,255,.05);border:0.5px solid rgba(79,195,247,.25);border-radius:4px;color:#fff !important;font-family:'Barlow',sans-serif;font-size:.85rem;padding:.55rem 2.5rem .55rem 2.75rem;outline:none;box-sizing:border-box;caret-color:#fff;-webkit-text-fill-color:#fff">
       <span style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:rgba(79,195,247,.5);font-size:.9rem;pointer-events:none">⌕</span>
     </div>
     <div style="background:var(--bg2);border:0.5px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem;margin-bottom:1.5rem">
@@ -1370,7 +1524,7 @@ var YR_DATA = {
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
       <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actor</div>
       <div style="position:relative">
-        <select id="actorSelect" style="appearance:none;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:#fff;font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2.5rem .55rem 1rem;cursor:pointer;outline:none;min-width:220px" onchange="renderActor()">
+        <select id="actorSelect" style="appearance:none;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2.5rem .55rem 1rem;cursor:pointer;outline:none;min-width:220px" onchange="renderActor()">
           <option value="">— Choose Actor —</option>
         </select>
         <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(192,132,252,.6);font-size:.7rem">▼</div>
@@ -1473,7 +1627,7 @@ var YR_DATA = {
     <div class="page-hero-inner">
       <div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:#fb923c;margin-bottom:.6rem;opacity:.8">Indian Cinema · Action Films</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">Opening Weekend <span style="color:#fb923c">&amp; Legs</span></div>
-      <div style="font-size:.82rem;color:rgba(255,255,255,.38);max-width:600px;line-height:1.65">How well did action blockbusters hold after their opening weekend? Compare OW vs lifetime, legs multiplier, and footfalls across eras.</div>
+
     </div>
   </div>
   <div style="max-width:980px;margin:0 auto;padding:2rem">
@@ -1543,33 +1697,67 @@ var YR_DATA = {
   <div class="page-hero" style="background:linear-gradient(135deg,#0d0008,#1a0015)">
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(251,113,133,.09),transparent 65%)"></div>
     <div class="page-hero-inner">
-      <div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:#fb7185;margin-bottom:.6rem;opacity:.8">Indian Cinema · Leading Ladies</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">Actress <span style="color:#fb7185">Filmographies</span></div>
-      <div style="font-size:.82rem;color:rgba(255,255,255,.38);max-width:540px;line-height:1.65">Box office, footfalls, and Letterboxd ratings for leading actresses across Indian cinema.</div>
+      <div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:#fb7185;margin-bottom:.6rem;opacity:.8">Indian Cinema · Celebrities</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">Celebrity <span style="color:#fb7185">Filmographies</span></div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.38);max-width:540px;line-height:1.65">Box office, footfalls, and Letterboxd ratings for actresses and directors across Indian cinema.</div>
     </div>
   </div>
   <div style="max-width:960px;margin:0 auto;padding:2rem">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
-      <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actress</div>
-      <div style="position:relative">
-        <select id="actressSelect" style="appearance:none;background:#1a0020;border:0.5px solid rgba(251,113,133,.4);border-radius:4px;color:#fff;font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2.5rem .55rem 1rem;cursor:pointer;outline:none;min-width:220px" onchange="renderActress()">
-          <option value="">— Choose Actress —</option>
-        </select>
-        <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(251,113,133,.6);font-size:.7rem">▼</div>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="sort-btn active" id="actress-sort-year" onclick="setActressSort('year',this)">Year</button>
-        <button class="sort-btn" id="actress-sort-footfalls" onclick="setActressSort('footfalls',this)">Footfalls</button>
-        <button class="sort-btn" id="actress-sort-boxoffice" onclick="setActressSort('boxoffice',this)">Box Office</button>
-        <button class="sort-btn" id="actress-sort-letterboxd" onclick="setActressSort('letterboxd',this)">Letterboxd</button>
-      </div>
+
+    <!-- Celebrity type tabs -->
+    <div style="display:flex;gap:8px;margin-bottom:1.5rem">
+      <button class="rec-tab on" id="celeb-tab-actress" onclick="setCelebTab('actress',this)">Actresses</button>
+      <button class="rec-tab" id="celeb-tab-director" onclick="setCelebTab('director',this)">Directors</button>
     </div>
-    <div id="actress-stats-wrap"></div>
-    <div id="actress-chart-wrap"></div>
-    <div id="actress-table-wrap"></div>
-    <div id="actress-empty" class="empty-state">← Choose an actress to view her filmography</div>
+
+    <!-- ACTRESS PANEL -->
+    <div id="celeb-panel-actress">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
+        <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actress</div>
+        <div style="position:relative">
+          <select id="actressSelect" style="appearance:none;background:#1a0020;border:0.5px solid rgba(251,113,133,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2.5rem .55rem 1rem;cursor:pointer;outline:none;min-width:220px" onchange="renderActress()">
+            <option value="">— Choose Actress —</option>
+          </select>
+          <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(251,113,133,.6);font-size:.7rem">▼</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="sort-btn active" id="actress-sort-year" onclick="setActressSort('year',this)">Year</button>
+          <button class="sort-btn" id="actress-sort-footfalls" onclick="setActressSort('footfalls',this)">Footfalls</button>
+          <button class="sort-btn" id="actress-sort-boxoffice" onclick="setActressSort('boxoffice',this)">Box Office</button>
+          <button class="sort-btn" id="actress-sort-letterboxd" onclick="setActressSort('letterboxd',this)">Letterboxd</button>
+        </div>
+      </div>
+      <div id="actress-stats-wrap"></div>
+      <div id="actress-chart-wrap"></div>
+      <div id="actress-table-wrap"></div>
+      <div id="actress-empty" class="empty-state">← Choose an actress to view her filmography</div>
+    </div>
+
+    <!-- DIRECTOR PANEL -->
+    <div id="celeb-panel-director" style="display:none">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
+        <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Director</div>
+        <div style="position:relative">
+          <select id="directorSelect" style="appearance:none;background:#0a1a10;border:0.5px solid rgba(34,197,94,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2.5rem .55rem 1rem;cursor:pointer;outline:none;min-width:220px" onchange="renderDirector()">
+            <option value="">— Choose Director —</option>
+          </select>
+          <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(34,197,94,.6);font-size:.7rem">▼</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="sort-btn active" id="dir-sort-year" onclick="setDirSort('year',this)">Year</button>
+          <button class="sort-btn" id="dir-sort-boxoffice" onclick="setDirSort('boxoffice',this)">Box Office</button>
+          <button class="sort-btn" id="dir-sort-footfalls" onclick="setDirSort('footfalls',this)">Footfalls</button>
+          <button class="sort-btn" id="dir-sort-letterboxd" onclick="setDirSort('letterboxd',this)">Letterboxd</button>
+        </div>
+      </div>
+      <div id="director-stats-wrap"></div>
+      <div id="director-chart-wrap"></div>
+      <div id="director-table-wrap"></div>
+      <div id="director-empty" class="empty-state">← Choose a director to view their filmography</div>
+    </div>
+
   </div>
-  <footer>Box Office India · Actress data compiled from master database · Partial data shown where available</footer>
+  <footer>Box Office India · Celebrity data compiled from master database · Partial data shown where available</footer>
 </div>
 
 <!-- ═══════════ PAGE: COMPARE ═══════════ -->
@@ -1589,7 +1777,7 @@ var YR_DATA = {
       <div style="background:var(--bg3);border:0.5px solid rgba(244,114,182,.3);border-radius:6px;padding:1.1rem 1.25rem">
         <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(244,114,182,.6);margin-bottom:.5rem">Actor A</div>
         <div style="position:relative">
-          <select id="cmpA" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(244,114,182,.4);border-radius:3px;color:#fff;font-family:'Barlow',sans-serif;font-size:.9rem;padding:.55rem 2.2rem .55rem .8rem;cursor:pointer;outline:none" onchange="renderCompare()">
+          <select id="cmpA" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(244,114,182,.4);border-radius:3px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.55rem 2.2rem .55rem .8rem;cursor:pointer;outline:none" onchange="renderCompare()">
             <option value="">— Select Actor A —</option>
           </select>
           <div style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(244,114,182,.5);font-size:.65rem">▼</div>
@@ -1600,7 +1788,7 @@ var YR_DATA = {
       <div style="background:var(--bg3);border:0.5px solid rgba(79,195,247,.3);border-radius:6px;padding:1.1rem 1.25rem">
         <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(79,195,247,.6);margin-bottom:.5rem">Actor B</div>
         <div style="position:relative">
-          <select id="cmpB" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(79,195,247,.4);border-radius:3px;color:#fff;font-family:'Barlow',sans-serif;font-size:.9rem;padding:.55rem 2.2rem .55rem .8rem;cursor:pointer;outline:none" onchange="renderCompare()">
+          <select id="cmpB" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(79,195,247,.4);border-radius:3px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.55rem 2.2rem .55rem .8rem;cursor:pointer;outline:none" onchange="renderCompare()">
             <option value="">— Select Actor B —</option>
           </select>
           <div style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(79,195,247,.5);font-size:.65rem">▼</div>
@@ -1650,6 +1838,29 @@ var YR_DATA = {
 </div>
 
 <script>
+// ═══════════════════════════════════════
+// DARK / LIGHT MODE
+// ═══════════════════════════════════════
+function toggleTheme() {
+  var isLight = document.body.classList.toggle('light');
+  var icon  = document.getElementById('theme-icon');
+  var label = document.getElementById('theme-label');
+  var btn   = document.getElementById('theme-toggle');
+  if (isLight) {
+    icon.textContent  = '🌙';
+    label.textContent = 'Dark';
+    btn.style.background    = 'rgba(0,0,0,0.08)';
+    btn.style.borderColor   = 'rgba(0,0,0,0.2)';
+    btn.style.color         = 'rgba(0,0,0,0.6)';
+  } else {
+    icon.textContent  = '☀️';
+    label.textContent = 'Light';
+    btn.style.background    = 'rgba(255,255,255,.07)';
+    btn.style.borderColor   = 'rgba(255,255,255,.2)';
+    btn.style.color         = 'rgba(255,255,255,.7)';
+  }
+}
+
 // ═══════════════════════════════════════
 // TMDB IMAGE INTEGRATION
 // ═══════════════════════════════════════
@@ -1728,6 +1939,83 @@ function loadAllPosters() {
 // ═══════════════════════════════════════
 // ── FILM DETAIL PAGES ──
 var FILM_PAGES = {
+  'adipurush': {
+    key: 'adipurush',
+    title: 'Adipurush',
+    year: 2023,
+    lang: 'Telugu',
+    director: 'Om Raut',
+    studio: 'T-Series / Retrophiles',
+    cast: [
+      {name:'Prabhas',       role:'Ram / Raghava'},
+      {name:'Kriti Sanon',   role:'Sita / Janaki'},
+      {name:'Saif Ali Khan', role:'Lankesh / Ravana'},
+      {name:'Sunny Singh',   role:'Lakshmana'},
+      {name:'Devdatta Nage', role:'Bajrang'},
+    ],
+    synopsis: 'A big-budget mythological spectacle retelling the Ramayana. Raghava — the incarnation of Vishnu — sets out to rescue his beloved Janaki from the demon king Lankesh, aided by his brother Lakshmana and the indomitable Bajrang. Adipurush arrived as one of the most anticipated Indian films of 2023 — and became one of the most controversial, as its VFX quality and dialogue drew fierce public criticism that sharply impacted its theatrical run after a mammoth opening weekend.',
+    release: '2023-06-16',
+    runtime: 193,
+    budget: 500,
+    india: 288,
+    ow: 220,
+    ww: 393,
+    ff: 18.5,
+    multiplier: 1.31,
+    lb: 1.5,
+    ott: 'Netflix',
+    music: 'Sachet–Parampara',
+    awards: [],
+    daily: [
+      {date:'Fri Jun 16', day:'Fri', gross:60.0,  chgDay:null,   chgWeek:null,  total:60.0},
+      {date:'Sat Jun 17', day:'Sat', gross:80.0,  chgDay:+33.3,  chgWeek:null,  total:140.0},
+      {date:'Sun Jun 18', day:'Sun', gross:80.0,  chgDay:0.0,    chgWeek:null,  total:220.0},
+      {date:'Mon Jun 19', day:'Mon', gross:14.0,  chgDay:-82.5,  chgWeek:null,  total:234.0},
+      {date:'Tue Jun 20', day:'Tue', gross:10.5,  chgDay:-25.0,  chgWeek:null,  total:244.5},
+      {date:'Wed Jun 21', day:'Wed', gross:8.5,   chgDay:-19.0,  chgWeek:null,  total:253.0},
+      {date:'Thu Jun 22', day:'Thu', gross:7.0,   chgDay:-17.6,  chgWeek:null,  total:260.0},
+      {date:'Fri Jun 23', day:'Fri', gross:5.5,   chgDay:-21.4,  chgWeek:-90.8, total:265.5},
+      {date:'Sat Jun 24', day:'Sat', gross:6.5,   chgDay:+18.2,  chgWeek:-91.9, total:272.0},
+      {date:'Sun Jun 25', day:'Sun', gross:5.0,   chgDay:-23.1,  chgWeek:-93.8, total:277.0},
+      {date:'Mon Jun 26', day:'Mon', gross:2.5,   chgDay:-50.0,  chgWeek:-82.1, total:279.5},
+      {date:'Tue Jun 27', day:'Tue', gross:2.0,   chgDay:-20.0,  chgWeek:-81.0, total:281.5},
+      {date:'Wed Jun 28', day:'Wed', gross:1.8,   chgDay:-10.0,  chgWeek:-78.8, total:283.3},
+      {date:'Thu Jun 29', day:'Thu', gross:1.7,   chgDay:-5.6,   chgWeek:-75.7, total:285.0},
+      {date:'Week 3+',    day:'',   gross:3.0,   chgDay:null,   chgWeek:null,  total:288.0, bucket:true},
+    ],
+    timeline: [
+      {label:'Week 1',  val:260},
+      {label:'Week 2',  val:22},
+      {label:'Week 3+', val:6},
+    ],
+    overseas: [
+      {market:'USA/Canada', val:45},
+      {market:'Gulf',       val:35},
+      {market:'UK',         val:20},
+      {market:'Australia',  val:12},
+      {market:'Other',      val:61},
+    ],
+    comparable: [
+      {n:'Baahubali 2 (2017)',   ww:1810, col:'#22c55e'},
+      {n:'Kalki 2898 AD (2024)', ww:1042, col:'#4fc3f7'},
+      {n:'Salaar (2023)',        ww:617,  col:'#a78bfa'},
+      {n:'Saaho (2019)',         ww:451,  col:'#f97316'},
+      {n:'Adipurush (2023)',     ww:393,  col:'#f5c518', highlight:true},
+      {n:'HanuMan (2024)',       ww:295,  col:'#ef4444'},
+    ],
+    trivia: [
+      'Adipurush posted an opening weekend of ₹220 Cr nett — but its Monday drop of 82.5% from Sunday is one of the steepest ever recorded for a film of this size.',
+      'The legs multiplier of 1.31× (₹288 Cr total ÷ ₹220 Cr OW) is among the lowest ever for any Indian film that opened above ₹200 Cr.',
+      'Week 2 earned just ₹22 Cr — a collapse of over 91% from the opening weekend, driven almost entirely by toxic word-of-mouth about the VFX and dialogue.',
+      'Made on a reported budget of ₹500 Cr, its ₹393 Cr worldwide gross made it one of the most high-profile financial disasters in Indian cinema history.',
+      'The VFX were widely ridiculed from the first trailer onwards, with audiences comparing them unfavourably to video game graphics despite a reported VFX spend of over ₹200 Cr.',
+      'Manoj Muntashir Shukla\'s dialogue became a specific flashpoint — lines that departed from the reverent register expected for a Ramayana adaptation triggered petitions and widespread backlash.',
+      'Mid-run, Om Raut and the producers held a press conference acknowledging the feedback and announced the dialogue would be re-dubbed — an extraordinary admission during a film\'s theatrical run.',
+      'Saif Ali Khan\'s portrayal of Lankesh was one of the few universally praised elements, with critics noting his menacing restraint stood apart from the broader production.',
+      'Despite the controversy, the ₹220 Cr opening weekend still ranks among the top 15 widest-opening Indian films ever — a testament to the goodwill Prabhas built through Baahubali.',
+      'Adipurush is now studied as a case study in how social media controversy can collapse word-of-mouth in real time, turning a record opener into a box office disaster within days.',
+    ],
+  },
   'saaho': {
     key: 'saaho',
     title: 'Saaho',
@@ -2301,7 +2589,7 @@ var FILM_PAGES = {
     ow: 353,
     ww: 1742,
     ff: 63,
-    multiplier: 3.18,
+    multiplier: 3.50,
     lb: 2.7,
     ott: 'Amazon Prime Video',
     music: 'Devi Sri Prasad',
@@ -4161,7 +4449,7 @@ var FILM_PAGES = {
     ],
   },
   'kalki': {key:'kalki-2898-ad',title:'Kalki 2898 AD',year:2024,lang:'Telugu',director:'Nag Ashwin',studio:'Vyjayanthi Movies',cast:[{name:'Prabhas',role:'Bhairava / Kalki'},{name:'Deepika Padukone',role:'Sumathi'},{name:'Amitabh Bachchan',role:'Ashwatthama'},{name:'Kamal Haasan',role:'Supreme Yaskin'}],synopsis:'See Kalki 2898 AD.',release:'2024-06-27',runtime:181,budget:600,india:646,ow:213,ww:1042,ff:36.4,multiplier:3.03,lb:3.1,ott:'Netflix',music:'Santhosh Narayanan',awards:[],timeline:[{label:'Opening Weekend',val:213},{label:'Week 2',val:198},{label:'Week 3',val:118},{label:'Week 4',val:72},{label:'Week 5+',val:45}],overseas:[{market:'USA/Canada',val:115},{market:'Gulf',val:42},{market:'Australia',val:22},{market:'UK',val:30},{market:'Other',val:133}],comparable:[{n:'Baahubali 2 (2017)',ww:1810,col:'#4fc3f7'},{n:'RRR (2022)',ww:1230,col:'#22c55e'},{n:'KGF 2 (2022)',ww:1215,col:'#f97316'},{n:'Kalki 2898 AD (2024)',ww:1042,col:'#f5c518',highlight:true},{n:'Bajrangi Bhaijaan (2015)',ww:918,col:'#2ec4b6'}],trivia:['Most expensive Indian film ever made at ₹600 Cr budget.','First time Amitabh Bachchan and Kamal Haasan shared the screen.']},
-  'pushpa 2: the rule': {key:'pushpa-2',title:'Pushpa 2: The Rule',year:2024,lang:'Telugu',director:'Sukumar',studio:'Mythri Movie Makers',cast:[{name:'Allu Arjun',role:'Pushpa Raj'},{name:'Rashmika Mandanna',role:'Srivalli'},{name:'Fahadh Faasil',role:'SP Bhanwar Singh Shekawat'}],synopsis:'See Pushpa 2.',release:'2024-12-05',runtime:183,budget:350,india:1234,ow:388,ww:1742,ff:63,multiplier:3.18,lb:2.7,ott:'Amazon Prime Video',music:'Devi Sri Prasad',awards:[],timeline:[{label:'Opening Weekend',val:388},{label:'Week 2',val:370},{label:'Week 3',val:280},{label:'Week 4',val:195},{label:'Week 5+',val:170}],overseas:[{market:'USA/Canada',val:105},{market:'Gulf',val:65},{market:'Australia',val:28},{market:'UK',val:32},{market:'Other',val:109}],comparable:[{n:'Dangal (2016)',ww:2070,col:'#22c55e'},{n:'Baahubali 2 (2017)',ww:1810,col:'#4fc3f7'},{n:'Pushpa 2 (2024)',ww:1742,col:'#f97316',highlight:true},{n:'RRR (2022)',ww:1230,col:'#a78bfa'},{n:'KGF 2 (2022)',ww:1215,col:'#f5c518'},{n:'Jawan (2023)',ww:1148,col:'#2ec4b6'}],trivia:['Pushpa 2 crossed ₹1000 Cr nett in India in just 11 days.','Opening day of ₹164.25 Cr nett is the highest single-day collection in Indian box office history.']},
+  'pushpa 2: the rule': {key:'pushpa-2',title:'Pushpa 2: The Rule',year:2024,lang:'Telugu',director:'Sukumar',studio:'Mythri Movie Makers',cast:[{name:'Allu Arjun',role:'Pushpa Raj'},{name:'Rashmika Mandanna',role:'Srivalli'},{name:'Fahadh Faasil',role:'SP Bhanwar Singh Shekawat'}],synopsis:'See Pushpa 2.',release:'2024-12-05',runtime:183,budget:350,india:1234,ow:353,ww:1742,ff:63,multiplier:3.50,lb:2.7,ott:'Amazon Prime Video',music:'Devi Sri Prasad',awards:[],timeline:[{label:'Opening Weekend',val:353},{label:'Week 2',val:370},{label:'Week 3',val:280},{label:'Week 4',val:195},{label:'Week 5+',val:170}],overseas:[{market:'USA/Canada',val:105},{market:'Gulf',val:65},{market:'Australia',val:28},{market:'UK',val:32},{market:'Other',val:109}],comparable:[{n:'Dangal (2016)',ww:2070,col:'#22c55e'},{n:'Baahubali 2 (2017)',ww:1810,col:'#4fc3f7'},{n:'Pushpa 2 (2024)',ww:1742,col:'#f97316',highlight:true},{n:'RRR (2022)',ww:1230,col:'#a78bfa'},{n:'KGF 2 (2022)',ww:1215,col:'#f5c518'},{n:'Jawan (2023)',ww:1148,col:'#2ec4b6'}],trivia:['Pushpa 2 crossed ₹1000 Cr nett in India in just 11 days.','Opening day of ₹164.25 Cr nett is the highest single-day collection in Indian box office history.']},
   'bajrangi bhaijaan': {
     key: 'bajrangi-bhaijaan',
     title: 'Bajrangi Bhaijaan',
@@ -4386,7 +4674,7 @@ var FILM_PAGES = {
     ww: null,
           prediction: {
       status: 'live',
-              note: 'Updated through Day 10 (2nd Sunday). Running total: ₹121.85 Cr India nett | ₹181 Cr WW. 2nd Sunday came in at ₹11.30 Cr — strong for a film of this scale and a big jump from 2nd Saturday (₹0.50 Cr seems anomalous; likely a data reporting lag). The 2nd weekend total is now tracking well. With ₹122 Cr banked after 10 days and a decent hold, the film is pointing to a ₹145–165 Cr India nett lifetime.',
+              note: 'Updated through Day 15 (Thursday Apr 30). Running total: ₹135.35 Cr India nett | ₹206 Cr WW. Thursday came in at ₹3.75 Cr — a +25% jump from Wednesday\'s ₹3 Cr, a positive sign heading into the third weekend. With ₹135.35 Cr banked after 15 days, the film is tracking towards a ₹155–175 Cr India nett lifetime.',
       // Pre-release baseline (director/actor comps)
       baseline: {
         comp_films: [
@@ -4401,7 +4689,7 @@ var FILM_PAGES = {
         india_mid: 130,
         india_high: 185,
         ww_low: 95,
-        ww_mid: 160,
+        ww_mid: 165,
         ww_high: 230,
         ow_low: 20,
         ow_mid: 32,
@@ -4420,9 +4708,9 @@ var FILM_PAGES = {
         week1: 94.95,
         ww_ow: null,
         second_weekend_drop: -55.9,
-        legs_multiple: 1.97,
-        running_total: 121.85,
-        running_ww: 181,
+        legs_multiple: 2.13,
+        running_total: 135.35,
+        running_ww: 206,
       },
       // Refined after Monday drop comparison:
       // Bhoot Bhangla's Monday drop was WORSE than Housefull 5's Monday drop.
@@ -4430,29 +4718,33 @@ var FILM_PAGES = {
       // If BB's Monday was sharper, HF5 becomes the ceiling, not the midpoint.
       // Applying 1.53×–2.07× legs on ₹65.35 Cr OW:
       refined: {
-        india_low:  145,
-        india_mid:  158,
-        india_high: 170,
-        ww_low:  178,
-        ww_mid:  196,
-        ww_high: 216,
-        note: 'Revised upward after 2nd Sunday of ₹11.30 Cr. ₹122 Cr banked after 10 days. A 2nd Sunday of ₹11.3 Cr is solid and significantly above the depressed 2nd Saturday. Applying typical weekday decay from here and a normal Week 3+ tail, lifetime India nett is now tracking ₹145–170 Cr. Central estimate: ₹158 Cr.',
+        india_low:  155,
+        india_mid:  165,
+        india_high: 175,
+        ww_low:  190,
+        ww_mid:  206,
+        ww_high: 225,
+        note: 'Revised upward after Day 15. ₹135.35 Cr banked. Thursday\'s +25% jump from Wednesday is encouraging ahead of the 3rd weekend. Applying typical weekday decay and a normal Week 3+ tail, lifetime India nett now tracking ₹155–175 Cr. Central estimate: ₹165 Cr.',
       },
     },
     daily: [
-      {date:'Thu Apr 17', day:'Thu', gross:3.50,  chgDay:null,   chgWeek:null,  total:3.50},
-      {date:'Fri Apr 18', day:'Fri', gross:14.40, chgDay:+311.4, chgWeek:null,  total:17.90},
-      {date:'Sat Apr 19', day:'Sat', gross:21.75, chgDay:+51.0,  chgWeek:null,  total:39.65},
-      {date:'Sun Apr 20', day:'Sun', gross:25.60, chgDay:+17.7,  chgWeek:null,  total:65.25},
-      {date:'Mon Apr 21', day:'Mon', gross:8.10,  chgDay:-68.4,  chgWeek:null,  total:73.35},
-      {date:'Tue Apr 22', day:'Tue', gross:9.30,  chgDay:+14.8,  chgWeek:null,  total:82.65},
-      {date:'Wed Apr 23', day:'Wed', gross:6.80,  chgDay:-26.9,  chgWeek:null,  total:89.45},
-      {date:'Thu Apr 24', day:'Thu', gross:5.50,  chgDay:-19.1,  chgWeek:-36.1, total:94.95},
-      {date:'Fri Apr 25', day:'Fri', gross:5.60,  chgDay:+1.8,   chgWeek:-61.1, total:100.55},
-      {date:'Sat Apr 26', day:'Sat', gross:10.00, chgDay:+78.6,  chgWeek:-54.0, total:110.55},
-      {date:'Sun Apr 27', day:'Sun', gross:11.30, chgDay:+13.0,  chgWeek:-55.9, total:121.85},
-      {date:'Mon Apr 28', day:'Mon', gross:3.25,  chgDay:-71.2,  chgWeek:-59.9, total:125.10},
-      {date:'Day 13+',    day:'',    gross:null,  chgDay:null,   chgWeek:null,  total:null,  bucket:true},
+      {date:'Thu Apr 16', day:'Thu', gross:3.50,  chgDay:null,   chgWeek:null,  total:3.50},
+      {date:'Fri Apr 17', day:'Fri', gross:14.40, chgDay:+311.4, chgWeek:null,  total:17.90},
+      {date:'Sat Apr 18', day:'Sat', gross:21.75, chgDay:+51.0,  chgWeek:null,  total:39.65},
+      {date:'Sun Apr 19', day:'Sun', gross:25.60, chgDay:+17.7,  chgWeek:null,  total:65.25},
+      {date:'Mon Apr 20', day:'Mon', gross:8.10,  chgDay:-68.4,  chgWeek:null,  total:73.35},
+      {date:'Tue Apr 21', day:'Tue', gross:9.30,  chgDay:+14.8,  chgWeek:null,  total:82.65},
+      {date:'Wed Apr 22', day:'Wed', gross:6.80,  chgDay:-26.9,  chgWeek:null,  total:89.45},
+      {date:'Thu Apr 23', day:'Thu', gross:5.50,  chgDay:-19.1,  chgWeek:-36.1, total:94.95},
+      {date:'Fri Apr 24', day:'Fri', gross:5.60,  chgDay:+1.8,   chgWeek:-61.1, total:100.55},
+      {date:'Sat Apr 25', day:'Sat', gross:10.00, chgDay:+78.6,  chgWeek:-54.0, total:110.55},
+      {date:'Sun Apr 26', day:'Sun', gross:11.30, chgDay:+13.0,  chgWeek:-55.9, total:121.85},
+      {date:'Mon Apr 27', day:'Mon', gross:3.25,  chgDay:-71.2,  chgWeek:-59.9, total:125.10},
+      {date:'Tue Apr 28', day:'Tue', gross:3.50,  chgDay:+7.7,   chgWeek:null,  total:128.60},
+      {date:'Wed Apr 29', day:'Wed', gross:3.00,  chgDay:-14.3,  chgWeek:null,  total:131.60},
+      {date:'Thu Apr 30', day:'Thu', gross:3.75,  chgDay:+25.0,  chgWeek:null,  total:135.35},
+      {date:'Fri May 1',  day:'Fri', gross:4.50,  chgDay:+20.0,  chgWeek:-19.6, total:139.85},
+      {date:'Day 17+',    day:'',    gross:null,  chgDay:null,   chgWeek:null,  total:null,  bucket:true},
     ],
     timeline: [
       {label:'Week 1',  val:94.95},
@@ -5210,57 +5502,64 @@ var FILM_PAGES = {
     release: '2026-01-16',
     runtime: 164,
     budget: 350,
-    india: 1122,
-    ow: 450,
-    ww: 1750,
+    india: 1132.79,
+    ow: 308.5,
+    ww: 1775,
     ff: 42,
-    multiplier: 2.38,
+    multiplier: 3.67,
     lb: 3.5,
     ott: 'JioCinema (Hindi) · Netflix (International)',
     music: 'Pritam',
     daily: [
-      // Week 1
-      {date:'Wed Mar 18', day:'Wed', gross:43.00,  chgDay:null,   chgWeek:null,   total:43.00},
-      {date:'Thu Mar 19', day:'Thu', gross:102.55, chgDay:+138.5, chgWeek:null,   total:145.55},
-      {date:'Fri Mar 20', day:'Fri', gross:80.72,  chgDay:-21.3,  chgWeek:null,   total:226.27},
-      {date:'Sat Mar 21', day:'Sat', gross:113.00, chgDay:+40.0,  chgWeek:null,   total:339.27},
-      {date:'Sun Mar 22', day:'Sun', gross:114.85, chgDay:+1.6,   chgWeek:null,   total:454.12},
-      {date:'Mon Mar 23', day:'Mon', gross:65.00,  chgDay:-43.4,  chgWeek:null,   total:519.12},
-      {date:'Tue Mar 24', day:'Tue', gross:56.60,  chgDay:-12.9,  chgWeek:null,   total:575.72},
-      {date:'Wed Mar 25', day:'Wed', gross:48.75,  chgDay:-13.9,  chgWeek:null,   total:624.47},
-      {date:'Thu Mar 26', day:'Thu', gross:49.70,  chgDay:+2.0,   chgWeek:-51.5,  total:674.17},
+      // Week 1 — Release date Wed Mar 18 (Day 0 = preview)
+      {date:'Wed Mar 18', day:'Wed', gross:43.00,  chgDay:null,    chgWeek:null,   total:43.00},
+      {date:'Thu Mar 19', day:'Thu', gross:102.55, chgDay:+138.5,  chgWeek:null,   total:145.55},
+      {date:'Fri Mar 20', day:'Fri', gross:80.72,  chgDay:-21.29,  chgWeek:null,   total:226.27},
+      {date:'Sat Mar 21', day:'Sat', gross:113.00, chgDay:+39.99,  chgWeek:null,   total:339.27},
+      {date:'Sun Mar 22', day:'Sun', gross:114.85, chgDay:+1.64,   chgWeek:null,   total:454.12},
+      {date:'Mon Mar 23', day:'Mon', gross:65.00,  chgDay:-43.40,  chgWeek:null,   total:519.12},
+      {date:'Tue Mar 24', day:'Tue', gross:56.60,  chgDay:-12.92,  chgWeek:null,   total:575.72},
+      {date:'Wed Mar 25', day:'Wed', gross:48.75,  chgDay:-13.87,  chgWeek:null,   total:624.47},
+      {date:'Thu Mar 26', day:'Thu', gross:49.70,  chgDay:+1.95,   chgWeek:null,   total:674.17},
       // Week 2
-      {date:'Fri Mar 27', day:'Fri', gross:41.75,  chgDay:-16.0,  chgWeek:null,   total:715.92},
-      {date:'Sat Mar 28', day:'Sat', gross:62.85,  chgDay:+50.5,  chgWeek:-44.4,  total:778.77},
-      {date:'Sun Mar 29', day:'Sun', gross:68.10,  chgDay:+8.4,   chgWeek:-40.7,  total:846.87},
-      {date:'Mon Mar 30', day:'Mon', gross:25.30,  chgDay:-62.9,  chgWeek:-61.1,  total:872.17},
-      {date:'Tue Mar 31', day:'Tue', gross:27.25,  chgDay:+7.7,   chgWeek:-51.9,  total:899.42},
-      {date:'Wed Apr 1',  day:'Wed', gross:20.10,  chgDay:-26.2,  chgWeek:-58.8,  total:919.52},
-      {date:'Thu Apr 2',  day:'Thu', gross:18.30,  chgDay:-8.9,   chgWeek:-63.2,  total:937.82},
+      {date:'Fri Mar 27', day:'Fri', gross:41.75,  chgDay:-16.00,  chgWeek:-48.3,  total:715.92},
+      {date:'Sat Mar 28', day:'Sat', gross:62.85,  chgDay:+50.54,  chgWeek:-44.4,  total:778.77},
+      {date:'Sun Mar 29', day:'Sun', gross:68.10,  chgDay:+8.35,   chgWeek:-40.7,  total:846.87},
+      {date:'Mon Mar 30', day:'Mon', gross:25.30,  chgDay:-62.85,  chgWeek:-61.1,  total:872.17},
+      {date:'Tue Mar 31', day:'Tue', gross:27.25,  chgDay:+7.71,   chgWeek:-51.9,  total:899.42},
+      {date:'Wed Apr 1',  day:'Wed', gross:20.10,  chgDay:-26.24,  chgWeek:-58.8,  total:919.52},
+      {date:'Thu Apr 2',  day:'Thu', gross:18.30,  chgDay:-8.96,   chgWeek:-63.2,  total:937.82},
       // Week 3
-      {date:'Fri Apr 3',  day:'Fri', gross:21.55,  chgDay:+17.8,  chgWeek:-48.4,  total:959.37},
-      {date:'Sat Apr 4',  day:'Sat', gross:25.65,  chgDay:+19.0,  chgWeek:-59.2,  total:985.02},
-      {date:'Sun Apr 5',  day:'Sun', gross:28.25,  chgDay:+10.1,  chgWeek:-58.5,  total:1013.27},
-      {date:'Mon Apr 6',  day:'Mon', gross:10.00,  chgDay:-64.6,  chgWeek:-60.5,  total:1023.27},
-      {date:'Tue Apr 7',  day:'Tue', gross:10.10,  chgDay:+1.0,   chgWeek:-62.9,  total:1033.37},
-      {date:'Wed Apr 8',  day:'Wed', gross:7.90,   chgDay:-21.8,  chgWeek:-60.7,  total:1041.27},
-      {date:'Thu Apr 9',  day:'Thu', gross:7.15,   chgDay:-9.5,   chgWeek:-60.9,  total:1048.42},
+      {date:'Fri Apr 3',  day:'Fri', gross:21.55,  chgDay:+17.76,  chgWeek:-48.4,  total:959.37},
+      {date:'Sat Apr 4',  day:'Sat', gross:25.65,  chgDay:+19.03,  chgWeek:-59.2,  total:985.02},
+      {date:'Sun Apr 5',  day:'Sun', gross:28.25,  chgDay:+10.14,  chgWeek:-58.5,  total:1013.27},
+      {date:'Mon Apr 6',  day:'Mon', gross:10.00,  chgDay:-64.60,  chgWeek:-60.5,  total:1023.27},
+      {date:'Tue Apr 7',  day:'Tue', gross:10.10,  chgDay:+1.00,   chgWeek:-62.9,  total:1033.37},
+      {date:'Wed Apr 8',  day:'Wed', gross:7.90,   chgDay:-21.78,  chgWeek:-60.7,  total:1041.27},
+      {date:'Thu Apr 9',  day:'Thu', gross:7.15,   chgDay:-9.49,   chgWeek:-60.9,  total:1048.42},
       // Week 4
-      {date:'Fri Apr 10', day:'Fri', gross:7.00,   chgDay:-2.1,   chgWeek:-67.5,  total:1055.42},
-      {date:'Sat Apr 11', day:'Sat', gross:13.50,  chgDay:+92.9,  chgWeek:-47.4,  total:1068.92},
-      {date:'Sun Apr 12', day:'Sun', gross:14.50,  chgDay:+7.4,   chgWeek:-48.7,  total:1083.42},
-      {date:'Mon Apr 13', day:'Mon', gross:5.20,   chgDay:-64.1,  chgWeek:-48.0,  total:1088.62},
-      {date:'Tue Apr 14', day:'Tue', gross:7.05,   chgDay:+35.6,  chgWeek:-74.1,  total:1095.67},
-      {date:'Wed Apr 15', day:'Wed', gross:4.05,   chgDay:-42.6,  chgWeek:-48.7,  total:1099.72},
-      {date:'Thu Apr 16', day:'Thu', gross:3.40,   chgDay:-16.0,  chgWeek:-52.4,  total:1103.12},
+      {date:'Fri Apr 10', day:'Fri', gross:7.00,   chgDay:-2.10,   chgWeek:-67.5,  total:1055.42},
+      {date:'Sat Apr 11', day:'Sat', gross:13.50,  chgDay:+92.86,  chgWeek:-47.4,  total:1068.92},
+      {date:'Sun Apr 12', day:'Sun', gross:14.50,  chgDay:+7.41,   chgWeek:-48.7,  total:1083.42},
+      {date:'Mon Apr 13', day:'Mon', gross:5.20,   chgDay:-64.14,  chgWeek:-48.0,  total:1088.62},
+      {date:'Tue Apr 14', day:'Tue', gross:7.05,   chgDay:+35.58,  chgWeek:-74.1,  total:1095.67},
+      {date:'Wed Apr 15', day:'Wed', gross:4.05,   chgDay:-42.55,  chgWeek:-48.7,  total:1099.72},
+      {date:'Thu Apr 16', day:'Thu', gross:3.40,   chgDay:-16.05,  chgWeek:-52.4,  total:1103.12},
       // Week 5
-      {date:'Fri Apr 17', day:'Fri', gross:2.70,   chgDay:-20.6,  chgWeek:-61.4,  total:1105.82},
-      {date:'Sat Apr 18', day:'Sat', gross:4.65,   chgDay:+72.2,  chgWeek:-65.6,  total:1110.47},
-      {date:'Sun Apr 19', day:'Sun', gross:5.20,   chgDay:+11.8,  chgWeek:-64.1,  total:1115.67},
-      {date:'Mon Apr 20', day:'Mon', gross:1.62,   chgDay:-68.8,  chgWeek:-68.8,  total:1117.29},
-      {date:'Tue Apr 21', day:'Tue', gross:2.10,   chgDay:+29.6,  chgWeek:-70.2,  total:1119.39},
-      {date:'Wed Apr 22', day:'Wed', gross:1.70,   chgDay:-19.0,  chgWeek:-58.0,  total:1121.09},
-      {date:'Thu Apr 23', day:'Thu', gross:1.40,   chgDay:-17.6,  chgWeek:-58.8,  total:1122.49},
+      {date:'Fri Apr 17', day:'Fri', gross:2.70,   chgDay:-20.59,  chgWeek:-61.4,  total:1105.82},
+      {date:'Sat Apr 18', day:'Sat', gross:4.65,   chgDay:+72.22,  chgWeek:-65.6,  total:1110.47},
+      {date:'Sun Apr 19', day:'Sun', gross:5.20,   chgDay:+11.83,  chgWeek:-64.1,  total:1115.67},
+      {date:'Mon Apr 20', day:'Mon', gross:1.62,   chgDay:-68.85,  chgWeek:-68.8,  total:1117.29},
+      {date:'Tue Apr 21', day:'Tue', gross:2.10,   chgDay:+29.63,  chgWeek:-70.2,  total:1119.39},
+      {date:'Wed Apr 22', day:'Wed', gross:1.70,   chgDay:-19.05,  chgWeek:-58.0,  total:1121.09},
+      {date:'Thu Apr 23', day:'Thu', gross:1.55,   chgDay:-8.82,   chgWeek:-54.4,  total:1122.64},
+      // Week 6
+      {date:'Fri Apr 24', day:'Fri', gross:1.55,   chgDay:0.00,    chgWeek:-42.6,  total:1124.19},
+      {date:'Sat Apr 25', day:'Sat', gross:3.00,   chgDay:+93.55,  chgWeek:-35.5,  total:1127.19},
+      {date:'Sun Apr 26', day:'Sun', gross:3.40,   chgDay:+13.33,  chgWeek:-34.6,  total:1130.59},
+      {date:'Mon Apr 27', day:'Mon', gross:1.05,   chgDay:-69.12,  chgWeek:-35.2,  total:1131.64},
+      {date:'Tue Apr 28', day:'Tue', gross:1.30,   chgDay:+23.81,  chgWeek:-38.10, total:1132.94},
+      {date:'Wed Apr 29', day:'Wed', gross:1.00,   chgDay:-23.08,  chgWeek:-35.48, total:1133.94},
     ],
     awards: ['National Award – Best Action Direction', 'Filmfare – Best Film (Nominated)', 'IIFA – Best Director (Nominated)'],
     timeline: [
@@ -5321,6 +5620,112 @@ function maybeOpenFilm(title, e) {
 // ─── BHOOT BHANGLA PREDICTION PAGE ───
 function showBhootBhangla() {
   showFilmPageWithPredictions('bhoot-bhangla');
+}
+
+// ── SACNILK LIVE FETCH — global scope ──
+var SACNILK_SLUGS = {
+  'dhurandhar-2':  'Dhurandhar2-2026',
+  'bhoot-bhangla': 'BhootBhangla-2025',
+  'dhurandhar':    'Dhurandhar-2025',
+};
+
+function _sacnilkFetch(filmKey) {
+  var slug = SACNILK_SLUGS[filmKey];
+  var statusEl = document.getElementById('sacnilk-status');
+  var btnEl    = document.getElementById('sacnilk-btn');
+  if (!slug) { statusEl.textContent = 'No slug configured for this film.'; return; }
+  statusEl.textContent = 'Fetching…';
+  btnEl.disabled = true;
+
+  var proxies = [
+    'https://corsproxy.io/?' + encodeURIComponent('https://sacnilk.com/api/collection/movie?movieName=' + slug),
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://sacnilk.com/api/collection/movie?movieName=' + slug),
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent('https://sacnilk.com/api/collection/movie?movieName=' + slug),
+  ];
+
+  var tried = 0;
+  function tryNext() {
+    if (tried >= proxies.length) {
+      statusEl.innerHTML = '<span style="color:#f87171">All proxies blocked. Paste JSON manually below.</span>';
+      var pa = document.getElementById('sacnilk-paste-area');
+      if (pa) pa.style.display = 'block';
+      btnEl.disabled = false;
+      return;
+    }
+    var url = proxies[tried++];
+    statusEl.textContent = 'Trying proxy ' + tried + '/' + proxies.length + '…';
+    fetch(url)
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+      .then(function(text){
+        var data;
+        try { data = JSON.parse(text); }
+        catch(e) {
+          var m = text.match(/\{[\s\S]*"collection"[\s\S]*\}/);
+          if (m) { try { data = JSON.parse(m[0]); } catch(e2) { tryNext(); return; } }
+          else { tryNext(); return; }
+        }
+        _parseSacnilk(data, filmKey);
+      })
+      .catch(function(){ tryNext(); });
+  }
+  tryNext();
+}
+
+function _parseSacnilkPaste() {
+  var inp = document.getElementById('sacnilk-paste-input');
+  var statusEl = document.getElementById('sacnilk-status');
+  if (!inp) return;
+  try {
+    var data = JSON.parse(inp.value.trim());
+    _parseSacnilk(data, inp.dataset.filmKey);
+  } catch(e) {
+    statusEl.innerHTML = '<span style="color:#f87171">Invalid JSON — check paste.</span>';
+  }
+}
+
+function _parseSacnilk(data, filmKey) {
+  var statusEl = document.getElementById('sacnilk-status');
+  var btnEl    = document.getElementById('sacnilk-btn');
+  if (btnEl) btnEl.disabled = false;
+
+  var rows = data.collection || data.data || data.collections || (Array.isArray(data) ? data : null);
+  if (!rows || !rows.length) {
+    statusEl.innerHTML = '<span style="color:#f87171">Response received but no rows found. Keys: ' + Object.keys(data).join(', ') + '</span>';
+    var raw = document.getElementById('sacnilk-raw');
+    if (raw) { raw.style.display = 'block'; raw.textContent = JSON.stringify(data, null, 2).slice(0, 1500); }
+    return;
+  }
+
+  var total = 0;
+  var newDaily = rows.map(function(r){
+    var gross = parseFloat(r.india_net || r.indiaNet || r.net || r.gross || r.collection || 0);
+    total = Math.round((total + gross) * 100) / 100;
+    return { date: r.day||r.date||r.label||'', day: r.day_name||r.dayName||r.weekday||'',
+             gross: Math.round(gross*100)/100, total: total, chgDay: null, chgWeek: null };
+  });
+  for (var i = 1; i < newDaily.length; i++) {
+    if (newDaily[i-1].gross)
+      newDaily[i].chgDay = Math.round((newDaily[i].gross/newDaily[i-1].gross - 1)*1000)/10;
+  }
+
+  var runningTotal = newDaily[newDaily.length-1].total;
+  statusEl.innerHTML = '<span style="color:#4ade80">✓ ' + newDaily.length + ' days fetched · Running total: ₹' + runningTotal + ' Cr</span>';
+
+  var fp = null;
+  Object.keys(FILM_PAGES).forEach(function(k){ if(FILM_PAGES[k].key===filmKey) fp=FILM_PAGES[k]; });
+  if (fp) {
+    fp.daily = newDaily;
+    if (fp.prediction && fp.prediction.actuals) {
+      fp.prediction.actuals.running_total = runningTotal;
+      fp.prediction.actuals.running_ww    = fp.prediction.actuals.running_ww || null;
+      fp.prediction.actuals.week1 = Math.round(newDaily.slice(0,Math.min(8,newDaily.length)).reduce(function(s,d){return s+d.gross;},0)*100)/100;
+    }
+  }
+
+  var existing = document.getElementById('page-film-'+filmKey);
+  if (existing) existing.parentNode.removeChild(existing);
+  if (fp && fp.prediction) showFilmPageWithPredictions(filmKey);
+  else if (fp) showFilmPage(filmKey);
 }
 
 function showFilmPageWithPredictions(key) {
@@ -5393,11 +5798,11 @@ function showFilmPageWithPredictions(key) {
       '<div style="background:#111;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:1.5rem 1.75rem">' +
         '<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1rem">' +
           '<div>' +
-            '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.6rem;font-weight:900;color:#fff">Predicted India Nett Total</div>' +
+            '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.6rem;font-weight:900;color:rgba(255,255,255,.92)">Predicted India Nett Total</div>' +
             '<div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.25rem;max-width:540px;line-height:1.6">'+pred.note+'</div>' +
           '</div>' +
           '<div style="text-align:right">' +
-            '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1">₹'+indiaMid+' – ₹'+indiaHigh+' Cr</div>' +
+            '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:2.4rem;font-weight:900;color:rgba(255,255,255,.92);line-height:1">₹'+indiaMid+' – ₹'+indiaHigh+' Cr</div>' +
             '<div style="font-size:.65rem;color:rgba(255,255,255,.3);margin-top:4px">Core range (wider: ₹'+indiaLow+' – ₹'+Math.round(indiaHigh*1.18)+' Cr)</div>' +
           '</div>' +
         '</div>' +
@@ -5489,67 +5894,109 @@ function showFilmPageWithPredictions(key) {
           }).join('') +
         '</div>' +
 
-        // ── DAILY TABLE ──
+        // ── DAILY / WEEKEND TOGGLE TABLE ──
         (p.daily && p.daily.length ? (function(){
-          var maxD = Math.max.apply(null, p.daily.map(function(d){return d.gross;}));
+          var uid = 'predTab_' + p.key.replace(/-/g,'_');
+          var maxD = Math.max.apply(null, p.daily.filter(function(d){return d.gross;}).map(function(d){return d.gross;})) || 1;
+
+          // Build weekend rows from daily data
+          var weekends = [];
+          var di = 0;
+          while(di < p.daily.length) {
+            var d = p.daily[di];
+            if(d.bucket){ di++; continue; }
+            if(d.day==='Thu'){ di++; continue; } // skip preview day for weekend grouping
+            if(d.day==='Fri') {
+              var fri=p.daily[di], sat=p.daily[di+1]||null, sun=p.daily[di+2]||null;
+              if(sat && sat.bucket) sat=null;
+              if(sun && sun.bucket) sun=null;
+              var wkGross = (fri?fri.gross:0) + (sat&&!sat.bucket?sat.gross:0) + (sun&&!sun.bucket?sun.gross:0);
+              var wkTotal = sun&&!sun.bucket ? sun.total : sat&&!sat.bucket ? sat.total : fri.total;
+              var endDate = sun&&!sun.bucket ? sun.date.split(' ').slice(-1)[0] : sat&&!sat.bucket ? sat.date.split(' ').slice(-1)[0] : '';
+              weekends.push({label: fri.date.replace('Fri ','') + (endDate?' – '+endDate:''), gross:+wkGross.toFixed(2), total:wkTotal, chg:null, wk:weekends.length+1});
+              di += 3; continue;
+            }
+            di++;
+          }
+          for(var wi=1;wi<weekends.length;wi++){
+            weekends[wi].chg = weekends[wi-1].gross ? Math.round((weekends[wi].gross/weekends[wi-1].gross-1)*1000)/10 : null;
+          }
+          var maxWknd = weekends.length ? Math.max.apply(null, weekends.map(function(w){return w.gross;})) : 1;
+
+          var dailyRows = p.daily.map(function(d){
+            if(d.bucket){
+              return '<div style="padding:.5rem 1rem;font-size:.68rem;color:rgba(255,255,255,.25);font-style:italic;border-bottom:0.5px solid rgba(255,255,255,.04)">'+d.date+' — awaiting data</div>';
+            }
+            var isWknd = d.day==='Sat'||d.day==='Sun'||d.day==='Fri';
+            var pct = Math.round(d.gross/maxD*100);
+            var chgHtml = d.chgDay!=null
+              ? '<span style="font-size:.72rem;font-weight:600;color:'+(d.chgDay>=0?'#4ade80':'#f87171')+'">'+(d.chgDay>=0?'+':'')+d.chgDay+'%</span>'
+              : '<span style="color:rgba(255,255,255,.2);font-size:.72rem">—</span>';
+            return '<div style="display:grid;grid-template-columns:130px 50px 1fr 75px 72px 80px;align-items:center;padding:.42rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.04);background:'+(isWknd?'rgba(255,255,255,.02)':'transparent')+'" onmouseover="this.style.background=\'rgba(245,197,24,.04)\'" onmouseout="this.style.background=\''+(isWknd?'rgba(255,255,255,.02)':'transparent')+'\'">' +
+              '<div style="font-size:.75rem;color:rgba(255,255,255,.6)">'+d.date+'</div>' +
+              '<div style="font-size:.68rem;color:rgba(255,255,255,.3)">'+d.day+'</div>' +
+              '<div style="padding-right:1rem"><div style="height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="height:5px;width:'+pct+'%;background:'+(isWknd?'linear-gradient(90deg,#b45309,#f5c518)':'linear-gradient(90deg,#1e3a5f,#4fc3f7)')+';border-radius:3px"></div></div></div>' +
+              '<div style="text-align:right;font-size:.78rem;font-weight:600;color:'+(isWknd?'#f5c518':'#4fc3f7')+'">₹'+d.gross+' Cr</div>' +
+              '<div style="text-align:right">'+chgHtml+'</div>' +
+              '<div style="text-align:right;font-size:.72rem;color:rgba(255,255,255,.35)">₹'+d.total+' Cr</div>' +
+            '</div>';
+          }).join('');
+
+          var wkndRows = weekends.map(function(w){
+            var pct = Math.round(w.gross/maxWknd*100);
+            var chgHtml = w.chg!=null
+              ? '<span style="font-size:.72rem;font-weight:600;color:'+(w.chg>=0?'#4ade80':'#f87171')+'">'+(w.chg>=0?'+':'')+w.chg+'%</span>'
+              : '<span style="color:rgba(255,255,255,.2);font-size:.72rem">—</span>';
+            return '<div style="display:grid;grid-template-columns:160px 1fr 90px 80px 80px 50px;align-items:center;padding:.5rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.04)" onmouseover="this.style.background=\'rgba(245,197,24,.04)\'" onmouseout="this.style.background=\'transparent\'">' +
+              '<div style="font-size:.75rem;color:rgba(255,255,255,.6)">'+w.label+'</div>' +
+              '<div style="padding-right:1rem"><div style="height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="height:5px;width:'+pct+'%;background:linear-gradient(90deg,#b45309,#f5c518);border-radius:3px"></div></div></div>' +
+              '<div style="text-align:right;font-size:.78rem;font-weight:600;color:#f5c518">₹'+w.gross.toFixed(2)+' Cr</div>' +
+              '<div style="text-align:right">'+chgHtml+'</div>' +
+              '<div style="text-align:right;font-size:.72rem;color:rgba(255,255,255,.35)">₹'+w.total+' Cr</div>' +
+              '<div style="text-align:right;font-size:.68rem;color:rgba(255,255,255,.28)">Wk '+w.wk+'</div>' +
+            '</div>';
+          }).join('');
+
           return '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;overflow:hidden;margin-bottom:.75rem">' +
-            '<div style="padding:.7rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07);font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25)">Day-by-Day · India Nett (₹ Cr)</div>' +
-            '<div style="display:grid;grid-template-columns:130px 60px 1fr 70px 75px 80px;padding:.35rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07)">' +
-              '<div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Date</div>' +
-              '<div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Day</div>' +
-              '<div></div>' +
-              '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Gross</div>' +
-              '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">% Chg</div>' +
-              '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Total</div>' +
+            // Header + toggle
+            '<div style="padding:.7rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between">' +
+              '<div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25)">Box Office · India Nett (₹ Cr)</div>' +
+              '<div style="display:flex;border:0.5px solid rgba(255,255,255,.12);border-radius:4px;overflow:hidden">' +
+                '<button id="btnDaily_'+uid+'" onclick="setBOView(\'daily\',\''+uid+'\')" style="font-family:\'Barlow\',sans-serif;font-size:.62rem;font-weight:700;padding:4px 14px;border:none;cursor:pointer;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);transition:all .15s">Daily</button>' +
+                '<button id="btnWeekend_'+uid+'" onclick="setBOView(\'weekend\',\''+uid+'\')" style="font-family:\'Barlow\',sans-serif;font-size:.62rem;font-weight:700;padding:4px 14px;border:none;cursor:pointer;background:#22c55e;color:#000;transition:all .15s">Weekend</button>' +
+              '</div>' +
             '</div>' +
-            p.daily.map(function(d){
-              var isWknd = d.day==='Sat'||d.day==='Sun'||d.day==='Fri';
-              var pct = Math.round(d.gross/maxD*100);
-              var chgHtml = d.chgDay!=null
-                ? '<span style="font-size:.72rem;font-weight:600;color:'+(d.chgDay>=0?'#4ade80':'#f87171')+'">'+(d.chgDay>=0?'+':'')+d.chgDay+'%</span>'
-                : '<span style="color:rgba(255,255,255,.2);font-size:.72rem">N/A</span>';
-              return '<div style="display:grid;grid-template-columns:130px 60px 1fr 70px 75px 80px;align-items:center;padding:.42rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.04);background:'+(isWknd?'rgba(255,255,255,.02)':'transparent')+'" onmouseover="this.style.background=\'rgba(245,197,24,.04)\'" onmouseout="this.style.background=\''+(isWknd?'rgba(255,255,255,.02)':'transparent')+'\'">' +
-                '<div style="font-size:.75rem;color:rgba(255,255,255,.6)">'+d.date+'</div>' +
-                '<div style="font-size:.68rem;color:rgba(255,255,255,.3)">'+d.day+'</div>' +
-                '<div style="padding-right:1rem"><div style="height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="height:5px;width:'+pct+'%;background:'+(isWknd?'linear-gradient(90deg,#b45309,#f5c518)':'linear-gradient(90deg,#1e3a5f,#4fc3f7)')+';border-radius:3px"></div></div></div>' +
-                '<div style="text-align:right;font-size:.78rem;font-weight:600;color:'+(isWknd?'#f5c518':'#4fc3f7')+'">₹'+d.gross+' Cr</div>' +
-                '<div style="text-align:right">'+chgHtml+'</div>' +
-                '<div style="text-align:right;font-size:.72rem;color:rgba(255,255,255,.35)">₹'+d.total+' Cr</div>' +
-              '</div>';
-            }).join('') +
+            // Daily view (hidden by default)
+            '<div id="viewDaily_'+uid+'" style="display:none">' +
+              '<div style="display:grid;grid-template-columns:130px 50px 1fr 75px 72px 80px;padding:.35rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07)">' +
+                '<div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Date</div>' +
+                '<div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Day</div>' +
+                '<div></div>' +
+                '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Gross</div>' +
+                '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">% Chg</div>' +
+                '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Total</div>' +
+              '</div>' +
+              dailyRows +
+            '</div>' +
+            // Weekend view (shown by default)
+            '<div id="viewWeekend_'+uid+'">' +
+              '<div style="display:grid;grid-template-columns:160px 1fr 90px 80px 80px 50px;padding:.35rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07)">' +
+                '<div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Weekend</div>' +
+                '<div></div>' +
+                '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Gross</div>' +
+                '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Chg</div>' +
+                '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Total</div>' +
+                '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Wk</div>' +
+              '</div>' +
+              wkndRows +
+            '</div>' +
           '</div>';
         })() : '') +
 
         '<div style="margin-top:.5rem;font-size:.65rem;color:rgba(255,255,255,.25);padding:.6rem .85rem;background:rgba(245,197,24,.04);border:0.5px solid rgba(245,197,24,.12);border-radius:4px">💬 Share updated daily figures and the prediction will be refined further.</div>' +
       '</div>' +
 
-      // ── DAILY TABLE ──
-      (p.daily && p.daily.length ? (function(){
-        var uid = 'boTab_' + page.key.replace(/-/g,'_');
-        var maxDaily = Math.max.apply(null, page.daily.map(function(d){return d.gross;}));
-        var maxD = Math.max.apply(null, p.daily.map(function(d){ return d.gross; }));
-        return '<div style="background:#111;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden">' +
-          '<div style="padding:.8rem 1.25rem;border-bottom:0.5px solid rgba(255,255,255,.08);font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)">Day-by-Day Collections · India Nett (₹ Cr)</div>' +
-          '<div style="display:grid;grid-template-columns:160px 55px 1fr 75px 80px 85px;padding:.35rem 1.25rem;border-bottom:0.5px solid rgba(255,255,255,.07)">' +
-            ['Date','Day','','Gross','% Chg','Running'].map(function(h){ return '<div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:'+(h===''||h==='Date'||h==='Day'?'left':'right')+'">'+h+'</div>'; }).join('') +
-          '</div>' +
-          p.daily.map(function(d){
-            var isWknd = d.day==='Sat'||d.day==='Sun'||d.day==='Fri';
-            var pct = Math.round(d.gross / maxD * 100);
-            var chgHtml = d.chgDay != null
-              ? '<span style="font-size:.72rem;font-weight:600;color:'+(d.chgDay>=0?'#4ade80':'#f87171')+'">'+(d.chgDay>0?'+':'')+d.chgDay+'%</span>'
-              : '<span style="font-size:.68rem;color:rgba(255,255,255,.25)">N/A</span>';
-            return '<div style="display:grid;grid-template-columns:160px 55px 1fr 75px 80px 85px;align-items:center;padding:.44rem 1.25rem;border-bottom:0.5px solid rgba(255,255,255,.04);background:'+(isWknd?'rgba(255,255,255,.025)':'transparent')+'" onmouseover="this.style.background=\'rgba(245,197,24,.05)\'" onmouseout="this.style.background=\''+(isWknd?'rgba(255,255,255,.025)':'transparent')+'\'">' +
-              '<div style="font-size:.75rem;color:rgba(255,255,255,.6)">'+d.date+'</div>' +
-              '<div style="font-size:.68rem;color:rgba(255,255,255,.3)">'+d.day+'</div>' +
-              '<div style="padding-right:1rem"><div style="height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="height:5px;width:'+pct+'%;background:'+(isWknd?'linear-gradient(90deg,#b45309,#f5c518)':'linear-gradient(90deg,#1e3a5f,#4fc3f7)')+';border-radius:3px"></div></div></div>' +
-              '<div style="text-align:right;font-size:.8rem;font-weight:600;color:'+(isWknd?'#f5c518':'#4fc3f7')+'">₹'+d.gross+' Cr</div>' +
-              '<div style="text-align:right">'+chgHtml+'</div>' +
-              '<div style="text-align:right;font-size:.72rem;color:rgba(255,255,255,.35)">₹'+d.total+' Cr</div>' +
-            '</div>';
-          }).join('') +
-        '</div>';
-      })() : '') +
+
 
       // ── TWO COL: WW PREDICTION + COMP FILMS ──
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">' +
@@ -5680,6 +6127,8 @@ function showFilmPage(key) {
         }).join('') +
       '</div>' +
     '</div>' +
+
+
 
     // BODY
     '<div style="max-width:920px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">' +
@@ -6041,6 +6490,216 @@ function showPage(p) {
 }
 
 // ═══════════════════════════════════════
+// LIVE TRACKER DATA
+// — UPDATE THESE NUMBERS EACH MORNING —
+// ═══════════════════════════════════════
+var LIVE_FILMS = [
+  {
+    key:         'bhoot-bhangla',
+    title:       'Bhoot Bhangla',
+    lang:        'Hindi',
+    releaseDate: '2026-04-17',   // theatrical release date
+    lastUpdated: 'May 1',        // ← change this each day
+    // ── RUNNING TOTALS (update daily) ──
+    indiaRunning: 135.35,        // ← today's India nett running total
+    wwRunning:    206,           // ← worldwide running total
+    // ── YESTERDAY'S COLLECTION (update daily) ──
+    yesterdayIndia: 3.75,        // ← yesterday India nett
+    // ── WEEK-ON-WEEK HOLD ──
+    wow: -55.9,                  // ← current week vs same day last week %
+    // ── PREDICTIONS (don't change these) ──
+    indiaLow:   155,
+    indiaMid:   165,
+    indiaHigh:  175,
+    wwLow:      190,
+    wwMid:      206,
+    wwHigh:     225,
+    budget:     120,
+    // ── STATUS: 'overperforming' | 'on-track' | 'underperforming' ──
+    // (auto-calculated below, but you can override)
+    statusOverride: null,
+    // ── DAYS IN RUN ──
+    // (auto-calculated from releaseDate)
+    // ── OTT DATE ESTIMATE ──
+    ottEstimate: 'Mid-June 2026',
+    note: 'Tue +7.7% vs Mon. Solid weekday hold. Week 2 drop of 55.9% is sharper than Bhool Bhulaiyaa 2 but in line with Housefull 5.',
+  },
+  {
+    key:         'dhurandhar-2',
+    title:       'Dhurandhar 2',
+    lang:        'Hindi',
+    releaseDate: '2026-03-18',
+    lastUpdated: 'Apr 29',
+    indiaRunning: 1133.94,
+    wwRunning:    1775,
+    yesterdayIndia: 1.00,
+    wow: -35.5,
+    indiaLow:   1100,
+    indiaMid:   1145,
+    indiaHigh:  1175,
+    wwLow:      1720,
+    wwMid:      1775,
+    wwHigh:     1810,
+    budget:     350,
+    statusOverride: null,
+    ottEstimate: 'Late May 2026',
+    note: 'Day 43. Entering long tail. Week 6 holding steadily at ₹1–3 Cr/day. Total essentially locked in — final India nett expected ₹1135–1150 Cr.',
+  },
+];
+
+// ── STATUS THRESHOLDS ──
+// If running > midPrediction × 1.05 → overperforming
+// If running < midPrediction × 0.88 → underperforming
+// Otherwise → on-track
+function getLiveStatus(f) {
+  if (f.statusOverride) return f.statusOverride;
+  var pct = f.indiaRunning / f.indiaMid;
+  if (pct > 1.05) return 'overperforming';
+  if (pct < 0.88) return 'underperforming';
+  return 'on-track';
+}
+
+function getLiveDaysInRun(releaseDate) {
+  var rel = new Date(releaseDate);
+  var now = new Date('2026-04-29');
+  return Math.floor((now - rel) / (1000 * 60 * 60 * 24)) + 1;
+}
+
+function buildLiveCard(f) {
+  var status   = getLiveStatus(f);
+  var days     = getLiveDaysInRun(f.releaseDate);
+  var langCol  = LC[f.lang] || '#888';
+
+  // Status colors
+  var statusCol  = status === 'overperforming' ? '#4ade80'
+                 : status === 'on-track'        ? '#f5c518'
+                 :                               '#f87171';
+  var statusLabel = status === 'overperforming' ? '↑ Overperforming'
+                  : status === 'on-track'        ? '≈ On Track'
+                  :                               '↓ Underperforming';
+
+  // Progress bar math
+  var barMin   = 0;
+  var barMax   = f.indiaHigh * 1.12;
+  function toPct(v) { return Math.min(100, Math.max(0, Math.round(v / barMax * 100))); }
+  var runPct   = toPct(f.indiaRunning);
+  var lowPct   = toPct(f.indiaLow);
+  var midPct   = toPct(f.indiaMid);
+  var highPct  = toPct(f.indiaHigh);
+
+  // Bar fill color
+  var fillCol  = f.indiaRunning >= f.indiaHigh  ? 'linear-gradient(90deg,#14532d,#4ade80)'
+               : f.indiaRunning >= f.indiaMid   ? 'linear-gradient(90deg,#713f12,#f5c518)'
+               :                                  'linear-gradient(90deg,#1e3a5f,#4fc3f7)';
+
+  // ROI
+  var roi = f.wwRunning && f.budget ? (f.wwRunning / f.budget).toFixed(2) : null;
+  var roiCol = !roi ? '#888' : roi >= 4 ? '#4ade80' : roi >= 2.5 ? '#f5c518' : '#f87171';
+
+  // Breakeven
+  var breakeven = f.budget * 2.5;
+  var profitable = f.wwRunning >= breakeven;
+
+  var fp = getFilmPage(f.key);
+
+  return '<div onclick="'+(fp ? (fp.prediction ? "showFilmPageWithPredictions('"+f.key+"')" : "showFilmPage('"+f.key+"')") : '')+'" ' +
+    'style="background:#0f0f0f;border:0.5px solid rgba(255,255,255,.1);border-top:2px solid '+langCol+';border-radius:6px;padding:1.1rem 1.25rem;cursor:'+(fp?'pointer':'default')+';transition:border-color .2s" ' +
+    'onmouseover="this.style.borderColor=\''+langCol+'\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,.1)\'">' +
+
+    // ── TOP ROW ──
+    '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.85rem">' +
+      '<div>' +
+        '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.3rem;font-weight:900;color:#fff;line-height:1">'+f.title+'</div>' +
+        '<div style="display:flex;align-items:center;gap:7px;margin-top:4px;flex-wrap:wrap">' +
+          '<span style="font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:'+langCol+'">'+f.lang+'</span>' +
+          '<span style="color:rgba(255,255,255,.15)">·</span>' +
+          '<span style="font-size:.6rem;color:rgba(255,255,255,.3)">Day '+days+'</span>' +
+          '<span style="color:rgba(255,255,255,.15)">·</span>' +
+          '<span style="font-size:.6rem;color:rgba(255,255,255,.3)">Updated '+f.lastUpdated+'</span>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">' +
+        '<span style="font-size:.65rem;font-weight:700;padding:3px 10px;border-radius:10px;background:'+statusCol+'18;border:0.5px solid '+statusCol+'44;color:'+statusCol+'">'+statusLabel+'</span>' +
+        (profitable
+          ? '<span style="font-size:.6rem;padding:2px 8px;border-radius:10px;background:rgba(74,222,128,.1);border:0.5px solid rgba(74,222,128,.25);color:#4ade80">✓ Profitable</span>'
+          : '<span style="font-size:.6rem;padding:2px 8px;border-radius:10px;background:rgba(248,113,113,.08);border:0.5px solid rgba(248,113,113,.2);color:#f87171">₹'+Math.round(breakeven-f.wwRunning)+' Cr to breakeven</span>') +
+      '</div>' +
+    '</div>' +
+
+    // ── BIG NUMBER ROW ──
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:1rem">' +
+      [
+        {l:'India Nett',  v:'₹'+f.indiaRunning+' Cr', c:'#f5c518',   s:'running total'},
+        {l:'Worldwide',   v:'₹'+f.wwRunning+' Cr',    c:'#4fc3f7',   s:'running total'},
+        {l:'Yesterday',   v:'₹'+f.yesterdayIndia+' Cr',c:f.yesterdayIndia>=5?'#4ade80':'rgba(255,255,255,.6)', s:'India nett'},
+        {l:'WoW Hold',    v:(f.wow>=0?'+':'')+f.wow+'%', c:f.wow>=-30?'#4ade80':f.wow>=-50?'#f5c518':'#f87171', s:'vs same day last wk'},
+      ].map(function(m){
+        return '<div style="background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.06);border-radius:4px;padding:.6rem .7rem">' +
+          '<div style="font-size:.52rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.2rem">'+m.l+'</div>' +
+          '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.2rem;font-weight:800;color:'+m.c+';line-height:1">'+m.v+'</div>' +
+          '<div style="font-size:.57rem;color:rgba(255,255,255,.22);margin-top:.15rem">'+m.s+'</div>' +
+        '</div>';
+      }).join('') +
+    '</div>' +
+
+    // ── PROGRESS BAR ──
+    '<div style="margin-bottom:.6rem">' +
+      '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.35rem">' +
+        '<span style="font-size:.57rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22)">India Nett Progress</span>' +
+        '<span style="font-size:.65rem;color:rgba(255,255,255,.35)">Target range: ₹'+f.indiaLow+'–₹'+f.indiaHigh+' Cr</span>' +
+      '</div>' +
+      // Track
+      '<div style="position:relative;height:36px">' +
+        // Full track
+        '<div style="position:absolute;left:0;right:0;top:14px;height:8px;background:rgba(255,255,255,.06);border-radius:4px"></div>' +
+        // Fill
+        '<div style="position:absolute;left:0;width:'+runPct+'%;top:14px;height:8px;background:'+fillCol+';border-radius:4px;transition:width .5s ease"></div>' +
+        // Low marker
+        '<div style="position:absolute;left:'+lowPct+'%;top:10px;transform:translateX(-50%)">' +
+          '<div style="width:1.5px;height:16px;background:rgba(248,113,113,.5)"></div>' +
+        '</div>' +
+        // Mid marker
+        '<div style="position:absolute;left:'+midPct+'%;top:10px;transform:translateX(-50%)">' +
+          '<div style="width:2px;height:16px;background:rgba(245,197,24,.6)"></div>' +
+        '</div>' +
+        // High marker
+        '<div style="position:absolute;left:'+highPct+'%;top:10px;transform:translateX(-50%)">' +
+          '<div style="width:1.5px;height:16px;background:rgba(74,222,128,.5)"></div>' +
+        '</div>' +
+        // Running total dot
+        '<div style="position:absolute;left:'+runPct+'%;top:11px;transform:translateX(-50%)">' +
+          '<div style="width:14px;height:14px;border-radius:50%;background:'+statusCol+';box-shadow:0 0 8px '+statusCol+'88;border:1.5px solid #000"></div>' +
+        '</div>' +
+        // Labels below bar
+        '<div style="position:absolute;left:'+lowPct+'%;bottom:0;transform:translateX(-50%);font-size:.52rem;color:rgba(248,113,113,.6);white-space:nowrap">₹'+f.indiaLow+'</div>' +
+        '<div style="position:absolute;left:'+midPct+'%;bottom:0;transform:translateX(-50%);font-size:.52rem;color:rgba(245,197,24,.7);white-space:nowrap">₹'+f.indiaMid+'</div>' +
+        '<div style="position:absolute;left:'+highPct+'%;bottom:0;transform:translateX(-50%);font-size:.52rem;color:rgba(74,222,128,.6);white-space:nowrap">₹'+f.indiaHigh+'</div>' +
+      '</div>' +
+    '</div>' +
+
+    // ── ROI + OTT ──
+    '<div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.55rem .7rem;background:rgba(255,255,255,.025);border-radius:4px;margin-bottom:.65rem;flex-wrap:wrap">' +
+      '<div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap">' +
+        (roi ? '<div><span style="font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22)">ROI </span><span style="font-size:.85rem;font-weight:700;color:'+roiCol+'">'+roi+'×</span></div>' : '') +
+        '<div><span style="font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22)">Budget </span><span style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.55)">₹'+f.budget+' Cr</span></div>' +
+        '<div><span style="font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22)">OTT est. </span><span style="font-size:.75rem;color:rgba(255,255,255,.45)">'+f.ottEstimate+'</span></div>' +
+      '</div>' +
+      (fp ? '<div style="font-size:.6rem;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:4px">Full page <span style="color:var(--gold)">●</span></div>' : '') +
+    '</div>' +
+
+    // ── ANALYST NOTE ──
+    (f.note ? '<div style="font-size:.68rem;color:rgba(255,255,255,.38);line-height:1.65;border-left:2px solid '+statusCol+'44;padding-left:.65rem;font-style:italic">'+f.note+'</div>' : '') +
+
+  '</div>';
+}
+
+function renderLiveTracker() {
+  var grid = document.getElementById('live-tracker-grid');
+  if (!grid) return;
+  grid.innerHTML = LIVE_FILMS.map(buildLiveCard).join('');
+}
+
+// ═══════════════════════════════════════
 // MAIN PAGE
 // ═══════════════════════════════════════
 // Hero panels from top 3 worldwide
@@ -6049,6 +6708,9 @@ document.getElementById('heroPanels').innerHTML = TOP3.map(function(f,i){
   var eyebrow = ['All-Time #1','All-Time #2','All-Time #3'][i];
   return '<div class="panel"><div class="panel-bg" style="background:'+bg(i)+';display:flex;align-items:center;justify-content:center"><div style="font-family:\'Barlow Condensed\',sans-serif;font-size:3.5rem;font-weight:800;color:rgba(255,255,255,.05);text-align:center;letter-spacing:-2px;padding:1rem">'+f.n.toUpperCase()+'</div></div><div class="panel-overlay"></div><div class="panel-info"><div class="eyebrow">'+eyebrow+'</div><h3>'+f.n+'</h3><div class="sub">₹'+f.ww+' Cr Worldwide</div></div></div>';
 }).join('');
+
+// Live tracker
+renderLiveTracker();
 
 // Recent row
 var rr = document.getElementById('recentRow');
@@ -6119,10 +6781,12 @@ window.addEventListener('load', function() {
       var img = new Image();
       img.onload = function() {
         bgDiv.style.backgroundImage = 'url(' + bgUrl + ')';
-        bgDiv.style.backgroundSize  = 'cover';
+        bgDiv.style.backgroundSize = 'cover';
         bgDiv.style.backgroundPosition = 'center';
+        bgDiv.style.height = '100%';
+        bgDiv.style.width = '100%';
         var txt = bgDiv.querySelector('div');
-        if (txt) txt.style.opacity = '0';
+        if (txt) txt.style.display = 'none';
       };
       img.src = bgUrl;
     });
@@ -6156,19 +6820,39 @@ function getLiveFilmData(key) {
   return {ow: page.ow||null, india: page.india||null, ww: page.ww||null};
 }
 
-function renderYrTable(){
-  var data = YR_DATA[curYr]||[];
-  // Merge live film page data into any row that has a liveKey
-  data = data.map(function(f) {
-    if (!f.liveKey) return f;
-    var live = getLiveFilmData(f.liveKey);
-    if (!live) return f;
-    return Object.assign({}, f, {
-      ow:    live.ow    != null ? live.ow    : f.ow,
-      india: live.india != null ? live.india : f.india,
-      ww:    live.ww    != null ? live.ww    : f.ww,
-    });
+function normalizeTitle(s) {
+  return s.toLowerCase().replace(/[\s\-_]+/g,'');
+}
+
+function getYearFilms(yr) {
+  var yrNum = parseInt(yr);
+  var seen = {};
+  var results = [];
+
+  // Start with hardcoded YR_DATA (has studio info and liveKey)
+  var base = (YR_DATA[yr] || []).map(function(f) {
+    var live = f.liveKey ? getLiveFilmData(f.liveKey) : null;
+    var merged = Object.assign({}, f);
+    if (live) {
+      if (live.ow    != null) merged.ow    = live.ow;
+      if (live.india != null) merged.india = live.india;
+      if (live.ww    != null) merged.ww    = live.ww;
+    }
+    var key = normalizeTitle(merged.n);
+    seen[key] = true;
+    results.push(merged);
+    return key;
   });
+
+
+
+  // Sort by worldwide gross descending, take top 10
+  results.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
+  return results.slice(0,10);
+}
+
+function renderYrTable(){
+  var data = getYearFilms(curYr);
   var maxWW = data.length ? Math.max.apply(null, data.map(function(f){return f.ww||0;})) || 1 : 1;
   document.getElementById('yr-table').innerHTML = data.map(function(f,i){
     var col = LC[f.l]||'#888';
@@ -6404,7 +7088,7 @@ renderFF();
 // ═══════════════════════════════════════
 var curActorSort='year';
 // Populate dropdown from all actors in FILMS + ACTOR_SUPP
-var ALLOWED_ACTORS = ['Amitabh Bachchan','Dilip Kumar','Rajesh Khanna','Raj Kapoor','Dharmendra','Vinod Khanna','Sunny Deol','Shah Rukh Khan','Aamir Khan','Salman Khan','Shashi Kapoor','Rajinikanth','Ranbir Kapoor','Ranveer Singh','Kamal Haasan','Prabhas','Hrithik Roshan','Vijay'];
+var ALLOWED_ACTORS = ['Amitabh Bachchan','Chiranjeevi','Dilip Kumar','Rajesh Khanna','Raj Kapoor','Dharmendra','Vinod Khanna','Sunny Deol','Shah Rukh Khan','Aamir Khan','Salman Khan','Shashi Kapoor','Rajinikanth','Ranbir Kapoor','Ranveer Singh','Kamal Haasan','Prabhas','Hrithik Roshan','Vijay'];
 var sel=document.getElementById('actorSelect');
 ALLOWED_ACTORS.forEach(function(a){
   var o=document.createElement('option');o.value=a;o.textContent=a;sel.appendChild(o);
@@ -6666,10 +7350,57 @@ function renderPreds(){
     var lc=LC[p.lang]||'#888';
     var boH=fmtRange(p.bo,'₹',' Cr'),owH=fmtRange(p.ow,'₹',' Cr'),ffH=fmtRange(p.ff,'',' M');
     var dateStr=p.date?(function(){var d=new Date(p.date+'-01');return d.toLocaleString('default',{month:'short',year:'numeric'});})():'TBA';
+
+    // ── Confidence score (0–100) ──
+    // Based on: how far out the release is, director/actor track record richness, range spread
+    var conf = p.confidence || (function(){
+      var now = new Date('2026-04-29');
+      var rel = p.date ? new Date(p.date+'-01') : null;
+      var monthsOut = rel ? Math.max(0,(rel - now)/(1000*60*60*24*30)) : 18;
+      // Base: tighter range spread = higher confidence
+      var spread = p.bo ? (p.bo.high - p.bo.low) / p.bo.mid : 1;
+      var spreadScore = Math.max(0, 100 - spread * 55);
+      // Time penalty: each 3 months out costs ~8 points
+      var timePenalty = Math.min(55, monthsOut * 2.6);
+      return Math.round(Math.max(10, Math.min(88, spreadScore - timePenalty)));
+    })();
+
+    var confCol  = conf >= 70 ? '#4ade80' : conf >= 45 ? '#f5c518' : '#f87171';
+    var confLbl  = conf >= 70 ? 'High'    : conf >= 45 ? 'Medium'  : 'Low';
+    var confDesc = conf >= 70
+      ? 'Strong comparable base, near-term release'
+      : conf >= 45
+      ? 'Decent comps, some uncertainty remains'
+      : 'Early-stage estimate — wide range expected';
+
+    // ── Probability bars for each range tier ──
+    // Low = 20%, Mid = 55%, High = 25% by default; adjust by confidence
+    var probLow  = Math.round(Math.max(10, 30 - conf * 0.18));
+    var probMid  = Math.round(Math.min(70, 35 + conf * 0.32));
+    var probHigh = 100 - probLow - probMid;
+
+    function probBar(label, val, pct, col, note) {
+      return '<div style="margin-bottom:.55rem">' +
+        '<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px">' +
+          '<div style="display:flex;align-items:center;gap:6px">' +
+            '<span style="font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+col+'">'+label+'</span>' +
+            '<span style="font-size:.72rem;color:rgba(255,255,255,.6)">'+val+'</span>' +
+          '</div>' +
+          '<span style="font-size:.72rem;font-weight:700;color:'+col+'">'+pct+'%</span>' +
+        '</div>' +
+        '<div style="position:relative;height:18px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden">' +
+          '<div style="height:18px;width:'+pct+'%;background:linear-gradient(90deg,'+col+'44,'+col+');border-radius:3px;transition:width .5s ease"></div>' +
+          '<div style="position:absolute;inset:0;display:flex;align-items:center;padding-left:8px"><span style="font-size:.56rem;color:rgba(255,255,255,.4)">'+note+'</span></div>' +
+        '</div>' +
+      '</div>';
+    }
+
     return '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-top:2px solid '+lc+';border-radius:4px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.65rem">' +
+
+      // Title + date row
       '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem">' +
         '<div>' +
-          '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.2rem;font-weight:800;color:#fff">'+p.title+'</div>' +
+          '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.2rem;font-weight:800;color:'+lc+'">'+p.title+'</div>' +
           '<div style="font-size:.65rem;color:rgba(255,255,255,.32);margin-top:3px;display:flex;gap:6px;flex-wrap:wrap;align-items:center">' +
             '<span style="color:'+lc+';font-weight:600">'+p.actor+'</span>' +
             '<span style="color:rgba(255,255,255,.15)">·</span>' +
@@ -6681,12 +7412,45 @@ function renderPreds(){
           '<div style="font-size:.58rem;color:rgba(255,255,255,.25);margin-top:4px;text-align:right">'+p.lang+'</div>' +
         '</div>' +
       '</div>' +
-      '<div style="display:flex;flex-direction:column;gap:6px;padding:.65rem .8rem;background:rgba(0,0,0,.3);border-radius:3px">' +
-        (boH?'<div style="display:flex;align-items:baseline;justify-content:space-between;gap:.5rem"><span style="font-size:.57rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);flex-shrink:0">WW Box office</span><span style="font-size:.76rem;text-align:right">'+boH+'</span></div>':'')+
-        (owH?'<div style="display:flex;align-items:baseline;justify-content:space-between;gap:.5rem"><span style="font-size:.57rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);flex-shrink:0">Opening wknd</span><span style="font-size:.76rem;text-align:right">'+owH+'</span></div>':'')+
-        (ffH?'<div style="display:flex;align-items:baseline;justify-content:space-between;gap:.5rem"><span style="font-size:.57rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);flex-shrink:0">Footfalls</span><span style="font-size:.76rem;text-align:right">'+ffH+'</span></div>':'')+
+
+      // ── Confidence meter ──
+      '<div style="background:rgba(0,0,0,.25);border:0.5px solid rgba(255,255,255,.07);border-radius:4px;padding:.7rem .85rem">' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">' +
+          '<div style="display:flex;align-items:center;gap:6px">' +
+            '<span style="font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25)">Prediction Confidence</span>' +
+            '<span style="font-size:.62rem;font-weight:700;padding:1px 7px;border-radius:10px;background:'+confCol+'18;border:0.5px solid '+confCol+'44;color:'+confCol+'">'+confLbl+'</span>' +
+          '</div>' +
+          '<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.4rem;font-weight:900;color:'+confCol+'">'+conf+'<span style="font-size:.7rem;font-weight:600;opacity:.6">%</span></span>' +
+        '</div>' +
+        // Segmented meter
+        '<div style="display:flex;gap:2px;height:8px;border-radius:4px;overflow:hidden">' +
+          Array.from({length:20},function(_,i){
+            var filled = i < Math.round(conf/5);
+            var seg_col = i < 8 ? '#f87171' : i < 14 ? '#f5c518' : '#4ade80';
+            return '<div style="flex:1;background:'+(filled?seg_col:'rgba(255,255,255,.06)')+';transition:background .3s '+(i*20)+'ms"></div>';
+          }).join('') +
+        '</div>' +
+        '<div style="font-size:.6rem;color:rgba(255,255,255,.28);margin-top:.4rem">'+confDesc+'</div>' +
+      '</div>' +
+
+      // ── Probability bars ──
+      '<div style="background:rgba(0,0,0,.2);border:0.5px solid rgba(255,255,255,.06);border-radius:4px;padding:.75rem .85rem">' +
+        '<div style="font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.65rem">WW Box Office · Outcome Probability</div>' +
+        (p.bo ? (
+          probBar('Low',  '₹'+p.bo.low+' Cr',  probLow,  '#f87171', 'conservative case') +
+          probBar('Mid',  '₹'+p.bo.mid+' Cr',  probMid,  '#f5c518', 'base case') +
+          probBar('High', '₹'+p.bo.high+' Cr', probHigh, '#4ade80', 'bull case')
+        ) : '<div style="font-size:.7rem;color:rgba(255,255,255,.25)">No data</div>') +
+        '<div style="margin-top:.4rem;font-size:.58rem;color:rgba(255,255,255,.2);text-align:right">probabilities sum to 100%</div>' +
+      '</div>' +
+
+      // Raw ranges
+      '<div style="display:flex;flex-direction:column;gap:5px;padding:.6rem .75rem;background:rgba(0,0,0,.2);border-radius:3px">' +
+        (boH?'<div style="display:flex;align-items:baseline;justify-content:space-between;gap:.5rem"><span style="font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);flex-shrink:0">Opening Wknd</span><span style="font-size:.74rem;text-align:right">'+owH+'</span></div>':'')+
+        (ffH?'<div style="display:flex;align-items:baseline;justify-content:space-between;gap:.5rem"><span style="font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);flex-shrink:0">Footfalls</span><span style="font-size:.74rem;text-align:right">'+ffH+'</span></div>':'')+
       '</div>'+
-      (p.notes?'<div style="font-size:.7rem;color:rgba(255,255,255,.32);line-height:1.6;border-left:2px solid rgba(34,197,94,.2);padding-left:.65rem;font-style:italic">'+p.notes+'</div>':'')+
+
+      (p.notes?'<div style="font-size:.68rem;color:rgba(255,255,255,.3);line-height:1.6;border-left:2px solid rgba(34,197,94,.18);padding-left:.65rem;font-style:italic">'+p.notes+'</div>':'')+
     '</div>';
   }).join('');
 }
@@ -6698,7 +7462,7 @@ renderPreds();
 var ACTION_FILMS = [
   // 2020s
   {n:'Pushpa 2',          y:2024, l:'Telugu',  ow:353,  india:1234, ww:1742, ff:63,   legs:+(1234/353).toFixed(2)},
-  {n:'Dhurandhar 2',      y:2026, l:'Hindi',   ow:308.5,india:1122, ww:1750, ff:42,   legs:+(1122/308.5).toFixed(2)},
+  {n:'Dhurandhar 2',      y:2026, l:'Hindi',   ow:308.5,india:1132.79, ww:1775, ff:42,   legs:+(1132.79/308.5).toFixed(2)},
   {n:'Dhurandhar',        y:2025, l:'Hindi',   ow:106.5,india:895,  ww:1349, ff:37,   legs:8.4},
   {n:'Jawan',             y:2023, l:'Hindi',   ow:211,  india:643,  ww:1148, ff:39.2, legs:3.05},
   {n:'Pathaan',           y:2023, l:'Hindi',   ow:152,  india:543,  ww:1050, ff:34.9, legs:3.57},
@@ -6720,14 +7484,16 @@ var ACTION_FILMS = [
   {n:'Devara',            y:2024, l:'Telugu',  ow:160,  india:292,  ww:428,  ff:null, legs:1.83},
   {n:'Fighter',           y:2024, l:'Hindi',   ow:90,   india:248,  ww:344,  ff:9.8,  legs:2.76},
   {n:'Singham Again',     y:2024, l:'Hindi',   ow:125,  india:268,  ww:389,  ff:11,   legs:2.14},
-  {n:'Adipurush',         y:2023, l:'Telugu',  ow:77,   india:260,  ww:393,  ff:18.5, legs:3.38},
+  {n:'Adipurush',         y:2023, l:'Telugu',  ow:220,  india:288,  ww:393,  ff:18.5, legs:1.31},
   {n:'Brahmastra',        y:2022, l:'Hindi',   ow:120,  india:257,  ww:418,  ff:15.2, legs:2.14},
   {n:'Mahavtar Narsimha', y:2025, l:'Hindi',   ow:15,   india:251,  ww:326,  ff:15.1, legs:16.7},
-  {n:'Lokah: Chapter 1', y:2025, l:'Malayalam',ow:14,  india:157,  ww:303,  ff:11.3, legs:11.21},
+  {n:'Sitaare Zameen Par',  y:2025, l:'Hindi',   ow:57.3, india:165.7,ww:266,  ff:8.64, legs:+(165.7/57.3).toFixed(2)},
+  {n:'Mana ShankaraVaraprasad Garu', y:2026, l:'Telugu', ow:56, india:258, ww:320, ff:null, legs:4.6},
   {n:'Coolie',            y:2025, l:'Tamil',   ow:129,  india:285,  ww:518,  ff:18.4, legs:2.21},
   {n:'Border 2',          y:2026, l:'Hindi',   ow:129.9,india:341,  ww:464,  ff:15.79,legs:2.63},
   {n:'Saiyaara',          y:2025, l:'Hindi',   ow:84.5, india:337,  ww:577,  ff:null, legs:3.99},
   {n:'Kabir Singh',       y:2019, l:'Hindi',   ow:71,   india:278,  ww:379,  ff:26,   legs:3.92},
+  {n:'Adipurush',         y:2023, l:'Telugu',  ow:220,  india:288,  ww:393,  ff:18.5, legs:1.31},
   {n:'Saaho',             y:2019, l:'Telugu',  ow:200,  india:310,  ww:451,  ff:26.5, legs:1.55},
   {n:'War',               y:2019, l:'Hindi',   ow:87,   india:318,  ww:475,  ff:22.5, legs:3.66},
   // 2010s
@@ -6744,18 +7510,18 @@ var ACTION_FILMS = [
   {n:'Chennai Express',   y:2013, l:'Hindi',   ow:100,  india:227,  ww:424,  ff:25.23,legs:2.27},
   {n:'Krrish 3',          y:2013, l:'Hindi',   ow:72,   india:244,  ww:393,  ff:21.82,legs:3.39},
   {n:'Simmba',            y:2018, l:'Hindi',   ow:75,   india:240,  ww:400,  ff:19.13,legs:3.20},
-  {n:'Ek Tha Tiger',      y:2012, l:'Hindi',   ow:75,   india:275,  ww:334,  ff:24.74,legs:3.67},
-  {n:'Kick',              y:2014, l:'Hindi',   ow:77,   india:233,  ww:388,  ff:24.19,legs:3.03},
+  {n:'Ek Tha Tiger',      y:2012, l:'Hindi',   ow:51,   india:198,  ww:334,  ff:24.74,legs:+(198/51).toFixed(2)},
+  {n:'Kick',              y:2014, l:'Hindi',   ow:84,   india:232,  ww:388,  ff:24.19,legs:+(232/84).toFixed(2)},
   {n:'Happy New Year',    y:2014, l:'Hindi',   ow:115,  india:201,  ww:383,  ff:19.73,legs:1.75},
-  {n:'Bajirao Mastani',   y:2015, l:'Hindi',   ow:72,   india:255,  ww:355,  ff:18.75,legs:3.54},
+  {n:'Bajirao Mastani',   y:2015, l:'Hindi',   ow:46,   india:184,  ww:355,  ff:18.75,legs:+(184/46).toFixed(2)},
   {n:'Prem Ratan Dhan Payo',y:2015,l:'Hindi',  ow:80,   india:210,  ww:388,  ff:22.76,legs:2.63},
   {n:'Bang Bang!',        y:2014, l:'Hindi',   ow:87,   india:181,  ww:332,  ff:15.14,legs:2.08},
-  {n:'Dabangg 2',         y:2012, l:'Hindi',   ow:71,   india:200,  ww:253,  ff:20.53,legs:2.82},
+  {n:'Dabangg 2',         y:2012, l:'Hindi',   ow:65,   india:155,  ww:253,  ff:20.53,legs:+(155/65).toFixed(2)},
   // 2000s
   {n:'Gadar 2',           y:2023, l:'Hindi',   ow:134,  india:525,  ww:691,  ff:34,   legs:3.92},
   {n:'3 Idiots',          y:2009, l:'Hindi',   ow:40.7, india:202,  ww:400,  ff:31.79, legs:4.96},
   {n:'Ghajini',           y:2008, l:'Hindi',   ow:54,   india:161,  ww:201,  ff:24.01,legs:2.98},
-  {n:'Dabangg',           y:2010, l:'Hindi',   ow:44,   india:198,  ww:261,  ff:25.09,legs:4.50},
+  {n:'Dabangg',           y:2010, l:'Hindi',   ow:48,   india:139,  ww:261,  ff:25.09,legs:+(139/48).toFixed(2)},
   {n:'Enthiran',          y:2010, l:'Tamil',   ow:55,   india:178,  ww:291,  ff:30.1, legs:3.24},
 
 ];
@@ -6802,7 +7568,7 @@ function renderAction(){
 
   // Stats
   var withOW  = list.filter(function(f){return f.ow&&f.india;});
-  var withLegs= list.filter(function(f){return f.legs;});
+  var withLegs= list.filter(function(f){return f.legs && f.india>=150;});
   var withFF  = list.filter(function(f){return f.ff;});
   var maxLegs = withLegs.length?withLegs.reduce(function(a,b){return b.legs>a.legs?b:a;}):null;
   var maxOW   = withOW.length?withOW.reduce(function(a,b){return b.ow>a.ow?b:a;}):null;
@@ -6819,7 +7585,7 @@ function renderAction(){
   }).join('');
 
   // OW vs Lifetime dual bar chart (top 20 with OW data, sorted by current sort)
-  var chartList = withOW.slice(0,20);
+  var chartList = withOW.slice(0,25);
   var maxIndia = Math.max.apply(null, chartList.map(function(f){return f.india||0;})) || 1;
   document.getElementById('act-ow-chart').innerHTML = chartList.map(function(f){
     var owPct  = Math.round(f.ow   / maxIndia * 100);
@@ -6843,7 +7609,7 @@ function renderAction(){
   }).join('');
 
   // Legs ranking — all films with legs data, sorted by legs desc
-  var legsRanked = withLegs.slice().sort(function(a,b){return b.legs-a.legs;});
+  var legsRanked = list.filter(function(f){return f.legs && f.india>=150;}).slice().sort(function(a,b){return b.legs-a.legs;}).slice(0,65);
   var maxLegsVal = legsRanked.length?legsRanked[0].legs:1;
   document.getElementById('act-legs-chart').innerHTML = legsRanked.map(function(f,i){
     var pct = Math.round(f.legs/maxLegsVal*100);
@@ -7259,7 +8025,194 @@ var ACTRESS_DATA = {
   ],
 };
 
+// ── DIRECTOR DATABASE ──
+var DIRECTOR_DATA = {
+  'S.S. Rajamouli': [
+    {n:'Student No.1',           y:2001, bo:null, ff:null,  lb:3.2},
+    {n:'Sye',                    y:2004, bo:null, ff:null,  lb:3.3},
+    {n:'Chatrapathi',            y:2005, bo:null, ff:null,  lb:3.2},
+    {n:'Vikramarkudu',           y:2006, bo:null, ff:null,  lb:3.4},
+    {n:'Yamadonga',              y:2007, bo:null, ff:null,  lb:3.1},
+    {n:'Simhadri',               y:2003, bo:null, ff:17.7,  lb:3.5},
+    {n:'Magadheera',             y:2009, bo:null, ff:29.1,  lb:3.6},
+    {n:'Maryada Ramanna',        y:2010, bo:null, ff:null,  lb:3.5},
+    {n:'Eega',                   y:2012, bo:null, ff:null,  lb:3.8},
+    {n:'Baahubali',              y:2015, bo:650,  ff:48,    lb:3.5},
+    {n:'Baahubali 2',            y:2017, bo:1810, ff:107.7, lb:3.8},
+    {n:'RRR',                    y:2022, bo:1230, ff:44,    lb:3.8},
+  ],
+  'Rajkumar Hirani': [
+    {n:'Munna Bhai MBBS',        y:2003, bo:52,   ff:9.5,   lb:3.9},
+    {n:'Lage Raho Munna Bhai',   y:2006, bo:108,  ff:15.2,  lb:3.9},
+    {n:'3 Idiots',               y:2009, bo:400,  ff:31.79, lb:4.1},
+    {n:'PK',                     y:2014, bo:769,  ff:35.06, lb:3.8},
+    {n:'Sanju',                  y:2018, bo:586,  ff:28,    lb:3.4},
+    {n:'Dunki',                  y:2023, bo:470,  ff:8,     lb:3.0},
+  ],
+  'Rohit Shetty': [
+    {n:'Zameen',                 y:2003, bo:null, ff:null,  lb:2.8},
+    {n:'Golmaal: Fun Unlimited', y:2006, bo:51,   ff:7.5,   lb:3.2},
+    {n:'Golmaal Returns',        y:2008, bo:85,   ff:10.23, lb:2.7},
+    {n:'All the Best',           y:2009, bo:73,   ff:6.8,   lb:2.5},
+    {n:'Golmaal 3',              y:2010, bo:120,  ff:17.71, lb:2.5},
+    {n:'Singham',                y:2011, bo:150,  ff:14.52, lb:2.9},
+    {n:'Bol Bachchan',           y:2012, bo:105,  ff:10.8,  lb:2.5},
+    {n:'Chennai Express',        y:2013, bo:424,  ff:25.23, lb:3.1},
+    {n:'Singham Returns',        y:2014, bo:198,  ff:16.93, lb:2.5},
+    {n:'Dilwale',                y:2015, bo:376,  ff:15.38, lb:2.8},
+    {n:'Golmaal Again',          y:2017, bo:205,  ff:9.8,   lb:2.7},
+    {n:'Simmba',                 y:2018, bo:400,  ff:19.13, lb:2.5},
+    {n:'Sooryavanshi',           y:2021, bo:294,  ff:11.38, lb:2.5},
+    {n:'Cirkus',                 y:2022, bo:61,   ff:1.01,  lb:1.9},
+    {n:'Singham Again',          y:2024, bo:389,  ff:11,    lb:2.5},
+  ],
+  'Sanjay Leela Bhansali': [
+    {n:'Khamoshi',               y:1996, bo:null, ff:null,  lb:3.8},
+    {n:'Hum Dil De Chuke Sanam', y:1999, bo:null, ff:17.85, lb:3.3},
+    {n:'Devdas',                 y:2002, bo:41,   ff:20.55, lb:3.8},
+    {n:'Black',                  y:2005, bo:66,   ff:6.03,  lb:3.7},
+    {n:'Saawariya',              y:2007, bo:39,   ff:4.62,  lb:2.8},
+    {n:'Guzaarish',              y:2010, bo:61,   ff:4.22,  lb:3.6},
+    {n:'Goliyon Ki Raasleela Ram-Leela', y:2013, bo:138, ff:13.73, lb:3.6},
+    {n:'Bajirao Mastani',        y:2015, bo:355,  ff:18.75, lb:3.6},
+    {n:'Padmaavat',              y:2018, bo:571,  ff:23.44, lb:3.4},
+    {n:'Gangubai Kathiawadi',    y:2022, bo:209,  ff:8.89,  lb:3.8},
+  ],
+  'Lokesh Kanagaraj': [
+    {n:'Maanagaram',             y:2017, bo:null, ff:null,  lb:3.9},
+    {n:'Kaithi',                 y:2019, bo:75,   ff:null,  lb:4.1},
+    {n:'Master',                 y:2021, bo:223,  ff:null,  lb:3.4},
+    {n:'Vikram',                 y:2022, bo:414,  ff:20.1,  lb:3.8},
+    {n:'Leo',                    y:2023, bo:605,  ff:24.3,  lb:3.3},
+    {n:'Coolie',                 y:2025, bo:518,  ff:18.4,  lb:2.5},
+  ],
+  'Nitesh Tiwari': [
+    {n:'Chillar Party',          y:2011, bo:18,   ff:null,  lb:3.8},
+    {n:'Bhootnath Returns',      y:2014, bo:35,   ff:3.83,  lb:2.9},
+    {n:'Dangal',                 y:2016, bo:2070, ff:37,    lb:3.9},
+    {n:'Chhichhore',             y:2019, bo:158,  ff:8.1,   lb:3.8},
+    {n:'Bawaal',                 y:2023, bo:null, ff:null,  lb:2.8},
+  ],
+  'Prashanth Neel': [
+    {n:'Ugramm',                 y:2014, bo:null, ff:null,  lb:3.3},
+    {n:'KGF: Chapter 1',         y:2018, bo:250,  ff:null,  lb:3.3},
+    {n:'KGF: Chapter 2',         y:2022, bo:1215, ff:56.7,  lb:3.1},
+    {n:'Salaar',                 y:2023, bo:617,  ff:26,    lb:2.8},
+  ],
+  'Ayan Mukerji': [
+    {n:'Wake Up Sid',            y:2009, bo:40,   ff:4.13,  lb:3.7},
+    {n:'Yeh Jawaani Hai Deewani',y:2013, bo:344,  ff:20.26, lb:3.8},
+    {n:'Brahmastra',             y:2022, bo:418,  ff:15.2,  lb:2.6},
+    {n:'War 2',                  y:2025, bo:364,  ff:11.7,  lb:2.3},
+  ],
+  'Siddharth Anand': [
+    {n:'Salaam Namaste',         y:2005, bo:60,   ff:7.8,   lb:3.2},
+    {n:'Ta Ra Rum Pum',          y:2007, bo:40,   ff:4.8,   lb:3.0},
+    {n:'Bachna Ae Haseeno',      y:2008, bo:61,   ff:6.62,  lb:2.9},
+    {n:'Anjaana Anjaani',        y:2010, bo:55,   ff:5.66,  lb:3.0},
+    {n:'Bang Bang!',             y:2014, bo:332,  ff:15.14, lb:2.9},
+    {n:'War',                    y:2019, bo:475,  ff:22.5,  lb:3.0},
+    {n:'Pathaan',                y:2023, bo:1050, ff:34.9,  lb:2.8},
+    {n:'Fighter',                y:2024, bo:344,  ff:9.8,   lb:2.6},
+  ],
+  'Atlee': [
+    {n:'Raja Rani',              y:2013, bo:null, ff:null,  lb:3.2},
+    {n:'Theri',                  y:2016, bo:null, ff:13.1,  lb:3.3},
+    {n:'Mersal',                 y:2017, bo:253,  ff:15.8,  lb:3.3},
+    {n:'Bigil',                  y:2019, bo:295,  ff:16.3,  lb:3.1},
+    {n:'Jawan',                  y:2023, bo:1148, ff:39.2,  lb:3.3},
+  ],
+  'Aditya Dhar': [
+    {n:'Uri: The Surgical Strike',y:2019,bo:244,  ff:12.5,  lb:3.5},
+    {n:'Dhurandhar',             y:2025, bo:1349, ff:37,    lb:3.6},
+    {n:'Dhurandhar 2',           y:2026, bo:1775, ff:42,    lb:3.5},
+  ],
+  'Mani Ratnam': [
+    {n:'Mouna Ragam',            y:1986, bo:null, ff:null,  lb:3.9},
+    {n:'Nayakan',                y:1987, bo:null, ff:17.8,  lb:4.0},
+    {n:'Anjali',                 y:1990, bo:null, ff:null,  lb:3.9},
+    {n:'Roja',                   y:1992, bo:null, ff:null,  lb:3.8},
+    {n:'Bombay',                 y:1995, bo:null, ff:null,  lb:3.9},
+    {n:'Dil Se',                 y:1998, bo:null, ff:8.54,  lb:3.6},
+    {n:'Alaipayuthey',           y:2000, bo:null, ff:null,  lb:4.0},
+    {n:'Kannathil Muthamittal',  y:2002, bo:null, ff:null,  lb:3.9},
+    {n:'Yuva',                   y:2004, bo:null, ff:4.82,  lb:3.4},
+    {n:'Guru',                   y:2007, bo:60,   ff:null,  lb:3.6},
+    {n:'Raavan',                 y:2010, bo:35,   ff:2.5,   lb:2.8},
+    {n:'Kadal',                  y:2013, bo:null, ff:null,  lb:3.0},
+    {n:'Ok Kanmani',             y:2015, bo:null, ff:null,  lb:3.8},
+    {n:'Kaatru Veliyidai',       y:2017, bo:null, ff:null,  lb:3.3},
+    {n:'Chekka Chivantha Vaanam',y:2018, bo:null, ff:null,  lb:3.4},
+    {n:'Ponniyin Selvan I',      y:2022, bo:488,  ff:21.7,  lb:3.6},
+    {n:'Ponniyin Selvan II',     y:2023, bo:250,  ff:null,  lb:3.4},
+  ],
+  'Shankar': [
+    {n:'Gentleman',              y:1993, bo:null, ff:null,  lb:3.4},
+    {n:'Kadhalan',               y:1994, bo:null, ff:null,  lb:3.3},
+    {n:'Indian',                 y:1996, bo:null, ff:34,    lb:3.7},
+    {n:'Muthu',                  y:1995, bo:null, ff:18.3,  lb:3.3},
+    {n:'Jeans',                  y:1998, bo:null, ff:null,  lb:3.2},
+    {n:'Mudhalvan',              y:1999, bo:null, ff:null,  lb:3.5},
+    {n:'Nayak',                  y:2001, bo:null, ff:null,  lb:3.3},
+    {n:'Boys',                   y:2003, bo:null, ff:null,  lb:2.9},
+    {n:'Anniyan',                y:2005, bo:null, ff:null,  lb:3.6},
+    {n:'Sivaji',                 y:2007, bo:null, ff:23.4,  lb:3.2},
+    {n:'Enthiran',               y:2010, bo:291,  ff:30.1,  lb:3.2},
+    {n:'I',                      y:2015, bo:null, ff:null,  lb:3.1},
+    {n:'2.0',                    y:2018, bo:691,  ff:42.5,  lb:3.1},
+    {n:'Indian 2',               y:2024, bo:null, ff:6.5,   lb:null},
+  ],
+  'Sukumar': [
+    {n:'Arya',                   y:2004, bo:null, ff:null,  lb:3.4},
+    {n:'Arya 2',                 y:2009, bo:null, ff:null,  lb:3.3},
+    {n:'100% Love',              y:2011, bo:null, ff:null,  lb:3.2},
+    {n:'1: Nenokkadine',         y:2014, bo:null, ff:null,  lb:3.3},
+    {n:'Nannaku Prematho',       y:2016, bo:null, ff:null,  lb:3.4},
+    {n:'Rangasthalam',           y:2018, bo:null, ff:null,  lb:3.9},
+    {n:'Pushpa: The Rise',       y:2021, bo:360,  ff:32,    lb:3.2},
+    {n:'Pushpa 2',               y:2024, bo:1742, ff:63,    lb:2.7},
+  ],
+  'Farah Khan': [
+    {n:'Main Hoon Na',           y:2004, bo:55,   ff:12.63, lb:3.6},
+    {n:'Om Shanti Om',           y:2007, bo:154,  ff:17.97, lb:4.0},
+    {n:'Tees Maar Khan',         y:2010, bo:65,   ff:9.53,  lb:2.6},
+    {n:'Happy New Year',         y:2014, bo:383,  ff:19.73, lb:2.9},
+  ],
+  'Kabir Khan': [
+    {n:'Kabul Express',          y:2006, bo:null, ff:null,  lb:3.3},
+    {n:'New York',               y:2009, bo:60,   ff:6.1,   lb:3.0},
+    {n:'Ek Tha Tiger',           y:2012, bo:334,  ff:24.74, lb:2.9},
+    {n:'Bajrangi Bhaijaan',      y:2015, bo:918,  ff:35.42, lb:3.8},
+    {n:'Tubelight',              y:2017, bo:211,  ff:11.57, lb:2.4},
+    {n:'83',                     y:2021, bo:170,  ff:5.78,  lb:3.4},
+  ],
+  'Rishab Shetty': [
+    {n:'Kirik Party',            y:2016, bo:null, ff:null,  lb:3.1},
+    {n:'Sarkari Hi. Pra. Shaale',y:2018, bo:null, ff:null,  lb:3.6},
+    {n:'Bell Bottom',            y:2019, bo:null, ff:null,  lb:3.4},
+    {n:'Kantara',                y:2022, bo:407,  ff:15,    lb:3.9},
+    {n:'Kantara: Chapter 1',     y:2025, bo:852,  ff:34.2,  lb:3.5},
+  ],
+  'Ali Abbas Zafar': [
+    {n:'Mere Brother Ki Dulhan', y:2011, bo:72,   ff:6.2,   lb:3.0},
+    {n:'Gunday',                 y:2014, bo:130,  ff:8.97,  lb:2.5},
+    {n:'Sultan',                 y:2016, bo:614,  ff:32.09, lb:3.2},
+    {n:'Tiger Zinda Hai',        y:2017, bo:565,  ff:30.89, lb:2.9},
+    {n:'Bharat',                 y:2019, bo:325,  ff:16.07, lb:2.4},
+  ],
+};
+
 var curActressSort = 'year';
+var curDirSort = 'year';
+var curCelebTab = 'actress';
+
+function setCelebTab(tab, btn) {
+  curCelebTab = tab;
+  document.querySelectorAll('[id^="celeb-tab-"]').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  document.getElementById('celeb-panel-actress').style.display  = tab === 'actress'  ? 'block' : 'none';
+  document.getElementById('celeb-panel-director').style.display = tab === 'director' ? 'block' : 'none';
+}
 
 ACTRESS_DATA['Katrina Kaif'] = ACTRESS_DATA_OVERRIDE_KATRINA;
 ACTRESS_DATA['Kareena Kapoor'] = ACTRESS_DATA_OVERRIDE_KAREENA;
@@ -7267,6 +8220,93 @@ var actressSel = document.getElementById('actressSelect');
 Object.keys(ACTRESS_DATA).sort().forEach(function(a){
   var o = document.createElement('option'); o.value = a; o.textContent = a; actressSel.appendChild(o);
 });
+
+// Populate director dropdown
+var dirSel = document.getElementById('directorSelect');
+Object.keys(DIRECTOR_DATA).sort().forEach(function(d){
+  var o = document.createElement('option'); o.value = d; o.textContent = d; dirSel.appendChild(o);
+});
+
+function setDirSort(s, btn) {
+  curDirSort = s;
+  document.querySelectorAll('#celeb-panel-director .sort-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderDirector();
+}
+
+function renderDirector() {
+  var dir = document.getElementById('directorSelect').value;
+  var emptyEl = document.getElementById('director-empty');
+  var statsEl = document.getElementById('director-stats-wrap');
+  var chartEl = document.getElementById('director-chart-wrap');
+  var tableEl = document.getElementById('director-table-wrap');
+  if (!dir) { emptyEl.style.display='block'; statsEl.innerHTML=''; chartEl.innerHTML=''; tableEl.innerHTML=''; return; }
+  emptyEl.style.display = 'none';
+  var fms = DIRECTOR_DATA[dir] || [];
+  if (!fms.length) { emptyEl.style.display='block'; emptyEl.textContent='No data for '+dir; return; }
+
+  var withFF  = fms.filter(function(f){ return f.ff > 0; });
+  var withBO  = fms.filter(function(f){ return f.bo > 0; });
+  var withLB  = fms.filter(function(f){ return f.lb > 0; });
+  var totalFF = withFF.reduce(function(s,f){ return s+f.ff; }, 0);
+  var topFF   = withFF.length ? withFF.reduce(function(a,b){ return b.ff>a.ff?b:a; }) : null;
+  var topBO   = withBO.length ? withBO.reduce(function(a,b){ return b.bo>a.bo?b:a; }) : null;
+  var avgLB   = withLB.length ? (withLB.reduce(function(s,f){ return s+f.lb; },0)/withLB.length).toFixed(2) : null;
+  var hits300 = withBO.filter(function(f){ return f.bo>=300; }).length;
+  var span    = fms.length ? fms[fms.length-1].y - fms[0].y : 0;
+  var avgBO   = withBO.length ? Math.round(withBO.reduce(function(s,f){ return s+f.bo; },0)/withBO.length) : null;
+
+  statsEl.className = 'stat-grid';
+  statsEl.innerHTML = [
+    {l:'Total Films',     v: fms.length,                       s:'in database'},
+    {l:'Career Span',     v: fms[0].y+'–'+fms[fms.length-1].y, s: span+' years'},
+    {l:'Peak Footfalls',  v: topFF ? topFF.ff+'M' : '—',      s: topFF ? topFF.n : 'No data'},
+    {l:'Biggest Grosser', v: topBO ? '₹'+topBO.bo+' Cr' : '—', s: topBO ? topBO.n : 'No data'},
+    {l:'300 Cr+ Films',   v: hits300,                          s:'worldwide'},
+    {l:'Avg Box Office',  v: avgBO ? '₹'+avgBO+' Cr' : '—',   s:'per film (where known)'},
+    {l:'Avg Letterboxd',  v: avgLB ? avgLB+' / 5' : '—',      s: withLB.length+' rated films'},
+  ].map(function(m){
+    return '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(34,197,94,.18)"><div class="stat-lbl">'+m.l+'</div><div class="stat-val" style="color:#22c55e">'+m.v+'</div><div class="stat-sub">'+m.s+'</div></div>';
+  }).join('');
+
+  var chartFms = fms.slice().sort(function(a,b){ return a.y-b.y; }).filter(function(f){ return f.bo>0; });
+  var maxCBO   = Math.max.apply(null, chartFms.map(function(f){ return f.bo; })) || 1;
+  chartEl.innerHTML = '<div class="chart-box" style="border-color:rgba(34,197,94,.15)"><div class="chart-lbl">Career Arc · Worldwide Box Office (₹ Cr)</div><div class="chart-bars">'+
+    chartFms.map(function(f){
+      var h = Math.max(4, Math.round(f.bo/maxCBO*72));
+      return '<div class="chart-bar-wrap"><div class="chart-bar-tip" style="color:#22c55e">₹'+f.bo+'</div><div class="chart-bar" style="height:'+h+'px;background:linear-gradient(to top,#14532d,#22c55e)"></div><div class="chart-bar-yr">'+f.y+'</div></div>';
+    }).join('')+'</div></div>';
+
+  var sorted = fms.slice();
+  if (curDirSort === 'year')        sorted.sort(function(a,b){ return a.y-b.y; });
+  else if (curDirSort === 'boxoffice')  sorted.sort(function(a,b){ return (b.bo||0)-(a.bo||0); });
+  else if (curDirSort === 'footfalls')  sorted.sort(function(a,b){ return (b.ff||0)-(a.ff||0); });
+  else if (curDirSort === 'letterboxd') sorted.sort(function(a,b){ return (b.lb||0)-(a.lb||0); });
+
+  var maxSortVal = 1;
+  if (curDirSort==='boxoffice')  maxSortVal = Math.max.apply(null, sorted.map(function(f){ return f.bo||0; }))||1;
+  if (curDirSort==='footfalls')  maxSortVal = Math.max.apply(null, sorted.map(function(f){ return f.ff||0; }))||1;
+
+  tableEl.innerHTML = '<div class="table-hdr"><div class="table-hdr-cell">Film</div><div class="table-hdr-cell r">Year</div><div class="table-hdr-cell r">Worldwide</div><div class="table-hdr-cell r">Footfalls</div><div class="table-hdr-cell r">Letterboxd</div></div>' +
+    sorted.map(function(f){
+      var barPct = 0;
+      if (curDirSort==='boxoffice' && f.bo) barPct = Math.round(f.bo/maxSortVal*100);
+      if (curDirSort==='footfalls' && f.ff) barPct = Math.round(f.ff/maxSortVal*100);
+      var starsHtml = f.lb
+        ? '<span class="table-stars"><span class="filled">'+'★'.repeat(Math.round(f.lb))+'</span><span class="empty">'+'★'.repeat(5-Math.round(f.lb))+'</span></span><span class="table-lb-num">'+f.lb+'</span>'
+        : '<span class="table-dim">—</span>';
+      var hasPg = !!getFilmPage(f.n);
+      return '<div class="table-row" style="cursor:'+(hasPg?'pointer':'default')+'" onclick="maybeOpenFilm(\''+f.n.replace(/'/g,"\\'")+'\')">'+
+        '<div><div class="table-title">'+f.n+(hasPg?' <span style="font-size:.5rem;color:var(--gold);vertical-align:middle">●</span>':'')+'</div>'+
+        (barPct?'<div class="table-bar"><div class="table-bar-fill" style="width:'+barPct+'%;background:#22c55e66"></div></div>':'')+
+        '</div>'+
+        '<div class="table-cell-r"><span class="table-yr">'+f.y+'</span></div>'+
+        '<div class="table-cell-r">'+(f.bo?'<span class="table-bo">₹'+f.bo+' Cr</span>':'<span class="table-dim">—</span>')+'</div>'+
+        '<div class="table-cell-r">'+(f.ff?'<span class="table-ff">'+f.ff+'M</span>':'<span class="table-dim">—</span>')+'</div>'+
+        '<div class="table-cell-r">'+starsHtml+'</div>'+
+      '</div>';
+    }).join('');
+}
 
 function setActressSort(s, btn) {
   curActressSort = s;
