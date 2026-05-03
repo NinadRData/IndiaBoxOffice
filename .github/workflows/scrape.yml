@@ -21,9 +21,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r scraper/requirements.txt
 
-      - name: Run scraper — Bhoot Bhangla
+           - name: Run scraper — Bhoot Bhangla
         run: python scraper/sacnilk_scraper.py "Bhoot Bhangla" --year 2025 --json
-        continue-on-error: true   # don't fail the whole job if one film errors
+        continue-on-error: true
 
       - name: Run scraper — Dhurandhar 2
         run: python scraper/sacnilk_scraper.py "Dhurandhar 2" --year 2026 --json
