@@ -2,22 +2,27 @@
 sacnilk_scraper.py
 ------------------
 Scrapes daily India nett box office data from sacnilk.com
-for a given film and prints JSON-ready output for the live tracker.
+for a given film and outputs JSON-ready data for the live tracker.
 
 Usage:
     python sacnilk_scraper.py "Bhoot Bhangla"
     python sacnilk_scraper.py "Dhurandhar 2" --year 2026
-    python sacnilk_scraper.py "Bhoot Bhangla" --json   # raw JSON only
+    python sacnilk_scraper.py "Bhoot Bhangla" --json
+    python sacnilk_scraper.py "Bhoot Bhangla" --output scraper/output/
+    python sacnilk_scraper.py --topbar
+    python sacnilk_scraper.py --topbar --output scraper/output/
 
 Dependencies:
     pip install requests beautifulsoup4
 """
 
+import os
 import sys
 import re
 import json
 import argparse
 from datetime import datetime
+from pathlib import Path
 
 try:
     import requests
@@ -27,12 +32,8 @@ except ImportError:
     sys.exit(1)
 
 
-# ── Sacnilk URL patterns to try ──────────────────────────────────────────────
-# Sacnilk uses slugs like:
-#   /BhootBhangla-2025/  or  /Bhoot-Bhangla-2025/
-# We try several variants automatically.
-
 BASE_URL = "https://sacnilk.com"
+TOPBAR_URL = f"{BASE_URL}/entertainmenttopbar/Box_Office_Collection?hl=en"
 
 HEADERS = {
     "User-Agent": (
@@ -47,29 +48,25 @@ HEADERS = {
 
 def make_slugs(title: str, year: int) -> list[str]:
     """Generate candidate URL slugs from a film title + year."""
-    # Remove special chars, title-case each word
     words = re.sub(r"[^a-zA-Z0-9 ]", "", title).split()
-    
-    # Variant 1: no spaces  e.g. BhootBhangla
+
     joined = "".join(w.capitalize() for w in words)
-    # Variant 2: hyphenated  e.g. Bhoot-Bhangla
     hyphen = "-".join(w.capitalize() for w in words)
-    # Variant 3: lowercase hyphen
     hyphen_lower = "-".join(w.lower() for w in words)
 
     yr = str(year)
-    slugs = [
+    return [
         f"{joined}-{yr}",
         f"{hyphen}-{yr}",
         f"{hyphen_lower}-{yr}",
-        f"{joined}",          # without year
+        f"{joined}",
         f"{hyphen}",
     ]
-    return slugs
 
 
-def fetch_page(slug: str) -> requests.Response | None:
+def fetch_page(slug: str, session: requests.Session | None = None) -> requests.Response | None:
     """Try to fetch a sacnilk collection page for the given slug."""
+    get = session.get if session is not None else requests.get
     urls = [
         f"{BASE_URL}/{slug}/",
         f"{BASE_URL}/collection/{slug}/",
@@ -77,7 +74,7 @@ def fetch_page(slug: str) -> requests.Response | None:
     ]
     for url in urls:
         try:
-            r = requests.get(url, headers=HEADERS, timeout=10)
+            r = get(url, headers=HEADERS, timeout=10)
             if r.status_code == 200 and "sacnilk" in r.url:
                 return r
         except requests.RequestException:
@@ -85,18 +82,27 @@ def fetch_page(slug: str) -> requests.Response | None:
     return None
 
 
+def fetch_topbar(session: requests.Session | None = None) -> requests.Response | None:
+    """Fetch the sacnilk box office topbar overview page."""
+    get = session.get if session is not None else requests.get
+    try:
+        r = get(TOPBAR_URL, headers=HEADERS, timeout=10)
+        if r.status_code == 200:
+            return r
+    except requests.RequestException:
+        pass
+    return None
+
+
 def parse_daily_table(soup: BeautifulSoup) -> list[dict]:
     """
     Parse the day-by-day India nett table from sacnilk HTML.
-    Returns a list of dicts with keys: date, day, gross, total, chg_day_pct
+    Returns a list of dicts with keys: date, day, gross, total, chg_day
     """
     rows = []
 
-    # Sacnilk typically has a <table> with rows like:
-    #   Day | Date | India Nett | Total
-    # Column positions can vary — we detect by header text.
     tables = soup.find_all("table")
-    
+
     target_table = None
     for t in tables:
         headers = [th.get_text(strip=True).lower() for th in t.find_all("th")]
@@ -105,12 +111,10 @@ def parse_daily_table(soup: BeautifulSoup) -> list[dict]:
             break
 
     if not target_table:
-        # Fallback: look for div-based layout sacnilk sometimes uses
         return parse_div_layout(soup)
 
     headers = [th.get_text(strip=True).lower() for th in target_table.find_all("th")]
-    
-    # Detect column indices
+
     col_date  = next((i for i, h in enumerate(headers) if "date" in h), None)
     col_day   = next((i for i, h in enumerate(headers) if h in ("day", "weekday")), None)
     col_india = next((i for i, h in enumerate(headers) if "india" in h or "nett" in h or "net" in h), None)
@@ -123,13 +127,13 @@ def parse_daily_table(soup: BeautifulSoup) -> list[dict]:
     running = 0.0
     prev_gross = None
 
-    for tr in target_table.find_all("tr")[1:]:  # skip header row
+    for tr in target_table.find_all("tr")[1:]:
         cells = tr.find_all(["td", "th"])
         if len(cells) < 2:
             continue
 
-        def cell(i):
-            return cells[i].get_text(strip=True) if i is not None and i < len(cells) else ""
+        def cell(i, _cells=cells):
+            return _cells[i].get_text(strip=True) if i is not None and i < len(_cells) else ""
 
         raw_india = cell(col_india)
         gross = parse_crore(raw_india)
@@ -138,8 +142,8 @@ def parse_daily_table(soup: BeautifulSoup) -> list[dict]:
 
         running = round(running + gross, 2)
 
-        date_str = cell(col_date) if col_date is not None else ""
-        day_str  = cell(col_day)  if col_day  is not None else ""
+        date_str  = cell(col_date)  if col_date  is not None else ""
+        day_str   = cell(col_day)   if col_day   is not None else ""
         total_str = cell(col_total) if col_total is not None else ""
         total = parse_crore(total_str) if total_str else running
 
@@ -165,22 +169,19 @@ def parse_div_layout(soup: BeautifulSoup) -> list[dict]:
     Looks for repeated patterns of date + collection figures.
     """
     rows = []
-    # Sacnilk sometimes uses divs with class containing 'day' or 'collection'
     day_blocks = soup.find_all("div", class_=re.compile(r"day|collect|box-office", re.I))
-    
+
     running = 0.0
     prev_gross = None
 
     for block in day_blocks:
         text = block.get_text(" ", strip=True)
-        # Look for a crore figure
         m = re.search(r"(\d+(?:\.\d+)?)\s*(?:Cr|cr|crore)", text, re.I)
         if not m:
             continue
         gross = float(m.group(1))
         running = round(running + gross, 2)
 
-        # Try to extract date
         date_m = re.search(r"(Mon|Tue|Wed|Thu|Fri|Sat|Sun)[a-z]*[\s,]+(\w+\s+\d+)", text, re.I)
         date_str = date_m.group(0) if date_m else ""
         day_str  = date_m.group(1)[:3].capitalize() if date_m else ""
@@ -201,18 +202,54 @@ def parse_div_layout(soup: BeautifulSoup) -> list[dict]:
     return rows
 
 
+def parse_topbar(soup: BeautifulSoup) -> list[dict]:
+    """
+    Parse the sacnilk box office topbar overview.
+    Returns a list of dicts with keys: title, gross, slug_hint.
+    Each entry is a currently-running film with its latest reported collection.
+    """
+    films = []
+
+    for item in soup.find_all(["div", "li", "tr"], class_=re.compile(r"film|movie|item|row", re.I)):
+        text = item.get_text(" ", strip=True)
+
+        gross_m = re.search(r"(\d+(?:\.\d+)?)\s*(?:Cr|cr|crore)", text, re.I)
+        if not gross_m:
+            continue
+
+        gross = float(gross_m.group(1))
+
+        title_tag = item.find(
+            ["a", "h2", "h3", "h4", "strong", "span"],
+            class_=re.compile(r"title|name|film|movie", re.I),
+        )
+        title = (
+            title_tag.get_text(strip=True)
+            if title_tag
+            else text.split(gross_m.group(0))[0].strip()
+        )
+
+        link_tag = item.find("a", href=True)
+        slug_hint = ""
+        if link_tag:
+            href = link_tag["href"]
+            slug_hint = href.strip("/").split("/")[-1]
+
+        if title:
+            films.append({"title": title, "gross": gross, "slug_hint": slug_hint})
+
+    return films
+
+
 def parse_crore(text: str) -> float | None:
     """Extract a numeric crore value from a string like '3.75 Cr' or '₹3,75,000'."""
     if not text:
         return None
-    # Remove currency symbols and commas
     cleaned = re.sub(r"[₹,\s]", "", text)
-    # Match decimal number optionally followed by Cr/crore
     m = re.search(r"(\d+(?:\.\d+)?)", cleaned)
     if not m:
         return None
     val = float(m.group(1))
-    # If the value looks like full rupees (> 10000), convert to crore
     if val > 10000:
         val = round(val / 1e7, 2)
     return val
@@ -222,7 +259,7 @@ def format_for_tracker(rows: list[dict], title: str) -> str:
     """Format scraped rows as JS daily array entries for copy-paste into the tracker."""
     lines = [f"  // ── {title} · scraped {datetime.now().strftime('%Y-%m-%d %H:%M')} ──"]
     for r in rows:
-        chg_day  = f"{r['chg_day']:+.1f}"  if r["chg_day"]  is not None else "null"
+        chg_day = f"{r['chg_day']:+.1f}" if r["chg_day"] is not None else "null"
         lines.append(
             f"  {{date:'{r['date']}', day:'{r['day']}', "
             f"gross:{r['gross']}, chgDay:{chg_day}, chgWeek:null, total:{r['total']}}},"
@@ -249,29 +286,85 @@ def summarise(rows: list[dict], title: str):
     print(f"{'─'*55}\n")
 
 
+def write_output(rows: list[dict], slug: str, output_dir: str) -> str:
+    """Write rows as JSON to output_dir/{slug}.json. Returns the written path."""
+    out_path = Path(output_dir) / f"{slug}.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(rows, f, indent=2)
+    return str(out_path)
+
+
+def scrape_film(title: str, year: int, session: requests.Session | None = None) -> tuple[list[dict], str | None]:
+    """
+    Scrape a single film. Returns (rows, used_slug) or ([], None) on failure.
+    Extracted from main() to allow programmatic use and unit testing.
+    """
+    slugs = make_slugs(title, year)
+    for slug in slugs:
+        response = fetch_page(slug, session=session)
+        if response:
+            soup = BeautifulSoup(response.text, "html.parser")
+            rows = parse_daily_table(soup)
+            if rows:
+                return rows, slug
+    return [], None
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def main():
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Scrape sacnilk box office data")
-    parser.add_argument("title", help="Film title e.g. 'Bhoot Bhangla'")
+    parser.add_argument("title", nargs="?", help="Film title e.g. 'Bhoot Bhangla'")
     parser.add_argument("--year", type=int, default=datetime.now().year,
                         help="Release year (default: current year)")
-    parser.add_argument("--json", action="store_true",
-                        help="Output raw JSON only")
-    parser.add_argument("--js",   action="store_true",
-                        help="Output JS array snippet for copy-paste into tracker")
-    args = parser.parse_args()
+    parser.add_argument("--json", action="store_true", help="Output raw JSON only")
+    parser.add_argument("--js",   action="store_true", help="Output JS array snippet")
+    parser.add_argument("--topbar", action="store_true",
+                        help="Fetch and display the box office overview topbar")
+    parser.add_argument("--output", metavar="DIR",
+                        default=os.environ.get("SCRAPER_OUTPUT_DIR"),
+                        help="Directory to write {slug}.json output files")
+    args = parser.parse_args(argv)
+
+    if args.topbar:
+        print("🔍 Fetching sacnilk box office topbar …")
+        resp = fetch_topbar()
+        if not resp:
+            print("❌  Could not fetch topbar.")
+            return 1
+        soup = BeautifulSoup(resp.text, "html.parser")
+        films = parse_topbar(soup)
+        if not films:
+            print("⚠  Topbar fetched but no film data could be parsed.")
+            return 1
+        if args.output:
+            out_path = write_output(films, "topbar", args.output)
+            print(f"✅  Topbar data written to {out_path}")
+        if args.json:
+            print(json.dumps(films, indent=2))
+        else:
+            print(f"\n{'─'*55}")
+            print(f"  Current Box Office ({len(films)} films)")
+            print(f"{'─'*55}")
+            for f in films:
+                print(f"  {f['title']:<35} ₹{f['gross']} Cr")
+            print(f"{'─'*55}\n")
+        return 0
+
+    if not args.title:
+        parser.error("title is required unless --topbar is used")
 
     title = args.title
     year  = args.year
     slugs = make_slugs(title, year)
 
     print(f"🔍 Searching sacnilk for: {title} ({year})")
-    
+
     response = None
     used_slug = None
     for slug in slugs:
-        print(f"   Trying /{slug}/ ...", end=" ", flush=True)
+        print(f"   Trying /{slug}/ …", end=" ", flush=True)
         response = fetch_page(slug)
         if response:
             print("✓")
@@ -282,11 +375,10 @@ def main():
     if not response:
         print(f"\n❌  Could not find '{title}' on sacnilk.")
         print("    Try adjusting the title or check the URL manually at sacnilk.com")
-        sys.exit(1)
+        return 1
 
     print(f"\n✅  Found page: {response.url}")
     soup = BeautifulSoup(response.text, "html.parser")
-
     rows = parse_daily_table(soup)
 
     if not rows:
@@ -294,21 +386,25 @@ def main():
         print("   Sacnilk may have changed their layout. Saving raw HTML to sacnilk_debug.html")
         with open("sacnilk_debug.html", "w", encoding="utf-8") as f:
             f.write(response.text)
-        sys.exit(1)
+        return 1
+
+    if args.output:
+        out_path = write_output(rows, used_slug, args.output)
+        print(f"💾  Data written to {out_path}")
 
     if args.json:
         print(json.dumps(rows, indent=2))
-        return
+        return 0
 
     if args.js:
         print(format_for_tracker(rows, title))
-        return
+        return 0
 
-    # Default: summary + JS snippet
     summarise(rows, title)
     print("── JS snippet (paste into daily array) ──\n")
     print(format_for_tracker(rows, title))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
