@@ -1,8 +1,18 @@
 """
 sacnilk_scraper.py
 ------------------
-Scrapes daily India nett box office data from sacnilk.com
-for a given film and outputs JSON-ready data for the live tracker.
+Scrapes daily India nett box office data from sacnilk.com.
+
+Sacnilk migrated its URL scheme in 2025:
+  Old (410 Gone):  /BhootBhangla-2025/
+  New (200 OK):    /movie/Bhoot_Bhangla_2025
+
+Daily collection data is no longer in an HTML table; it lives in two places:
+  1. Inline JS chart arrays: const netData = [...]; const labels = [...]
+  2. #collection-cards-2 div: <a class="collection-card" data-day="N">
+
+Both sources are tried in order.  The old table/div parsers are kept as a
+last-resort fallback for any archived pages still served.
 
 Usage:
     python sacnilk_scraper.py "Bhoot Bhangla"
@@ -16,10 +26,10 @@ Dependencies:
     pip install requests beautifulsoup4
 """
 
-import os
-import sys
-import re
 import json
+import os
+import re
+import sys
 import argparse
 from datetime import datetime
 from pathlib import Path
@@ -46,31 +56,60 @@ HEADERS = {
 }
 
 
+# ── URL / slug generation ─────────────────────────────────────────────────────
+
+def make_movie_slug(title: str, year: int) -> str:
+    """
+    Build the primary sacnilk /movie/{slug} identifier.
+    Sacnilk uses Title_Case_With_Underscores appended with _Year.
+    e.g.  "Bhoot Bhangla" 2025  →  Bhoot_Bhangla_2025
+    """
+    words = re.sub(r"[^a-zA-Z0-9 ]", "", title).split()
+    return "_".join(w.capitalize() for w in words) + f"_{year}"
+
+
 def make_slugs(title: str, year: int) -> list[str]:
-    """Generate candidate URL slugs from a film title + year."""
+    """
+    Generate all candidate URL slugs from a film title + year.
+    Ordered from most-likely to least-likely based on observed sacnilk patterns.
+    """
     words = re.sub(r"[^a-zA-Z0-9 ]", "", title).split()
 
+    # New format (primary): Title_Case_Underscores_Year
+    underscore_title = "_".join(w.capitalize() for w in words)
+    underscore_lower = "_".join(w.lower() for w in words)
+
+    # Legacy formats (may still work for older archived pages)
     joined = "".join(w.capitalize() for w in words)
     hyphen = "-".join(w.capitalize() for w in words)
     hyphen_lower = "-".join(w.lower() for w in words)
 
     yr = str(year)
     return [
-        f"{joined}-{yr}",
-        f"{hyphen}-{yr}",
-        f"{hyphen_lower}-{yr}",
-        f"{joined}",
-        f"{hyphen}",
+        f"{underscore_title}_{yr}",       # Bhoot_Bhangla_2025   ← new primary
+        f"{underscore_lower}_{yr}",        # bhoot_bhangla_2025   ← new lowercase
+        f"{joined}-{yr}",                  # BhootBhangla-2025    ← old primary
+        f"{hyphen}-{yr}",                  # Bhoot-Bhangla-2025   ← old hyphen
+        f"{hyphen_lower}-{yr}",            # bhoot-bhangla-2025   ← old lc hyphen
+        f"{underscore_title}",             # Bhoot_Bhangla        ← no year
+        f"{joined}",                       # BhootBhangla
+        f"{hyphen}",                       # Bhoot-Bhangla
     ]
 
 
+# ── HTTP fetching ─────────────────────────────────────────────────────────────
+
 def fetch_page(slug: str, session: requests.Session | None = None) -> requests.Response | None:
-    """Try to fetch a sacnilk collection page for the given slug."""
+    """
+    Try to fetch a sacnilk film page for the given slug.
+    Tries the new /movie/ path first, then legacy paths.
+    """
     get = session.get if session is not None else requests.get
     urls = [
-        f"{BASE_URL}/{slug}/",
-        f"{BASE_URL}/collection/{slug}/",
-        f"{BASE_URL}/box-office/{slug}/",
+        f"{BASE_URL}/movie/{slug}",           # new format (primary)
+        f"{BASE_URL}/{slug}/",                 # legacy
+        f"{BASE_URL}/collection/{slug}/",      # legacy
+        f"{BASE_URL}/box-office/{slug}/",      # legacy
     ]
     for url in urls:
         try:
@@ -94,27 +133,169 @@ def fetch_topbar(session: requests.Session | None = None) -> requests.Response |
     return None
 
 
+# ── Parsing: daily collection data ───────────────────────────────────────────
+
+def parse_chart_data(soup: BeautifulSoup) -> list[dict]:
+    """
+    Extract day-by-day collection from the inline Chart.js data arrays:
+      const labels   = ["Day 1", "Day 2", ...];
+      const netData  = [2.9, 3.5, ...];
+      const grossData = [3.393, 4.1, ...];
+
+    This is the primary parser for the current sacnilk layout (2025+).
+    """
+    labels_data: list[str] = []
+    net_data: list[float] = []
+    gross_data: list[float] = []
+
+    for script in soup.find_all("script"):
+        text = script.string or ""
+        if "netData" not in text:
+            continue
+
+        m_labels = re.search(r"const\s+labels\s*=\s*(\[.*?\]);", text, re.DOTALL)
+        m_net    = re.search(r"const\s+netData\s*=\s*(\[.*?\]);",  text, re.DOTALL)
+        m_gross  = re.search(r"const\s+grossData\s*=\s*(\[.*?\]);", text, re.DOTALL)
+
+        if m_net:
+            try:
+                net_data = json.loads(m_net.group(1))
+            except (json.JSONDecodeError, ValueError):
+                continue
+        if m_labels:
+            try:
+                labels_data = json.loads(m_labels.group(1))
+            except (json.JSONDecodeError, ValueError):
+                pass
+        if m_gross:
+            try:
+                gross_data = json.loads(m_gross.group(1))
+            except (json.JSONDecodeError, ValueError):
+                pass
+
+        if net_data:
+            break  # found the chart script — stop scanning
+
+    if not net_data:
+        return []
+
+    rows = []
+    running = 0.0
+    prev_gross = None
+
+    for i, gross in enumerate(net_data):
+        running = round(running + gross, 2)
+
+        label = labels_data[i] if i < len(labels_data) else f"Day {i + 1}"
+        total = running  # gross_data total would differ; use running net for consistency
+
+        chg_day = None
+        if prev_gross is not None and prev_gross > 0:
+            chg_day = round((gross / prev_gross - 1) * 100, 1)
+
+        rows.append({
+            "date":    label,
+            "day":     label,
+            "gross":   round(float(gross), 2),
+            "total":   total,
+            "chg_day": chg_day,
+        })
+        prev_gross = gross
+
+    return rows
+
+
+def parse_collection_cards(soup: BeautifulSoup) -> list[dict]:
+    """
+    Extract day-by-day collection from the #collection-cards-2 div.
+    Each card is an <a class="collection-card" data-day="N"> element
+    containing a text node like "₹ 2.9Cr".
+
+    Used as a secondary parser when chart data is unavailable.
+    """
+    container = soup.find(id="collection-cards-2")
+    if not container:
+        return []
+
+    cards = container.find_all("a", class_="collection-card")
+    if not cards:
+        return []
+
+    rows = []
+    running = 0.0
+    prev_gross = None
+
+    for card in cards:
+        day_num = card.get("data-day", "")
+        label = f"Day {day_num}" if day_num else ""
+        text = card.get_text(" ", strip=True)
+
+        # Anchor on ₹ to avoid day-label digits ("Day 1") concatenating with
+        # the collection figure when whitespace is stripped.
+        m = re.search(r"₹\s*(\d+(?:\.\d+)?)\s*(?:Cr|crore)", text, re.I)
+        if not m:
+            continue
+        gross = float(m.group(1))
+
+        running = round(running + gross, 2)
+
+        chg_day = None
+        if prev_gross is not None and prev_gross > 0:
+            chg_day = round((gross / prev_gross - 1) * 100, 1)
+
+        rows.append({
+            "date":    label,
+            "day":     label,
+            "gross":   gross,
+            "total":   running,
+            "chg_day": chg_day,
+        })
+        prev_gross = gross
+
+    return rows
+
+
 def parse_daily_table(soup: BeautifulSoup) -> list[dict]:
     """
-    Parse the day-by-day India nett table from sacnilk HTML.
-    Returns a list of dicts with keys: date, day, gross, total, chg_day
+    Parse day-by-day India nett data. Tries sources in priority order:
+      1. Inline JS chart arrays (current sacnilk layout)
+      2. #collection-cards-2 div (secondary sacnilk layout)
+      3. HTML <table> with India/Nett header (legacy layout)
+      4. div-based layout (legacy fallback)
     """
+    # 1. Chart JS arrays (primary — new layout)
+    rows = parse_chart_data(soup)
+    if rows:
+        return rows
+
+    # 2. Collection-cards div (secondary — new layout)
+    rows = parse_collection_cards(soup)
+    if rows:
+        return rows
+
+    # 3. HTML table (legacy)
+    rows = _parse_html_table(soup)
+    if rows:
+        return rows
+
+    # 4. Div fallback (legacy)
+    return parse_div_layout(soup)
+
+
+def _parse_html_table(soup: BeautifulSoup) -> list[dict]:
+    """Parse the India Nett HTML table (legacy sacnilk layout, pre-2025)."""
     rows = []
-
-    tables = soup.find_all("table")
-
     target_table = None
-    for t in tables:
+    for t in soup.find_all("table"):
         headers = [th.get_text(strip=True).lower() for th in t.find_all("th")]
         if any("india" in h or "nett" in h or "net" in h for h in headers):
             target_table = t
             break
 
     if not target_table:
-        return parse_div_layout(soup)
+        return []
 
     headers = [th.get_text(strip=True).lower() for th in target_table.find_all("th")]
-
     col_date  = next((i for i, h in enumerate(headers) if "date" in h), None)
     col_day   = next((i for i, h in enumerate(headers) if h in ("day", "weekday")), None)
     col_india = next((i for i, h in enumerate(headers) if "india" in h or "nett" in h or "net" in h), None)
@@ -135,15 +316,11 @@ def parse_daily_table(soup: BeautifulSoup) -> list[dict]:
         def cell(i, _cells=cells):
             return _cells[i].get_text(strip=True) if i is not None and i < len(_cells) else ""
 
-        raw_india = cell(col_india)
-        gross = parse_crore(raw_india)
+        gross = parse_crore(cell(col_india))
         if gross is None:
             continue
 
         running = round(running + gross, 2)
-
-        date_str  = cell(col_date)  if col_date  is not None else ""
-        day_str   = cell(col_day)   if col_day   is not None else ""
         total_str = cell(col_total) if col_total is not None else ""
         total = parse_crore(total_str) if total_str else running
 
@@ -152,8 +329,8 @@ def parse_daily_table(soup: BeautifulSoup) -> list[dict]:
             chg_day = round((gross / prev_gross - 1) * 100, 1)
 
         rows.append({
-            "date":    date_str,
-            "day":     day_str,
+            "date":    cell(col_date) if col_date is not None else "",
+            "day":     cell(col_day)  if col_day  is not None else "",
             "gross":   gross,
             "total":   total if total else running,
             "chg_day": chg_day,
@@ -164,10 +341,7 @@ def parse_daily_table(soup: BeautifulSoup) -> list[dict]:
 
 
 def parse_div_layout(soup: BeautifulSoup) -> list[dict]:
-    """
-    Fallback parser for sacnilk's card/div based layouts.
-    Looks for repeated patterns of date + collection figures.
-    """
+    """Legacy fallback: card/div layout with class containing 'day' or 'collect'."""
     rows = []
     day_blocks = soup.find_all("div", class_=re.compile(r"day|collect|box-office", re.I))
 
@@ -202,38 +376,47 @@ def parse_div_layout(soup: BeautifulSoup) -> list[dict]:
     return rows
 
 
+# ── Parsing: topbar overview ──────────────────────────────────────────────────
+
 def parse_topbar(soup: BeautifulSoup) -> list[dict]:
     """
     Parse the sacnilk box office topbar overview.
-    Returns a list of dicts with keys: title, gross, slug_hint.
-    Each entry is a currently-running film with its latest reported collection.
+    HTML structure (2025+ layout):
+      <div class="movie-card ...">
+        <div class="font-bold">Film Title</div>       ← title (desktop)
+        <div class="text-center font-bold text-green-600">₹2.90Cr</div>  ← Net
+        <a href="/movie/Film_Title_Year">              ← slug hint
+      </div>
+
+    Returns list of {title, gross, slug_hint}.
     """
     films = []
 
-    for item in soup.find_all(["div", "li", "tr"], class_=re.compile(r"film|movie|item|row", re.I)):
-        text = item.get_text(" ", strip=True)
+    for card in soup.find_all("div", class_=re.compile(r"\bmovie-card\b")):
+        # Title: prefer the desktop <div class="font-bold"> or <h3>
+        title_el = card.find(["h3", "h2"], class_=re.compile(r"font-bold", re.I))
+        if not title_el:
+            title_el = card.find("div", class_=re.compile(r"^font-bold$", re.I))
+        if not title_el:
+            # Fallback: any element with film-title-like class
+            title_el = card.find(
+                ["a", "h2", "h3", "h4", "strong", "span"],
+                class_=re.compile(r"title|name|film|movie", re.I),
+            )
+        title = title_el.get_text(strip=True) if title_el else ""
 
-        gross_m = re.search(r"(\d+(?:\.\d+)?)\s*(?:Cr|cr|crore)", text, re.I)
-        if not gross_m:
+        # Net collection: first green-600 bold div
+        net_el = card.find("div", class_=re.compile(r"text-green-600", re.I))
+        gross_text = net_el.get_text(strip=True) if net_el else ""
+        gross = parse_crore(gross_text)
+        if gross is None:
             continue
 
-        gross = float(gross_m.group(1))
-
-        title_tag = item.find(
-            ["a", "h2", "h3", "h4", "strong", "span"],
-            class_=re.compile(r"title|name|film|movie", re.I),
-        )
-        title = (
-            title_tag.get_text(strip=True)
-            if title_tag
-            else text.split(gross_m.group(0))[0].strip()
-        )
-
-        link_tag = item.find("a", href=True)
+        # Slug hint from link
+        link_tag = card.find("a", href=re.compile(r"^/movie/"))
         slug_hint = ""
         if link_tag:
-            href = link_tag["href"]
-            slug_hint = href.strip("/").split("/")[-1]
+            slug_hint = link_tag["href"].lstrip("/movie/").split("/")[0]
 
         if title:
             films.append({"title": title, "gross": gross, "slug_hint": slug_hint})
@@ -241,11 +424,18 @@ def parse_topbar(soup: BeautifulSoup) -> list[dict]:
     return films
 
 
+# ── Numeric helpers ───────────────────────────────────────────────────────────
+
 def parse_crore(text: str) -> float | None:
-    """Extract a numeric crore value from a string like '3.75 Cr' or '₹3,75,000'."""
+    """
+    Extract a numeric crore value from strings in various formats:
+      "3.75 Cr"  "₹3.75Cr"  "₹ 2.9Cr"  "₹3,75,00,000"  "18.5"
+    """
     if not text:
         return None
     cleaned = re.sub(r"[₹,\s]", "", text)
+    # Strip trailing 'Cr' or 'crore' before numeric search
+    cleaned = re.sub(r"(?i)(crore|cr)$", "", cleaned)
     m = re.search(r"(\d+(?:\.\d+)?)", cleaned)
     if not m:
         return None
@@ -254,6 +444,8 @@ def parse_crore(text: str) -> float | None:
         val = round(val / 1e7, 2)
     return val
 
+
+# ── Output helpers ────────────────────────────────────────────────────────────
 
 def format_for_tracker(rows: list[dict], title: str) -> str:
     """Format scraped rows as JS daily array entries for copy-paste into the tracker."""
@@ -364,7 +556,7 @@ def main(argv: list[str] | None = None) -> int:
     response = None
     used_slug = None
     for slug in slugs:
-        print(f"   Trying /{slug}/ …", end=" ", flush=True)
+        print(f"   Trying slug={slug!r} …", end=" ", flush=True)
         response = fetch_page(slug)
         if response:
             print("✓")
