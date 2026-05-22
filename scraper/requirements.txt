@@ -1,2 +1,7 @@
 requests
 beautifulsoup4
+
+# testing
+pytest>=8.0
+pytest-cov>=5.0
+responses>=0.25

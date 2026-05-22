@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Bhoot Bhangla Box Office Collection - Sacnilk</title></head>
+<body>
+<h1>Bhoot Bhangla Box Office Collection</h1>
+
+<!-- Summary figures (not the daily table) -->
+<div id="collection-summary">
+  <span class="font-bold text-blue-600">₹78.10 Cr</span>
+  <span class="font-bold text-green-600">₹92.57 Cr</span>
+</div>
+
+<!-- Daily collection cards (secondary source) -->
+<div class="grid" id="collection-cards-2">
+  <a class="collection-card bg-white" data-day="1" href="/quicknews/Bhoot_Bhangla_2025_Box_Office_Collection_Day_1">
+    <div class="text-center">
+      <div class="text-sm font-medium text-gray-600 mb-1">Day 1</div>
+      <div class="text-xl font-bold text-red-600 mb-1">₹ 15.2Cr</div>
+    </div>
+  </a>
+  <a class="collection-card bg-white" data-day="2" href="/quicknews/Bhoot_Bhangla_2025_Box_Office_Collection_Day_2">
+    <div class="text-center">
+      <div class="text-sm font-medium text-gray-600 mb-1">Day 2</div>
+      <div class="text-xl font-bold text-red-600 mb-1">₹ 12.5Cr</div>
+    </div>
+  </a>
+  <a class="collection-card bg-white" data-day="3" href="/quicknews/Bhoot_Bhangla_2025_Box_Office_Collection_Day_3">
+    <div class="text-center">
+      <div class="text-sm font-medium text-gray-600 mb-1">Day 3</div>
+      <div class="text-xl font-bold text-orange-600 mb-1">₹ 10.0Cr</div>
+    </div>
+  </a>
+  <a class="collection-card bg-white" data-day="4" href="/quicknews/Bhoot_Bhangla_2025_Box_Office_Collection_Day_4">
+    <div class="text-center">
+      <div class="text-sm font-medium text-gray-600 mb-1">Day 4</div>
+      <div class="text-xl font-bold text-green-600 mb-1">₹ 18.3Cr</div>
+    </div>
+  </a>
+  <a class="collection-card bg-white" data-day="5" href="/quicknews/Bhoot_Bhangla_2025_Box_Office_Collection_Day_5">
+    <div class="text-center">
+      <div class="text-sm font-medium text-gray-600 mb-1">Day 5</div>
+      <div class="text-xl font-bold text-green-600 mb-1">₹ 22.1Cr</div>
+    </div>
+  </a>
+</div>
+
+<!-- Chart.js data (primary source — what the scraper should parse first) -->
+<script>
+(function() {
+  function initDaywiseNetChart() {
+    const ctxEl = document.getElementById('daywiseNetChart');
+    if (!ctxEl) return;
+    const ctx = ctxEl.getContext('2d');
+
+    const labels   = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"];
+    const netData  = [15.2, 12.5, 10.0, 18.3, 22.1];
+    const grossData = [17.98, 14.78, 11.82, 21.63, 26.13];
+
+    new Chart(ctx, { type: 'line', data: { labels: labels, datasets: [{ data: netData }] } });
+  }
+  document.addEventListener('DOMContentLoaded', initDaywiseNetChart);
+})();
+</script>
+</body>
+</html>
