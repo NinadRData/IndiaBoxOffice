@@ -147,32 +147,32 @@ class TestParseDivLayout:
 # ── parse_topbar ──────────────────────────────────────────────────────────────
 
 class TestParseTopbar:
-    def test_extracts_three_films(self, sample_topbar_html):
-        soup = BeautifulSoup(sample_topbar_html, "html.parser")
+    def test_extracts_three_films(self, topbar_real_html):
+        soup = BeautifulSoup(topbar_real_html, "html.parser")
         films = parse_topbar(soup)
         assert len(films) == 3
 
-    def test_film_keys(self, sample_topbar_html):
-        soup = BeautifulSoup(sample_topbar_html, "html.parser")
+    def test_film_keys(self, topbar_real_html):
+        soup = BeautifulSoup(topbar_real_html, "html.parser")
         films = parse_topbar(soup)
         for f in films:
             assert "title" in f
             assert "gross" in f
             assert "slug_hint" in f
 
-    def test_gross_values(self, sample_topbar_html):
-        soup = BeautifulSoup(sample_topbar_html, "html.parser")
+    def test_gross_values(self, topbar_real_html):
+        soup = BeautifulSoup(topbar_real_html, "html.parser")
         films = parse_topbar(soup)
-        grosses = {f["gross"] for f in films}
-        assert 22.10 in grosses
-        assert 18.50 in grosses
-        assert 9.75 in grosses
+        grosses = [f["gross"] for f in films]
+        assert any(abs(g - 22.10) < 0.01 for g in grosses)
+        assert any(abs(g - 18.50) < 0.01 for g in grosses)
+        assert any(abs(g - 2.90) < 0.01 for g in grosses)
 
-    def test_slug_hints_extracted(self, sample_topbar_html):
-        soup = BeautifulSoup(sample_topbar_html, "html.parser")
+    def test_slug_hints_extracted(self, topbar_real_html):
+        soup = BeautifulSoup(topbar_real_html, "html.parser")
         films = parse_topbar(soup)
         hints = {f["slug_hint"] for f in films}
-        assert "BhootBhangla-2025" in hints
+        assert "Bhoot_Bhangla_2025" in hints
 
     def test_empty_page_returns_empty(self, no_data_html):
         soup = BeautifulSoup(no_data_html, "html.parser")

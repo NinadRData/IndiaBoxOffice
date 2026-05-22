@@ -93,11 +93,11 @@ def test_main_exits_nonzero_when_film_not_found():
 
 
 @responses_lib.activate
-def test_main_topbar_mode_prints_films(sample_topbar_html, capsys):
+def test_main_topbar_mode_prints_films(topbar_real_html, capsys):
     responses_lib.add(
         responses_lib.GET,
         TOPBAR_URL,
-        body=sample_topbar_html,
+        body=topbar_real_html,
         status=200,
     )
     rc = main(["--topbar"])
@@ -108,11 +108,11 @@ def test_main_topbar_mode_prints_films(sample_topbar_html, capsys):
 
 
 @responses_lib.activate
-def test_main_topbar_json_mode(sample_topbar_html, capsys):
+def test_main_topbar_json_mode(topbar_real_html, capsys):
     responses_lib.add(
         responses_lib.GET,
         TOPBAR_URL,
-        body=sample_topbar_html,
+        body=topbar_real_html,
         status=200,
     )
     rc = main(["--topbar", "--json"])
@@ -126,11 +126,11 @@ def test_main_topbar_json_mode(sample_topbar_html, capsys):
 
 
 @responses_lib.activate
-def test_main_topbar_writes_output_file(sample_topbar_html, tmp_path):
+def test_main_topbar_writes_output_file(topbar_real_html, tmp_path):
     responses_lib.add(
         responses_lib.GET,
         TOPBAR_URL,
-        body=sample_topbar_html,
+        body=topbar_real_html,
         status=200,
     )
     rc = main(["--topbar", "--output", str(tmp_path)])
