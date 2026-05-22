@@ -36,7 +36,9 @@ from pathlib import Path
 
 try:
     import requests
+    import urllib3
     from bs4 import BeautifulSoup
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 except ImportError:
     print("Missing dependencies. Run:  pip install requests beautifulsoup4")
     sys.exit(1)
@@ -113,7 +115,8 @@ def fetch_page(slug: str, session: requests.Session | None = None) -> requests.R
     ]
     for url in urls:
         try:
-            r = get(url, headers=HEADERS, timeout=10)
+            # verify=False: sacnilk.com uses a cert not in standard CA bundles
+            r = get(url, headers=HEADERS, timeout=10, verify=False)
             if r.status_code == 200 and "sacnilk" in r.url:
                 return r
         except requests.RequestException:
@@ -125,7 +128,7 @@ def fetch_topbar(session: requests.Session | None = None) -> requests.Response |
     """Fetch the sacnilk box office topbar overview page."""
     get = session.get if session is not None else requests.get
     try:
-        r = get(TOPBAR_URL, headers=HEADERS, timeout=10)
+        r = get(TOPBAR_URL, headers=HEADERS, timeout=10, verify=False)
         if r.status_code == 200:
             return r
     except requests.RequestException:
@@ -449,7 +452,7 @@ def parse_crore(text: str) -> float | None:
 
 def format_for_tracker(rows: list[dict], title: str) -> str:
     """Format scraped rows as JS daily array entries for copy-paste into the tracker."""
-    lines = [f"  // ── {title} · scraped {datetime.now().strftime('%Y-%m-%d %H:%M')} ──"]
+    lines = [f"  // -- {title} | scraped {datetime.now().strftime('%Y-%m-%d %H:%M')} --"]
     for r in rows:
         chg_day = f"{r['chg_day']:+.1f}" if r["chg_day"] is not None else "null"
         lines.append(
@@ -466,16 +469,16 @@ def summarise(rows: list[dict], title: str):
         return
     total = rows[-1]["total"]
     latest = rows[-1]
-    print(f"\n{'─'*55}")
+    print(f"\n{'-'*55}")
     print(f"  {title}")
-    print(f"{'─'*55}")
+    print(f"{'-'*55}")
     print(f"  Days tracked   : {len(rows)}")
-    print(f"  Running total  : ₹{total} Cr")
-    print(f"  Latest day     : {latest['date']} ({latest['day']}) — ₹{latest['gross']} Cr")
+    print(f"  Running total  : Rs.{total} Cr")
+    print(f"  Latest day     : {latest['date']} ({latest['day']}) - Rs.{latest['gross']} Cr")
     if latest["chg_day"] is not None:
-        arrow = "▲" if latest["chg_day"] >= 0 else "▼"
-        print(f"  Day-on-day     : {arrow} {latest['chg_day']:+.1f}%")
-    print(f"{'─'*55}\n")
+        arrow = "+" if latest["chg_day"] >= 0 else "-"
+        print(f"  Day-on-day     : {arrow} {abs(latest['chg_day']):.1f}%")
+    print(f"{'-'*55}\n")
 
 
 def write_output(rows: list[dict], slug: str, output_dir: str) -> str:
@@ -520,28 +523,28 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.topbar:
-        print("🔍 Fetching sacnilk box office topbar …")
+        print("Fetching sacnilk box office topbar ...")
         resp = fetch_topbar()
         if not resp:
-            print("❌  Could not fetch topbar.")
+            print("Could not fetch topbar.")
             return 1
         soup = BeautifulSoup(resp.text, "html.parser")
         films = parse_topbar(soup)
         if not films:
-            print("⚠  Topbar fetched but no film data could be parsed.")
+            print("Topbar fetched but no film data could be parsed.")
             return 1
         if args.output:
             out_path = write_output(films, "topbar", args.output)
-            print(f"✅  Topbar data written to {out_path}")
+            print(f"Topbar data written to {out_path}")
         if args.json:
             print(json.dumps(films, indent=2))
         else:
-            print(f"\n{'─'*55}")
+            print(f"\n{'-'*55}")
             print(f"  Current Box Office ({len(films)} films)")
-            print(f"{'─'*55}")
+            print(f"{'-'*55}")
             for f in films:
-                print(f"  {f['title']:<35} ₹{f['gross']} Cr")
-            print(f"{'─'*55}\n")
+                print(f"  {f['title']:<35} Rs.{f['gross']} Cr")
+            print(f"{'-'*55}\n")
         return 0
 
     if not args.title:
@@ -551,38 +554,38 @@ def main(argv: list[str] | None = None) -> int:
     year  = args.year
     slugs = make_slugs(title, year)
 
-    print(f"🔍 Searching sacnilk for: {title} ({year})")
+    print(f"Searching sacnilk for: {title} ({year})")
 
     response = None
     used_slug = None
     for slug in slugs:
-        print(f"   Trying slug={slug!r} …", end=" ", flush=True)
+        print(f"  Trying slug={slug!r} ...", end=" ", flush=True)
         response = fetch_page(slug)
         if response:
-            print("✓")
+            print("ok")
             used_slug = slug
             break
-        print("✗")
+        print("not found")
 
     if not response:
-        print(f"\n❌  Could not find '{title}' on sacnilk.")
-        print("    Try adjusting the title or check the URL manually at sacnilk.com")
+        print(f"\nCould not find '{title}' on sacnilk.")
+        print("Try adjusting the title or check the URL manually at sacnilk.com")
         return 1
 
-    print(f"\n✅  Found page: {response.url}")
+    print(f"\nFound page: {response.url}")
     soup = BeautifulSoup(response.text, "html.parser")
     rows = parse_daily_table(soup)
 
     if not rows:
-        print("⚠  Page found but no collection data could be parsed.")
-        print("   Sacnilk may have changed their layout. Saving raw HTML to sacnilk_debug.html")
+        print("Page found but no collection data could be parsed.")
+        print("Sacnilk may have changed their layout. Saving raw HTML to sacnilk_debug.html")
         with open("sacnilk_debug.html", "w", encoding="utf-8") as f:
             f.write(response.text)
         return 1
 
     if args.output:
         out_path = write_output(rows, used_slug, args.output)
-        print(f"💾  Data written to {out_path}")
+        print(f"Data written to {out_path}")
 
     if args.json:
         print(json.dumps(rows, indent=2))
@@ -593,7 +596,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     summarise(rows, title)
-    print("── JS snippet (paste into daily array) ──\n")
+    print("-- JS snippet (paste into daily array) --\n")
     print(format_for_tracker(rows, title))
     return 0
 

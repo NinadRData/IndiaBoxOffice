@@ -102,7 +102,8 @@ class TestSummarise:
         captured = capsys.readouterr()
         assert "37.7" in captured.out
 
-    def test_prints_down_arrow_on_drop(self, capsys):
+    def test_prints_direction_on_drop(self, capsys):
         summarise(SAMPLE_ROWS, "Bhoot Bhangla")
         captured = capsys.readouterr()
-        assert "▼" in captured.out
+        assert "20.0%" in captured.out
+        assert "Day-on-day" in captured.out
