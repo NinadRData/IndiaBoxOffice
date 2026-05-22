@@ -6,8 +6,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ hashFiles('scraper/requirements.txt') }}
+          restore-keys: pip-
+
+      - name: Install dependencies
+        run: pip install -r scraper/requirements.txt
+
+      - name: Run tests
+        run: pytest scraper/tests/ -v --tb=short
+
   scrape:
     runs-on: ubuntu-latest
+    needs: test
 
     steps:
       - name: Checkout repo
@@ -15,21 +39,43 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ hashFiles('scraper/requirements.txt') }}
+          restore-keys: pip-
 
       - name: Install dependencies
         run: pip install -r scraper/requirements.txt
 
-      - name: Run scraper - Bhoot Bhangla
-        run: python scraper/sacnilk_scraper.py "Bhoot Bhangla" --year 2025 --json
-        continue-on-error: true
-
-      - name: Run scraper - Dhurandhar 2
-        run: python scraper/sacnilk_scraper.py "Dhurandhar 2" --year 2026 --json
-        continue-on-error: true
+      - name: Scrape all tracked films
+        run: |
+          python - <<'PYEOF'
+          import json, subprocess, sys
+          with open("scraper/films.json", encoding="utf-8") as f:
+              films = json.load(f)
+          failed = []
+          for film in films:
+              title = film["title"]
+              year  = str(film["year"])
+              print(f"\n{'='*60}")
+              print(f"Scraping: {title} ({year})")
+              result = subprocess.run(
+                  [sys.executable, "scraper/sacnilk_scraper.py",
+                   title, "--year", year, "--output", "scraper/output/"],
+                  capture_output=False,
+              )
+              if result.returncode != 0:
+                  failed.append(f"{title} ({year})")
+          if failed:
+              print(f"\n⚠  Failed to scrape: {', '.join(failed)}")
+          sys.exit(0)  # never fail the workflow for individual film misses
+          PYEOF
 
       - name: Commit and push updated JSON
         run: |
