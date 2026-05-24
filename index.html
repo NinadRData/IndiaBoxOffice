@@ -1368,7 +1368,7 @@ var YR_DATA = {
       </span>
     </div>
     <div id="live-tracker-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;margin-bottom:.75rem"></div>
-    <div style="font-size:.6rem;color:rgba(255,255,255,.18);padding:.5rem 0 0">Last updated: Wednesday, April 29 2026 · Figures are India nett in ₹ Crore · Click any card to open full film page</div>
+    <div id="live-updated-meta" style="font-size:.6rem;color:rgba(255,255,255,.18);padding:.5rem 0 0">Last updated: Wednesday, April 29 2026 · Figures are India nett in ₹ Crore · Click any card to open full film page</div>
   </div>
 
   <div style="padding:1.5rem 2rem 0">
@@ -6763,8 +6763,8 @@ function getLiveStatus(f) {
 
 function getLiveDaysInRun(releaseDate) {
   var rel = new Date(releaseDate);
-  var now = new Date('2026-04-29');
-  return Math.floor((now - rel) / (1000 * 60 * 60 * 24)) + 1;
+  var now = new Date(); now.setHours(0,0,0,0);
+  return Math.max(1, Math.floor((now - rel) / (1000 * 60 * 60 * 24)) + 1);
 }
 
 function buildLiveCard(f) {
@@ -8773,6 +8773,7 @@ function renderCompare() {
     '<div style="font-size:.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.75rem">Summary</div>' +
     verdictLines.map(function(l){return '<div style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.7;padding:.2rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+l+'</div>';}).join('');
 }
+
 </script>
 </body>
 </html>
