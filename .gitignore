@@ -1,6 +1,8 @@
+# Tool/editor directories
 .history
 .specstory
 .cursorindexingignore
+.vscode
 
 # Python
 __pycache__/
