@@ -520,6 +520,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", metavar="DIR",
                         default=os.environ.get("SCRAPER_OUTPUT_DIR"),
                         help="Directory to write {slug}.json output files")
+    parser.add_argument("--output-slug", metavar="SLUG",
+                        help="Override the output filename (default: inferred from URL slug)")
     args = parser.parse_args(argv)
 
     if args.topbar:
@@ -584,7 +586,8 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.output:
-        out_path = write_output(rows, used_slug, args.output)
+        output_slug = args.output_slug if args.output_slug else used_slug
+        out_path = write_output(rows, output_slug, args.output)
         print(f"Data written to {out_path}")
 
     if args.json:
