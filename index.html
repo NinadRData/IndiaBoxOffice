@@ -8774,6 +8774,120 @@ function renderCompare() {
     verdictLines.map(function(l){return '<div style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.7;padding:.2rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+l+'</div>';}).join('');
 }
 
+// ── AUTO-LOAD SCRAPED DAILY DATA ──
+// Fetches JSON files committed by the GitHub Actions daily scrape job and
+// merges them into FILM_PAGES / LIVE_FILMS so the page always shows current data.
+// The map below must match the slug fields in scraper/films.json.
+(function () {
+  var SCRAPER_SLUGS = {
+    'bhoot-bhangla': 'BhootBhangla-2025',
+    'dhurandhar':    'Dhurandhar-2025',
+    'dhurandhar-2':  'Dhurandhar2-2026',
+  };
+
+  var keys = Object.keys(SCRAPER_SLUGS);
+  var remaining = keys.length;
+
+  function onAllDone() {
+    if (--remaining > 0) return;
+    renderLiveTracker();
+    renderYrTable();
+    var metaEl = document.getElementById('live-updated-meta');
+    if (metaEl) {
+      var d = new Date();
+      var DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      metaEl.textContent = 'Last updated: ' + DAY_NAMES[d.getDay()] + ', ' + d.getDate() + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear() + ' · Figures are India nett in ₹ Crore · Click any card to open full film page';
+    }
+  }
+
+  function applyScraped(key, scraped) {
+    var fp = FILM_PAGES[key];
+    if (!fp) return;
+
+    // Hardcoded actual days: exclude bucket placeholders and null-gross entries
+    var hc = (fp.daily || []).filter(function (d) { return !d.bucket && d.gross != null; });
+
+    // Only update if the scraper has more days than what is already hardcoded
+    if (scraped.length <= hc.length) return;
+
+    // Build merged array: prefer hardcoded date/day labels for existing days,
+    // append scraped rows for any days beyond the hardcoded range.
+    var merged = [];
+    for (var i = 0; i < scraped.length; i++) {
+      var sc = scraped[i];
+      if (i < hc.length) {
+        merged.push({
+          date:    hc[i].date,
+          day:     hc[i].day,
+          gross:   sc.gross,
+          chgDay:  sc.chg_day != null ? sc.chg_day : hc[i].chgDay,
+          chgWeek: hc[i].chgWeek,
+          total:   sc.total,
+        });
+      } else {
+        merged.push({
+          date:    sc.date || ('Day ' + (i + 1)),
+          day:     '',
+          gross:   sc.gross,
+          chgDay:  sc.chg_day,
+          chgWeek: null,
+          total:   sc.total,
+        });
+      }
+    }
+    fp.daily = merged;
+
+    var runningTotal = merged[merged.length - 1].total;
+
+    // Update india nett in FILM_PAGES
+    if (fp.india == null || runningTotal > fp.india) fp.india = Math.round(runningTotal * 100) / 100;
+
+    // Sync prediction actuals if present
+    if (fp.prediction && fp.prediction.actuals) {
+      fp.prediction.actuals.running_total = fp.india;
+      var w1 = 0;
+      for (var j = 0; j < Math.min(8, merged.length); j++) w1 += merged[j].gross || 0;
+      fp.prediction.actuals.week1 = Math.round(w1 * 100) / 100;
+    }
+
+    // Update LIVE_FILMS running total and last-day figure
+    for (var li = 0; li < LIVE_FILMS.length; li++) {
+      if (LIVE_FILMS[li].key === key) {
+        LIVE_FILMS[li].indiaRunning = fp.india;
+        LIVE_FILMS[li].yesterdayIndia = merged[merged.length - 1].gross;
+        break;
+      }
+    }
+
+    // Update master FILMS database
+    for (var fi = 0; fi < FILMS.length; fi++) {
+      if (FILMS[fi].n === fp.title && FILMS[fi].y === fp.year) {
+        if (fp.india > (FILMS[fi].india || 0)) FILMS[fi].india = fp.india;
+        break;
+      }
+    }
+
+    // Re-render the film detail page if it is currently open
+    var el = document.getElementById('page-film-' + key);
+    if (el) {
+      el.parentNode.removeChild(el);
+      if (fp.prediction) showFilmPageWithPredictions(key);
+      else showFilmPage(key);
+    }
+  }
+
+  keys.forEach(function (key) {
+    var slug = SCRAPER_SLUGS[key];
+    fetch('scraper/output/' + slug + '.json')
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (scraped) {
+        if (scraped && scraped.length) applyScraped(key, scraped);
+        onAllDone();
+      })
+      .catch(function () { onAllDone(); }); // silent fail — hardcoded data remains
+  });
+})();
 </script>
 </body>
 </html>
