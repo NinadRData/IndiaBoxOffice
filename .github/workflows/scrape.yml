@@ -63,13 +63,14 @@ jobs:
           for film in films:
               title = film["title"]
               year  = str(film["year"])
+              slug  = film.get("slug", "")
               print(f"\n{'='*60}")
               print(f"Scraping: {title} ({year})")
-              result = subprocess.run(
-                  [sys.executable, "scraper/sacnilk_scraper.py",
-                   title, "--year", year, "--output", "scraper/output/"],
-                  capture_output=False,
-              )
+              cmd = [sys.executable, "scraper/sacnilk_scraper.py",
+                     title, "--year", year, "--output", "scraper/output/"]
+              if slug:
+                  cmd += ["--output-slug", slug]
+              result = subprocess.run(cmd, capture_output=False)
               if result.returncode != 0:
                   failed.append(f"{title} ({year})")
           if failed:
