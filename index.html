@@ -116,6 +116,11 @@ body.light .hero-bottom h2,body.light .hero-bottom .ey{color:#fff!important}
 body.light .panel-info h3,body.light .panel-info .eyebrow,body.light .panel-info .sub{color:#fff!important}
 body.light .page-hero *{color:#fff!important}
 body.light .page-hero [style*="color:rgba(255,255,255"]{color:rgba(255,255,255,0.85)!important}
+body.light [id^="page-film-"] .page-hero-inner *,
+body.light [id^="page-film-"] [style*="min-height:300px"] *,
+body.light [id^="page-film-"] [style*="min-height:340px"] *{color:#fff!important}
+body.light [id^="page-film-"] [style*="min-height:300px"] [style*="color:rgba(255,255,255"],
+body.light [id^="page-film-"] [style*="min-height:340px"] [style*="color:rgba(255,255,255"]{color:inherit!important}
 html{scroll-behavior:smooth}
 body{font-family:'Barlow',sans-serif;background:var(--bg);color:#fff;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.9rem 2rem;background:rgba(0,0,0,.92);backdrop-filter:blur(8px)}
@@ -313,7 +318,6 @@ var FILMS = [
   {n:'Sultan',                  y:2016,l:'Hindi',  actors:['Salman Khan','Anushka Sharma'],                                           studio:'YRF',                 india:460,  ww:614,  ow:null, ff:32.09,lb:3.2},
   {n:'Leo',                     y:2023,l:'Tamil',  actors:['Vijay','Trisha Krishnan','Sanjay Dutt'],                                  studio:'Seven Screen',        india:470,  ww:605,  ow:88,   ff:24.3, lb:3.3},
   {n:'Jailer',                  y:2023,l:'Tamil',  actors:['Rajinikanth','Mohanlal','Shiva Rajkumar'],                                studio:'Sun Pictures',        india:460,  ww:604,  ow:85,   ff:26.9, lb:3.3},  {n:'Sanju',                   y:2018,l:'Hindi',  actors:['Ranbir Kapoor','Paresh Rawal','Vicky Kaushal'],                           studio:'Rajkumar Hirani Prod.',india:487,  ww:586,  ow:null, ff:28,   lb:3.4},
-  {n:'Bhoot Bhangla',          y:2025,l:'Hindi',  actors:['Akshay Kumar','Tabu','Paresh Rawal'],                                    studio:'Tips Films',          india:null, ww:null, ow:null, ff:null, lb:null},
   {n:'Mahavtar Narsimha',      y:2025,l:'Hindi',  actors:[],                                                                          studio:'TBA',                 india:251,  ww:326,  ow:15,   ff:15.1, lb:3.3},
   {n:'Saiyaara',                y:2025,l:'Hindi',  actors:['Mohit Pasricha','Ahaan Panday'],                                          studio:'YRF',                 india:505,  ww:577,  ow:60,   ff:null, lb:null},
   {n:'Padmaavat',               y:2018,l:'Hindi',  actors:['Ranveer Singh','Deepika Padukone','Shahid Kapoor'],                       studio:'Viacom18',            india:385,  ww:571,  ow:null, ff:23.44,lb:3.4},
@@ -735,6 +739,82 @@ var ACTOR_SUPP = {
     {n:'Super 30',y:2019,lb:3.4,bo:208,ff:10.86},
     {n:'Vikram Vedha',y:2022,lb:3.3,bo:135,ff:4.24},
   ],
+  'Akshay Kumar': [
+    {n:'Khiladi',                              y:1992, bo:null, ff:null,  lb:3.2},
+    {n:'Main Khiladi Tu Anari',                y:1994, bo:null, ff:11.09, lb:3.1},
+    {n:'Yeh Dillagi',                          y:1994, bo:null, ff:8.65,  lb:3.0},
+    {n:'Suhaag',                               y:1994, bo:null, ff:9.73,  lb:3.0},
+    {n:'Mohra',                                y:1994, bo:null, ff:21.51, lb:3.2},
+    {n:'Sabse Bada Khiladi',                   y:1995, bo:null, ff:14.86, lb:null},
+    {n:'Khiladiyon Ka Khiladi',                y:1996, bo:null, ff:16.04, lb:3.0},
+    {n:'Mr. and Mrs. Khiladi',                 y:1997, bo:null, ff:8.52,  lb:3.1},
+    {n:'International Khiladi',                y:1999, bo:null, ff:7.42,  lb:2.9},
+    {n:'Hera Pheri',                           y:2000, bo:null, ff:8.27,  lb:3.8},
+    {n:'Ek Rishtaa',                           y:2001, bo:null, ff:11.94, lb:3.0},
+    {n:'Ajnabee',                              y:2001, bo:null, ff:10.72, lb:2.9},
+    {n:'Awara Paagal Deewana',                 y:2002, bo:null, ff:8.98,  lb:3.0},
+    {n:'Phir Hera Pheri',                      y:2003, bo:null, ff:11.58, lb:3.7},
+    {n:'Welcome',                              y:2007, bo:117,  ff:16.69, lb:3.5},
+    {n:'Bhool Bhulaiyaa',                      y:2007, bo:82,   ff:11.79, lb:3.6},
+    {n:'Namastey London',                      y:2007, bo:51,   ff:9.09,  lb:2.9},
+    {n:'Heyy Babyy',                           y:2007, bo:71,   ff:10.86, lb:3.0},
+    {n:'De Dana Dan',                          y:2009, bo:null, ff:8.94,  lb:3.3},
+    {n:'Housefull',                            y:2010, bo:null, ff:10.03, lb:3.0},
+    {n:'Tees Maar Khan',                       y:2010, bo:101,  ff:9.53,  lb:2.8},
+    {n:'Khatta Meetha',                        y:2010, bo:63,   ff:6.62,  lb:3.1},
+    {n:'Thank You',                            y:2011, bo:null, ff:7.00,  lb:2.5},
+    {n:'Rowdy Rathore',                        y:2012, bo:203,  ff:20.10, lb:2.7},
+    {n:'Housefull 2',                          y:2012, bo:179,  ff:15.76, lb:2.8},
+    {n:'Oh My God',                            y:2012, bo:123,  ff:10.92, lb:3.5},
+    {n:'Khiladi 786',                          y:2012, bo:106,  ff:9.43,  lb:2.3},
+    {n:'Once Upon a Time in Mumbai Dobaara!',  y:2013, bo:null, ff:8.05,  lb:2.4},
+    {n:'Special 26',                           y:2013, bo:103,  ff:7.75,  lb:3.6},
+    {n:'Boss',                                 y:2013, bo:102,  ff:6.92,  lb:2.4},
+    {n:'Holiday: A Soldier Is Never Off Duty', y:2014, bo:180,  ff:13.98, lb:2.9},
+    {n:'Entertainment',                        y:2014, bo:115,  ff:8.26,  lb:2.4},
+    {n:'Baby',                                 y:2015, bo:143,  ff:8.98,  lb:3.3},
+    {n:'Gabbar Is Back',                       y:2015, bo:135,  ff:10.74, lb:2.9},
+    {n:'Singh Is Bliing',                      y:2015, bo:149,  ff:8.27,  lb:2.2},
+    {n:'Brothers',                             y:2015, bo:140,  ff:8.26,  lb:2.8},
+    {n:'Airlift',                              y:2016, bo:221,  ff:12.48, lb:3.3},
+    {n:'Rustom',                               y:2016, bo:218,  ff:12.64, lb:3.0},
+    {n:'Housefull 3',                          y:2016, bo:195,  ff:11.69, lb:2.4},
+    {n:'Jolly LLB 2',                          y:2017, bo:197,  ff:11.65, lb:3.2},
+    {n:'Toilet: Ek Prem Katha',                y:2017, bo:311,  ff:13.14, lb:3.1},
+    {n:'2.0',                                  y:2018, bo:691,  ff:42.50, lb:2.3},
+    {n:'Gold',                                 y:2018, bo:158,  ff:7.89,  lb:3.1},
+    {n:'PadMan',                               y:2018, bo:207,  ff:6.91,  lb:3.5},
+    {n:'Kesari',                               y:2019, bo:209,  ff:11.35, lb:3.3},
+    {n:'Mission Mangal',                       y:2019, bo:290,  ff:13.66, lb:2.9},
+    {n:'Good Newwz',                           y:2019, bo:318,  ff:16.13, lb:2.8},
+    {n:'Housefull 4',                          y:2019, bo:280,  ff:15.80, lb:1.9},
+    {n:'Sooryavanshi',                         y:2021, bo:294,  ff:11.38, lb:2.4},
+    {n:'OMG 2',                                y:2023, bo:221,  ff:7.38,  lb:3.2},
+    {n:'Khel Khel Mein',                       y:2024, bo:57,   ff:null,  lb:2.8},
+    {n:'Sky Force',                            y:2025, bo:166,  ff:5.8,   lb:null},
+    {n:'Jolly LLB 3',                          y:2025, bo:166,  ff:4.50,  lb:2.8},
+    {n:'Bhoot Bhangla',                        y:2026, bo:243,      ff:9.3,   lb:2.6},
+  ],
+  'Dharmendra': [
+    {n:'Phool Aur Paathar',       y:1966, lb:null, bo:null, ff:34.4},
+    {n:'Ankhen',                  y:1968, lb:null, bo:null, ff:36.1},
+    {n:'Aankhen',                 y:1968, lb:null, bo:null, ff:28.5},
+    {n:'Mera Gaon Mera Desh',     y:1971, lb:null, bo:null, ff:28.6},
+    {n:'Seeta Aur Geeta',         y:1972, lb:null, bo:null, ff:29.5},
+    {n:'Pratiggya',               y:1975, lb:null, bo:null, ff:28.0},
+    {n:'Sholay',                  y:1975, lb:null, bo:null, ff:127.0},
+    {n:'Dharam Veer',             y:1977, lb:null, bo:null, ff:49.1},
+    {n:'Amar Akbar Anthony',      y:1977, lb:null, bo:null, ff:53.7},
+    {n:'Ali Baba aur 40 Chor',    y:1980, lb:null, bo:null, ff:19.67},
+    {n:'Katilon Ke Kaatil',       y:1981, lb:null, bo:null, ff:25.6},
+    {n:'Rajput',                  y:1982, lb:null, bo:null, ff:21.6},
+    {n:'Nauker Biwi Ka',          y:1983, lb:null, bo:null, ff:24.0},
+    {n:'Jaani Dost',              y:1983, lb:null, bo:null, ff:21.3},
+    {n:'Yamla Pagla Deewana',     y:2011, lb:2.8,  bo:88,   ff:8.93},
+    {n:'Yamla Pagla Deewana 2',   y:2013, lb:2.6,  bo:50,   ff:4.23},
+    {n:'Yamla Pagla Deewana 3',   y:2018, lb:2.6,  bo:15,   ff:1.08},
+    {n:'Rocky Aur Rani Kii Prem Kahaani', y:2023, lb:3.6,  bo:355,  ff:7.07},
+  ],
   'Sunny Deol': [
     {n:'Betaab',                    y:1983, lb:null, bo:null,  ff:40.8},
     {n:'Sohni Mahiwal',             y:1984, lb:null, bo:null,  ff:10.0},
@@ -824,15 +904,24 @@ var ACTOR_SUPP = {
     {n:'Jayeshbhai Jordaar',y:2022,lb:2.9,bo:26,ff:0.59},
     {n:'Cirkus',y:2022,lb:1.9,bo:61,ff:1.01},
   ],  'Rajinikanth': [
-    {n:'Baasha',y:1995,lb:null,bo:null,ff:25},{n:'Muthu',y:1995,lb:null,bo:null,ff:18.3},
-    {n:'Padaiyappa',y:1999,lb:null,bo:null,ff:24.8},{n:'Chandramukhi',y:2005,lb:null,bo:null,ff:23.8},
-    {n:'Sivaji',y:2007,lb:null,bo:null,ff:23.4},    {n:'Lingaa',y:2014,lb:null,bo:152,ff:6.0},
-    {n:'Kabali',y:2016,lb:2.8,bo:292,ff:19},
-    {n:'Kaala',y:2018,lb:null,bo:160,ff:7.0},
-    {n:'Petta',y:2019,lb:3.2,bo:232,ff:9.5},
-    {n:'Darbar',y:2020,lb:2.7,bo:247,ff:10.0},
-    {n:'Annaatthe',y:2021,lb:null,bo:172,ff:6.5},
-    {n:'Vettaiyan',y:2024,lb:null,bo:253,ff:10.5},
+    {n:'Padikkathavan',y:1985,lb:null,bo:null,ff:15.0},
+    {n:'Mappilai',     y:1989,lb:null,bo:null,ff:16.1},
+    {n:'Rajathi Raja', y:1989,lb:null,bo:null,ff:17.1},
+    {n:'Thalapathi',   y:1991,lb:null,bo:null,ff:16.7},
+    {n:'Annamalai',    y:1992,lb:null,bo:null,ff:17.3},
+    {n:'Baasha',       y:1995,lb:null,bo:null,ff:25},
+    {n:'Muthu',        y:1995,lb:null,bo:null,ff:18.3},
+    {n:'Arunachalam',  y:1997,lb:null,bo:null,ff:15.1},
+    {n:'Padaiyappa',   y:1999,lb:null,bo:null,ff:24.8},
+    {n:'Chandramukhi', y:2005,lb:null,bo:null,ff:23.8},
+    {n:'Sivaji',       y:2007,lb:null,bo:null,ff:23.4},
+    {n:'Lingaa',       y:2014,lb:null,bo:152, ff:6.0},
+    {n:'Kabali',       y:2016,lb:2.8, bo:292, ff:19},
+    {n:'Kaala',        y:2018,lb:null,bo:160, ff:7.0},
+    {n:'Petta',        y:2019,lb:3.2, bo:232, ff:9.5},
+    {n:'Darbar',       y:2020,lb:2.7, bo:247, ff:10.0},
+    {n:'Annaatthe',    y:2021,lb:null,bo:172, ff:6.5},
+    {n:'Vettaiyan',    y:2024,lb:null,bo:253, ff:10.5},
   ],  'Chiranjeevi': [
     {n:'Pasivadi Pranam',                    y:1987, lb:null, bo:null, ff:15.0},
     {n:'Yamudiki Mogudu',                    y:1988, lb:null, bo:null, ff:16.7},
@@ -890,9 +979,16 @@ var ACTOR_SUPP = {
     {n:'Swarg',             y:1990, lb:3.0, bo:null, ff:null},
   ],
   'Kamal Haasan': [
-    {n:'Ek Duuje Ke Liye',y:1981,lb:null,bo:null,ff:29.2},{n:'Nayakan',y:1987,lb:null,bo:null,ff:17.8},
-    {n:'Avvai Shanmugi',y:1996,lb:null,bo:null,ff:16.3},{n:'Dasavatharam',y:2008,lb:null,bo:null,ff:18.1},
-    {n:'Indian 2',y:2024,lb:null,bo:null,ff:6.5},{n:'Thug Life',y:2025,lb:null,bo:null,ff:3.5},
+    {n:'Ek Duuje Ke Liye',    y:1981, lb:null, bo:null, ff:29.2},
+    {n:'Sakalakala Vallavan',  y:1982, lb:null, bo:null, ff:15.5},
+    {n:'Nayakan',             y:1987, lb:null, bo:null, ff:17.8},
+    {n:'Thevar Magan',        y:1992, lb:null, bo:null, ff:16.9},
+    {n:'Avvai Shanmugi',      y:1996, lb:null, bo:null, ff:16.3},
+    {n:'Chachi 420',          y:1997, lb:null, bo:null, ff:8.24},
+    {n:'Hey! Ram',            y:2000, lb:null, bo:null, ff:3.41},
+    {n:'Dasavatharam',        y:2008, lb:null, bo:null, ff:18.1},
+    {n:'Indian 2',            y:2024, lb:null, bo:null, ff:6.5},
+    {n:'Thug Life',           y:2025, lb:null, bo:null, ff:3.5},
   ],
   'Prabhas': [
     {n:'Baahubali',y:2015,lb:null,bo:650,ff:48},
@@ -1303,9 +1399,12 @@ var YR_DATA = {
   '2026': [
     {n:'Dhurandhar 2',              l:'Hindi',   ow:308,    india:1133,    ww:1775,  studio:'Jio Studios'},
     {n:'Border 2',                  l:'Hindi',   ow:129.89, india:341.70,  ww:464.5, studio:'Zee Studios / T-Series'},
-    {n:'Mana ShankaraVaraprasad Garu', l:'Telugu', ow:56,  india:258,     ww:320,   studio:'TBA'},
+    {n:'Mana ShankaraVaraprasad Garu', l:'Telugu', ow:56,  india:218,     ww:301,   studio:'TBA'},
     {n:'RajaSaab',                  l:'Telugu',  ow:98,     india:146,     ww:208,   studio:'Mythri'},
-    {n:'Bhoot Bhangla',             l:'Hindi',   ow:61.75,  india:128.60,  ww:198,   studio:'Tips Films', liveKey:'bhoot-bhangla'},
+    {n:'Bhoot Bhangla',             l:'Hindi',   ow:61.75,  india:167.30,  ww:243,   studio:'Tips Films', liveKey:'bhoot-bhangla'},
+    {n:'Raja Shivaji',              l:'Hindi',   ow:34,     india:88,      ww:108,   studio:'TBA'},
+    {n:'Karuppu',                   l:'Tamil',   ow:68,     india:95.05,   ww:138,   studio:'TBA', liveKey:'karuppu'},
+    {n:'Vaazha 2: Biopic of a Billion Bros', l:'Malayalam', ow:17.45, india:129.42, ww:235.26, studio:'TBA'},
   ],  '2025': [
     {n:'Dhurandhar',              l:'Hindi',   ow:106.50, india:895,  ww:1349,  studio:'Jio Studios'},
     {n:'Kantara: Chapter 1',      l:'Kannada', ow:163,    india:622,  ww:852,   studio:'Hombale'},
@@ -1315,7 +1414,7 @@ var YR_DATA = {
     {n:'Mahavtar Narsimha',       l:'Hindi',   ow:15,     india:251,  ww:326,   studio:'TBA'},
     {n:'Sitaare Zameen Par',      l:'Hindi',   ow:57.3,   india:165.7,ww:266,   studio:'Aamir Khan Prod.'},
     {n:'Sikandar',                l:'Hindi',   ow:40,     india:176,  ww:220,   studio:'YRF'},
-    {n:'Sky Force',               l:'Hindi',   ow:35,     india:180,  ww:210,   studio:'Jio Studios'},
+    {n:'Sky Force',               y:2025, l:'Hindi',   ow:35,     india:180,  ww:166,   studio:'Jio Studios'},
     {n:'Jaat',                    l:'Hindi',   ow:30,     india:119,  ww:140,   studio:'Mythri'},
     {n:'Coolie',                  l:'Tamil',   ow:129,    india:285,  ww:518,   studio:'Sun Pictures'},
     {n:'Raid 2',                  l:'Hindi',   ow:54,     india:178,  ww:243,   studio:'T-Series'},
@@ -1328,7 +1427,6 @@ var YR_DATA = {
     {n:'Bhool Bhulaiyaa 3',  l:'Hindi',  ow:110,    india:283,   ww:423,  studio:'T-Series'},
     {n:'Singham Again',      l:'Hindi',  ow:125,    india:268,   ww:389,  studio:'Jio Studios'},
     {n:'Fighter',            l:'Hindi',  ow:90,     india:248,   ww:344,  studio:'Excel'},
-    {n:'Vettaiyan',            l:'Tamil',   ow:73,     india:147,  ww:253,   studio:'Sun Pictures'},
     {n:'Vettaiyan',          l:'Tamil',  ow:73,     india:147,   ww:253,  studio:'Sun Pictures'},
     {n:'HanuMan',            l:'Telugu', ow:41,     india:202,   ww:295,  studio:'Primeshow'},
   ],
@@ -1351,10 +1449,35 @@ var YR_DATA = {
 <div id="page-main" class="page active">
   <div class="hero">
     <div class="hero-panels" id="heroPanels"></div>
-    <div class="hero-bottom">
-      <div class="ey">All-Time Top 3 · Worldwide Gross</div>
-      <h2 id="heroTitle"></h2>
+  </div>
+
+  <!-- ═══ THIS WEEK AT THE BOX OFFICE ═══ -->
+  <div style="padding:1.75rem 2rem 0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem">
+      <div class="sh" style="margin:0">
+        <h2>This Week at the Box Office</h2>
+        <span>India Nett · Week of May 16–22, 2026</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:.6rem;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(239,68,68,.1);border:0.5px solid rgba(239,68,68,.25);color:#ef4444">
+        <span style="width:6px;height:6px;border-radius:50%;background:#ef4444;animation:livePulse 1.4s ease-in-out infinite"></span>
+        WEEK 21 · 2026
+      </div>
     </div>
+
+    <!-- Chart bars -->
+    <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:1rem">
+      <!-- Header -->
+      <div style="display:grid;grid-template-columns:28px 1fr 60px 90px 90px 70px;padding:.5rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07)">
+        <div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">#</div>
+        <div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Film</div>
+        <div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Lang</div>
+        <div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">This Week</div>
+        <div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Total</div>
+        <div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Wk #</div>
+      </div>
+      <div id="weekly-chart"></div>
+    </div>
+    <div style="font-size:.6rem;color:rgba(255,255,255,.18);padding:.25rem 0 0">Figures are estimated India nett in ₹ Crore · Week = Fri May 16 – Thu May 22</div>
   </div>
 
   <!-- ═══ LIVE TRACKER ═══ -->
@@ -1420,6 +1543,12 @@ var YR_DATA = {
     </div>
   </div>
   <div style="max-width:960px;margin:0 auto;padding:2rem">
+    <div style="position:relative;margin-bottom:1.25rem">
+      <input id="tg-search" type="text" placeholder="⌕  Search films…" oninput="renderTG()"
+        onfocus="this.style.borderColor='rgba(249,115,22,.5)'" onblur="this.style.borderColor='rgba(249,115,22,.2)'"
+        style="width:100%;background:rgba(255,255,255,.05);border:0.5px solid rgba(249,115,22,.2);border-radius:4px;color:#fff;font-family:'Barlow',sans-serif;font-size:.85rem;padding:.55rem 1rem .55rem 2.5rem;outline:none;box-sizing:border-box;caret-color:#fff;-webkit-text-fill-color:#fff">
+      <span style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:rgba(249,115,22,.5);font-size:.9rem;pointer-events:none">⌕</span>
+    </div>
     <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem">
       <div style="display:flex;gap:6px;flex-wrap:wrap" id="tg-lang-filters">
         <button class="lf" style="background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.3);color:var(--orange)" onclick="setTGFilter('lang','all',this)">All</button>
@@ -1817,7 +1946,13 @@ var YR_DATA = {
       </div>
     </div>
 
-    <div id="cmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">← Select two actors to compare</div>
+    <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
+      <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
+      <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
+    </div>
+
+    <div id="cmp-panel-actor">
+      <div id="cmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">← Select two actors to compare</div>
     <div id="cmp-content" style="display:none">
 
       <!-- Stat bars -->
@@ -1853,6 +1988,40 @@ var YR_DATA = {
       <!-- Verdict -->
       <div id="cmp-verdict" style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.25rem 1.5rem"></div>
     </div>
+    </div><!-- /cmp-panel-actor -->
+
+    <!-- FILM COMPARE PANEL -->
+    <div id="cmp-panel-film" style="display:none">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-bottom:2rem">
+        <div style="background:var(--bg3);border:0.5px solid rgba(244,114,182,.3);border-radius:6px;padding:1.1rem 1.25rem">
+          <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(244,114,182,.6);margin-bottom:.5rem">Film A</div>
+          <div style="position:relative;display:flex;align-items:center;gap:6px">
+            <div style="position:relative;flex:1">
+              <input id="filmCmpA-search" type="text" placeholder="Search film..." oninput="filterFilmCmp('A')" onfocus="filterFilmCmp('A')" onblur="setTimeout(function(){var d=document.getElementById('filmCmpA-drop');if(d)d.style.display='none';},220)"
+                style="width:100%;background:#1e1e2e;border:0.5px solid rgba(244,114,182,.4);border-radius:3px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2rem .55rem .8rem;outline:none;box-sizing:border-box">
+              <div id="filmCmpA-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(244,114,182,.3);border-radius:4px;max-height:220px;overflow-y:auto;z-index:200"></div>
+            </div>
+            <button onclick="clearFilmCmp('A')" title="Clear" style="flex-shrink:0;width:28px;height:28px;border-radius:50%;border:0.5px solid rgba(244,114,182,.35);background:rgba(244,114,182,.08);color:rgba(244,114,182,.7);font-size:.85rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.background='rgba(244,114,182,.22)';this.style.color='#f472b6'" onmouseout="this.style.background='rgba(244,114,182,.08)';this.style.color='rgba(244,114,182,.7)'">✕</button>
+          </div>
+          <div id="filmCmpA-badge" style="margin-top:.75rem;min-height:18px"></div>
+        </div>
+        <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:rgba(255,255,255,.15)">VS</div>
+        <div style="background:var(--bg3);border:0.5px solid rgba(79,195,247,.3);border-radius:6px;padding:1.1rem 1.25rem">
+          <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(79,195,247,.6);margin-bottom:.5rem">Film B</div>
+          <div style="position:relative;display:flex;align-items:center;gap:6px">
+            <div style="position:relative;flex:1">
+              <input id="filmCmpB-search" type="text" placeholder="Search film..." oninput="filterFilmCmp('B')" onfocus="filterFilmCmp('B')" onblur="setTimeout(function(){var d=document.getElementById('filmCmpB-drop');if(d)d.style.display='none';},220)"
+                style="width:100%;background:#1e1e2e;border:0.5px solid rgba(79,195,247,.4);border-radius:3px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2rem .55rem .8rem;outline:none;box-sizing:border-box">
+              <div id="filmCmpB-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(79,195,247,.3);border-radius:4px;max-height:220px;overflow-y:auto;z-index:200"></div>
+            </div>
+            <button onclick="clearFilmCmp('B')" title="Clear" style="flex-shrink:0;width:28px;height:28px;border-radius:50%;border:0.5px solid rgba(79,195,247,.35);background:rgba(79,195,247,.08);color:rgba(79,195,247,.7);font-size:.85rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.background='rgba(79,195,247,.22)';this.style.color='#4fc3f7'" onmouseout="this.style.background='rgba(79,195,247,.08)';this.style.color='rgba(79,195,247,.7)'">✕</button>
+          </div>
+          <div id="filmCmpB-badge" style="margin-top:.75rem;min-height:18px"></div>
+        </div>
+      </div>
+      <div id="fcmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">Search and select two films above to compare</div>
+      <div id="fcmp-content" style="display:none"></div>
+    </div><!-- /cmp-panel-film -->
   </div>
   <footer>Box Office India · All comparisons based on master database · Data through April 2026</footer>
 </div>
@@ -4799,7 +4968,7 @@ var FILM_PAGES = {
     ],
   },
   'bhool bhulaiyaa 3': {key:'bhool-bhulaiyaa-3',title:'Bhool Bhulaiyaa 3',year:2024,lang:'Hindi',director:'Anees Bazmee',studio:'T-Series / Cine1 Studios',cast:[{name:'Kartik Aaryan',role:'Rooh Baba'},{name:'Vidya Balan',role:'Manjulika'},{name:'Madhuri Dixit',role:'Manjulika 2'},{name:'Triptii Dimri',role:'Reet'},{name:'Rajpal Yadav',role:'Chhota Pandit'}],synopsis:'',release:'2024-11-01',runtime:164,budget:130,india:283,ow:110,ww:423,ff:12,multiplier:2.57,lb:2.1,ott:'Netflix',music:'Pritam',awards:[],timeline:[{label:'Week 1',val:190},{label:'Week 2',val:60},{label:'Week 3',val:25},{label:'Week 4+',val:8}],overseas:[{market:'USA/Canada',val:18},{market:'Gulf',val:12},{market:'UK',val:8},{market:'Australia',val:5},{market:'Other',val:5}],comparable:[{n:'Bhool Bhulaiyaa 2 (2022)',ww:266,col:'#22c55e'},{n:'Bhool Bhulaiyaa 3 (2024)',ww:423,col:'#f5c518',highlight:true},{n:'Stree 2 (2024)',ww:874,col:'#a78bfa'}],trivia:['Released on Diwali 2024, clashing directly with Singham Again.']},
-  'bhoot bhangla': {
+  'bhoot-bhangla': {
     key: 'bhoot-bhangla',
     title: 'Bhoot Bhangla',
     year: 2025,
@@ -4817,17 +4986,17 @@ var FILM_PAGES = {
     runtime: null,
     budget: 120,
     india: 151.45,
-    ow: 61.75,
+    ow: 54.25,
     ww: 228,
-    ff: 8.5,
-    multiplier: +(139.85/61.75).toFixed(2),
+    ff: 9.3,
+    multiplier: +(170.75/54.25).toFixed(2),
     lb: 2.6,
     ott: 'TBA',
     music: 'Pritam',
     awards: [],
     // ── PREDICTION MODEL ──
-    india: 151.45,
-    ww: 228,
+    india: 170.75,
+    ww: 256,
           prediction: {
       status: 'live',
               note: 'Updated through Day 26 (Monday May 11). Running total: ₹167.30 Cr India nett | ₹243 Cr WW. Monday held at ₹1.35 Cr, a normal weekday drop. Tracking towards a ₹170–175 Cr India nett lifetime.',
@@ -4853,20 +5022,20 @@ var FILM_PAGES = {
       },
       // Will be filled in once actuals arrive
               actuals: {
-        ow: 61.75,
-        day1: 3.50,
-        day2: 14.40,
-        day3: 21.75,
-        day4: 25.60,
-        day5: 8.10,
-        day6: 9.30,
-        day7: 6.80,
-        week1: 94.95,
+        ow: 54.25,
+        day1: 12.25,
+        day2: 19.00,
+        day3: 23.00,
+        day4: 6.75,
+        day5: 8.00,
+        day6: 6.15,
+        day7: 5.50,
+        week1: 84.40,
         ww_ow: null,
-        second_weekend_drop: -55.9,
-        legs_multiple: 2.69,
-        running_total: 167.30,
-        running_ww: 243,
+        second_weekend_drop: -45.7,
+        legs_multiple: +(170.75/54.25).toFixed(2),
+        running_total: 170.75,
+        running_ww: 256,
       },
       // Refined after Monday drop comparison:
       // Bhoot Bhangla's Monday drop was WORSE than Housefull 5's Monday drop.
@@ -4884,37 +5053,54 @@ var FILM_PAGES = {
       },
     },
     daily: [
-      {date:'Thu Apr 16', day:'Thu', gross:3.50,  chgDay:null,   chgWeek:null,  total:3.50},
-      {date:'Fri Apr 17', day:'Fri', gross:14.40, chgDay:+311.4, chgWeek:null,  total:17.90},
-      {date:'Sat Apr 18', day:'Sat', gross:21.75, chgDay:+51.0,  chgWeek:null,  total:39.65},
-      {date:'Sun Apr 19', day:'Sun', gross:25.60, chgDay:+17.7,  chgWeek:null,  total:65.25},
-      {date:'Mon Apr 20', day:'Mon', gross:8.10,  chgDay:-68.4,  chgWeek:null,  total:73.35},
-      {date:'Tue Apr 21', day:'Tue', gross:9.30,  chgDay:+14.8,  chgWeek:null,  total:82.65},
-      {date:'Wed Apr 22', day:'Wed', gross:6.80,  chgDay:-26.9,  chgWeek:null,  total:89.45},
-      {date:'Thu Apr 23', day:'Thu', gross:5.50,  chgDay:-19.1,  chgWeek:-36.1, total:94.95},
-      {date:'Fri Apr 24', day:'Fri', gross:5.60,  chgDay:+1.8,   chgWeek:-61.1, total:100.55},
-      {date:'Sat Apr 25', day:'Sat', gross:10.00, chgDay:+78.6,  chgWeek:-54.0, total:110.55},
-      {date:'Sun Apr 26', day:'Sun', gross:11.30, chgDay:+13.0,  chgWeek:-55.9, total:121.85},
-      {date:'Mon Apr 27', day:'Mon', gross:3.25,  chgDay:-71.2,  chgWeek:-59.9, total:125.10},
-      {date:'Tue Apr 28', day:'Tue', gross:3.50,  chgDay:+7.7,   chgWeek:null,  total:128.60},
-      {date:'Wed Apr 29', day:'Wed', gross:3.00,  chgDay:-14.3,  chgWeek:null,  total:131.60},
-      {date:'Thu Apr 30', day:'Thu', gross:3.75,  chgDay:+25.0,  chgWeek:null,  total:135.35},
-      {date:'Fri May 1',  day:'Fri', gross:4.50,  chgDay:+20.0,  chgWeek:-19.6, total:139.85},
-      {date:'Sat May 2',  day:'Sat', gross:4.35,  chgDay:-3.3,   chgWeek:-56.5, total:144.20},
-      {date:'Sun May 3',  day:'Sun', gross:5.50,  chgDay:+26.4,  chgWeek:-51.3, total:149.70},
-      {date:'Mon May 4',  day:'Mon', gross:1.75,  chgDay:-68.2,  chgWeek:-46.2, total:151.45},
-      {date:'Tue May 5',  day:'Tue', gross:2.25,  chgDay:+28.6,  chgWeek:null,  total:153.70},
-      {date:'Wed May 6',  day:'Wed', gross:1.75,  chgDay:-22.2,  chgWeek:null,  total:155.45},
-      {date:'Thu May 7',  day:'Thu', gross:1.75,  chgDay:0.0,    chgWeek:null,  total:157.20},
-      {date:'Fri May 8',  day:'Fri', gross:1.75,  chgDay:0.0,    chgWeek:null,  total:158.95},
-      {date:'Sat May 9',  day:'Sat', gross:3.00,  chgDay:+71.4,  chgWeek:null,  total:161.95},
-      {date:'Sun May 10', day:'Sun', gross:4.00,  chgDay:+33.3,  chgWeek:null,  total:165.95},
-      {date:'Mon May 11', day:'Mon', gross:1.35,  chgDay:-66.3,  chgWeek:-22.9, total:167.30},
-      {date:'Day 27+',    day:'',    gross:null,  chgDay:null,   chgWeek:null,  total:null,  bucket:true},
+      // Day 0 = Thu Apr 16 (preview); OW = Fri Apr 18 + Sat Apr 19 + Sun Apr 20 = ₹58 Cr
+      {date:'Thu Apr 16', day:'Thu', gross:3.75,  chgDay:null,    chgWeek:null,   total:3.75},
+      {date:'Fri Apr 17', day:'Fri', gross:12.25, chgDay:+226.7,  chgWeek:null,   total:16.00},
+      {date:'Sat Apr 18', day:'Sat', gross:19.00, chgDay:+55.1,   chgWeek:null,   total:35.00},
+      {date:'Sun Apr 19', day:'Sun', gross:23.00, chgDay:+21.1,   chgWeek:null,   total:58.00},
+      {date:'Mon Apr 20', day:'Mon', gross:6.75,  chgDay:-70.7,   chgWeek:null,   total:64.75},
+      {date:'Tue Apr 21', day:'Tue', gross:8.00,  chgDay:+18.5,   chgWeek:null,   total:72.75},
+      {date:'Wed Apr 22', day:'Wed', gross:6.15,  chgDay:-23.1,   chgWeek:null,   total:78.90},
+      {date:'Thu Apr 23', day:'Thu', gross:5.50,  chgDay:-10.6,   chgWeek:null,   total:84.40},
+      // Week 2
+      {date:'Fri Apr 24', day:'Fri', gross:5.75,  chgDay:+4.5,    chgWeek:-53.1,  total:90.15},
+      {date:'Sat Apr 25', day:'Sat', gross:10.75, chgDay:+87.0,   chgWeek:-43.4,  total:100.90},
+      {date:'Sun Apr 26', day:'Sun', gross:12.50, chgDay:+16.3,   chgWeek:-45.7,  total:113.40},
+      {date:'Mon Apr 27', day:'Mon', gross:3.50,  chgDay:-72.0,   chgWeek:-48.1,  total:116.90},
+      {date:'Tue Apr 28', day:'Tue', gross:4.35,  chgDay:+24.3,   chgWeek:-45.6,  total:121.25},
+      {date:'Wed Apr 29', day:'Wed', gross:3.40,  chgDay:-21.8,   chgWeek:-44.7,  total:124.65},
+      {date:'Thu Apr 30', day:'Thu', gross:3.50,  chgDay:+2.9,    chgWeek:-36.4,  total:128.15},
+      // Week 3
+      {date:'Fri May 1',  day:'Fri', gross:4.50,  chgDay:+28.6,   chgWeek:-21.7,  total:132.65},
+      {date:'Sat May 2',  day:'Sat', gross:4.35,  chgDay:-3.3,    chgWeek:-59.5,  total:137.00},
+      {date:'Sun May 3',  day:'Sun', gross:5.50,  chgDay:+26.4,   chgWeek:-56.0,  total:142.50},
+      {date:'Mon May 4',  day:'Mon', gross:1.75,  chgDay:-68.2,   chgWeek:-50.0,  total:144.25},
+      {date:'Tue May 5',  day:'Tue', gross:2.25,  chgDay:+28.6,   chgWeek:-48.3,  total:146.50},
+      {date:'Wed May 6',  day:'Wed', gross:1.75,  chgDay:-22.2,   chgWeek:-48.5,  total:148.25},
+      {date:'Thu May 7',  day:'Thu', gross:1.75,  chgDay:0.0,     chgWeek:-50.0,  total:150.00},
+      // Week 4
+      {date:'Fri May 8',  day:'Fri', gross:1.75,  chgDay:0.0,     chgWeek:-61.1,  total:151.75},
+      {date:'Sat May 9',  day:'Sat', gross:3.00,  chgDay:+71.4,   chgWeek:-31.0,  total:154.75},
+      {date:'Sun May 10', day:'Sun', gross:4.00,  chgDay:+33.3,   chgWeek:-27.3,  total:158.75},
+      {date:'Mon May 11', day:'Mon', gross:1.35,  chgDay:-66.3,   chgWeek:-22.9,  total:160.10},
+      {date:'Tue May 12', day:'Tue', gross:1.70,  chgDay:+25.9,   chgWeek:-24.4,  total:161.80},
+      {date:'Wed May 13', day:'Wed', gross:1.25,  chgDay:-26.5,   chgWeek:-28.6,  total:163.05},
+      {date:'Thu May 14', day:'Thu', gross:1.25,  chgDay:0.0,     chgWeek:-28.6,  total:164.30},
+      // Week 5
+      {date:'Fri May 15', day:'Fri', gross:0.75,  chgDay:-40.0,   chgWeek:-57.1,  total:165.05},
+      {date:'Sat May 16', day:'Sat', gross:1.40,  chgDay:+86.7,   chgWeek:-53.3,  total:166.45},
+      {date:'Sun May 17', day:'Sun', gross:1.90,  chgDay:+35.7,   chgWeek:-52.5,  total:168.35},
+      {date:'Mon May 18', day:'Mon', gross:0.70,  chgDay:-63.2,   chgWeek:-48.1,  total:169.05},
+      {date:'Tue May 19', day:'Tue', gross:0.90,  chgDay:+28.6,   chgWeek:-47.1,  total:169.95},
+      {date:'Wed May 20', day:'Wed', gross:0.80,  chgDay:-11.1,   chgWeek:-36.0,  total:170.75},
+      {date:'Day 36+',    day:'',    gross:null,  chgDay:null,    chgWeek:null,   total:null,  bucket:true},
     ],
     timeline: [
-      {label:'Week 1',  val:94.95},
-      {label:'Week 2',  val:26.90},
+      {label:'Week 1 (Days 0–7)', val:84.40},
+      {label:'Week 2',            val:43.75},
+      {label:'Week 3',            val:21.10},
+      {label:'Week 4',            val:15.80},
+      {label:'Week 5 (so far)',   val:5.75},
     ],
     overseas: [
       {market:'USA/Canada', val:null},
@@ -5256,6 +5442,102 @@ var FILM_PAGES = {
       'Rohit Shetty has stated that Chennai Express is one of the only films in his career where he had no idea whether it would work — the blend of Bollywood masala with South Indian setting was unprecedented at this scale. Its success effectively opened the door for pan-India cross-cultural entertainers that defined the rest of the decade.',
     ],
   },
+  'kabir singh': {
+    key: 'kabir-singh',
+    title: 'Kabir Singh',
+    year: 2019,
+    lang: 'Hindi',
+    director: 'Sandeep Reddy Vanga',
+    studio: 'Cine1 Studios / T-Series',
+    cast: [
+      {name:'Shahid Kapoor',   role:'Kabir Singh'},
+      {name:'Kiara Advani',    role:'Preeti Sikka'},
+      {name:'Arjan Bajwa',     role:'Shiva'},
+      {name:'Soham Majumdar',  role:'Amit'},
+      {name:'Nikita Dutta',    role:'Jia'},
+    ],
+    synopsis: 'Kabir Singh is a brilliant, volatile final-year medical student who falls obsessively in love with Preeti, a first-year student at his college. When their families forcibly separate them and Preeti is married off to another man, Kabir descends into a spectacular self-destructive spiral — alcohol, drugs, and reckless surgery — before a long, painful road back to himself. The Hindi remake of Sandeep Reddy Vanga\'s Telugu blockbuster Arjun Reddy (2017), Kabir Singh divided critics almost perfectly down the middle: a film condemned for glorifying toxic masculinity and celebrated for Shahid Kapoor\'s ferociously committed, career-defining performance. Audiences settled the debate at the box office — it became the biggest hit of 2019 in the Hindi belt.',
+    release: '2019-06-21',
+    runtime: 173,
+    budget: 60,
+    india: 278,
+    ow: 71,
+    ww: 379,
+    ff: 26,
+    multiplier: +(278/71).toFixed(2),
+    lb: 3.2,
+    ott: 'Netflix',
+    music: 'Mithoon / Sachet–Parampara / Vishal Mishra',
+    awards: [
+      'Filmfare – Best Actor (Shahid Kapoor)',
+      'Filmfare – Best Film (Nominated)',
+      'Filmfare – Best Director (Sandeep Reddy Vanga, Nominated)',
+      'IIFA – Best Actor (Shahid Kapoor)',
+      'IIFA – Most Entertaining Film',
+      'Screen Awards – Best Actor (Shahid Kapoor)',
+      'Screen Awards – Best Film (Nominated)',
+      'Stardust – Blockbuster Film of the Year',
+      'Zee Cine – Best Actor (Shahid Kapoor)',
+    ],
+    daily: [
+      {date:'Fri Jun 21', day:'Fri', gross:20.21, chgDay:null,   chgWeek:null,  total:20.21},
+      {date:'Sat Jun 22', day:'Sat', gross:26.34, chgDay:+30.3,  chgWeek:null,  total:46.55},
+      {date:'Sun Jun 23', day:'Sun', gross:24.50, chgDay:-7.0,   chgWeek:null,  total:71.05},
+      {date:'Mon Jun 24', day:'Mon', gross:16.87, chgDay:-31.1,  chgWeek:null,  total:87.92},
+      {date:'Tue Jun 25', day:'Tue', gross:16.11, chgDay:-4.5,   chgWeek:null,  total:104.03},
+      {date:'Wed Jun 26', day:'Wed', gross:15.10, chgDay:-6.3,   chgWeek:null,  total:119.13},
+      {date:'Thu Jun 27', day:'Thu', gross:11.75, chgDay:-22.2,  chgWeek:null,  total:130.88},
+      {date:'Fri Jun 28', day:'Fri', gross:14.47, chgDay:+23.1,  chgWeek:-28.4, total:145.35},
+      {date:'Sat Jun 29', day:'Sat', gross:21.10, chgDay:+45.8,  chgWeek:-19.9, total:166.45},
+      {date:'Sun Jun 30', day:'Sun', gross:21.80, chgDay:+3.3,   chgWeek:-11.0, total:188.25},
+      {date:'Mon Jul 1',  day:'Mon', gross:9.50,  chgDay:-56.4,  chgWeek:-43.7, total:197.75},
+      {date:'Tue Jul 2',  day:'Tue', gross:9.20,  chgDay:-3.2,   chgWeek:-42.9, total:206.95},
+      {date:'Wed Jul 3',  day:'Wed', gross:8.30,  chgDay:-9.8,   chgWeek:-45.0, total:215.25},
+      {date:'Thu Jul 4',  day:'Thu', gross:7.50,  chgDay:-9.6,   chgWeek:-36.2, total:222.75},
+      {date:'Fri Jul 5',  day:'Fri', gross:7.10,  chgDay:-5.3,   chgWeek:-50.9, total:229.85},
+      {date:'Sat Jul 6',  day:'Sat', gross:11.20, chgDay:+57.7,  chgWeek:-46.9, total:241.05},
+      {date:'Sun Jul 7',  day:'Sun', gross:12.00, chgDay:+7.1,   chgWeek:-44.9, total:253.05},
+      {date:'Mon Jul 8',  day:'Mon', gross:3.80,  chgDay:-68.3,  chgWeek:-60.0, total:256.85},
+      {date:'Tue Jul 9',  day:'Tue', gross:4.10,  chgDay:+7.9,   chgWeek:-55.4, total:260.95},
+      {date:'Wed Jul 10', day:'Wed', gross:3.60,  chgDay:-12.2,  chgWeek:-56.6, total:264.55},
+      {date:'Thu Jul 11', day:'Thu', gross:3.20,  chgDay:-11.1,  chgWeek:-57.3, total:267.75},
+      {date:'Day 22+',    day:'',    gross:10.25, chgDay:null,   chgWeek:null,  total:278.00, bucket:true},
+    ],
+    timeline: [
+      {label:'Week 1',  val:130.88},
+      {label:'Week 2',  val:91.87},
+      {label:'Week 3',  val:41.80},
+      {label:'Week 4+', val:13.45},
+    ],
+    overseas: [
+      {market:'USA/Canada', val:42},
+      {market:'Gulf',       val:32},
+      {market:'UK',         val:18},
+      {market:'Australia',  val:10},
+      {market:'Other',      val:19},
+    ],
+    comparable: [
+      {n:'Animal (2023)',        ww:917,  col:'#f97316'},
+      {n:'Pathaan (2023)',       ww:1050, col:'#4fc3f7'},
+      {n:'Jawan (2023)',         ww:1148, col:'#22c55e'},
+      {n:'Kabir Singh (2019)',   ww:379,  col:'#f5c518', highlight:true},
+      {n:'Arjun Reddy (2017)',   ww:50,   col:'#a78bfa'},
+      {n:'War (2019)',           ww:475,  col:'#2ec4b6'},
+    ],
+    trivia: [
+      'Kabir Singh is a scene-for-scene remake of Sandeep Reddy Vanga\'s Telugu debut Arjun Reddy (2017), which itself grossed around ₹50 Cr worldwide on a ₹4 Cr budget — making it one of the most profitable Telugu films of that era.',
+      'Shahid Kapoor\'s performance required him to gain weight, lose it, grow out his hair, and age visibly across the film\'s timeline — a physical transformation widely described as the most committed of his career.',
+      'Kabir Singh crossed ₹100 Cr nett in India in just 5 days — becoming one of the fastest Hindi films to reach that milestone at the time — despite releasing without a single national holiday in its opening stretch.',
+      'The film\'s soundtrack became one of the most-streamed Hindi film albums of 2019. Sachet–Parampara\'s "Tujhe Kitna Chahne Lage" and Mithoon\'s "Bekhayali" accumulated hundreds of millions of streams and are among the most-played Hindi film songs of the decade.',
+      'Kabir Singh earned ₹278 Cr nett in India on a budget of just ₹60 Cr — a ROI of nearly 5× domestically, making it one of the most profitable Hindi films of 2019.',
+      'The film sparked one of the most intense critical debates of 2019 in Indian media, with prominent reviewers and cultural commentators arguing over whether it romanticised abuse. Vanga responded that the film was about love without conditions, not a template for behaviour.',
+      'Kiara Advani\'s role as Preeti was her commercial breakthrough — a performance that launched her into the top tier of Bollywood actresses almost overnight.',
+      'Despite releasing in a direct clash with Bharat (Salman Khan), Kabir Singh dominated the box office, proving that content-driven films could outperform conventional mass entertainers.',
+      'Shahid Kapoor won every major Bollywood award for Best Actor that season — Filmfare, IIFA, Screen, Stardust, and Zee Cine — making it his most decorated performance in a career spanning 18 years at that point.',
+      'Sandeep Reddy Vanga went on to direct Animal (2023), which grossed ₹917 Cr worldwide and showed many of the same thematic preoccupations — cementing him as one of the most commercially potent and culturally divisive directors in Indian cinema.',
+    ],
+  },
+  'kabir': {key:'kabir-singh',title:'Kabir Singh',year:2019,lang:'Hindi',director:'Sandeep Reddy Vanga',studio:'Cine1 Studios / T-Series',cast:[{name:'Shahid Kapoor',role:'Kabir Singh'},{name:'Kiara Advani',role:'Preeti Sikka'}],synopsis:'See Kabir Singh.',release:'2019-06-21',runtime:173,budget:60,india:278,ow:71,ww:379,ff:26,multiplier:+(278/71).toFixed(2),lb:3.2,ott:'Netflix',music:'Mithoon / Sachet–Parampara',awards:['Filmfare – Best Actor (Shahid Kapoor)','IIFA – Best Actor (Shahid Kapoor)'],timeline:[{label:'Week 1',val:130.88},{label:'Week 2',val:91.87},{label:'Week 3',val:41.80},{label:'Week 4+',val:13.45}],overseas:[{market:'USA/Canada',val:42},{market:'Gulf',val:32},{market:'UK',val:18},{market:'Australia',val:10},{market:'Other',val:19}],comparable:[{n:'Animal (2023)',ww:917,col:'#f97316'},{n:'Kabir Singh (2019)',ww:379,col:'#f5c518',highlight:true},{n:'War (2019)',ww:475,col:'#2ec4b6'}],trivia:['Shahid Kapoor\'s career-defining performance won every major Best Actor award that season.','₹278 Cr India nett on ₹60 Cr budget — nearly 5× ROI.','Remake of Arjun Reddy (2017). Vanga\'s next film was Animal (2023) — ₹917 Cr WW.']},
   'dunki': {
     key: 'dunki',
     title: 'Dunki',
@@ -5592,6 +5874,115 @@ var FILM_PAGES = {
     ],
   },
   '3idiots': {key:'3-idiots',title:'3 Idiots',year:2009,lang:'Hindi',director:'Rajkumar Hirani',studio:'Vinod Chopra Films',cast:[{name:'Aamir Khan',role:'Rancho'},{name:'R. Madhavan',role:'Farhan'},{name:'Sharman Joshi',role:'Raju'},{name:'Kareena Kapoor',role:'Pia'},{name:'Boman Irani',role:'Virus'}],synopsis:'See 3 Idiots.',release:'2009-12-25',runtime:170,budget:55,india:202,ow:40.7,ww:400,ff:31.79,multiplier:4.96,lb:4.1,ott:'Netflix',music:'Shantanu Moitra',awards:['National Award – Best Popular Film','Filmfare – Best Film','Filmfare – Best Actor (Aamir Khan)'],timeline:[{label:'Week 1',val:70},{label:'Week 2',val:61},{label:'Week 3',val:35},{label:'Week 4',val:15},{label:'Week 5+',val:9}],overseas:[{market:'China',val:55},{market:'USA/Canada',val:28},{market:'Gulf',val:32},{market:'UK',val:22},{market:'Australia',val:10},{market:'Other',val:51}],comparable:[{n:'PK (2014)',ww:769,col:'#22c55e'},{n:'Dangal (2016)',ww:2070,col:'#4fc3f7'},{n:'3 Idiots (2009)',ww:400,col:'#f5c518',highlight:true},{n:'Ghajini (2008)',ww:201,col:'#a78bfa'}],trivia:['First Hindi film to gross ₹200 Cr+ nett in India.','Held the all-time Hindi box office record for nearly 4 years.']},
+  'karuppu': {
+    key: 'karuppu',
+    title: 'Karuppu',
+    year: 2026,
+    lang: 'Tamil',
+    director: 'RJ Balaji',
+    studio: 'TBA',
+    cast: [
+      {name:'Suriya',            role:'Karuppu'},
+      {name:'TBA',               role:'Female Lead'},
+    ],
+    synopsis: 'A visceral, grounded action thriller starring Suriya in his most raw and elemental avatar. Karuppu — meaning "Black" in Tamil — follows a man from the margins of society who becomes an unlikely force of reckoning against a deeply entrenched system of power and corruption. Director RJ Balaji, known for blending sharp social commentary with mass entertainment, crafts a film that channels Suriya\'s magnetic screen presence into something urgent and politically charged. Released on May 14, 2026, Karuppu opened to the biggest opening weekend of Suriya\'s solo career.',
+    release: '2026-05-15',
+    runtime: null,
+    budget: 130,
+    india: 133.85,
+    ow: 68,
+    ww: 217,
+    ff: 7.2,
+    get multiplier() { return +(this.india / this.ow).toFixed(2); },
+    lb: 3.0,
+    ott: 'TBA',
+    music: 'TBA',
+    awards: [],
+    prediction: {
+      status: 'live',
+      note: 'Day 7 · ₹105.35 Cr India nett banked. Opening weekend (Fri–Sun) ₹68 Cr is Suriya\'s biggest solo ever. Wed May 20 (Day 7) added ₹10.3 Cr. 6.6M footfalls. Tracking comfortably above model midpoint of ₹195 Cr.',
+      baseline: {
+        comp_films: [
+          {n:'Jailer (2023)',         ww:604,  india:348,  ow:116,  note:'Rajinikanth · ₹116 Cr OW → 3.0× legs → ₹348 Cr · if Karuppu same legs: <strong style="color:#4ade80">₹204 Cr</strong>'},
+          {n:'Leo (2023)',            ww:605,  india:341,  ow:112,  note:'Vijay · ₹112 Cr OW → 3.04× legs → ₹341 Cr · if Karuppu same legs: <strong style="color:#4ade80">₹207 Cr</strong>'},
+          {n:'Vikram (2022)',         ww:414,  india:247,  ow:95,   note:'Kamal Haasan · ₹95 Cr OW → 2.6× legs → ₹247 Cr · if Karuppu same legs: <strong style="color:#facc15">₹177 Cr</strong>'},
+          {n:'Coolie (2025)',         ww:518,  india:285,  ow:129,  note:'Rajinikanth · ₹129 Cr OW → 2.21× legs → ₹285 Cr · if Karuppu same legs: <strong style="color:#facc15">₹150 Cr</strong>'},
+          {n:'Vettaiyan (2024)',      ww:253,  india:147,  ow:73,   note:'Rajinikanth · ₹73 Cr OW → 2.01× legs → ₹147 Cr · (lower comp — smaller OW)'},
+        ],
+        india_low:  145,
+        india_mid:  195,
+        india_high: 255,
+        ww_low:     220,
+        ww_mid:     265,
+        ww_high:    330,
+        ow_low:     55,
+        ow_mid:     68,
+        ow_high:    80,
+      },
+      actuals: {
+        ow: 68,
+        day1: 15.5,
+        day2: 24.15,
+        day3: 28.35,
+        day4: 14.3,
+        day5: 12.75,
+        week1: null,
+        ww_ow: null,
+        second_weekend_drop: null,
+        legs_multiple: null,
+        running_total: 133.85,
+        running_ww: 217,
+      },
+      refined: {
+        india_low:  150,
+        india_mid:  195,
+        india_high: 255,
+        ww_low:     220,
+        ww_mid:     265,
+        ww_high:    330,
+        note: 'Early days — range remains wide. Weekday hold of ₹12–14 Cr/day is encouraging for a Tamil actioner. Will refine after first full week.',
+      },
+    },
+    daily: [
+      {date:'Fri May 15', day:'Fri', gross:15.50, chgDay:null,   chgWeek:null,  total:15.50},
+      {date:'Sat May 16', day:'Sat', gross:24.15, chgDay:+55.8,  chgWeek:null,  total:39.65},
+      {date:'Sun May 17', day:'Sun', gross:28.35, chgDay:+17.4,  chgWeek:null,  total:68.00},
+      {date:'Mon May 18', day:'Mon', gross:14.30, chgDay:-49.6,  chgWeek:null,  total:82.30},
+      {date:'Tue May 19', day:'Tue', gross:12.75, chgDay:-10.8,  chgWeek:null,  total:95.05},
+      {date:'Wed May 20', day:'Wed', gross:10.70, chgDay:-16.0,  chgWeek:null,  total:105.75},
+      {date:'Thu May 21', day:'Thu', gross:8.10,  chgDay:-24.3,  chgWeek:null,  total:113.85},
+      {date:'Fri May 22', day:'Fri', gross:7.80,  chgDay:-3.7,   chgWeek:null,  total:121.65},
+      {date:'Sat May 23', day:'Sat', gross:12.20, chgDay:+56.4,  chgWeek:null,  total:133.85},
+      {date:'Day 10+',    day:'',   gross:null,  chgDay:null,   chgWeek:null,  total:null,  bucket:true},
+    ],
+    timeline: [
+      {label:'Day 1 (Thu)', val:15.50},
+      {label:'Opening Wknd',val:68.00},
+      {label:'Week 1 (so far)', val:95.05},
+    ],
+    overseas: [
+      {market:'USA/Canada', val:null},
+      {market:'Gulf',       val:null},
+      {market:'UK',         val:null},
+      {market:'Australia',  val:null},
+      {market:'Other',      val:null},
+    ],
+    comparable: [
+      {n:'Leo (2023)',       ww:605,  col:'#22c55e'},
+      {n:'Jailer (2023)',   ww:604,  col:'#4fc3f7'},
+      {n:'Coolie (2025)',   ww:518,  col:'#f97316'},
+      {n:'Vikram (2022)',   ww:414,  col:'#a78bfa'},
+      {n:'Karuppu (2026)',  ww:null, col:'#2ec4b6', highlight:true},
+      {n:'Vettaiyan (2024)',ww:253,  col:'#f5c518'},
+    ],
+    trivia: [
+      'Karuppu\'s opening weekend of ₹68 Cr is the biggest ever for a Suriya solo film, surpassing his previous best.',
+      'RJ Balaji makes his big-budget directorial debut with Karuppu after establishing himself as an actor-director with smaller Tamil hits.',
+      'The title "Karuppu" (meaning "Black" in Tamil) reflects both the protagonist\'s name and the film\'s dark, grounded tonality.',
+      'Suriya\'s Day 5 collection of ₹12.75 Cr — a drop of only 10.9% from Day 4 — signals strong word-of-mouth driven legs.',
+      'The film is tracking as one of the biggest Tamil releases of 2026, with predictions ranging from ₹150–255 Cr India nett.',
+    ],
+  },
   'lokah chapter 1': {
     key: 'lokah-chapter-1',
     title: 'Lokah: Chapter 1',
@@ -5738,6 +6129,15 @@ var FILM_PAGES = {
       {date:'Sat May 9',  day:'Sat', gross:0.90,   chgDay:+114.3,  chgWeek:-21.7,  total:1141.99},
       {date:'Sun May 10', day:'Sun', gross:1.10,   chgDay:+22.2,   chgWeek:-16.0,  total:1143.09},
       {date:'Mon May 11', day:'Mon', gross:0.35,   chgDay:-68.2,   chgWeek:-30.0,  total:1143.44},
+      {date:'Tue May 12', day:'Tue', gross:0.40,   chgDay:+14.3,   chgWeek:-54.5,  total:1143.84},
+      {date:'Wed May 13', day:'Wed', gross:0.37,   chgDay:-7.5,    chgWeek:-54.3,  total:1144.21},
+      {date:'Thu May 14', day:'Thu', gross:0.35,   chgDay:-5.4,    chgWeek:-52.0,  total:1144.56},
+      {date:'Fri May 15', day:'Fri', gross:0.26,   chgDay:-25.7,   chgWeek:-75.2,  total:1144.82},
+      {date:'Sat May 16', day:'Sat', gross:0.53,   chgDay:+103.8,  chgWeek:-41.1,  total:1145.35},
+      {date:'Sun May 17', day:'Sun', gross:0.63,   chgDay:+18.9,   chgWeek:-42.7,  total:1145.98},
+      {date:'Mon May 18', day:'Mon', gross:0.19,   chgDay:-69.8,   chgWeek:-66.7,  total:1146.17},
+      {date:'Tue May 19', day:'Tue', gross:0.19,   chgDay:0.0,     chgWeek:-66.7,  total:1146.36},
+      {date:'Wed May 20', day:'Wed', gross:0.19,   chgDay:0.0,     chgWeek:-66.7,  total:1146.55},
     ],
     awards: ['National Award – Best Action Direction', 'Filmfare – Best Film (Nominated)', 'IIFA – Best Director (Nominated)'],
     timeline: [
@@ -5933,9 +6333,9 @@ function showFilmPageWithPredictions(key) {
   var indiaLow  = hasOW && ref.india_low  ? ref.india_low  : base.india_low;
   var indiaMid  = hasOW && ref.india_mid  ? ref.india_mid  : base.india_mid;
   var indiaHigh = hasOW && ref.india_high ? ref.india_high : base.india_high;
-  var wwLow     = hasOW && ref.ww_low     ? ref.ww_low     : base.ww_low;
-  var wwMid     = hasOW && ref.ww_mid     ? ref.ww_mid     : base.ww_mid;
-  var wwHigh    = hasOW && ref.ww_high    ? ref.ww_high    : base.ww_high;
+  var wwLow     = ref.ww_low  || base.ww_low;
+  var wwMid     = ref.ww_mid  || base.ww_mid;
+  var wwHigh    = ref.ww_high || base.ww_high;
 
   // Running total marker position on India net slider
   var runningTotal = act.running_total || (hasOW ? act.ow : null);
@@ -6538,16 +6938,7 @@ function showFilmPage(key) {
 
 
 
-      // Trivia
-      (page.trivia && page.trivia.length ? '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.25rem 1.5rem">' +
-        '<div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.85rem">Did You Know?</div>' +
-        page.trivia.map(function(t){
-          return '<div style="display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.6rem">' +
-            '<span style="color:rgba(192,132,252,.5);font-size:.75rem;flex-shrink:0;margin-top:1px">◆</span>' +
-            '<span style="font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.6">'+t+'</span>' +
-          '</div>';
-        }).join('') +
-      '</div>' : '') +
+
 
     '</div>' +
     '<footer style="font-size:.6rem;color:rgba(255,255,255,.15);text-align:center;padding:2rem;border-top:0.5px solid rgba(255,255,255,.05);margin-top:2rem">Box Office India · All figures approximate · Data through April 2026</footer>';
@@ -6660,7 +7051,7 @@ function handleGlobalSearch(q) {
     html += filmHits.map(function(f) {
       var col = LC[f.l] || '#888';
       var fp = getFilmPage(f.n);
-      var hasPred = fp && fp.prediction;
+      var clickFn = fp ? (hasPred ? "showFilmPageWithPredictions('"+fp.key+"')" : "showFilmPage('"+fp.key+"')") : '';
       var clickFn = fp
         ? (hasPred ? 'showFilmPageWithPredictions(\''+fp.key+'\')' : 'showFilmPage(\''+fp.key+'\')')+';document.getElementById(\'global-search\').value=\'\';document.getElementById(\'gs-results\').style.display=\'none\''
         : 'document.getElementById(\'global-search\').value=\'\';document.getElementById(\'gs-results\').style.display=\'none\'';
@@ -6680,6 +7071,100 @@ function handleGlobalSearch(q) {
 }
 
 // ═══════════════════════════════════════
+// SCRAPER INTEGRATION
+// Maps film slug → which FILM_PAGES key and LIVE_FILMS key to update
+// ═══════════════════════════════════════
+var SCRAPER_MAP = [
+  { slug: 'BhootBhangla-2025',  liveKey: 'bhoot-bhangla', pageKey: 'bhoot-bhangla', weeklyTitle: 'Bhoot Bhangla' },
+  { slug: 'Dhurandhar2-2026',   liveKey: 'dhurandhar-2',  pageKey: 'dhurandhar-2',  weeklyTitle: 'Dhurandhar 2'  },
+  { slug: 'Dhurandhar-2025',    liveKey: 'dhurandhar',    pageKey: 'dhurandhar',     weeklyTitle: 'Dhurandhar'    },
+];
+
+var RAW_BASE = 'https://raw.githubusercontent.com/NinadRData/IndiaBoxOffice/main/scraper/output/';
+
+function fetchAndMergeScraperData() {
+  SCRAPER_MAP.forEach(function(m) {
+    fetch(RAW_BASE + m.slug + '.json', { cache: 'no-store' })
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function(rows) {
+        if (!rows || !rows.length) return;
+
+        // ── Build merged daily array ──
+        var newDaily = rows.map(function(r, i) {
+          return {
+            date:    r.date || r.day || ('Day ' + (i + 1)),
+            day:     '',
+            gross:   r.gross,
+            total:   r.total,
+            chgDay:  r.chg_day != null ? r.chg_day : null,
+            chgWeek: null,
+          };
+        });
+
+        var last       = rows[rows.length - 1];
+        var running    = last.total;
+        var yesterday  = rows.length >= 2 ? rows[rows.length - 2].gross : last.gross;
+        var latestDay  = last.gross;
+
+        // ── Update LIVE_FILMS ──
+        var lf = LIVE_FILMS.find(function(f) { return f.key === m.liveKey; });
+        if (lf) {
+          lf.indiaRunning    = running;
+          lf.yesterdayIndia  = latestDay;
+          // Update note to reflect fresh data
+          lf.note = 'Live data via scraper · Day ' + rows.length + ' · ₹' + running + ' Cr India nett running total.';
+        }
+
+        // ── Update FILM_PAGES actuals ──
+        var fp = null;
+        Object.keys(FILM_PAGES).forEach(function(k) {
+          if (FILM_PAGES[k].key === m.pageKey) fp = FILM_PAGES[k];
+        });
+        if (fp) {
+          fp.india = running;
+          fp.daily = newDaily;
+          if (fp.prediction && fp.prediction.actuals) {
+            fp.prediction.actuals.running_total = running;
+            fp.prediction.actuals.legs_multiple = fp.ow
+              ? Math.round(running / fp.ow * 100) / 100
+              : null;
+            var week1rows = rows.slice(0, Math.min(7, rows.length));
+            fp.prediction.actuals.week1 = Math.round(
+              week1rows.reduce(function(s, r) { return s + r.gross; }, 0) * 100
+            ) / 100;
+          }
+        }
+
+        // ── Update WEEKLY_DATA ──
+        var wd = WEEKLY_DATA.find(function(f) { return f.n === m.weeklyTitle; });
+        if (wd) {
+          wd.total = running;
+          // This-week gross = sum of last 7 days (or however many exist)
+          var wkRows = rows.slice(-7);
+          wd.thisWeek = Math.round(
+            wkRows.reduce(function(s, r) { return s + r.gross; }, 0) * 100
+          ) / 100;
+        }
+
+        // ── Re-render affected sections ──
+        renderLiveTracker();
+        renderWeekly();
+
+        console.log('[Scraper] Merged ' + m.slug + ' · ₹' + running + ' Cr · Day ' + rows.length);
+      })
+      .catch(function(err) {
+        console.warn('[Scraper] Failed to fetch ' + m.slug + ':', err.message);
+      });
+  });
+}
+
+// Run on page load — hardcoded data is the fallback if fetch fails
+fetchAndMergeScraperData();
+
+// ═══════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════
 function showPage(p) {
@@ -6693,20 +7178,138 @@ function showPage(p) {
 }
 
 // ═══════════════════════════════════════
-// LIVE TRACKER DATA
+// THIS WEEK AT THE BOX OFFICE
+// ═══════════════════════════════════════
+var WEEKLY_DATA = [
+  {rank:1,  prev:null, n:'Karuppu',       l:'Tamil',   wk:1,  thisWeek:46.55, total:121.65, hasPg:true,  key:'karuppu'},
+  {rank:2,  prev:1,   n:'Bhoot Bhangla', l:'Hindi',   wk:5,  thisWeek:8.55,  total:170.75, hasPg:true,  key:'bhoot-bhangla'},
+  {rank:3,  prev:2,   n:'Dhurandhar 2',  l:'Hindi',   wk:9,  thisWeek:3.27,  total:1146.55,hasPg:true,  key:'dhurandhar-2'},
+  {rank:4,  prev:3,   n:'Raja Shivaji',  l:'Hindi',   wk:4,  thisWeek:0.75,  total:88,     hasPg:false, key:null},
+];
+
+var WEEKLY_MAX = Math.max.apply(null, WEEKLY_DATA.map(function(f){return f.thisWeek;}));
+
+function getRankChange(f) {
+  if (f.prev === null) return {html:'<span style="font-size:.55rem;padding:1px 5px;border-radius:2px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.25);color:#4ade80">NEW</span>', dir:'new'};
+  var diff = f.prev - f.rank;
+  if (diff > 0) return {html:'<span style="color:#4ade80;font-size:.65rem;font-weight:700">▲'+diff+'</span>', dir:'up'};
+  if (diff < 0) return {html:'<span style="color:#f87171;font-size:.65rem;font-weight:700">▼'+Math.abs(diff)+'</span>', dir:'down'};
+  return {html:'<span style="color:rgba(255,255,255,.2);font-size:.65rem">—</span>', dir:'same'};
+}
+
+function renderWeekly() {
+  var el = document.getElementById('weekly-chart');
+  if (!el) return;
+  el.innerHTML = WEEKLY_DATA.map(function(f, i) {
+    var lc = LC[f.l] || '#888';
+    var pct = Math.round(f.thisWeek / WEEKLY_MAX * 100);
+    var chg = getRankChange(f);
+    var isTop3 = f.rank <= 3;
+    var rankCol = f.rank === 1 ? 'var(--gold)' : f.rank === 2 ? '#c0c0c0' : f.rank === 3 ? '#cd7f32' : 'rgba(255,255,255,.22)';
+    var fp = f.hasPg && f.key;
+
+    return '<div style="display:grid;grid-template-columns:28px 1fr 60px 90px 90px 70px;padding:.55rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.04);align-items:center;cursor:'+(fp?'pointer':'default')+';transition:background .15s" '+
+      (fp ? 'onclick="showFilmPage(\''+f.key+'\')"' : '') +
+      ' onmouseover="this.style.background=\'rgba(255,255,255,.025)\'" onmouseout="this.style.background=\'\'">' +
+
+      // Rank
+      '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1rem;font-weight:900;color:'+rankCol+'">'+f.rank+'</div>' +
+
+      // Film name + bar + change indicator
+      '<div>' +
+        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">' +
+          '<div style="font-size:.8rem;font-weight:500;color:rgba(255,255,255,.88)">'+f.n+(fp?' <span style="font-size:.48rem;color:var(--gold);vertical-align:middle">●</span>':'')+'</div>' +
+          chg.html +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:6px">' +
+          '<div style="flex:1;max-width:280px;height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden">' +
+            '<div style="height:5px;width:'+pct+'%;border-radius:3px;background:'+
+              (f.rank===1 ? 'linear-gradient(90deg,#b38600,var(--gold))' :
+               f.rank===2 ? 'linear-gradient(90deg,#555,#c0c0c0)' :
+               f.rank===3 ? 'linear-gradient(90deg,#6b3a00,#cd7f32)' :
+               'linear-gradient(90deg,'+lc+'44,'+lc+')')+'"></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      // Language
+      '<div style="text-align:right;font-size:.65rem;font-weight:600;color:'+lc+'">'+f.l+'</div>' +
+
+      // This week
+      '<div style="text-align:right;font-family:\'Barlow Condensed\',sans-serif;font-size:1.1rem;font-weight:800;color:'+(isTop3?'var(--gold)':'rgba(255,255,255,.7)')+'">₹'+f.thisWeek+' Cr</div>' +
+
+      // Total
+      '<div style="text-align:right;font-size:.75rem;color:rgba(255,255,255,.35)">₹'+f.total+' Cr</div>' +
+
+      // Week number badge
+      '<div style="text-align:right">' +
+        '<span style="font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:10px;background:'+(f.wk===1?'rgba(34,197,94,.12)':'rgba(255,255,255,.05)')+';border:0.5px solid '+(f.wk===1?'rgba(34,197,94,.25)':'rgba(255,255,255,.08)')+';color:'+(f.wk===1?'#4ade80':'rgba(255,255,255,.3)')+'">Wk '+f.wk+'</span>' +
+      '</div>' +
+
+    '</div>';
+  }).join('') +
+  // Footer summary row
+  '<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;background:rgba(255,255,255,.02);border-top:0.5px solid rgba(255,255,255,.07)">' +
+    '<div style="font-size:.62rem;color:rgba(255,255,255,.28)">'+WEEKLY_DATA.length+' films in top 8 · Total week gross</div>' +
+    '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.1rem;font-weight:800;color:rgba(255,255,255,.6)">₹'+WEEKLY_DATA.reduce(function(s,f){return Math.round((s+f.thisWeek)*100)/100;},0)+' Cr</div>' +
+  '</div>';
+}
+
+renderWeekly();
 // — UPDATE THESE NUMBERS EACH MORNING —
 // ═══════════════════════════════════════
 var LIVE_FILMS = [
   {
+    key:         'karuppu',
+    title:       'Karuppu',
+    lang:        'Tamil',
+    releaseDate: '2026-05-14',
+    lastUpdated: 'May 20',
+    indiaRunning: 133.85,
+    wwRunning:    217,
+    yesterdayIndia: 12.20,
+    wow: null,
+    indiaLow:   150,
+    indiaMid:   200,
+    indiaHigh:  260,
+    wwLow:      220,
+    wwMid:      265,
+    wwHigh:     330,
+    budget:     130,
+    statusOverride: null,
+    ottEstimate: 'TBA',
+          note: 'Day 9 · ₹133.85 Cr India nett banked. 2nd Saturday ₹12.20 Cr — a strong +56% jump from 2nd Friday, signalling excellent weekend momentum. ₹217 Cr WW. Tracking firmly above model midpoint; lifetime now looking like ₹200–230 Cr India nett.',
+  },
+  {
+    key:         'raja-shivaji',
+    title:       'Raja Shivaji',
+    lang:        'Hindi',
+    releaseDate: '2026-05-01',
+    lastUpdated: 'May 14',
+    indiaRunning: 88,
+    wwRunning:    108,
+    yesterdayIndia: 1.2,
+    wow: null,
+    indiaLow:   95,
+    indiaMid:   110,
+    indiaHigh:  130,
+    wwLow:      115,
+    wwMid:      135,
+    wwHigh:     160,
+    budget:     90,
+    statusOverride: null,
+    ottEstimate: 'TBA',
+    note: 'Still running · ₹75 Cr India nett through Day 14. Solid hold for a mid-budget Hindi release. Riteish Deshmukh\'s biggest solo opener in years.',
+  },
+  {
     key:         'bhoot-bhangla',
     title:       'Bhoot Bhangla',
     lang:        'Hindi',
-    releaseDate: '2026-04-17',   // theatrical release date
-        lastUpdated: 'May 4',
-        // ← change this each day
+    releaseDate: '2026-04-16',
+    lastUpdated: 'May 20',
     // ── RUNNING TOTALS (update daily) ──
-    indiaRunning: 167.30,
-    wwRunning:    243,
+    indiaRunning: 170.75,
+    wwRunning:    256,
     yesterdayIndia: 1.35,
     wow: -22.9,
     // ── PREDICTIONS (don't change these) ──
@@ -6714,17 +7317,12 @@ var LIVE_FILMS = [
     indiaMid:   165,
     indiaHigh:  175,
     wwLow:      190,
-    wwMid:      206,
-    wwHigh:     225,
+    wwMid:      215,
+    wwHigh:     240,
     budget:     120,
-    // ── STATUS: 'overperforming' | 'on-track' | 'underperforming' ──
-    // (auto-calculated below, but you can override)
     statusOverride: null,
-    // ── DAYS IN RUN ──
-    // (auto-calculated from releaseDate)
-    // ── OTT DATE ESTIMATE ──
     ottEstimate: 'Mid-June 2026',
-          note: 'Mon ₹1.75 Cr. Running total ₹151.45 Cr. Weekend 3 (Fri–Sun) delivered ₹14.35 Cr — a reasonable 3rd weekend for a mid-range horror-comedy. Tracking towards ₹160–175 Cr lifetime.',
+    note: 'Through Day 35 (Wed May 20). Running total ₹170.75 Cr India nett. Deep tail — ₹0.75–1.90 Cr/day in Week 5. Film has likely reached near-final territory; lifetime close around ₹171–173 Cr.',
   },
   {
     key:         'dhurandhar-2',
@@ -6732,9 +7330,9 @@ var LIVE_FILMS = [
     lang:        'Hindi',
     releaseDate: '2026-03-18',
     lastUpdated: 'May 4',
-    indiaRunning: 1143.44,
-    wwRunning:    1795,
-    yesterdayIndia: 0.35,
+    indiaRunning: 1146.55,
+    wwRunning:    1798.86,
+    yesterdayIndia: 0.19,
     wow: null,
     indiaLow:   1100,
     indiaMid:   1145,
@@ -6768,9 +7366,13 @@ function getLiveDaysInRun(releaseDate) {
 }
 
 function buildLiveCard(f) {
-  // force all text inside live cards to be visible regardless of theme
-  var textStyle = 'color:#fff!important';
-  var status   = getLiveStatus(f);
+  var fp = null;
+  Object.keys(FILM_PAGES).forEach(function(k){
+    var p = FILM_PAGES[k];
+    if (p.key === f.key) fp = p;
+    else if (p.title && p.title.toLowerCase() === f.title.toLowerCase()) fp = p;
+  });
+  var hasPred = fp && fp.prediction;
   var days     = getLiveDaysInRun(f.releaseDate);
   var langCol  = LC[f.lang] || '#888';
 
@@ -6804,7 +7406,7 @@ function buildLiveCard(f) {
   var breakeven = f.budget * 2.5;
   var profitable = f.wwRunning >= breakeven;
 
-  var fp = getFilmPage(f.key);
+  var status   = getLiveStatus(f);
 
   return '<div onclick="'+(fp ? (fp.prediction ? "showFilmPageWithPredictions('"+f.key+"')" : "showFilmPage('"+f.key+"')") : '')+'" ' +
     'style="background:#0f0f0f;border:0.5px solid rgba(255,255,255,.1);border-top:2px solid '+langCol+';border-radius:6px;padding:1.1rem 1.25rem;cursor:'+(fp?'pointer':'default')+';transition:border-color .2s;color:#fff" ' +
@@ -6907,10 +7509,27 @@ function renderLiveTracker() {
 // MAIN PAGE
 // ═══════════════════════════════════════
 // Hero panels from top 3 worldwide
-document.getElementById('heroTitle').textContent = TOP3.map(function(f){return f.n;}).join(' vs ');
-document.getElementById('heroPanels').innerHTML = TOP3.map(function(f,i){
-  var eyebrow = ['All-Time #1','All-Time #2','All-Time #3'][i];
-  return '<div class="panel"><div class="panel-bg" style="background:'+bg(i)+';display:flex;align-items:center;justify-content:center"><div style="font-family:\'Barlow Condensed\',sans-serif;font-size:3.5rem;font-weight:800;color:rgba(255,255,255,.05);text-align:center;letter-spacing:-2px;padding:1rem">'+f.n.toUpperCase()+'</div></div><div class="panel-overlay"></div><div class="panel-info"><div class="eyebrow">'+eyebrow+'</div><h3>'+f.n+'</h3><div class="sub">₹'+f.ww+' Cr Worldwide</div></div></div>';
+var heroFilms = [
+  {n:'Dangal',        y:2016, ww:2070, key:'dangal',      backdrop:'https://image.tmdb.org/t/p/original/jjsoczqMGkSZJANJEqhFUeZFwDX.jpg'},
+  {n:'Baahubali 2',   y:2017, ww:1810, key:'baahubali-2', backdrop:'https://image.tmdb.org/t/p/original/4oFkcnOnv2xJVQVKJFuWCKgLvLn.jpg'},
+  {n:'Pushpa 2',      y:2024, ww:1742, key:'pushpa-2',    backdrop:'https://image.tmdb.org/t/p/original/4KLgcoAkAI2mTMdnCBJLDPmNKiZ.jpg'},
+];
+document.getElementById('heroPanels').innerHTML = heroFilms.map(function(f,i){
+  var rank = ['#1 All-Time','#2 All-Time','#3 All-Time'][i];
+  var col  = ['#f5c518','#c0c0c0','#cd7f32'][i];
+  return '<div class="panel" onclick="showFilmPage(\''+f.key+'\')" style="cursor:pointer">'
+    +'<div class="panel-bg" style="background:url(\''+f.backdrop+'\') center/cover no-repeat,'+bg(i)+'">'
+    +'</div>'
+    +'<div class="panel-overlay"></div>'
+    +'<div style="position:absolute;bottom:1.5rem;left:1.2rem;right:1.2rem">'
+      +'<div style="font-size:.6rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:'+col+';margin-bottom:.3rem">'+rank+'</div>'
+      +'<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:clamp(1.3rem,2.5vw,2rem);font-weight:900;color:#fff;line-height:1.1">'+f.n+'</div>'
+      +'<div style="font-size:.75rem;color:rgba(255,255,255,.55);margin-top:3px">₹'+f.ww+' Cr Worldwide · '+f.y+'</div>'
+      +'<div style="margin-top:.6rem;font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:5px">'
+        +'<span style="width:12px;height:1px;background:rgba(255,255,255,.25);display:inline-block"></span>View Full Page'
+      +'</div>'
+    +'</div>'
+  +'</div>';
 }).join('');
 
 // Live tracker
@@ -6975,7 +7594,7 @@ window.addEventListener('load', function() {
 
   // Hero panel backdrops
   var panels = document.querySelectorAll('.panel');
-  TOP3.forEach(function(f, i) {
+  heroFilms.forEach(function(f, i) {
     tmdbSearch(f.n, f.y, function(res) {
       if (!res || !panels[i]) return;
       var bgUrl = res.backdrop || res.poster;
@@ -7156,7 +7775,13 @@ function tgRow(f, rank, valKey, valCol, secKey, secLabel, maxVal){
   var col = LC[f.l]||'#888';
   var hasPg = typeof getFilmPage==='function' && !!getFilmPage(f.n);
   var name = f.n.replace(/'/g,"\\'");
-  return '<div style="display:grid;grid-template-columns:40px 1fr 70px 90px 90px;padding:.55rem 8px;border-bottom:0.5px solid rgba(255,255,255,.04);align-items:center;cursor:'+(hasPg?'pointer':'default')+'" onclick="'+(hasPg?'maybeOpenFilm(\''+name+'\')':'')+'" onmouseover="this.style.background=\'rgba(255,255,255,.03)\'" onmouseout="this.style.background=\'\'">'+
+  // Calculate legs from ACTION_FILMS or TG_OW_DATA
+  var legsVal = null;
+  var af = TG_OW_DATA.find(function(x){ return x.n===f.n && x.y===f.y; });
+  if (af && af.ow && af.india) legsVal = Math.round(af.india/af.ow*100)/100;
+  else if (f.ow && f.india) legsVal = Math.round(f.india/f.ow*100)/100;
+  var legsCol = !legsVal?'rgba(255,255,255,.2)':legsVal>=5?'#4ade80':legsVal>=3?'#facc15':legsVal>=2?'rgba(255,255,255,.5)':'#f87171';
+  return '<div style="display:grid;grid-template-columns:40px 1fr 70px 90px 90px 70px;padding:.55rem 8px;border-bottom:0.5px solid rgba(255,255,255,.04);align-items:center;cursor:'+(hasPg?'pointer':'default')+'" onclick="'+(hasPg?'maybeOpenFilm(\''+name+'\')':'')+'" onmouseover="this.style.background=\'rgba(255,255,255,.03)\'" onmouseout="this.style.background=\'\'">'+
     '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:.9rem;font-weight:800;color:'+(rank<=3?'var(--gold)':'rgba(255,255,255,.2)')+'">&#35;'+rank+'</div>'+
     '<div><div style="font-size:.82rem;font-weight:500;color:rgba(255,255,255,.85)">'+f.n+(hasPg?' <span style="font-size:.5rem;color:var(--gold);vertical-align:middle">●</span>':'')+'</div>'+
     '<div style="margin-top:4px;height:3px;background:rgba(255,255,255,.05);border-radius:2px;max-width:260px"><div style="width:'+pct+'%;height:3px;border-radius:2px;background:'+col+'88"></div></div>'+
@@ -7164,12 +7789,14 @@ function tgRow(f, rank, valKey, valCol, secKey, secLabel, maxVal){
     '<div style="text-align:right;font-size:.78rem;color:rgba(255,255,255,.35)">'+f.y+'</div>'+
     '<div style="text-align:right;font-size:.78rem;color:rgba(255,255,255,.4)">'+(sec?'₹'+sec+' Cr':'—')+'</div>'+
     '<div style="text-align:right;font-size:.85rem;font-weight:600;color:'+valCol+'">₹'+val+' Cr</div>'+
+    '<div style="text-align:right;font-size:.78rem;font-weight:700;color:'+legsCol+'">'+(legsVal?legsVal+'×':'—')+'</div>'+
   '</div>';
 }
 
 function renderTG(){
   var emptyHtml = '<div style="padding:3rem;text-align:center;color:rgba(255,255,255,.2)">No films match this filter.</div>';
-  function applyFilters(arr){ return arr.filter(function(f){ return (tgLang==='all'||f.l===tgLang)&&(tgEra==='all'||era(f.y)===tgEra); }); }
+  var q = (document.getElementById('tg-search') ? document.getElementById('tg-search').value.trim().toLowerCase() : '');
+  function applyFilters(arr){ return arr.filter(function(f){ return (tgLang==='all'||f.l===tgLang)&&(tgEra==='all'||era(f.y)===tgEra)&&(!q||f.n.toLowerCase().indexOf(q)>=0); }); }
 
   // ── Stats (based on WW list) ──
   var listWW = applyFilters(TOPGROSSERS.slice());
@@ -7305,7 +7932,7 @@ renderFF();
 // ═══════════════════════════════════════
 var curActorSort='year';
 // Populate dropdown from all actors in FILMS + ACTOR_SUPP
-var ALLOWED_ACTORS = ['Amitabh Bachchan','Chiranjeevi','Dilip Kumar','Rajesh Khanna','Raj Kapoor','Dharmendra','Vinod Khanna','Sunny Deol','Shah Rukh Khan','Aamir Khan','Salman Khan','Shashi Kapoor','Rajinikanth','Ranbir Kapoor','Ranveer Singh','Kamal Haasan','Prabhas','Hrithik Roshan','Vijay'];
+var ALLOWED_ACTORS = ['Akshay Kumar','Amitabh Bachchan','Chiranjeevi','Dilip Kumar','Rajesh Khanna','Raj Kapoor','Dharmendra','Vinod Khanna','Sunny Deol','Shah Rukh Khan','Aamir Khan','Salman Khan','Shashi Kapoor','Rajinikanth','Ranbir Kapoor','Ranveer Singh','Kamal Haasan','Prabhas','Hrithik Roshan','Vijay'];
 var sel=document.getElementById('actorSelect');
 ALLOWED_ACTORS.forEach(function(a){
   var o=document.createElement('option');o.value=a;o.textContent=a;sel.appendChild(o);
@@ -7559,9 +8186,9 @@ renderFFRecords();
 // PREDICTIONS PAGE — static hardcoded list
 // ═══════════════════════════════════════
 var PREDS = [
-  {title:'Toxic',          lang:'Kannada', actor:'Yash',            director:'Geetu Krishna',     date:'2026-06', bo:{low:300,mid:500,high:750},  ow:{low:80,mid:130,high:200},  ff:{low:10,mid:16,high:24},  notes:'Yash\'s first pan-India solo since KGF 2. High expectations after two blockbusters.'},
-  {title:'Peddi',          lang:'Telugu',  actor:'Ram Charan',       director:'Shankar',           date:'2026-06-03', bo:{low:350,mid:550,high:800},  ow:{low:90,mid:150,high:220},  ff:{low:12,mid:18,high:27},  notes:'Ram Charan + Shankar combo is a dream pairing. Could be the biggest Telugu film of the year.'},
-  {title:'Ramayana',       lang:'Hindi',   actor:'Ranbir Kapoor',    director:'Nitesh Tiwari',     date:'2026-11', bo:{low:500,mid:900,high:1500}, ow:{low:150,mid:270,high:450}, ff:{low:18,mid:30,high:50},  notes:'Most anticipated Hindi film in years. Mythological epic with massive VFX budget. Diwali release.'},
+  {title:'Toxic',          lang:'Kannada', actor:'Yash',            director:'Geetu Krishna',     date:'2026-08-01', bo:{low:300,mid:500,high:750},  ow:{low:80,mid:130,high:200},  ff:{low:10,mid:16,high:24},  notes:'Yash\'s first pan-India solo since KGF 2. High expectations after two blockbusters.'},
+  {title:'Peddi',          lang:'Telugu',  actor:'Ram Charan',       director:'Buchi Babu Sana',   date:'2026-06-03', bo:{low:150,mid:280,high:480},  ow:{low:38,mid:75,high:130},  ff:{low:6,mid:11,high:18},  notes:'Ram Charan\'s first solo release since the Game Changer disaster (₹186 Cr WW). Director Buchi Babu Sana made the acclaimed Uppena (2021) — a strong debut but on a micro budget. This is a massive step up in scale. RRR halo gives Charan a floor, but with a debutant at this level and recent box office baggage, the range is very wide.', confidence:40},
+  {title:'Ramayana',       lang:'Hindi',   actor:'Ranbir Kapoor',    director:'Nitesh Tiwari',     date:'2026-11-01', bo:{low:500,mid:900,high:1500}, ow:{low:150,mid:270,high:450}, ff:{low:18,mid:30,high:50},  notes:'Most anticipated Hindi film in years. Mythological epic with massive VFX budget. Diwali release.'},
   {title:'King',           lang:'Hindi',   actor:'Shah Rukh Khan',   director:'Siddharth Anand',   date:'2026-12', bo:{low:400,mid:700,high:1100}, ow:{low:120,mid:200,high:320}, ff:{low:14,mid:23,high:38},  notes:'SRK\'s big Christmas release. Father-daughter action thriller — early buzz is very strong.'},
   {title:'Varanasi',       lang:'Hindi',   actor:'Mahesh Babu',      director:'S.S. Rajamouli',    date:'2026-12', bo:{low:500,mid:900,high:1500},  ow:{low:150,mid:270,high:450},  ff:{low:18,mid:32,high:55},   notes:'Rajamouli + Mahesh Babu — a dream pairing fans have waited years for. Rajamouli\'s last two — Baahubali 2 (₹1810 Cr) and RRR (₹1230 Cr) — set the bar astronomically high. Mahesh Babu\'s pan-India debut under Rajamouli could be a once-in-a-decade event film.'},
   {title:'Spirit',         lang:'Telugu',  actor:'Prabhas',          director:'Sandeep Reddy Vanga',date:'2027-01',bo:{low:400,mid:700,high:1100}, ow:{low:120,mid:200,high:320}, ff:{low:15,mid:25,high:40},  notes:'Prabhas + Animal director — a potentially explosive combination if script delivers.'},
@@ -7570,7 +8197,7 @@ var PREDS = [
   {title:'Animal Park',    lang:'Hindi',   actor:'Ranbir Kapoor',    director:'Sandeep Reddy Vanga',date:'2027-06',bo:{low:400,mid:700,high:1100}, ow:{low:110,mid:190,high:300}, ff:{low:14,mid:23,high:38},  notes:'Animal was massively divisive but enormously profitable. Sequel hype is real.'},
   {title:'Kalki 2',        lang:'Telugu',  actor:'Prabhas',          director:'Nag Ashwin',        date:'2027-10', bo:{low:500,mid:850,high:1300}, ow:{low:150,mid:250,high:400}, ff:{low:17,mid:28,high:46},  notes:'Part 1 built a mythological universe. Part 2 is expected to be bigger and more action-heavy.'},
   {title:'Jailer 2',       lang:'Tamil',   actor:'Rajinikanth',      director:'Nelson Dilipkumar', date:'2027-06', bo:{low:400,mid:650,high:950},  ow:{low:110,mid:180,high:280}, ff:{low:15,mid:24,high:36},  notes:'Jailer 1 grossed ₹604 Cr worldwide with 26.6M footfalls. Rajini + Nelson again with higher expectations — a sequel bump seems likely.'},
-  {title:'Dragon',         lang:'Telugu',  actor:'Jr. NTR',          director:'Prashanth Neel',    date:'2027-06', bo:{low:450,mid:800,high:1200}, ow:{low:130,mid:220,high:360}, ff:{low:16,mid:27,high:43},  notes:'NTR + Prashanth Neel after RRR is one of the most anticipated pairings. Could be a monster.'},
+  {title:'Dragon',         lang:'Telugu',  actor:'Jr. NTR',          director:'Prashanth Neel',    date:'2027-06-01', bo:{low:450,mid:800,high:1200}, ow:{low:130,mid:220,high:360}, ff:{low:16,mid:27,high:43},  notes:'NTR + Prashanth Neel after RRR is one of the most anticipated pairings. Could be a monster.'},
   {title:'Paradise',       lang:'Telugu',  actor:'Nani',             director:'TBA',               date:'2026-08', bo:{low:80,mid:150,high:250},   ow:{low:20,mid:40,high:70},    ff:{low:3,mid:6,high:10},    notes:'Nani\'s natural charisma has built a loyal fanbase. Positioned as a mid-budget prestige film.'},
 ];
 
@@ -7610,7 +8237,7 @@ function renderPreds(){
   grid.innerHTML=sorted.map(function(p){
     var lc=LC[p.lang]||'#888';
     var boH=fmtRange(p.bo,'₹',' Cr'),owH=fmtRange(p.ow,'₹',' Cr'),ffH=fmtRange(p.ff,'',' M');
-    var dateStr=p.date?(function(){var d=new Date(p.date+'-01');return d.toLocaleString('default',{month:'short',year:'numeric'});})():'TBA';
+    var dateStr=p.date?(function(){var parts=p.date.split('-');if(parts.length===3){var d=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));return d.toLocaleString('default',{day:'numeric',month:'short',year:'numeric'});}var d=new Date(p.date+'-01');return d.toLocaleString('default',{month:'short',year:'numeric'});})():'TBA';
 
     // ── Confidence score (0–100) ──
     // Based on: how far out the release is, director/actor track record richness, range spread
@@ -7750,10 +8377,12 @@ var ACTION_FILMS = [
   {n:'Mahavtar Narsimha', y:2025, l:'Hindi',   ow:15,   india:251,  ww:326,  ff:15.1, legs:16.7},
   {n:'Lokah: Chapter 1', y:2025, l:'Malayalam',ow:14,  india:157,  ww:303,  ff:11.3, legs:11.21},
   {n:'Sitaare Zameen Par',  y:2025, l:'Hindi',   ow:57.3, india:165.7,ww:266,  ff:8.64, legs:+(165.7/57.3).toFixed(2)},
-  {n:'Mana ShankaraVaraprasad Garu', y:2026, l:'Telugu', ow:56, india:258, ww:320, ff:null, legs:4.6},
+  {n:'Mana ShankaraVaraprasad Garu', y:2026, l:'Telugu', ow:56, india:218, ww:301, ff:null, legs:+(218/56).toFixed(2)},
   {n:'Coolie',            y:2025, l:'Tamil',   ow:129,  india:285,  ww:518,  ff:18.4, legs:2.21},
   {n:'Border 2',          y:2026, l:'Hindi',   ow:129.9,india:341,  ww:464,  ff:15.79,legs:2.63},
   {n:'Saiyaara',          y:2025, l:'Hindi',   ow:84.5, india:337,  ww:577,  ff:null, legs:3.99},
+  {n:'Bhoot Bhangla',     y:2026, l:'Hindi',   ow:54.25,india:170.75,ww:256,      ff:9.3,  legs:+(170.75/54.25).toFixed(2)},
+
   {n:'Kabir Singh',       y:2019, l:'Hindi',   ow:71,   india:278,  ww:379,  ff:26,   legs:3.92},
   {n:'Adipurush',         y:2023, l:'Telugu',  ow:220,  india:288,  ww:393,  ff:18.5, legs:1.31},
   {n:'Saaho',             y:2019, l:'Telugu',  ow:200,  india:310,  ww:451,  ff:26.5, legs:1.55},
@@ -8286,8 +8915,8 @@ var DIRECTOR_DATA = {
     {n:'RRR',                    y:2022, bo:1230, ff:44,    lb:3.8},
   ],
   'Rajkumar Hirani': [
-    {n:'Munna Bhai MBBS',        y:2003, bo:52,   ff:9.5,   lb:3.9},
-    {n:'Lage Raho Munna Bhai',   y:2006, bo:108,  ff:15.2,  lb:3.9},
+    {n:'Munna Bhai MBBS',        y:2003, bo:52,   ff:7.88,  lb:3.9},
+    {n:'Lage Raho Munna Bhai',   y:2006, bo:108,  ff:17.6,  lb:3.9},
     {n:'3 Idiots',               y:2009, bo:400,  ff:31.79, lb:4.1},
     {n:'PK',                     y:2014, bo:769,  ff:35.06, lb:3.8},
     {n:'Sanju',                  y:2018, bo:586,  ff:28,    lb:3.4},
@@ -8299,12 +8928,12 @@ var DIRECTOR_DATA = {
     {n:'Golmaal Returns',        y:2008, bo:85,   ff:10.23, lb:2.7},
     {n:'All the Best',           y:2009, bo:73,   ff:6.8,   lb:2.5},
     {n:'Golmaal 3',              y:2010, bo:120,  ff:17.71, lb:2.5},
-    {n:'Singham',                y:2011, bo:150,  ff:14.52, lb:2.9},
+    {n:'Singham',                y:2011, bo:150,  ff:15.96, lb:2.9},
     {n:'Bol Bachchan',           y:2012, bo:105,  ff:10.8,  lb:2.5},
     {n:'Chennai Express',        y:2013, bo:424,  ff:25.23, lb:3.1},
-    {n:'Singham Returns',        y:2014, bo:198,  ff:16.93, lb:2.5},
+    {n:'Singham Returns',        y:2014, bo:220,  ff:16.93, lb:2.5},
     {n:'Dilwale',                y:2015, bo:376,  ff:15.38, lb:2.8},
-    {n:'Golmaal Again',          y:2017, bo:205,  ff:9.8,   lb:2.7},
+    {n:'Golmaal Again',          y:2017, bo:311,  ff:19.85, lb:2.7},
     {n:'Simmba',                 y:2018, bo:400,  ff:19.13, lb:2.5},
     {n:'Sooryavanshi',           y:2021, bo:294,  ff:11.38, lb:2.5},
     {n:'Cirkus',                 y:2022, bo:61,   ff:1.01,  lb:1.9},
@@ -8339,7 +8968,7 @@ var DIRECTOR_DATA = {
   ],
   'Prashanth Neel': [
     {n:'Ugramm',                 y:2014, bo:null, ff:null,  lb:3.3},
-    {n:'KGF: Chapter 1',         y:2018, bo:250,  ff:null,  lb:3.3},
+    {n:'KGF: Chapter 1',         y:2018, bo:250,  ff:7.5,   lb:3.3},
     {n:'KGF: Chapter 2',         y:2022, bo:1215, ff:56.7,  lb:3.1},
     {n:'Salaar',                 y:2023, bo:617,  ff:26,    lb:2.8},
   ],
@@ -8367,7 +8996,7 @@ var DIRECTOR_DATA = {
     {n:'Jawan',                  y:2023, bo:1148, ff:39.2,  lb:3.3},
   ],
   'Aditya Dhar': [
-    {n:'Uri: The Surgical Strike',y:2019,bo:244,  ff:12.5,  lb:3.5},
+    {n:'Uri: The Surgical Strike',y:2019,bo:244,  ff:17.6,  lb:3.5},
     {n:'Dhurandhar',             y:2025, bo:1349, ff:37,    lb:3.6},
     {n:'Dhurandhar 2',           y:2026, bo:1775, ff:42,    lb:3.5},
   ],
@@ -8404,7 +9033,8 @@ var DIRECTOR_DATA = {
     {n:'Enthiran',               y:2010, bo:291,  ff:30.1,  lb:3.2},
     {n:'I',                      y:2015, bo:null, ff:null,  lb:3.1},
     {n:'2.0',                    y:2018, bo:691,  ff:42.5,  lb:3.1},
-    {n:'Indian 2',               y:2024, bo:null, ff:6.5,   lb:null},
+    {n:'Indian 2',               y:2024, bo:148,  ff:6.1,   lb:null},
+    {n:'Game Changer',           y:2024, bo:186,  ff:7.0,   lb:2.1},
   ],
   'Sukumar': [
     {n:'Arya',                   y:2004, bo:null, ff:null,  lb:3.4},
@@ -8507,6 +9137,7 @@ function renderDirector() {
     {l:'Peak Footfalls',  v: topFF ? topFF.ff+'M' : '—',      s: topFF ? topFF.n : 'No data'},
     {l:'Biggest Grosser', v: topBO ? '₹'+topBO.bo+' Cr' : '—', s: topBO ? topBO.n : 'No data'},
     {l:'300 Cr+ Films',   v: hits300,                          s:'worldwide'},
+    {l:'Total Footfalls', v: totalFF.toFixed(1)+'M',           s:'combined career'},
     {l:'Avg Box Office',  v: avgBO ? '₹'+avgBO+' Cr' : '—',   s:'per film (where known)'},
     {l:'Avg Letterboxd',  v: avgLB ? avgLB+' / 5' : '—',      s: withLB.length+' rated films'},
   ].map(function(m){
@@ -8634,6 +9265,140 @@ function renderActress() {
 // ═══════════════════════════════════════
 // COMPARE PAGE
 // ═══════════════════════════════════════
+// ═══════════════════════════════════════
+// COMPARE PAGE — mode toggle + film compare
+// ═══════════════════════════════════════
+function setCmpMode(tab, btn) {
+  document.querySelectorAll('#cmp-mode-tabs .rec-tab').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  document.getElementById('cmp-panel-actor').style.display = tab === 'actor' ? 'block' : 'none';
+  document.getElementById('cmp-panel-film').style.display  = tab === 'film'  ? 'block' : 'none';
+}
+
+var filmCmpSelA = null, filmCmpSelB = null;
+
+function allFilmsFlat() {
+  var seen = {}, out = [];
+  function add(n,y,l,ww,india,ff,lb,ow,budget,multiplier) {
+    var k = n.toLowerCase().trim()+'|'+y;
+    if (seen[k]) return; seen[k] = true;
+    out.push({n:n,y:y,l:l||'',ww:ww||null,india:india||null,ff:ff||null,lb:lb||null,ow:ow||null,budget:budget||null,multiplier:multiplier||null});
+  }
+  FILMS.forEach(function(f){ add(f.n,f.y,f.l,f.ww,f.india,f.ff,f.lb,f.ow); });
+  FF_SORTED.forEach(function(f){ add(f.n,f.y,f.l,null,null,f.ff,null,null); });
+  Object.keys(FILM_PAGES).forEach(function(k){
+    var p = FILM_PAGES[k];
+    if (!p.title||!p.year) return;
+    add(p.title,p.year,p.lang,p.ww,p.india,p.ff,p.lb,p.ow,p.budget,p.multiplier);
+  });
+  return out.sort(function(a,b){ return b.y - a.y; });
+}
+
+function clearFilmCmp(side) {
+  var inp   = document.getElementById('filmCmp'+side+'-search');
+  var drop  = document.getElementById('filmCmp'+side+'-drop');
+  var badge = document.getElementById('filmCmp'+side+'-badge');
+  if (inp)   inp.value = '';
+  if (drop)  drop.style.display = 'none';
+  if (badge) badge.innerHTML = '';
+  if (side==='A') filmCmpSelA = null; else filmCmpSelB = null;
+  renderFilmCompare();
+}
+
+function filterFilmCmp(side) {
+  var inp  = document.getElementById('filmCmp'+side+'-search');
+  var drop = document.getElementById('filmCmp'+side+'-drop');
+  if (!inp || !drop) return;
+  var q = inp.value.trim().toLowerCase();
+  var matches = allFilmsFlat().filter(function(f){ return !q || f.n.toLowerCase().indexOf(q) >= 0; }).slice(0,28);
+  if (!matches.length) { drop.innerHTML='<div style="padding:.5rem .75rem;font-size:.75rem;color:rgba(255,255,255,.3)">No results</div>'; drop.style.display='block'; return; }
+  drop.innerHTML = matches.map(function(f){
+    var lc = LC[f.l]||'#888';
+    return '<div onmousedown="selectFilmCmp(\''+side+'\',\''+f.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\','+f.y+')" '+
+      'style="padding:.45rem .75rem;cursor:pointer;border-bottom:0.5px solid rgba(255,255,255,.04)" '+
+      'onmouseover="this.style.background=\'rgba(255,255,255,.05)\'" onmouseout="this.style.background=\'\'">'+
+      '<div style="font-size:.78rem;color:rgba(255,255,255,.85)">'+f.n+'</div>'+
+      '<div style="font-size:.6rem;color:rgba(255,255,255,.3);display:flex;gap:6px;margin-top:1px">'+
+        '<span style="color:'+lc+'">'+f.l+'</span><span>'+f.y+'</span>'+
+        (f.ww?'<span>₹'+f.ww+' Cr WW</span>':'')+(f.ff?'<span style="color:#4fc3f7">'+f.ff+'M</span>':'')+
+      '</div></div>';
+  }).join('');
+  drop.style.display = 'block';
+}
+
+function selectFilmCmp(side, title, year) {
+  var inp   = document.getElementById('filmCmp'+side+'-search');
+  var drop  = document.getElementById('filmCmp'+side+'-drop');
+  var badge = document.getElementById('filmCmp'+side+'-badge');
+  if (inp)  inp.value = title + ' (' + year + ')';
+  if (drop) drop.style.display = 'none';
+  var f = allFilmsFlat().find(function(x){ return x.n.toLowerCase().trim()===title.toLowerCase().trim() && x.y===year; }) || {n:title,y:year};
+  var fp = getFilmPage(title);
+  if (fp) {
+    f.n=fp.title||f.n; f.y=fp.year||f.y; f.l=fp.lang||f.l;
+    f.ww=fp.ww||f.ww; f.india=fp.india||f.india; f.ff=fp.ff||f.ff;
+    f.lb=fp.lb||f.lb; f.ow=fp.ow||f.ow; f.budget=fp.budget||f.budget; f.multiplier=fp.multiplier||f.multiplier;
+  }
+  if (side==='A') filmCmpSelA=f; else filmCmpSelB=f;
+  var col = side==='A'?'#f472b6':'#4fc3f7';
+  if (badge) badge.innerHTML='<div style="font-size:.65rem;color:'+col+';font-weight:600">'+f.n+' ('+f.y+')'+(f.l?' · '+f.l:'')+'</div>';
+  renderFilmCompare();
+}
+
+function renderFilmCompare() {
+  var empty   = document.getElementById('fcmp-empty');
+  var content = document.getElementById('fcmp-content');
+  if (!filmCmpSelA || !filmCmpSelB) { empty.style.display='block'; content.style.display='none'; return; }
+  empty.style.display='none'; content.style.display='block';
+  var a=filmCmpSelA, b=filmCmpSelB, colA='#f472b6', colB='#4fc3f7';
+
+  function bar(label, aV, bV, fmtFn, hiIsGood) {
+    if (!aV && !bV) return '';
+    var mx=Math.max(aV||0,bV||0)||1, pA=Math.round((aV||0)/mx*100), pB=Math.round((bV||0)/mx*100);
+    var wA=hiIsGood?(aV||0)>=(bV||0):(aV&&(!bV||aV<=bV)), wB=hiIsGood?(bV||0)>=(aV||0):(bV&&(!aV||bV<=aV));
+    return '<div style="margin-bottom:.9rem">'+
+      '<div style="font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,#f472b6,#a78bfa,#4fc3f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.45rem">'+label+'</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 28px 1fr;gap:.4rem;align-items:center">'+
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">'+
+          '<span style="font-size:.85rem;font-weight:700;color:'+(wA?colA:'rgba(255,255,255,.3)')+'">'+fmtFn(aV)+'</span>'+
+          '<div style="height:5px;width:'+pA+'%;max-width:100%;background:'+colA+(wA?'':'44')+';border-radius:3px 0 0 3px;margin-left:auto"></div>'+
+        '</div>'+
+        '<div style="text-align:center;font-size:.5rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.15)">vs</div>'+
+        '<div style="display:flex;flex-direction:column;gap:3px">'+
+          '<span style="font-size:.85rem;font-weight:700;color:'+(wB?colB:'rgba(255,255,255,.3)')+'">'+fmtFn(bV)+'</span>'+
+          '<div style="height:5px;width:'+pB+'%;max-width:100%;background:'+colB+(wB?'':'44')+';border-radius:0 3px 3px 0"></div>'+
+        '</div>'+
+      '</div></div>';
+  }
+
+  var barsHtml =
+    bar('Worldwide Gross (₹ Cr)', a.ww, b.ww, function(v){return v?'₹'+v+' Cr':'—';}, true)+
+    bar('India Nett (₹ Cr)', a.india, b.india, function(v){return v?'₹'+v+' Cr':'—';}, true)+
+    bar('Opening Weekend (₹ Cr)', a.ow, b.ow, function(v){return v?'₹'+v+' Cr':'—';}, true)+
+    bar('Footfalls', a.ff, b.ff, function(v){return v?v+'M':'—';}, true)+
+    bar('Legs Multiplier', a.multiplier, b.multiplier, function(v){return v?v+'×':'—';}, true)+
+    bar('Letterboxd Rating', a.lb, b.lb, function(v){return v?v+'/5':'—';}, true)+
+    bar('Budget (₹ Cr)', a.budget, b.budget, function(v){return v?'₹'+v+' Cr':'—';}, false);
+
+  var vlines=[];
+  if(a.ww&&b.ww) vlines.push((a.ww>b.ww?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' earned more worldwide (₹'+Math.max(a.ww,b.ww)+' Cr vs ₹'+Math.min(a.ww,b.ww)+' Cr).');
+  if(a.ff&&b.ff)  vlines.push((a.ff>b.ff?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' sold more tickets ('+Math.max(a.ff,b.ff)+'M vs '+Math.min(a.ff,b.ff)+'M).');
+  if(a.lb&&b.lb)  vlines.push((a.lb>b.lb?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' rates higher on Letterboxd ('+Math.max(a.lb,b.lb)+' vs '+Math.min(a.lb,b.lb)+').');
+  if(!vlines.length) vlines.push('Not enough overlapping data — try films with more complete records.');
+
+  content.innerHTML=
+    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1rem">'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">'+
+        '<div style="font-size:.88rem;font-weight:700;color:'+colA+'">'+a.n+' ('+a.y+')</div>'+
+        '<div style="font-size:.88rem;font-weight:700;color:'+colB+';text-align:right">'+b.n+' ('+b.y+')</div>'+
+      '</div>'+barsHtml+
+    '</div>'+
+    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.1rem 1.4rem">'+
+      '<div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.65rem">Verdict</div>'+
+      vlines.map(function(l){return '<div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.7;padding:.2rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+l+'</div>';}).join('')+
+    '</div>';
+}
+
 var CMP_ACTORS = ALLOWED_ACTORS;
 ['cmpA','cmpB'].forEach(function(id){
   var sel = document.getElementById(id);
