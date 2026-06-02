@@ -1,81 +1,77 @@
 /**
- * live-sync.js v3 — Auto-load scraped daily data from GitHub Actions
+ * live-sync.js v4 — Auto-load scraped daily data from GitHub Actions
+ * - Computes real calendar dates from release date (no more "Day 61")
+ * - Fuzzy matches LIVE_FILMS keys
+ * - Tries multiple slug variants for scraper output files
  */
 (function () {
   var DEBUG = true;
   function log() { if (DEBUG && console && console.log) console.log.apply(console, ['[live-sync]'].concat(Array.prototype.slice.call(arguments))); }
   function warn() { if (console && console.warn) console.warn.apply(console, ['[live-sync]'].concat(Array.prototype.slice.call(arguments))); }
 
-  log('v3 initializing...');
+  log('v4 initializing...');
 
-  // ── 1. Diagnostic: Check which globals exist ──────────────────────────────
-  var hasFILM_PAGES    = typeof FILM_PAGES !== 'undefined';
-  var hasLIVE_FILMS    = typeof LIVE_FILMS !== 'undefined';
-  var hasFILMS         = typeof FILMS !== 'undefined';
-  var hasRenderLive    = typeof renderLiveTracker === 'function';
-  var hasRenderYr      = typeof renderYrTable === 'function';
-  var hasGetLiveDays   = typeof getLiveDaysInRun === 'function';
+  // ── 1. Check globals ─────────────────────────────────────────────────────
+  var hasFILM_PAGES  = typeof FILM_PAGES !== 'undefined';
+  var hasLIVE_FILMS  = typeof LIVE_FILMS !== 'undefined';
+  var hasFILMS       = typeof FILMS !== 'undefined';
+  var hasRenderLive  = typeof renderLiveTracker === 'function';
+  var hasRenderYr    = typeof renderYrTable === 'function';
+  var hasGetLiveDays = typeof getLiveDaysInRun === 'function';
 
-  log('Globals:', {
-    FILM_PAGES: hasFILM_PAGES,
-    LIVE_FILMS: hasLIVE_FILMS,
-    FILMS: hasFILMS,
-    renderLiveTracker: hasRenderLive,
-    renderYrTable: hasRenderYr
-  });
-
+  log('Globals:', { FILM_PAGES: hasFILM_PAGES, LIVE_FILMS: hasLIVE_FILMS, FILMS: hasFILMS,
+    renderLiveTracker: hasRenderLive, renderYrTable: hasRenderYr });
   if (hasFILM_PAGES) log('FILM_PAGES keys:', Object.keys(FILM_PAGES));
-  if (hasLIVE_FILMS) {
-    var liveKeys = Object.keys(LIVE_FILMS);
-    log('LIVE_FILMS keys:', liveKeys);
-    // Log what's inside each LIVE_FILMS entry so we can match
-    liveKeys.forEach(function(k) {
-      var lf = LIVE_FILMS[k];
-      log('  LIVE_FILMS["' + k + '"]:', {
-        title: lf.title || lf.name || '?',
-        indiaRunning: lf.indiaRunning,
-        yesterdayIndia: lf.yesterdayIndia
-      });
-    });
-  }
+  if (hasLIVE_FILMS) log('LIVE_FILMS keys:', Object.keys(LIVE_FILMS));
 
-  // ── 2. Fix getLiveDaysInRun to use real current date ──────────────────────
+  // ── 2. Fix getLiveDaysInRun ───────────────────────────────────────────────
   if (hasGetLiveDays) {
     window.getLiveDaysInRun = function (releaseDate) {
       var rel = new Date(releaseDate);
       var now = new Date(); now.setHours(0, 0, 0, 0);
       return Math.max(1, Math.floor((now - rel) / (1000 * 60 * 60 * 24)) + 1);
     };
-    log('Patched getLiveDaysInRun to use real date');
+    log('Patched getLiveDaysInRun');
   }
 
-  // ── 3. Fuzzy key matcher ──────────────────────────────────────────────────
-  // Normalizes a string for comparison: lowercase, strip non-alphanum
+  // ── 3. Date helpers ───────────────────────────────────────────────────────
+  var DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var MON_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var DAY_LONG  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MON_LONG  = ['January','February','March','April','May','June',
+                   'July','August','September','October','November','December'];
+
+  // Given a release date string and a 0-based day index, return {date, day}
+  // e.g. releaseDate='2026-03-19', dayIndex=0 → {date:'Thu Mar 19', day:'Thu'}
+  function computeDateLabel(releaseDate, dayIndex) {
+    var rel = new Date(releaseDate + 'T00:00:00');
+    var d = new Date(rel.getTime() + dayIndex * 86400000);
+    var dayName = DAY_SHORT[d.getDay()];
+    var monName = MON_SHORT[d.getMonth()];
+    var dateNum = d.getDate();
+    return { date: dayName + ' ' + monName + ' ' + dateNum, day: dayName };
+  }
+
+  // ── 4. Fuzzy key matcher ──────────────────────────────────────────────────
   function norm(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
 
-  // Find a LIVE_FILMS key that matches a FILM_PAGES key
   function findLiveFilmKey(fpKey) {
     if (!hasLIVE_FILMS) return null;
-    // Direct match
     if (LIVE_FILMS[fpKey]) return fpKey;
-    // Fuzzy match
     var fpNorm = norm(fpKey);
     var liveKeys = Object.keys(LIVE_FILMS);
     for (var i = 0; i < liveKeys.length; i++) {
       var lk = liveKeys[i];
       if (norm(lk) === fpNorm) return lk;
-      // Check title inside the entry
       var lf = LIVE_FILMS[lk];
       if (lf.title && norm(lf.title) === fpNorm) return lk;
       if (lf.name && norm(lf.name) === fpNorm) return lk;
-      // Partial match
       if (fpNorm.length > 3 && norm(lk).indexOf(fpNorm) !== -1) return lk;
       if (fpNorm.length > 3 && fpNorm.indexOf(norm(lk)) !== -1) return lk;
     }
     return null;
   }
 
-  // Find a FILMS array entry matching a key
   function findFilmsIndex(key) {
     if (!hasFILMS) return -1;
     var keyNorm = norm(key);
@@ -90,36 +86,60 @@
     return -1;
   }
 
-  // ── 4. Build slug mapping dynamically ─────────────────────────────────────
-  // Film name patterns → scraper output filenames to try
-  var FILM_PATTERNS = [
-    { match: function(k) { return norm(k).indexOf('dhurandhar') !== -1 && norm(k).indexOf('2') !== -1; },
-      slugs: ['Dhurandhar2-2026', 'Dhurandhar_2_2026'] },
-    { match: function(k) { return norm(k).indexOf('dhurandhar') !== -1; },
-      slugs: ['Dhurandhar-2025', 'Dhurandhar_2025'] },
-    { match: function(k) { return norm(k).indexOf('bhoot') !== -1 || norm(k).indexOf('bhangla') !== -1; },
-      slugs: ['BhootBhangla-2025', 'Bhoot_Bhangla_2025', 'bhoot-bhangla-2025'] },
+  // ── 5. Film config with release dates & slug variants ─────────────────────
+  // releaseDate: YYYY-MM-DD (Day 1 of theatrical run)
+  // slugs: filenames to try in scraper/output/ (without .json)
+  // match: function to match against FILM_PAGES keys
+
+  var FILM_CONFIG = [
+    {
+      name: 'Dhurandhar',
+      releaseDate: '2025-12-05',
+      slugs: ['Dhurandhar-2025', 'Dhurandhar_2025'],
+      match: function(k) {
+        var n = norm(k);
+        return n.indexOf('dhurandhar') !== -1 && n.indexOf('2') === -1;
+      }
+    },
+    {
+      name: 'Dhurandhar 2',
+      releaseDate: '2026-03-19',
+      slugs: ['Dhurandhar2-2026', 'Dhurandhar_2_2026'],
+      match: function(k) {
+        var n = norm(k);
+        return n.indexOf('dhurandhar') !== -1 && n.indexOf('2') !== -1;
+      }
+    },
+    {
+      name: 'Bhooth Bangla',
+      releaseDate: '2026-04-18',
+      slugs: ['BhoothBangla-2026', 'Bhooth_Bangla_2026', 'BhootBhangla-2025', 'Bhoot_Bhangla_2025',
+              'BhoothBangla-2025', 'Bhooth_Bangla_2025', 'BhootBangla-2026', 'Bhoot_Bangla_2026'],
+      match: function(k) {
+        var n = norm(k);
+        return n.indexOf('bhoot') !== -1 || n.indexOf('bhangla') !== -1 || n.indexOf('bangla') !== -1;
+      }
+    }
   ];
 
-  var ALL_SLUGS_TO_TRY = {};
+  // Find matching FILM_PAGES keys for each config entry
+  var keysToFetch = []; // {fpKey, config}
   var fpKeys = hasFILM_PAGES ? Object.keys(FILM_PAGES) : [];
 
-  fpKeys.forEach(function (key) {
-    for (var p = 0; p < FILM_PATTERNS.length; p++) {
-      if (FILM_PATTERNS[p].match(key)) {
-        if (!ALL_SLUGS_TO_TRY[key]) {
-          ALL_SLUGS_TO_TRY[key] = FILM_PATTERNS[p].slugs;
-        }
+  FILM_CONFIG.forEach(function (cfg) {
+    for (var i = 0; i < fpKeys.length; i++) {
+      if (cfg.match(fpKeys[i])) {
+        keysToFetch.push({ fpKey: fpKeys[i], config: cfg });
+        log('Matched "' + cfg.name + '" → FILM_PAGES["' + fpKeys[i] + '"]');
         break;
       }
     }
   });
 
-  var keysToFetch = Object.keys(ALL_SLUGS_TO_TRY);
-  log('Films to sync:', keysToFetch.length, keysToFetch);
+  log('Films to sync:', keysToFetch.length);
 
   if (keysToFetch.length === 0) {
-    warn('No FILM_PAGES keys matched any known scraper slugs!');
+    warn('No FILM_PAGES keys matched! Check FILM_CONFIG patterns.');
     updateTimestamp();
     if (hasRenderLive) renderLiveTracker();
     return;
@@ -127,66 +147,54 @@
 
   var remaining = keysToFetch.length;
 
-  // ── 5. Callback when all fetches are done ─────────────────────────────────
+  // ── 6. Callback when all fetches are done ─────────────────────────────────
   function onAllDone() {
     if (--remaining > 0) return;
     log('All fetches complete. Re-rendering...');
-
-    if (hasRenderLive) {
-      try { renderLiveTracker(); log('renderLiveTracker() done'); }
-      catch (e) { warn('renderLiveTracker() error:', e); }
-    }
-    if (hasRenderYr) {
-      try { renderYrTable(); log('renderYrTable() done'); }
-      catch (e) { warn('renderYrTable() error:', e); }
-    }
+    if (hasRenderLive) { try { renderLiveTracker(); } catch(e) { warn('renderLiveTracker error:', e); } }
+    if (hasRenderYr)   { try { renderYrTable(); }     catch(e) { warn('renderYrTable error:', e); } }
     updateTimestamp();
     log('✅ Sync complete');
   }
 
-  // ── 6. Update "Last updated" text ─────────────────────────────────────────
+  // ── 7. Update "Last updated" text ─────────────────────────────────────────
   function updateTimestamp() {
-    var DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var MONTH_NAMES = ['January','February','March','April','May','June',
-                       'July','August','September','October','November','December'];
     var d = new Date();
-    var text = 'Last updated: ' + DAY_NAMES[d.getDay()] + ', ' +
-               d.getDate() + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear() +
+    var text = 'Last updated: ' + DAY_LONG[d.getDay()] + ', ' +
+               d.getDate() + ' ' + MON_LONG[d.getMonth()] + ' ' + d.getFullYear() +
                ' · Figures are India nett in ₹ Crore · Click any card to open full film page';
 
     var metaEl = document.getElementById('live-updated-meta');
-    if (metaEl) { metaEl.textContent = text; log('Timestamp updated via #id'); return; }
+    if (metaEl) { metaEl.textContent = text; return; }
 
     var section = document.getElementById('live-tracker-section');
     if (section) {
       var allEls = section.querySelectorAll('*');
       for (var i = 0; i < allEls.length; i++) {
         if (allEls[i].childNodes.length <= 3 && allEls[i].textContent.indexOf('Last updated') !== -1) {
-          allEls[i].textContent = text; log('Timestamp updated via text search'); return;
+          allEls[i].textContent = text; return;
         }
       }
     }
     var allP = document.querySelectorAll('p, div, span');
     for (var j = 0; j < allP.length; j++) {
       if (allP[j].textContent.indexOf('Last updated:') !== -1 && allP[j].textContent.indexOf('India nett') !== -1) {
-        allP[j].textContent = text; log('Timestamp updated via global search'); return;
+        allP[j].textContent = text; return;
       }
     }
-    warn('Could not find "Last updated" element');
   }
 
-  // ── 7. Core merge & apply logic ───────────────────────────────────────────
-  function applyScraped(key, scraped) {
+  // ── 8. Core merge & apply logic ───────────────────────────────────────────
+  function applyScraped(fpKey, scraped, config) {
     if (!hasFILM_PAGES) return;
-    var fp = FILM_PAGES[key];
-    if (!fp) { warn('FILM_PAGES["' + key + '"] not found'); return; }
+    var fp = FILM_PAGES[fpKey];
+    if (!fp) return;
 
-    log('Applying scraped data for "' + key + '":', scraped.length, 'days');
+    log('Applying "' + config.name + '" → FILM_PAGES["' + fpKey + '"]:', scraped.length, 'scraped days');
 
     var hc = (fp.daily || []).filter(function (d) { return !d.bucket && d.gross != null; });
-    log('  Hardcoded days:', hc.length, '| Scraped days:', scraped.length);
+    log('  Hardcoded:', hc.length, '| Scraped:', scraped.length);
 
-    // Build merged daily array
     var merged = [];
     var maxLen = Math.max(hc.length, scraped.length);
     var runningTotal = 0;
@@ -196,28 +204,35 @@
       var hcRow = i < hc.length ? hc[i] : null;
       var entry;
 
+      // Compute real calendar date for this day
+      var realDate = computeDateLabel(config.releaseDate, i);
+
       if (hcRow && sc) {
+        // Both exist: prefer hardcoded labels if they look real (not "Day N"), else use computed
+        var useHcDate = hcRow.date && hcRow.date.indexOf('Day ') !== 0;
         entry = {
-          date:    hcRow.date || sc.date || ('Day ' + (i + 1)),
-          day:     hcRow.day || '',
+          date:    useHcDate ? hcRow.date : realDate.date,
+          day:     useHcDate ? (hcRow.day || realDate.day) : realDate.day,
           gross:   sc.gross,
           chgDay:  sc.chg_day != null ? sc.chg_day : (hcRow.chgDay != null ? hcRow.chgDay : null),
           chgWeek: hcRow.chgWeek != null ? hcRow.chgWeek : null,
           total:   sc.total
         };
       } else if (sc) {
+        // Only scraped — use computed calendar date
         entry = {
-          date:    sc.date || ('Day ' + (i + 1)),
-          day:     '',
+          date:    realDate.date,
+          day:     realDate.day,
           gross:   sc.gross,
           chgDay:  sc.chg_day != null ? sc.chg_day : null,
           chgWeek: null,
           total:   sc.total
         };
       } else if (hcRow) {
+        // Only hardcoded
         entry = {
-          date:    hcRow.date,
-          day:     hcRow.day || '',
+          date:    hcRow.date || realDate.date,
+          day:     hcRow.day || realDate.day,
           gross:   hcRow.gross,
           chgDay:  hcRow.chgDay != null ? hcRow.chgDay : null,
           chgWeek: hcRow.chgWeek != null ? hcRow.chgWeek : null,
@@ -231,17 +246,21 @@
       }
     }
 
-    log('  Merged:', merged.length, 'entries, scraped total:', runningTotal, '| hardcoded india:', fp.india);
+    log('  Merged:', merged.length, 'entries, running total:', runningTotal);
 
-    // Replace daily array (this extends the day-by-day breakdown)
+    // Show a sample of the new date labels
+    if (merged.length > hc.length) {
+      var sample = merged.slice(hc.length, hc.length + 3).map(function(e) { return e.date; });
+      log('  New date labels (first 3 beyond hardcoded):', sample);
+    }
+
+    // Replace daily array
     fp.daily = merged;
 
-    // Update India net — use MAX of scraped running total and hardcoded value
-    // The hardcoded fp.india may include lifetime adjustments beyond daily tracking
+    // Update India net — keep the higher of scraped total vs hardcoded
     var newIndia = Math.max(runningTotal, fp.india || 0);
-    newIndia = Math.round(newIndia * 100) / 100;
-    fp.india = newIndia;
-    log('  fp.india set to:', fp.india);
+    fp.india = Math.round(newIndia * 100) / 100;
+    log('  fp.india:', fp.india);
 
     // Sync prediction actuals
     if (fp.prediction && fp.prediction.actuals) {
@@ -249,100 +268,67 @@
       var w1 = 0;
       for (var j = 0; j < Math.min(7, merged.length); j++) w1 += merged[j].gross;
       fp.prediction.actuals.week1 = Math.round(w1 * 100) / 100;
-      log('  Updated prediction actuals');
     }
 
-    // Update LIVE_FILMS — use fuzzy matching to find the right key
-    var liveKey = findLiveFilmKey(key);
+    // Update LIVE_FILMS (fuzzy match)
+    var liveKey = findLiveFilmKey(fpKey);
     if (liveKey) {
       var lf = LIVE_FILMS[liveKey];
-      var oldRunning = lf.indiaRunning;
-      var oldYesterday = lf.yesterdayIndia;
-
-      // Update running total to match fp.india
       lf.indiaRunning = fp.india;
-
-      // Update yesterday's figure from the last scraped day
-      if (scraped.length > 0) {
-        lf.yesterdayIndia = scraped[scraped.length - 1].gross;
-      }
-
-      // If LIVE_FILMS has its own daily array, update that too
-      if (lf.daily) {
-        lf.daily = merged;
-      }
-
-      log('  ✓ LIVE_FILMS["' + liveKey + '"] updated:',
-          'indiaRunning', oldRunning, '→', lf.indiaRunning,
-          '| yesterdayIndia', oldYesterday, '→', lf.yesterdayIndia);
+      if (scraped.length > 0) lf.yesterdayIndia = scraped[scraped.length - 1].gross;
+      if (lf.daily) lf.daily = merged;
+      log('  ✓ LIVE_FILMS["' + liveKey + '"] updated');
     } else {
-      warn('  ✗ No matching LIVE_FILMS key found for "' + key + '"');
-      if (hasLIVE_FILMS) warn('    Available LIVE_FILMS keys:', Object.keys(LIVE_FILMS));
+      warn('  ✗ No LIVE_FILMS match for "' + fpKey + '"');
     }
 
     // Update master FILMS array
-    var fi = findFilmsIndex(key);
-    if (fi !== -1) {
-      var oldFilmsIndia = FILMS[fi].india;
-      if (fp.india > (FILMS[fi].india || 0)) {
-        FILMS[fi].india = fp.india;
-      }
-      log('  FILMS[' + fi + '] (' + FILMS[fi].title + ') india:', oldFilmsIndia, '→', FILMS[fi].india);
-    } else {
-      log('  No matching FILMS entry found for "' + key + '"');
+    var fi = findFilmsIndex(fpKey);
+    if (fi !== -1 && fp.india > (FILMS[fi].india || 0)) {
+      FILMS[fi].india = fp.india;
+      log('  FILMS[' + fi + '] updated');
     }
 
-    // Re-render the film detail page if it is currently open
-    var el = document.getElementById('page-film-' + key);
+    // Re-render open film detail page
+    var el = document.getElementById('page-film-' + fpKey);
     if (el) {
       try {
         el.parentNode.removeChild(el);
-        if (typeof showFilmPageWithPredictions === 'function' && fp.prediction) {
-          showFilmPageWithPredictions(key);
-        } else if (typeof showFilmPage === 'function') {
-          showFilmPage(key);
-        }
-        log('  Re-rendered open film page for', key);
-      } catch (e) { warn('  Film page re-render failed:', e); }
+        if (typeof showFilmPageWithPredictions === 'function' && fp.prediction) showFilmPageWithPredictions(fpKey);
+        else if (typeof showFilmPage === 'function') showFilmPage(fpKey);
+      } catch (e) { warn('Film page re-render failed:', e); }
     }
   }
 
-  // ── 8. Fetch with fallback slug variants ──────────────────────────────────
-  function fetchWithFallbacks(key, slugVariants, index) {
-    if (index >= slugVariants.length) {
-      warn('All slug variants failed for "' + key + '" — no scraped data available');
+  // ── 9. Fetch with fallback slug variants ──────────────────────────────────
+  function fetchWithFallbacks(item, slugIndex) {
+    var slugs = item.config.slugs;
+    if (slugIndex >= slugs.length) {
+      warn('All slugs failed for "' + item.config.name + '"');
       onAllDone();
       return;
     }
 
-    var slug = slugVariants[index];
+    var slug = slugs[slugIndex];
     var url = 'scraper/output/' + slug + '.json';
     log('Fetching', url);
 
     fetch(url)
-      .then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
-      })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (scraped) {
         if (scraped && scraped.length) {
-          log('✓ Loaded', slug + '.json:', scraped.length, 'days');
-          applyScraped(key, scraped);
-        } else {
-          log('Empty data from', slug + '.json');
+          log('✓', slug + '.json:', scraped.length, 'days');
+          applyScraped(item.fpKey, scraped, item.config);
         }
         onAllDone();
       })
       .catch(function (err) {
-        log('✗', slug + '.json:', err.message, '— trying next...');
-        fetchWithFallbacks(key, slugVariants, index + 1);
+        log('✗', slug + '.json:', err.message);
+        fetchWithFallbacks(item, slugIndex + 1);
       });
   }
 
-  // ── 9. Kick off fetches ───────────────────────────────────────────────────
-  keysToFetch.forEach(function (key) {
-    fetchWithFallbacks(key, ALL_SLUGS_TO_TRY[key], 0);
-  });
-
+  // ── 10. Kick off ──────────────────────────────────────────────────────────
+  keysToFetch.forEach(function (item) { fetchWithFallbacks(item, 0); });
   log('Initiated fetches for', keysToFetch.length, 'film(s)');
 })();
