@@ -323,13 +323,15 @@
       log('  New date labels (first 3 beyond hardcoded):', sample);
     }
 
-    // Replace daily array
-    fp.daily = merged;
+// Replace daily array
+fp.daily = merged;
 
-    // Update India net — keep the higher of scraped total vs hardcoded
-    var newIndia = Math.max(runningTotal || 0, fp.india || 0);
-    fp.india = Math.round(newIndia * 100) / 100;
-    log('  fp.india:', fp.india);
+// Update India net — use the last total from merged array
+var lastEntry = merged.length > 0 ? merged[merged.length - 1] : null;
+var mergedTotal = lastEntry && lastEntry.total != null ? lastEntry.total : runningTotal;
+var newIndia = Math.max(mergedTotal || 0, fp.india || 0);
+fp.india = Math.round(newIndia * 100) / 100;
+log('  fp.india:', fp.india);
 
     // Sync prediction actuals
     if (fp.prediction && typeof fp.prediction === 'object' && fp.prediction.actuals && typeof fp.prediction.actuals === 'object') {
