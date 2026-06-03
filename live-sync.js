@@ -50,14 +50,18 @@
                    'July','August','September','October','November','December'];
 
   // Given a release date string and a 0-based day index, return {date, day}
-  // e.g. releaseDate='2026-03-19', dayIndex=0 → {date:'Thu Mar 19', day:'Thu'}
+  // dayIndex 0 = Day 0 (preview, day before release)
+  // dayIndex 1 = Day 1 (theatrical release)
+  // e.g. releaseDate='2026-03-19', dayIndex=0 → {date:'Wed Mar 18', day:'Wed'}
+  //      releaseDate='2026-03-19', dayIndex=1 → {date:'Thu Mar 19', day:'Thu'}
   function computeDateLabel(releaseDate, dayIndex) {
     try {
       var rel = new Date(releaseDate + 'T00:00:00Z');
       if (isNaN(rel.getTime())) {
         rel = new Date(releaseDate);
       }
-      var d = new Date(rel.getTime() + dayIndex * 86400000);
+      // dayIndex 0 = 1 day before release, 1 = release day, 2 = day after, etc.
+      var d = new Date(rel.getTime() + (dayIndex - 1) * 86400000);
       var dayNum = d.getDay();
       var monthNum = d.getMonth();
       
@@ -70,7 +74,7 @@
       return { date: dayName + ' ' + monName + ' ' + dateNum, day: dayName };
     } catch (e) {
       warn('computeDateLabel error:', e);
-      return { date: 'Day ' + (dayIndex + 1), day: 'Day' };
+      return { date: 'Day ' + dayIndex, day: 'Day' };
     }
   }
 
@@ -120,14 +124,14 @@
   }
 
   // ── 5. Film config with release dates & slug variants ─────────────────────
-  // releaseDate: YYYY-MM-DD (Day 0 is preview day if applicable)
+  // releaseDate: YYYY-MM-DD (theatrical release date; Day 0 is preview, 1 day before)
   // slugs: filenames to try in scraper/output/ (without .json)
   // match: function to match against FILM_PAGES keys
 
   var FILM_CONFIG = [
     {
       name: 'Dhurandhar',
-      releaseDate: '2025-12-04',
+      releaseDate: '2025-12-05',
       slugs: ['Dhurandhar-2025', 'Dhurandhar_2025'],
       match: function(k) {
         var n = norm(k);
@@ -136,7 +140,7 @@
     },
     {
       name: 'Dhurandhar 2',
-      releaseDate: '2026-03-18',
+      releaseDate: '2026-03-19',
       slugs: ['Dhurandhar2-2026', 'Dhurandhar_2_2026'],
       match: function(k) {
         var n = norm(k);
@@ -145,7 +149,7 @@
     },
     {
       name: 'Bhooth Bangla',
-      releaseDate: '2026-04-16',
+      releaseDate: '2026-04-18',
       slugs: ['BhoothBangla-2026', 'Bhooth_Bangla_2026', 'BhootBhangla-2026', 'Bhoot_Bhangla_2026',
               'BhoothBangla-2025', 'Bhooth_Bangla_2025', 'BhootBhangla-2025', 'Bhoot_Bhangla_2025'],
       match: function(k) {
