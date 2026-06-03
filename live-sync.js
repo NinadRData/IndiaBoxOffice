@@ -12,9 +12,9 @@
   log('v4 initializing...');
 
   // ── 1. Check globals ─────────────────────────────────────────────────────
-  var hasFILM_PAGES  = typeof FILM_PAGES !== 'undefined';
-  var hasLIVE_FILMS  = typeof LIVE_FILMS !== 'undefined';
-  var hasFILMS       = typeof FILMS !== 'undefined';
+  var hasFILM_PAGES  = typeof FILM_PAGES !== 'undefined' && FILM_PAGES !== null;
+  var hasLIVE_FILMS  = typeof LIVE_FILMS !== 'undefined' && LIVE_FILMS !== null;
+  var hasFILMS       = typeof FILMS !== 'undefined' && FILMS !== null && Array.isArray(FILMS);
   var hasRenderLive  = typeof renderLiveTracker === 'function';
   var hasRenderYr    = typeof renderYrTable === 'function';
   var hasGetLiveDays = typeof getLiveDaysInRun === 'function';
@@ -27,9 +27,17 @@
   // ── 2. Fix getLiveDaysInRun ───────────────────────────────────────────────
   if (hasGetLiveDays) {
     window.getLiveDaysInRun = function (releaseDate) {
-      var rel = new Date(releaseDate);
-      var now = new Date(); now.setHours(0, 0, 0, 0);
-      return Math.max(1, Math.floor((now - rel) / (1000 * 60 * 60 * 24)) + 1);
+      try {
+        var rel = new Date(releaseDate);
+        if (isNaN(rel.getTime())) return 1;
+        var now = new Date(); 
+        now.setHours(0, 0, 0, 0);
+        var days = Math.max(1, Math.floor((now - rel) / (1000 * 60 * 60 * 24)) + 1);
+        return days;
+      } catch (e) {
+        warn('getLiveDaysInRun error:', e);
+        return 1;
+      }
     };
     log('Patched getLiveDaysInRun');
   }
@@ -44,26 +52,48 @@
   // Given a release date string and a 0-based day index, return {date, day}
   // e.g. releaseDate='2026-03-19', dayIndex=0 → {date:'Thu Mar 19', day:'Thu'}
   function computeDateLabel(releaseDate, dayIndex) {
-    var rel = new Date(releaseDate + 'T00:00:00');
-    var d = new Date(rel.getTime() + dayIndex * 86400000);
-    var dayName = DAY_SHORT[d.getDay()];
-    var monName = MON_SHORT[d.getMonth()];
-    var dateNum = d.getDate();
-    return { date: dayName + ' ' + monName + ' ' + dateNum, day: dayName };
+    try {
+      var rel = new Date(releaseDate + 'T00:00:00Z');
+      if (isNaN(rel.getTime())) {
+        rel = new Date(releaseDate);
+      }
+      var d = new Date(rel.getTime() + dayIndex * 86400000);
+      var dayNum = d.getDay();
+      var monthNum = d.getMonth();
+      
+      if (dayNum < 0 || dayNum >= DAY_SHORT.length) dayNum = 0;
+      if (monthNum < 0 || monthNum >= MON_SHORT.length) monthNum = 0;
+      
+      var dayName = DAY_SHORT[dayNum];
+      var monName = MON_SHORT[monthNum];
+      var dateNum = d.getDate();
+      return { date: dayName + ' ' + monName + ' ' + dateNum, day: dayName };
+    } catch (e) {
+      warn('computeDateLabel error:', e);
+      return { date: 'Day ' + (dayIndex + 1), day: 'Day' };
+    }
   }
 
   // ── 4. Fuzzy key matcher ──────────────────────────────────────────────────
-  function norm(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+  function norm(s) { 
+    if (!s) return '';
+    return (s + '').toLowerCase().replace(/[^a-z0-9]/g, ''); 
+  }
 
   function findLiveFilmKey(fpKey) {
     if (!hasLIVE_FILMS) return null;
     if (LIVE_FILMS[fpKey]) return fpKey;
+    
     var fpNorm = norm(fpKey);
+    if (!fpNorm) return null;
+    
     var liveKeys = Object.keys(LIVE_FILMS);
     for (var i = 0; i < liveKeys.length; i++) {
       var lk = liveKeys[i];
-      if (norm(lk) === fpNorm) return lk;
       var lf = LIVE_FILMS[lk];
+      if (!lf) continue;
+      
+      if (norm(lk) === fpNorm) return lk;
       if (lf.title && norm(lf.title) === fpNorm) return lk;
       if (lf.name && norm(lf.name) === fpNorm) return lk;
       if (fpNorm.length > 3 && norm(lk).indexOf(fpNorm) !== -1) return lk;
@@ -75,8 +105,11 @@
   function findFilmsIndex(key) {
     if (!hasFILMS) return -1;
     var keyNorm = norm(key);
+    if (!keyNorm) return -1;
+    
     for (var i = 0; i < FILMS.length; i++) {
       var f = FILMS[i];
+      if (!f) continue;
       if (norm(f.title) === keyNorm) return i;
       if (f.id && norm(f.id) === keyNorm) return i;
       if (f.key && norm(f.key) === keyNorm) return i;
@@ -113,8 +146,8 @@
     {
       name: 'Bhooth Bangla',
       releaseDate: '2026-04-18',
-      slugs: ['BhoothBangla-2026', 'Bhooth_Bangla_2026', 'BhootBhangla-2025', 'Bhoot_Bhangla_2025',
-              'BhoothBangla-2025', 'Bhooth_Bangla_2025', 'BhootBangla-2026', 'Bhoot_Bangla_2026'],
+      slugs: ['BhoothBangla-2026', 'Bhooth_Bangla_2026', 'BhootBhangla-2026', 'Bhoot_Bhangla_2026',
+              'BhoothBangla-2025', 'Bhooth_Bangla_2025', 'BhootBhangla-2025', 'Bhoot_Bhangla_2025'],
       match: function(k) {
         var n = norm(k);
         return n.indexOf('bhoot') !== -1 || n.indexOf('bhangla') !== -1 || n.indexOf('bangla') !== -1;
@@ -127,6 +160,7 @@
   var fpKeys = hasFILM_PAGES ? Object.keys(FILM_PAGES) : [];
 
   FILM_CONFIG.forEach(function (cfg) {
+    if (!cfg) return;
     for (var i = 0; i < fpKeys.length; i++) {
       if (cfg.match(fpKeys[i])) {
         keysToFetch.push({ fpKey: fpKeys[i], config: cfg });
@@ -141,7 +175,9 @@
   if (keysToFetch.length === 0) {
     warn('No FILM_PAGES keys matched! Check FILM_CONFIG patterns.');
     updateTimestamp();
-    if (hasRenderLive) renderLiveTracker();
+    if (hasRenderLive) {
+      try { renderLiveTracker(); } catch(e) { warn('renderLiveTracker error:', e); }
+    }
     return;
   }
 
@@ -151,48 +187,70 @@
   function onAllDone() {
     if (--remaining > 0) return;
     log('All fetches complete. Re-rendering...');
-    if (hasRenderLive) { try { renderLiveTracker(); } catch(e) { warn('renderLiveTracker error:', e); } }
-    if (hasRenderYr)   { try { renderYrTable(); }     catch(e) { warn('renderYrTable error:', e); } }
+    if (hasRenderLive) { 
+      try { renderLiveTracker(); } catch(e) { warn('renderLiveTracker error:', e); } 
+    }
+    if (hasRenderYr) { 
+      try { renderYrTable(); } catch(e) { warn('renderYrTable error:', e); } 
+    }
     updateTimestamp();
     log('✅ Sync complete');
   }
 
   // ── 7. Update "Last updated" text ─────────────────────────────────────────
   function updateTimestamp() {
-    var d = new Date();
-    var text = 'Last updated: ' + DAY_LONG[d.getDay()] + ', ' +
-               d.getDate() + ' ' + MON_LONG[d.getMonth()] + ' ' + d.getFullYear() +
-               ' · Figures are India nett in ₹ Crore · Click any card to open full film page';
+    try {
+      var d = new Date();
+      var dayIdx = d.getDay();
+      var monthIdx = d.getMonth();
+      
+      if (dayIdx < 0 || dayIdx >= DAY_LONG.length) dayIdx = 0;
+      if (monthIdx < 0 || monthIdx >= MON_LONG.length) monthIdx = 0;
+      
+      var text = 'Last updated: ' + DAY_LONG[dayIdx] + ', ' +
+                 d.getDate() + ' ' + MON_LONG[monthIdx] + ' ' + d.getFullYear() +
+                 ' · Figures are India nett in ₹ Crore · Click any card to open full film page';
 
-    var metaEl = document.getElementById('live-updated-meta');
-    if (metaEl) { metaEl.textContent = text; return; }
+      var metaEl = document.getElementById('live-updated-meta');
+      if (metaEl) { metaEl.textContent = text; return; }
 
-    var section = document.getElementById('live-tracker-section');
-    if (section) {
-      var allEls = section.querySelectorAll('*');
-      for (var i = 0; i < allEls.length; i++) {
-        if (allEls[i].childNodes.length <= 3 && allEls[i].textContent.indexOf('Last updated') !== -1) {
-          allEls[i].textContent = text; return;
+      var section = document.getElementById('live-tracker-section');
+      if (section) {
+        var allEls = section.querySelectorAll('*');
+        for (var i = 0; i < allEls.length; i++) {
+          var el = allEls[i];
+          if (el.childNodes.length <= 3 && el.textContent && el.textContent.indexOf('Last updated') !== -1) {
+            el.textContent = text; return;
+          }
         }
       }
-    }
-    var allP = document.querySelectorAll('p, div, span');
-    for (var j = 0; j < allP.length; j++) {
-      if (allP[j].textContent.indexOf('Last updated:') !== -1 && allP[j].textContent.indexOf('India nett') !== -1) {
-        allP[j].textContent = text; return;
+      var allP = document.querySelectorAll('p, div, span');
+      for (var j = 0; j < allP.length; j++) {
+        var pEl = allP[j];
+        var pText = pEl.textContent || '';
+        if (pText.indexOf('Last updated:') !== -1 && pText.indexOf('India nett') !== -1) {
+          pEl.textContent = text; return;
+        }
       }
+    } catch (e) {
+      warn('updateTimestamp error:', e);
     }
   }
 
   // ── 8. Core merge & apply logic ───────────────────────────────────────────
   function applyScraped(fpKey, scraped, config) {
     if (!hasFILM_PAGES) return;
+    if (!Array.isArray(scraped)) return;
+    
     var fp = FILM_PAGES[fpKey];
-    if (!fp) return;
+    if (!fp || typeof fp !== 'object') return;
 
     log('Applying "' + config.name + '" → FILM_PAGES["' + fpKey + '"]:', scraped.length, 'scraped days');
 
-    var hc = (fp.daily || []).filter(function (d) { return !d.bucket && d.gross != null; });
+    var hc = [];
+    if (fp.daily && Array.isArray(fp.daily)) {
+      hc = fp.daily.filter(function (d) { return d && !d.bucket && d.gross != null; });
+    }
     log('  Hardcoded:', hc.length, '| Scraped:', scraped.length);
 
     var merged = [];
@@ -202,46 +260,49 @@
     for (var i = 0; i < maxLen; i++) {
       var sc = i < scraped.length ? scraped[i] : null;
       var hcRow = i < hc.length ? hc[i] : null;
-      var entry;
+      var entry = null;
 
       // Compute real calendar date for this day
       var realDate = computeDateLabel(config.releaseDate, i);
 
       if (hcRow && sc) {
         // Both exist: prefer hardcoded labels if they look real (not "Day N"), else use computed
-        var useHcDate = hcRow.date && hcRow.date.indexOf('Day ') !== 0;
+        var hcDate = hcRow.date || '';
+        var useHcDate = hcDate && hcDate.indexOf('Day ') !== 0;
         entry = {
-          date:    useHcDate ? hcRow.date : realDate.date,
+          date:    useHcDate ? hcDate : realDate.date,
           day:     useHcDate ? (hcRow.day || realDate.day) : realDate.day,
-          gross:   sc.gross,
+          gross:   sc.gross != null ? sc.gross : null,
           chgDay:  sc.chg_day != null ? sc.chg_day : (hcRow.chgDay != null ? hcRow.chgDay : null),
           chgWeek: hcRow.chgWeek != null ? hcRow.chgWeek : null,
-          total:   sc.total
+          total:   sc.total != null ? sc.total : null
         };
       } else if (sc) {
         // Only scraped — use computed calendar date
         entry = {
           date:    realDate.date,
           day:     realDate.day,
-          gross:   sc.gross,
+          gross:   sc.gross != null ? sc.gross : null,
           chgDay:  sc.chg_day != null ? sc.chg_day : null,
           chgWeek: null,
-          total:   sc.total
+          total:   sc.total != null ? sc.total : null
         };
       } else if (hcRow) {
         // Only hardcoded
         entry = {
           date:    hcRow.date || realDate.date,
           day:     hcRow.day || realDate.day,
-          gross:   hcRow.gross,
+          gross:   hcRow.gross != null ? hcRow.gross : null,
           chgDay:  hcRow.chgDay != null ? hcRow.chgDay : null,
           chgWeek: hcRow.chgWeek != null ? hcRow.chgWeek : null,
-          total:   hcRow.total
+          total:   hcRow.total != null ? hcRow.total : null
         };
       }
 
       if (entry) {
-        runningTotal = entry.total;
+        if (entry.total != null) {
+          runningTotal = entry.total;
+        }
         merged.push(entry);
       }
     }
@@ -250,7 +311,8 @@
 
     // Show a sample of the new date labels
     if (merged.length > hc.length) {
-      var sample = merged.slice(hc.length, hc.length + 3).map(function(e) { return e.date; });
+      var sampleEnd = Math.min(hc.length + 3, merged.length);
+      var sample = merged.slice(hc.length, sampleEnd).map(function(e) { return e ? e.date : '?'; });
       log('  New date labels (first 3 beyond hardcoded):', sample);
     }
 
@@ -258,15 +320,21 @@
     fp.daily = merged;
 
     // Update India net — keep the higher of scraped total vs hardcoded
-    var newIndia = Math.max(runningTotal, fp.india || 0);
+    var newIndia = Math.max(runningTotal || 0, fp.india || 0);
     fp.india = Math.round(newIndia * 100) / 100;
     log('  fp.india:', fp.india);
 
     // Sync prediction actuals
-    if (fp.prediction && fp.prediction.actuals) {
+    if (fp.prediction && typeof fp.prediction === 'object' && fp.prediction.actuals && typeof fp.prediction.actuals === 'object') {
       fp.prediction.actuals.running_total = fp.india;
       var w1 = 0;
-      for (var j = 0; j < Math.min(7, merged.length); j++) w1 += merged[j].gross;
+      var week1Days = Math.min(7, merged.length);
+      for (var j = 0; j < week1Days; j++) {
+        var day = merged[j];
+        if (day && day.gross != null) {
+          w1 += day.gross;
+        }
+      }
       fp.prediction.actuals.week1 = Math.round(w1 * 100) / 100;
     }
 
@@ -274,34 +342,51 @@
     var liveKey = findLiveFilmKey(fpKey);
     if (liveKey) {
       var lf = LIVE_FILMS[liveKey];
-      lf.indiaRunning = fp.india;
-      if (scraped.length > 0) lf.yesterdayIndia = scraped[scraped.length - 1].gross;
-      if (lf.daily) lf.daily = merged;
-      log('  ✓ LIVE_FILMS["' + liveKey + '"] updated');
+      if (lf && typeof lf === 'object') {
+        lf.indiaRunning = fp.india;
+        if (scraped.length > 0) {
+          var lastScraped = scraped[scraped.length - 1];
+          if (lastScraped && lastScraped.gross != null) {
+            lf.yesterdayIndia = lastScraped.gross;
+          }
+        }
+        if (lf.daily) lf.daily = merged;
+        log('  ✓ LIVE_FILMS["' + liveKey + '"] updated');
+      }
     } else {
       warn('  ✗ No LIVE_FILMS match for "' + fpKey + '"');
     }
 
     // Update master FILMS array
     var fi = findFilmsIndex(fpKey);
-    if (fi !== -1 && fp.india > (FILMS[fi].india || 0)) {
-      FILMS[fi].india = fp.india;
-      log('  FILMS[' + fi + '] updated');
+    if (fi !== -1 && hasFILMS && FILMS[fi]) {
+      if (fp.india > (FILMS[fi].india || 0)) {
+        FILMS[fi].india = fp.india;
+        log('  FILMS[' + fi + '] updated');
+      }
     }
 
     // Re-render open film detail page
     var el = document.getElementById('page-film-' + fpKey);
-    if (el) {
+    if (el && el.parentNode) {
       try {
         el.parentNode.removeChild(el);
-        if (typeof showFilmPageWithPredictions === 'function' && fp.prediction) showFilmPageWithPredictions(fpKey);
-        else if (typeof showFilmPage === 'function') showFilmPage(fpKey);
+        if (typeof showFilmPageWithPredictions === 'function' && fp.prediction) {
+          showFilmPageWithPredictions(fpKey);
+        } else if (typeof showFilmPage === 'function') {
+          showFilmPage(fpKey);
+        }
       } catch (e) { warn('Film page re-render failed:', e); }
     }
   }
 
   // ── 9. Fetch with fallback slug variants ──────────────────────────────────
   function fetchWithFallbacks(item, slugIndex) {
+    if (!item || !item.config || !item.config.slugs) {
+      onAllDone();
+      return;
+    }
+    
     var slugs = item.config.slugs;
     if (slugIndex >= slugs.length) {
       warn('All slugs failed for "' + item.config.name + '"');
@@ -310,25 +395,35 @@
     }
 
     var slug = slugs[slugIndex];
+    if (!slug) {
+      fetchWithFallbacks(item, slugIndex + 1);
+      return;
+    }
+    
     var url = 'scraper/output/' + slug + '.json';
     log('Fetching', url);
 
     fetch(url)
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (r) { 
+        if (!r || !r.ok) throw new Error('HTTP ' + (r ? r.status : 'unknown')); 
+        return r.json(); 
+      })
       .then(function (scraped) {
-        if (scraped && scraped.length) {
+        if (scraped && Array.isArray(scraped) && scraped.length > 0) {
           log('✓', slug + '.json:', scraped.length, 'days');
           applyScraped(item.fpKey, scraped, item.config);
         }
         onAllDone();
       })
       .catch(function (err) {
-        log('✗', slug + '.json:', err.message);
+        log('✗', slug + '.json:', err ? err.message : 'unknown error');
         fetchWithFallbacks(item, slugIndex + 1);
       });
   }
 
   // ── 10. Kick off ──────────────────────────────────────────────────────────
-  keysToFetch.forEach(function (item) { fetchWithFallbacks(item, 0); });
+  keysToFetch.forEach(function (item) { 
+    if (item) fetchWithFallbacks(item, 0); 
+  });
   log('Initiated fetches for', keysToFetch.length, 'film(s)');
 })();
