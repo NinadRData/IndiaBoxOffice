@@ -1,0 +1,142 @@
+[
+  {
+    "date": "Day 1",
+    "day": "Day 1",
+    "gross": 15.5,
+    "total": 15.5,
+    "chg_day": null
+  },
+  {
+    "date": "Day 2",
+    "day": "Day 2",
+    "gross": 24.15,
+    "total": 39.65,
+    "chg_day": 55.8
+  },
+  {
+    "date": "Day 3",
+    "day": "Day 3",
+    "gross": 28.35,
+    "total": 68.0,
+    "chg_day": 17.4
+  },
+  {
+    "date": "Day 4",
+    "day": "Day 4",
+    "gross": 14.3,
+    "total": 82.3,
+    "chg_day": -49.6
+  },
+  {
+    "date": "Day 5",
+    "day": "Day 5",
+    "gross": 12.75,
+    "total": 95.05,
+    "chg_day": -10.8
+  },
+  {
+    "date": "Day 6",
+    "day": "Day 6",
+    "gross": 10.7,
+    "total": 105.75,
+    "chg_day": -16.1
+  },
+  {
+    "date": "Day 7",
+    "day": "Day 7",
+    "gross": 8.1,
+    "total": 113.85,
+    "chg_day": -24.3
+  },
+  {
+    "date": "Day 8",
+    "day": "Day 8",
+    "gross": 7.8,
+    "total": 121.65,
+    "chg_day": -3.7
+  },
+  {
+    "date": "Day 9",
+    "day": "Day 9",
+    "gross": 12.45,
+    "total": 134.1,
+    "chg_day": 59.6
+  },
+  {
+    "date": "Day 10",
+    "day": "Day 10",
+    "gross": 14.75,
+    "total": 148.85,
+    "chg_day": 18.5
+  },
+  {
+    "date": "Day 11",
+    "day": "Day 11",
+    "gross": 5.9,
+    "total": 154.75,
+    "chg_day": -60.0
+  },
+  {
+    "date": "Day 12",
+    "day": "Day 12",
+    "gross": 4.45,
+    "total": 159.2,
+    "chg_day": -24.6
+  },
+  {
+    "date": "Day 13",
+    "day": "Day 13",
+    "gross": 4.0,
+    "total": 163.2,
+    "chg_day": -10.1
+  },
+  {
+    "date": "Day 14",
+    "day": "Day 14",
+    "gross": 4.95,
+    "total": 168.15,
+    "chg_day": 23.8
+  },
+  {
+    "date": "Day 15",
+    "day": "Day 15",
+    "gross": 3.25,
+    "total": 171.4,
+    "chg_day": -34.3
+  },
+  {
+    "date": "Day 16",
+    "day": "Day 16",
+    "gross": 5.15,
+    "total": 176.55,
+    "chg_day": 58.5
+  },
+  {
+    "date": "Day 17",
+    "day": "Day 17",
+    "gross": 5.9,
+    "total": 182.45,
+    "chg_day": 14.6
+  },
+  {
+    "date": "Day 18",
+    "day": "Day 18",
+    "gross": 2.4,
+    "total": 184.85,
+    "chg_day": -59.3
+  },
+  {
+    "date": "Day 19",
+    "day": "Day 19",
+    "gross": 2.05,
+    "total": 186.9,
+    "chg_day": -14.6
+  },
+  {
+    "date": "Day 20",
+    "day": "Day 20",
+    "gross": 1.55,
+    "total": 188.45,
+    "chg_day": -24.4
+  }
+]
