@@ -120,14 +120,14 @@
   }
 
   // ── 5. Film config with release dates & slug variants ─────────────────────
-  // releaseDate: YYYY-MM-DD (Day 1 of theatrical run)
+  // releaseDate: YYYY-MM-DD (Day 0 is preview day if applicable)
   // slugs: filenames to try in scraper/output/ (without .json)
   // match: function to match against FILM_PAGES keys
 
   var FILM_CONFIG = [
     {
       name: 'Dhurandhar',
-      releaseDate: '2025-12-05',
+      releaseDate: '2025-12-04',
       slugs: ['Dhurandhar-2025', 'Dhurandhar_2025'],
       match: function(k) {
         var n = norm(k);
@@ -136,7 +136,7 @@
     },
     {
       name: 'Dhurandhar 2',
-      releaseDate: '2026-03-19',
+      releaseDate: '2026-03-18',
       slugs: ['Dhurandhar2-2026', 'Dhurandhar_2_2026'],
       match: function(k) {
         var n = norm(k);
@@ -145,7 +145,7 @@
     },
     {
       name: 'Bhooth Bangla',
-      releaseDate: '2026-04-18',
+      releaseDate: '2026-04-16',
       slugs: ['BhoothBangla-2026', 'Bhooth_Bangla_2026', 'BhootBhangla-2026', 'Bhoot_Bhangla_2026',
               'BhoothBangla-2025', 'Bhooth_Bangla_2025', 'BhootBhangla-2025', 'Bhoot_Bhangla_2025'],
       match: function(k) {
