@@ -128,57 +128,54 @@
   // slugs: filenames to try in scraper/output/ (without .json)
   // match: function to match against FILM_PAGES keys
 
-  var FILM_CONFIG = [
-    {
-      name: 'Dhurandhar',
-      releaseDate: '2025-12-05',
-      slugs: ['Dhurandhar-2025', 'Dhurandhar_2025'],
-      match: function(k) {
-        var n = norm(k);
-        return n.indexOf('dhurandhar') !== -1 && n.indexOf('2') === -1;
-      }
-    },
-    {
-      name: 'Dhurandhar 2',
-      releaseDate: '2026-03-19',
-      slugs: ['Dhurandhar2-2026', 'Dhurandhar_2_2026'],
-      match: function(k) {
-        var n = norm(k);
-        return n.indexOf('dhurandhar') !== -1 && n.indexOf('2') !== -1;
-      }
-    },
-    {
-      name: 'Bhooth Bangla',
-      releaseDate: '2026-04-17',
-      slugs: ['BhoothBangla-2026', 'Bhooth_Bangla_2026', 'BhootBhangla-2026', 'Bhoot_Bhangla_2026',
-              'BhoothBangla-2025', 'Bhooth_Bangla_2025', 'BhootBhangla-2025', 'Bhoot_Bhangla_2025'],
-      match: function(k) {
-        var n = norm(k);
-        return n.indexOf('bhoot') !== -1 || n.indexOf('bhangla') !== -1 || n.indexOf('bangla') !== -1;
-      }
+ var FILM_CONFIG = [
+  {
+    name: 'Dhurandhar',
+    releaseDate: '2025-12-05',
+    slugs: ['Dhurandhar-2025', 'Dhurandhar_2025'],
+    match: function(k) {
+      var n = norm(k);
+      return n.indexOf('dhurandhar') !== -1 && n.indexOf('2') === -1;
     }
-  ];
-
+  },
   {
-  name: 'Karuppu',
-  releaseDate: '2026-05-15',
-  slugs: ['Karuppu-2026', 'Karuppu_2026'],
-  match: function(k) {
-    var n = norm(k);
-    return n.indexOf('karuppu') !== -1;
-       }
-     }
-  ];
+    name: 'Dhurandhar 2',
+    releaseDate: '2026-03-19',
+    slugs: ['Dhurandhar2-2026', 'Dhurandhar_2_2026'],
+    match: function(k) {
+      var n = norm(k);
+      return n.indexOf('dhurandhar') !== -1 && n.indexOf('2') !== -1;
+    }
+  },
   {
-  name: 'Peddi',
-  releaseDate: '2026-06-04',
-  slugs: ['Peddi-2026', 'Peddi_2026'],
-  match: function(k) {
-    var n = norm(k);
-    return n.indexOf('peddi') !== -1;
-     }
-   }
-  ];
+    name: 'Bhooth Bangla',
+    releaseDate: '2026-04-17',
+    slugs: ['BhoothBangla-2026', 'Bhooth_Bangla_2026', 'BhootBhangla-2026', 'Bhoot_Bhangla_2026',
+            'BhoothBangla-2025', 'Bhooth_Bangla_2025', 'BhootBhangla-2025', 'Bhoot_Bhangla_2025'],
+    match: function(k) {
+      var n = norm(k);
+      return n.indexOf('bhoot') !== -1 || n.indexOf('bhangla') !== -1 || n.indexOf('bangla') !== -1;
+    }
+  },
+  {
+    name: 'Karuppu',
+    releaseDate: '2026-05-15',
+    slugs: ['Karuppu-2026', 'Karuppu_2026'],
+    match: function(k) {
+      var n = norm(k);
+      return n.indexOf('karuppu') !== -1;
+    }
+  },
+  {
+    name: 'Peddi',
+    releaseDate: '2026-06-03',
+    slugs: ['Peddi-2026', 'Peddi_2026'],
+    match: function(k) {
+      var n = norm(k);
+      return n.indexOf('peddi') !== -1;
+    }
+  }
+];
   
 
   // Find matching FILM_PAGES keys for each config entry
