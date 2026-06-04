@@ -179,12 +179,16 @@ def parse_chart_data(soup: BeautifulSoup) -> list[dict]:
         if net_data:
             break  # found the chart script — stop scanning
 
-    if not net_data:
-        return []
+if not net_data:
+    return []
 
-    rows = []
-    running = 0.0
-    prev_gross = None
+print("labels:", labels_data[:10])
+print("net_data length:", len(net_data))
+print("first few net values:", net_data[:10])
+
+rows = []
+running = 0.0
+prev_gross = None
 
     for i, gross in enumerate(net_data):
         running = round(running + gross, 2)
