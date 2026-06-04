@@ -182,10 +182,6 @@ def parse_chart_data(soup: BeautifulSoup) -> list[dict]:
 if not net_data:
     return []
 
-print("labels:", labels_data[:10])
-print("net_data length:", len(net_data))
-print("first few net values:", net_data[:10])
-
 rows = []
 running = 0.0
 prev_gross = None
