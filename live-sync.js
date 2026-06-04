@@ -241,78 +241,78 @@
     }
   }
 
-  // ── 8. Core merge & apply logic ───────────────────────────────────────────
-  function applyScraped(fpKey, scraped, config) {
-    if (!hasFILM_PAGES) return;
-    if (!Array.isArray(scraped)) return;
-    
-    var fp = FILM_PAGES[fpKey];
-    if (!fp || typeof fp !== 'object') return;
+ // ── 8. Core merge & apply logic ───────────────────────────────────────────
+function applyScraped(fpKey, scraped, config) {
+  if (!hasFILM_PAGES) return;
+  if (!Array.isArray(scraped)) return;
+  
+  var fp = FILM_PAGES[fpKey];
+  if (!fp || typeof fp !== 'object') return;
 
-    log('Applying "' + config.name + '" → FILM_PAGES["' + fpKey + '"]:', scraped.length, 'scraped days');
+  log('Applying "' + config.name + '" → FILM_PAGES["' + fpKey + '"]:', scraped.length, 'scraped days');
 
-    var hc = [];
-    if (fp.daily && Array.isArray(fp.daily)) {
-      hc = fp.daily.filter(function (d) { return d && !d.bucket && d.gross != null; });
+  var hc = [];
+  if (fp.daily && Array.isArray(fp.daily)) {
+    hc = fp.daily.filter(function (d) { return d && !d.bucket && d.gross != null; });
+  }
+
+  var merged = [];
+  var maxLen = Math.max(hc.length, scraped.length);
+  var runningTotal = 0;
+
+  for (var i = 0; i < maxLen; i++) {
+    var sc = i < scraped.length ? scraped[i] : null;
+    var hcRow = i < hc.length ? hc[i] : null;
+    var entry = null;
+
+    // FIX: Look for an explicit day index from the scraper, otherwise fallback to index mapping
+    // If your scraper puts Day 0 at index 0, then dayIndex should be i.
+    // If index 0 is Day 1, dayIndex should be i + 1.
+    var dayIndex = (sc && sc.dayNum !== undefined) ? sc.dayNum : i; 
+
+    // Compute real calendar date using the verified day position
+    var realDate = computeDateLabel(config.releaseDate, dayIndex);
+
+    if (hcRow && sc) {
+      var hcDate = hcRow.date || '';
+      var useHcDate = hcDate && hcDate.indexOf('Day ') !== 0;
+      entry = {
+        date:    useHcDate ? hcDate : realDate.date,
+        day:     useHcDate ? (hcRow.day || realDate.day) : realDate.day,
+        gross:   sc.gross != null ? sc.gross : null,
+        chgDay:  sc.chg_day != null ? sc.chg_day : (hcRow.chgDay != null ? hcRow.chgDay : null),
+        chgWeek: hcRow.chgWeek != null ? hcRow.chgWeek : null,
+        total:   sc.total != null ? sc.total : null
+      };
+    } else if (sc) {
+      entry = {
+        date:    realDate.date,
+        day:     realDate.day,
+        gross:   sc.gross != null ? sc.gross : null,
+        chgDay:  sc.chg_day != null ? sc.chg_day : null,
+        chgWeek: null,
+        total:   sc.total != null ? sc.total : null
+      };
+    } else if (hcRow) {
+      entry = {
+        date:    hcRow.date || realDate.date,
+        day:     hcRow.day || realDate.day,
+        gross:   hcRow.gross != null ? hcRow.gross : null,
+        chgDay:  hcRow.chgDay != null ? hcRow.chgDay : null,
+        chgWeek: hcRow.chgWeek != null ? hcRow.chgWeek : null,
+        total:   hcRow.total != null ? hcRow.total : null
+      };
     }
-    log('  Hardcoded:', hc.length, '| Scraped:', scraped.length);
 
-    var merged = [];
-    var maxLen = Math.max(hc.length, scraped.length);
-    var runningTotal = 0;
-
-    for (var i = 0; i < maxLen; i++) {
-      var sc = i < scraped.length ? scraped[i] : null;
-      var hcRow = i < hc.length ? hc[i] : null;
-      var entry = null;
-
-      // Only process if we have either scraped or hardcoded data
-      if (!hcRow && !sc) continue;
-
-      // Compute real calendar date for this day
-      var realDate = computeDateLabel(config.releaseDate, i);
-
-      if (hcRow && sc) {
-        // Both exist: prefer hardcoded labels if they look real (not "Day N"), else use computed
-        var hcDate = hcRow.date || '';
-        var useHcDate = hcDate && hcDate.indexOf('Day ') !== 0;
-        entry = {
-          date:    useHcDate ? hcDate : realDate.date,
-          day:     useHcDate ? (hcRow.day || realDate.day) : realDate.day,
-          gross:   sc.gross != null ? sc.gross : null,
-          chgDay:  sc.chg_day != null ? sc.chg_day : (hcRow.chgDay != null ? hcRow.chgDay : null),
-          chgWeek: hcRow.chgWeek != null ? hcRow.chgWeek : null,
-          total:   sc.total != null ? sc.total : null
-        };
-      } else if (sc) {
-        // Only scraped — use computed calendar date
-        entry = {
-          date:    realDate.date,
-          day:     realDate.day,
-          gross:   sc.gross != null ? sc.gross : null,
-          chgDay:  sc.chg_day != null ? sc.chg_day : null,
-          chgWeek: null,
-          total:   sc.total != null ? sc.total : null
-        };
-      } else if (hcRow) {
-        // Only hardcoded
-        entry = {
-          date:    hcRow.date || realDate.date,
-          day:     hcRow.day || realDate.day,
-          gross:   hcRow.gross != null ? hcRow.gross : null,
-          chgDay:  hcRow.chgDay != null ? hcRow.chgDay : null,
-          chgWeek: hcRow.chgWeek != null ? hcRow.chgWeek : null,
-          total:   hcRow.total != null ? hcRow.total : null
-        };
+    if (entry) {
+      if (entry.total != null) {
+        runningTotal = entry.total;
       }
-
-      if (entry) {
-        if (entry.total != null) {
-          runningTotal = entry.total;
-        }
-        merged.push(entry);
-      }
+      merged.push(entry);
     }
+  }
+
+  // ... (Rest of your existing applyScraped logic remains exactly the same)
 
     log('  Merged:', merged.length, 'entries, running total:', runningTotal);
 
