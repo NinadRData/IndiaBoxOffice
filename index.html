@@ -6619,7 +6619,7 @@ var FILM_PAGES = {
     budget: 220,
     india: null,
     ow: null,
-    ww: null,
+    ww: 21.83,
     ff: null,
     multiplier: null,
     lb: null,
@@ -6663,7 +6663,10 @@ var FILM_PAGES = {
       },
       refined: null,
     },
-    daily: [],
+    daily: [
+      {date:'Wed Jun 3', day:'Wed', gross:18.50, chgDay:null, chgWeek:null, total:18.50},
+      {date:'Day 2+',    day:'',    gross:null,  chgDay:null, chgWeek:null, total:null,  bucket:true},
+    ],
     timeline: [],
     overseas: [
       {market:'USA/Canada', val:null},
@@ -7993,6 +7996,27 @@ renderWeekly();
 // ═══════════════════════════════════════
 var LIVE_FILMS = [
   {
+    key:         'peddi',
+    title:       'Peddi',
+    lang:        'Telugu',
+    releaseDate: '2026-06-03',
+    lastUpdated: 'Jun 3',
+    indiaRunning: null,
+    wwRunning:    21.83,
+    yesterdayIndia: 18.50,
+    wow: null,
+    indiaLow:   80,
+    indiaMid:   200,
+    indiaHigh:  380,
+    wwLow:      110,
+    wwMid:      280,
+    wwHigh:     530,
+    budget:     220,
+    statusOverride: 'pre-release',
+    ottEstimate: 'TBA',
+    note: 'Day 1 (Wed Jun 3) · ₹18.50 Cr India nett · ₹21.83 Cr WW. Weekday opening — first weekend (Thu–Sun) will be decisive. Pre-release model range: ₹80–380 Cr India nett.',
+  },
+  {
     key:         'karuppu',
     title:       'Karuppu',
     lang:        'Tamil',
@@ -8263,7 +8287,7 @@ RECENT_FILMS.slice(0,15).forEach(function(f,i){
     +'<div class="pcard-title">'+f.n+'</div>'
     +'<div class="pcard-amt">'+f.y+' · <span style="color:'+col+'">'+f.l+'</span></div>'
     +'<div class="pcard-amt">₹'+f.india+' Cr India</div>';
-  if(hasPg) el.onclick = function(e){ maybeOpenFilm(f.n, e); };
+      if(hasPg) el.onclick = function(fn){ return function(e){ var p=getFilmPage(fn); if(p&&p.prediction) showFilmPageWithPredictions(p.key); else if(p) showFilmPage(p.key); }; }(f.n);
   rr.appendChild(el);
 });
 
