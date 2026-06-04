@@ -159,6 +159,28 @@
     }
   ];
 
+  {
+  name: 'Karuppu',
+  releaseDate: '2026-05-15',
+  slugs: ['Karuppu-2026', 'Karuppu_2026'],
+  match: function(k) {
+    var n = norm(k);
+    return n.indexOf('karuppu') !== -1;
+       }
+     }
+  ];
+  {
+  name: 'Peddi',
+  releaseDate: '2026-06-04',
+  slugs: ['Peddi-2026', 'Peddi_2026'],
+  match: function(k) {
+    var n = norm(k);
+    return n.indexOf('peddi') !== -1;
+     }
+   }
+  ];
+  
+
   // Find matching FILM_PAGES keys for each config entry
   var keysToFetch = []; // {fpKey, config}
   var fpKeys = hasFILM_PAGES ? Object.keys(FILM_PAGES) : [];
