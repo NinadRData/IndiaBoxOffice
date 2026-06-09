@@ -16,15 +16,22 @@
   {
     "date": "Day 3",
     "day": "Day 3",
-    "gross": 28.85,
-    "total": 106.75,
-    "chg_day": 7.2
+    "gross": 29.1,
+    "total": 107.0,
+    "chg_day": 8.2
   },
   {
     "date": "Day 4",
     "day": "Day 4",
-    "gross": 31.9,
-    "total": 138.65,
-    "chg_day": 10.6
+    "gross": 32.15,
+    "total": 139.15,
+    "chg_day": 10.5
+  },
+  {
+    "date": "Day 5",
+    "day": "Day 5",
+    "gross": 12.05,
+    "total": 151.2,
+    "chg_day": -62.5
   }
 ]
