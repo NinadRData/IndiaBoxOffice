@@ -75,5 +75,12 @@
     "gross": 9.2,
     "total": 197.5,
     "chg_day": 13.6
+  },
+  {
+    "date": "Day 12",
+    "day": "Day 12",
+    "gross": 4.1,
+    "total": 201.6,
+    "chg_day": -55.4
   }
 ]

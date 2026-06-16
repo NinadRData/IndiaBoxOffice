@@ -198,22 +198,29 @@
   {
     "date": "Day 29",
     "day": "Day 29",
-    "gross": 0.22,
-    "total": 195.4,
-    "chg_day": -40.5
+    "gross": 0.34,
+    "total": 195.52,
+    "chg_day": -8.1
   },
   {
     "date": "Day 30",
     "day": "Day 30",
-    "gross": 0.47,
-    "total": 195.87,
-    "chg_day": 113.6
+    "gross": 0.65,
+    "total": 196.17,
+    "chg_day": 91.2
   },
   {
     "date": "Day 31",
     "day": "Day 31",
-    "gross": 0.7,
-    "total": 196.57,
-    "chg_day": 48.9
+    "gross": 0.8,
+    "total": 196.97,
+    "chg_day": 23.1
+  },
+  {
+    "date": "Day 32",
+    "day": "Day 32",
+    "gross": 0.2,
+    "total": 197.17,
+    "chg_day": -75.0
   }
 ]
