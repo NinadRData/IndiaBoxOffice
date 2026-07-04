@@ -201,5 +201,12 @@
     "gross": 0.32,
     "total": 222.98,
     "chg_day": 0.0
+  },
+  {
+    "date": "Day 30",
+    "day": "Day 30",
+    "gross": 0.55,
+    "total": 223.53,
+    "chg_day": 71.9
   }
 ]
