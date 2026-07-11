@@ -1444,14 +1444,19 @@ var UPCOMING = [
 // Yearly data
 var YR_DATA = {
   '2026': [
+    {n:'Cocktail 2',                   l:'Hindi',   ow:47.50,  india:92.00,  ww:140.00, studio:'Dinesh Vijan', liveKey:'cocktail-2'},
+    {n:'Alpha',                        l:'Hindi',   ow:34.00,  india:34.00,  ww:58.80, studio:'YRF', liveKey:'alpha'},
+    {n:'Welcome To The Jungle',      l:'Hindi',   ow:63.50,  india:81.25,  ww:120,   studio:'Tips Films', liveKey:'welcome-to-the-jungle'},
     {n:'Dhurandhar 2',              l:'Hindi',   ow:308,    india:1147.58, ww:1800,  studio:'Jio Studios'},
+    {n:'Peddi',                     l:'Telugu',  ow:88.15,  india:228.00,  ww:322.65,studio:'Dil Raju Productions / Sri Venkateswara Creations'},
+    {n:'Hai Jawani Toh Ishq Hona Hai', l:'Hindi', ow:24.4,  india:48.84,   ww:69,    studio:'TBA'},
     {n:'Border 2',                  l:'Hindi',   ow:129.89, india:341.70,  ww:464.5, studio:'Zee Studios / T-Series'},
-    {n:'Drishyam 3',                l:'Malayalam',ow:38.7,  india:96.70,  ww:228,   studio:'Panorama Studios'},
+    {n:'Drishyam 3',                l:'Malayalam',ow:38.7,  india:110.48, ww:239.82,studio:'Panorama Studios'},
     {n:'Mana ShankaraVaraprasad Garu', l:'Telugu', ow:56,  india:218,     ww:301,   studio:'TBA'},
     {n:'RajaSaab',                  l:'Telugu',  ow:98,     india:146,     ww:208,   studio:'Mythri'},
-    {n:'Bhoot Bhangla',             l:'Hindi',   ow:61.75,  india:174.35,  ww:260,   studio:'Tips Films', liveKey:'bhoot-bhangla'},
-    {n:'Raja Shivaji',              l:'Hindi',   ow:34,     india:93.75,   ww:115,   studio:'TBA'},
-    {n:'Karuppu',                   l:'Tamil',   ow:68,     india:148.30,  ww:236,   studio:'TBA', liveKey:'karuppu'},
+    {n:'Bhoot Bhangla',             l:'Hindi',   ow:54.25,  india:182.33,  ww:270.88, studio:'Tips Films'},
+    {n:'Raja Shivaji',              l:'Hindi',   ow:34,     india:96.38,   ww:117.96, studio:'TBA'},
+    {n:'Karuppu',                   l:'Tamil',   ow:68,     india:198.09,  ww:310.02,  studio:'TBA', liveKey:'karuppu'},
     {n:'Vaazha 2: Biopic of a Billion Bros', l:'Malayalam', ow:17.45, india:129.42, ww:235.26, studio:'TBA'},
     {n:'O Romeo',                   l:'Hindi',   ow:28,     india:60,      ww:93,    studio:'TBA'},
   ],  '2025': [
@@ -1508,11 +1513,11 @@ var YR_DATA = {
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem">
       <div class="sh" style="margin:0">
         <h2>This Week at the Box Office</h2>
-        <span>India Nett · Week of May 23–29, 2026</span>
+        <span>India Nett · Week of June 13–19, 2026</span>
       </div>
       <div style="display:flex;align-items:center;gap:6px;font-size:.6rem;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(239,68,68,.1);border:0.5px solid rgba(239,68,68,.25);color:#ef4444">
         <span style="width:6px;height:6px;border-radius:50%;background:#ef4444;animation:livePulse 1.4s ease-in-out infinite"></span>
-        WEEK 22 · 2026
+        WEEK 25 · 2026
       </div>
     </div>
 
@@ -1529,7 +1534,7 @@ var YR_DATA = {
       </div>
       <div id="weekly-chart"></div>
     </div>
-    <div style="font-size:.6rem;color:rgba(255,255,255,.18);padding:.25rem 0 0">Figures are estimated India nett in ₹ Crore · Week = Fri May 16 – Thu May 22</div>
+    <div style="font-size:.6rem;color:rgba(255,255,255,.18);padding:.25rem 0 0">Figures are estimated India nett in ₹ Crore · Week = Fri Jun 13 – Thu Jun 19</div>
   </div>
 
   <!-- ═══ LIVE TRACKER ═══ -->
@@ -4143,7 +4148,7 @@ var FILM_PAGES = {
     synopsis: 'Charlie, the son of a safe-cracker framed and destroyed by the corrupt diamond merchant Grover, assembles a team of the world\'s most gloriously incompetent criminals to pull off the ultimate heist — steal the world\'s most valuable diamonds from the Dubai World Dance Championship vault. The catch: to get close enough, they must enter the competition as India\'s dance team. What follows is Farah Khan at her most maximalist: a two-and-a-half hour Diwali spectacle of blistering song-and-dance numbers, slapstick comedy, and unapologetic crowd-pleasing that asks nothing of its audience except that they surrender entirely to the fun. Happy New Year became the biggest Diwali opener in Bollywood history at the time and one of the most commercially dominant films of 2014.',
     release: '2014-10-24',
     runtime: 176,
-    budget: 150,
+    budget: 180,
     india: 201,
     ow: 115,
     ww: 383,
@@ -5606,12 +5611,14 @@ var FILM_PAGES = {
     music: 'Pritam',
     awards: [],
     // ── PREDICTION MODEL ──
-    india: 179.35,
+    india: 182.33,
     ow: 54.25,
-    ww: 266,
-          prediction: {
-      status: 'live',
-              note: 'Through Day 46 (Sun May 31). ₹179.35 Cr India nett · ₹268 Cr WW. Weekend (Sat ₹0.80 Cr, Sun ₹1.10 Cr) holding well in deep tail. Lifetime expected to close ₹180–182 Cr India nett.',
+    ww: 270.88,
+    ff: 9.8,
+    multiplier: +(182.33/54.25).toFixed(2),
+    prediction: {
+      status: 'final',
+      note: 'Final. ₹182.33 Cr India nett · ₹270.88 Cr WW. Theatrical run concluded. 3.36× legs on ₹54.25 Cr opening weekend. Budget ₹120 Cr — breakeven ~₹300 Cr WW — film fell short of breakeven.',
       // Pre-release baseline (director/actor comps)
       baseline: {
         comp_films: [
@@ -5645,9 +5652,9 @@ var FILM_PAGES = {
         week1: 84.40,
         ww_ow: null,
         second_weekend_drop: -45.7,
-        legs_multiple: +(179.35/54.25).toFixed(2),
-        running_total: 179.35,
-        running_ww: 266,
+        legs_multiple: +(182.33/54.25).toFixed(2),
+        running_total: 182.33,
+        running_ww: 270.88,
       },
       refined: {
         india_low:  175,
@@ -6481,6 +6488,108 @@ var FILM_PAGES = {
     ],
   },
   '3idiots': {key:'3-idiots',title:'3 Idiots',year:2009,lang:'Hindi',director:'Rajkumar Hirani',studio:'Vinod Chopra Films',cast:[{name:'Aamir Khan',role:'Rancho'},{name:'R. Madhavan',role:'Farhan'},{name:'Sharman Joshi',role:'Raju'},{name:'Kareena Kapoor',role:'Pia'},{name:'Boman Irani',role:'Virus'}],synopsis:'See 3 Idiots.',release:'2009-12-25',runtime:170,budget:55,india:202,ow:40.7,ww:400,ff:31.79,multiplier:4.96,lb:4.1,ott:'Netflix',music:'Shantanu Moitra',awards:['National Award – Best Popular Film','Filmfare – Best Film','Filmfare – Best Actor (Aamir Khan)'],timeline:[{label:'Week 1',val:70},{label:'Week 2',val:61},{label:'Week 3',val:35},{label:'Week 4',val:15},{label:'Week 5+',val:9}],overseas:[{market:'China',val:55},{market:'USA/Canada',val:28},{market:'Gulf',val:32},{market:'UK',val:22},{market:'Australia',val:10},{market:'Other',val:51}],comparable:[{n:'PK (2014)',ww:769,col:'#22c55e'},{n:'Dangal (2016)',ww:2070,col:'#4fc3f7'},{n:'3 Idiots (2009)',ww:400,col:'#f5c518',highlight:true},{n:'Ghajini (2008)',ww:201,col:'#a78bfa'}],trivia:['First Hindi film to gross ₹200 Cr+ nett in India.','Held the all-time Hindi box office record for nearly 4 years.']},
+  'welcome-to-the-jungle': {
+    key: 'welcome-to-the-jungle',
+    title: 'Welcome To The Jungle',
+    year: 2026,
+    lang: 'Hindi',
+    director: 'Ahmed Khan',
+    studio: 'Tips Films / Reel Life Production',
+    cast: [
+      {name:'Akshay Kumar',      role:'TBA'},
+      {name:'Disha Patani',      role:'TBA'},
+      {name:'Lara Dutta',        role:'TBA'},
+      {name:'Jacqueline Fernandez', role:'TBA'},
+      {name:'Raveena Tandon',    role:'TBA'},
+    ],
+    synopsis: 'The third instalment of the beloved Welcome franchise, reuniting the ensemble comedy universe with a new adventure. Akshay Kumar leads a star-studded cast in a chaotic, laugh-out-loud comedy set against an exotic jungle backdrop. Director Ahmed Khan brings his high-energy action-comedy sensibility to one of Bollywood\'s most reliable franchise properties.',
+    release: '2026-06-25',
+    runtime: null,
+    budget: 150,
+    india: null,
+    ow: null,
+    ww: null,
+    ff: null,
+    multiplier: null,
+    lb: null,
+    ott: 'TBA',
+    music: 'TBA',
+    awards: [],
+    prediction: {
+      status: 'live',
+      note: 'Day 1 (Jun 26) · ₹15 Cr India nett · ₹29 Cr WW running total (incl. ₹3.75 Cr previews). OW projection ~₹48–55 Cr. Budget ₹180 Cr — breakeven ~₹450 Cr WW. Lifetime India nett range ₹121–327 Cr.',
+      baseline: {
+        comp_films: [
+          {n:'Bhoot Bhangla (2026)',  ww:271,  india:182, ow:54,  note:'Akshay + ensemble comedy · OW ₹54 Cr → 3.36× legs → ₹182 Cr · if WTTJ same legs: <strong style="color:#facc15">₹195 Cr</strong>'},
+          {n:'Jolly LLB 3 (2025)',    ww:null, india:114, ow:51,  note:'Akshay comedy · OW ₹51 Cr → 2.23× legs → ₹114 Cr · if WTTJ same legs: <strong style="color:#f87171">₹128 Cr</strong>'},
+          {n:'Sky Force (2025)',       ww:210,  india:180, ow:73,  note:'Akshay action · OW ₹73 Cr → 2.47× legs → ₹180 Cr · (higher OW baseline, not direct comp)'},
+          {n:'Welcome Back (2015)',    ww:null, india:106, ow:null, note:'Direct franchise sequel — ₹106 Cr India lifetime · sets floor for brand recognition'},
+          {n:'Total Dhamaal (2019)',   ww:152,  india:104, ow:62,  note:'Ensemble comedy sequel · OW ₹62 Cr → 1.68× legs → ₹104 Cr · downside case if reception is mixed'},
+        ],
+        india_low:  121,
+        india_mid:  212,
+        india_high: 327,
+        ww_low:     155,
+        ww_mid:     270,
+        ww_high:    415,
+        ow_low:     40,
+        ow_mid:     63,
+        ow_high:    70,
+      },
+      actuals: {
+        ow: 63.50,
+        day1: 15,
+        day2: 20.00,
+        day3: 24.75,
+        day4: null,
+        day5: null,
+        week1: null,
+        ww_ow: null,
+        second_weekend_drop: null,
+        legs_multiple: null,
+        running_total: 81.25,
+        running_ww: 120,
+      },
+      refined: {
+        india_low:  121,
+        india_mid:  212,
+        india_high: 327,
+        ww_low:     155,
+        ww_mid:     270,
+        ww_high:    415,
+        note: 'After Day 1. ₹18.75 Cr running total (₹3.75 Cr previews + ₹15 Cr Day 1). OW on track for ₹48–55 Cr. Range unchanged — full picture after opening weekend.',
+      },
+    },
+    daily: [
+      {date:'Thu Jun 25', day:'Thu', gross:3.75,  chgDay:null,  chgWeek:null, total:3.75},
+      {date:'Fri Jun 26', day:'Fri', gross:15.00, chgDay:+300,  chgWeek:null, total:18.75},
+    ],
+    timeline: [
+      {label:'Previews (Thu)', val:3.75},
+      {label:'Day 1 (Fri)',    val:15.00},
+    ],
+    overseas: [
+      {market:'USA/Canada', val:null},
+      {market:'Gulf',       val:null},
+      {market:'UK',         val:null},
+      {market:'Australia',  val:null},
+      {market:'Other',      val:null},
+    ],
+    comparable: [
+      {n:'Welcome (2007)',          ww:null, col:'#22c55e'},
+      {n:'Bhoot Bhangla (2026)',    ww:271,  col:'#4fc3f7'},
+      {n:'Sky Force (2025)',        ww:210,  col:'#f97316'},
+      {n:'Jolly LLB 3 (2025)',      ww:null, col:'#a78bfa'},
+      {n:'Welcome To The Jungle (2026)', ww:null, col:'#f5c518', highlight:true},
+      {n:'Welcome Back (2015)',     ww:null, col:'#ef4444'},
+    ],
+    trivia: [
+      'Welcome To The Jungle is the third film in the Welcome franchise, following Welcome (2007) and Welcome Back (2015).',
+      'Director Ahmed Khan previously directed Baaghi 2 and Baaghi 3 — known for high-octane action sequences blended with comedy.',
+      'The franchise is known for its sprawling ensemble casts and broad comedic set pieces set against exotic international locations.',
+      'Akshay Kumar rejoins the franchise after not being part of Welcome Back (2015), making his return one of the biggest selling points of this instalment.',
+    ],
+  },
   'karuppu': {
     key: 'karuppu',
     title: 'Karuppu',
@@ -6506,8 +6615,8 @@ var FILM_PAGES = {
     music: 'TBA',
     awards: [],
     prediction: {
-      status: 'live',
-      note: 'Day 7 · ₹105.35 Cr India nett banked. Opening weekend (Fri–Sun) ₹68 Cr is Suriya\'s biggest solo ever. Wed May 20 (Day 7) added ₹10.3 Cr. 6.6M footfalls. Tracking comfortably above model midpoint of ₹195 Cr.',
+      status: 'final',
+      note: 'Final. ₹198.09 Cr India nett · ₹310.02 Cr WW. Theatrical run concluded. 2.91× legs on ₹68 Cr opening weekend. Budget ₹130 Cr — breakeven ~₹325 Cr WW — film fell just short of breakeven.',
       baseline: {
         comp_films: [
           {n:'Jailer (2023)',         ww:604,  india:348,  ow:116,  note:'Rajinikanth · ₹116 Cr OW → 3.0× legs → ₹348 Cr · if Karuppu same legs: <strong style="color:#4ade80">₹204 Cr</strong>'},
@@ -6536,18 +6645,18 @@ var FILM_PAGES = {
         week1: null,
         ww_ow: null,
         second_weekend_drop: null,
-        legs_multiple: +(188.45/68).toFixed(2),
-        running_total: 188.45,
-        running_ww: 297,
+        legs_multiple: +(198.09/68).toFixed(2),
+        running_total: 198.09,
+        running_ww: 310.02,
       },
       refined: {
-        india_low:  190,
-        india_mid:  210,
-        india_high: 240,
-        ww_low:     300,
-        ww_mid:     320,
-        ww_high:    355,
-        note: 'Revised after Day 21. ₹188.45 Cr India nett · ₹297 Cr WW banked. Weekday tail ₹1.55–2.40 Cr/day. Legs 2.77×. Range tightening — lifetime India nett expected ₹190–240 Cr.',
+        india_low:  198,
+        india_mid:  198,
+        india_high: 198,
+        ww_low:     310,
+        ww_mid:     310,
+        ww_high:    310,
+        note: 'Final. Theatrical run complete.',
       },
     },
     daily: [
@@ -6571,7 +6680,22 @@ var FILM_PAGES = {
       {date:'Mon Jun 1',  day:'Mon', gross:2.40,  chgDay:-59.3,  chgWeek:null,  total:184.85},
       {date:'Tue Jun 2',  day:'Tue', gross:2.05,  chgDay:-14.6,  chgWeek:null,  total:186.90},
       {date:'Wed Jun 3',  day:'Wed', gross:1.55,  chgDay:-24.4,  chgWeek:null,  total:188.45},
-      {date:'Day 22+',    day:'',   gross:null,  chgDay:null,   chgWeek:null,  total:null,  bucket:true},
+      {date:'Thu Jun 4',  day:'Thu', gross:0.90,  chgDay:-41.9,  chgWeek:null,  total:189.35},
+      {date:'Fri Jun 5',  day:'Fri', gross:0.83,  chgDay:-7.8,   chgWeek:null,  total:190.18},
+      {date:'Sat Jun 6',  day:'Sat', gross:1.47,  chgDay:+77.1,  chgWeek:null,  total:191.65},
+      {date:'Sun Jun 7',  day:'Sun', gross:1.75,  chgDay:+19.0,  chgWeek:null,  total:193.40},
+      {date:'Mon Jun 8',  day:'Mon', gross:0.53,  chgDay:-69.7,  chgWeek:null,  total:193.93},
+      {date:'Tue Jun 9',  day:'Tue', gross:0.45,  chgDay:-15.1,  chgWeek:null,  total:194.38},
+      {date:'Wed Jun 10', day:'Wed', gross:0.43,  chgDay:-4.4,   chgWeek:null,  total:194.81},
+      {date:'Thu Jun 11', day:'Thu', gross:0.37,  chgDay:-14.0,  chgWeek:null,  total:195.18},
+      {date:'Fri Jun 12', day:'Fri', gross:0.34,  chgDay:-8.1,   chgWeek:null,  total:195.52},
+      {date:'Sat Jun 13', day:'Sat', gross:0.65,  chgDay:+91.2,  chgWeek:null,  total:196.17},
+      {date:'Sun Jun 14', day:'Sun', gross:0.80,  chgDay:+23.1,  chgWeek:null,  total:196.97},
+      {date:'Mon Jun 15', day:'Mon', gross:0.21,  chgDay:-73.8,  chgWeek:null,  total:197.18},
+      {date:'Tue Jun 16', day:'Tue', gross:0.19,  chgDay:-9.5,   chgWeek:null,  total:197.37},
+      {date:'Wed Jun 17', day:'Wed', gross:0.15,  chgDay:-21.1,  chgWeek:null,  total:197.52},
+      {date:'Thu Jun 18', day:'Thu', gross:0.07,  chgDay:-53.3,  chgWeek:null,  total:197.59},
+      {date:'Day 36+',    day:'',   gross:null,  chgDay:null,   chgWeek:null,  total:null,  bucket:true},
     ],
     timeline: [
       {label:'Day 1 (Thu)', val:15.50},
@@ -6616,13 +6740,13 @@ var FILM_PAGES = {
     synopsis: 'From the director of Uppena (2021) comes an ambitious rural action drama starring Ram Charan in his most grounded, rooted avatar yet. Peddi — a young man forged by the harsh realities of his land and community — finds himself drawn into a conflict that forces him to confront both powerful enemies and his own identity. Buchi Babu Sana, celebrated for his lyrical, emotionally precise storytelling in Uppena, brings the same sensibility to a much larger canvas, pairing it with the raw physicality and star power of Ram Charan in full mass-entertainer mode. The film arrives with the weight of enormous expectation — Ram Charan\'s last solo release, Game Changer (2024), was a high-profile disappointment at ₹186 Cr worldwide — and the hope that a director-driven, content-first approach will deliver the reset his solo career needs.',
     release: '2026-06-04',
     runtime: null,
-    budget: 220,
+    budget: 350,
     india: null,
-    ow: null,
-    ww: 21.83,
-    ff: null,
+    ow: 88.15,
+    ww: 322.65,
+    ff: 7.2,
     multiplier: null,
-    lb: null,
+    lb: 2.6,
     ott: 'TBA',
     music: 'A.R. Rahman',
     awards: [],
@@ -6648,26 +6772,55 @@ var FILM_PAGES = {
         ow_high:    130,
       },
       actuals: {
-        ow: null,
-        day1: null,
-        day2: null,
-        day3: null,
-        day4: null,
-        day5: null,
-        week1: null,
+        ow: 88.15,
+        day1: 51.00,
+        day2: 26.90,
+        day3: 30.15,
+        day4: 31.85,
+        day5: 12.35,
+        week1: 193.55,
         ww_ow: null,
-        second_weekend_drop: null,
-        legs_multiple: null,
-        running_total: null,
-        running_ww: null,
+        second_weekend_drop: -80.9,
+        legs_multiple: +(228.00/88.15).toFixed(2),
+        running_total: 228.00,
+        running_ww: 322.65,
       },
-      refined: null,
+      refined: {
+        india_low:  228,
+        india_mid:  233,
+        india_high: 238,
+        ww_low:     328,
+        ww_mid:     335,
+        ww_high:    345,
+        note: 'Revised after Day 18. ₹228.00 Cr India nett banked · ₹322.65 Cr WW. Weekday tail now under ₹2 Cr/day — film is in its closing stretch. Lifetime India nett expected to settle in a tight ₹228–238 Cr band.',
+      },
     },
     daily: [
-      {date:'Wed Jun 3', day:'Wed', gross:18.50, chgDay:null, chgWeek:null, total:18.50},
-      {date:'Day 2+',    day:'',    gross:null,  chgDay:null, chgWeek:null, total:null,  bucket:true},
+      {date:'Tue Jun 2',  day:'Tue', gross:18.50, chgDay:null,   chgWeek:null,  total:18.50},
+      {date:'Thu Jun 3',  day:'Thu', gross:51.00, chgDay:null,   chgWeek:null,  total:69.50},
+      {date:'Fri Jun 4',  day:'Fri', gross:26.90, chgDay:-47.3,  chgWeek:null,  total:96.40},
+      {date:'Sat Jun 5',  day:'Sat', gross:29.10, chgDay:+8.2,   chgWeek:null,  total:125.50},
+      {date:'Sun Jun 6',  day:'Sun', gross:32.15, chgDay:+10.5,  chgWeek:null,  total:157.65},
+      {date:'Mon Jun 7',  day:'Mon', gross:12.35, chgDay:-61.6,  chgWeek:null,  total:170.00},
+      {date:'Tue Jun 8',  day:'Tue', gross:9.70,  chgDay:-21.5,  chgWeek:null,  total:179.70},
+      {date:'Wed Jun 9',  day:'Wed', gross:7.55,  chgDay:-22.2,  chgWeek:null,  total:187.25},
+      {date:'Thu Jun 10', day:'Thu', gross:6.30,  chgDay:-16.6,  chgWeek:null,  total:193.55},
+      {date:'Fri Jun 11', day:'Fri', gross:5.15,  chgDay:-18.3,  chgWeek:-80.9, total:198.70},
+      {date:'Sat Jun 12', day:'Sat', gross:8.10,  chgDay:+57.3,  chgWeek:-72.2, total:206.80},
+      {date:'Sun Jun 13', day:'Sun', gross:9.20,  chgDay:+13.6,  chgWeek:-71.4, total:216.00},
+      {date:'Mon Jun 16', day:'Mon', gross:4.10,  chgDay:-55.4,  chgWeek:-66.8, total:220.10},
+      {date:'Tue Jun 17', day:'Tue', gross:3.45,  chgDay:-15.9,  chgWeek:-64.4, total:223.55},
+      {date:'Wed Jun 18', day:'Wed', gross:2.45,  chgDay:-29.0,  chgWeek:-67.5, total:226.00},
+      {date:'Thu Jun 19', day:'Thu', gross:2.00,  chgDay:-18.4,  chgWeek:-68.3, total:228.00},
+      {date:'Day 18+',    day:'',   gross:null,  chgDay:null,   chgWeek:null,  total:null,   bucket:true},
     ],
-    timeline: [],
+    timeline: [
+      {label:'Previews (Tue)',    val:18.50},
+      {label:'Opening Day (Thu)', val:51.00},
+      {label:'Opening Wknd (F-S)',val:88.15},
+      {label:'Week 1',            val:193.55},
+      {label:'Week 2',            val:34.45},
+    ],
     overseas: [
       {market:'USA/Canada', val:null},
       {market:'Gulf',       val:null},
@@ -7077,8 +7230,9 @@ function showFilmPageWithPredictions(key) {
   var runningTotal = act.running_total || (hasOW ? act.ow : null);
   var sliderMin = indiaLow * 0.88;
   var sliderMax = indiaHigh * 1.25;
-  var markerPct = runningTotal ? Math.max(0, Math.min(100, Math.round((runningTotal - sliderMin) / (sliderMax - sliderMin) * 100))) : null;
+  var markerPct = runningTotal != null ? Math.max(0, Math.min(100, Math.round((runningTotal - sliderMin) / (sliderMax - sliderMin) * 100))) : null;
   var lowPct    = Math.round((indiaLow  - sliderMin) / (sliderMax - sliderMin) * 100);
+  var midPct    = Math.round((indiaMid  - sliderMin) / (sliderMax - sliderMin) * 100);
   var highPct   = Math.round((indiaHigh - sliderMin) / (sliderMax - sliderMin) * 100);
 
   var statusLabel = pred.status === 'final' ? 'Final' : pred.status === 'live' ? 'Live' : 'Pre-Release';
@@ -7115,8 +7269,8 @@ function showFilmPageWithPredictions(key) {
         [
           {l:'India Net',       v: '₹'+(act.running_total || p.india || '—')+' Cr',  c:'#f5c518', s:'running total'},
           {l:'Worldwide',       v: '₹'+(act.running_ww    || p.ww    || '—')+' Cr',  c:'#f5c518', s:'running total'},
-          {l:'Opening Weekend', v: p.ow    ? '₹'+p.ow+' Cr'    : '—',  c:'#f97316', s:'3-day opening'},
-          {l:'Multiplier',      v: p.multiplier ? p.multiplier+'×' : (p.ow && p.india ? (Math.round(p.india/p.ow*100)/100)+'×' : '—'), c:'#22c55e', s:'Opening → Total'},
+          {l:'Opening Weekend', v: (act.ow||p.ow) ? '₹'+(act.ow||p.ow)+' Cr' : '—',  c:'#f97316', s:'Thu–Sun incl. previews'},
+          {l:'Multiplier',      v: (act.legs_multiple) ? act.legs_multiple+'×' : ((act.ow||p.ow) && (act.running_total||p.india) ? (Math.round((act.running_total||p.india)/(act.ow||p.ow)*100)/100)+'×' : '—'), c:'#22c55e', s:'Running ÷ OW'},
           {l:'Footfalls',       v: p.ff    ? p.ff+'M'           : '—',  c:'#4fc3f7', s:'Tickets sold'},
           {l:'Budget',          v: p.budget? '₹'+p.budget+' Cr': '—',  c:'rgba(255,255,255,.6)', s:'Production cost'},
           {l:'Letterboxd',      v: p.lb    ? p.lb+' / 5'        : '—',  c:'rgba(255,255,255,.6)', s:'Audience rating'},
@@ -7133,41 +7287,79 @@ function showFilmPageWithPredictions(key) {
 
     '<div style="max-width:960px;margin:0 auto;padding:2rem;display:flex;flex-direction:column;gap:1.5rem">' +
 
-      // ── MAIN PREDICTION WIDGET ──
-      '<div style="background:#111;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:1.5rem 1.75rem">' +
-        '<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1rem">' +
-          '<div>' +
-            '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.6rem;font-weight:900;color:rgba(255,255,255,.92)">Predicted India Nett Total</div>' +
-            '<div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.25rem;max-width:540px;line-height:1.6">'+pred.note+'</div>' +
-          '</div>' +
-          '<div style="text-align:right">' +
-            '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:2.4rem;font-weight:900;color:rgba(255,255,255,.92);line-height:1">₹'+indiaMid+' – ₹'+indiaHigh+' Cr</div>' +
-            '<div style="font-size:.65rem;color:rgba(255,255,255,.3);margin-top:4px">Core range (wider: ₹'+indiaLow+' – ₹'+Math.round(indiaHigh*1.18)+' Cr)</div>' +
+
+
+      // ── PREDICTION SECTION ──
+      '<div style="background:#111;border:0.5px solid rgba(255,255,255,.1);border-radius:10px;padding:1.5rem 1.75rem">' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem">' +
+          '<div style="font-size:1rem;font-weight:700;color:#fff">Box Office Prediction</div>' +
+          '<span style="font-size:.65rem;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(249,115,22,.15);border:0.5px solid rgba(249,115,22,.35);color:#f97316">' +
+            (pred.status === 'final' ? 'FINAL' : pred.status === 'live' ? '🔴 LIVE · Day '+getLiveDaysInRun(p.release) : 'PRE-RELEASE') +
+          '</span>' +
+        '</div>' +
+
+        // ── Range slider ──
+        '<div style="margin-bottom:1.5rem">' +
+          '<div style="font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.85rem">India Nett Forecast (₹ Cr)</div>' +
+          '<div style="position:relative;height:56px;margin-bottom:.25rem">' +
+            // Track
+            '<div style="position:absolute;left:0;right:0;top:20px;height:8px;background:rgba(255,255,255,.06);border-radius:4px"></div>' +
+            // Filled range (low→high)
+            '<div style="position:absolute;left:'+lowPct+'%;width:'+(highPct-lowPct)+'%;top:20px;height:8px;background:linear-gradient(90deg,rgba(248,113,113,.4),rgba(245,197,24,.6),rgba(74,222,128,.4));border-radius:4px"></div>' +
+            // Running dot
+            (markerPct !== null ? '<div style="position:absolute;left:'+markerPct+'%;top:16px;transform:translateX(-50%)">' +
+              '<div style="width:16px;height:16px;border-radius:50%;background:#f97316;box-shadow:0 0 10px rgba(249,115,22,.6);border:2px solid #000"></div>' +
+            '</div>' : '') +
+            // Low marker
+            '<div style="position:absolute;left:'+lowPct+'%;top:16px;transform:translateX(-50%)">' +
+              '<div style="width:2px;height:16px;background:rgba(248,113,113,.6)"></div>' +
+            '</div>' +
+            // Mid marker
+            '<div style="position:absolute;left:'+midPct+'%;top:16px;transform:translateX(-50%)">' +
+              '<div style="width:2px;height:16px;background:rgba(245,197,24,.7)"></div>' +
+            '</div>' +
+            // High marker
+            '<div style="position:absolute;left:'+highPct+'%;top:16px;transform:translateX(-50%)">' +
+              '<div style="width:2px;height:16px;background:rgba(74,222,128,.6)"></div>' +
+            '</div>' +
+            // Labels
+            '<div style="position:absolute;left:'+lowPct+'%;bottom:0;transform:translateX(-50%);font-size:.55rem;color:rgba(248,113,113,.8);white-space:nowrap">₹'+indiaLow+'</div>' +
+            '<div style="position:absolute;left:'+midPct+'%;bottom:0;transform:translateX(-50%);font-size:.55rem;color:rgba(245,197,24,.9);white-space:nowrap">₹'+indiaMid+'</div>' +
+            '<div style="position:absolute;left:'+highPct+'%;bottom:0;transform:translateX(-50%);font-size:.55rem;color:rgba(74,222,128,.8);white-space:nowrap">₹'+indiaHigh+'</div>' +
           '</div>' +
         '</div>' +
 
-        // Horizontal slider bar
-        '<div style="position:relative;height:48px;margin:1rem 0 .5rem">' +
-          // Full track
-          '<div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:6px;background:rgba(255,255,255,.08);border-radius:3px"></div>' +
-          // Green range fill
-          '<div style="position:absolute;left:'+lowPct+'%;width:'+(highPct-lowPct)+'%;top:50%;transform:translateY(-50%);height:6px;background:linear-gradient(90deg,#065f46,#34d399);border-radius:3px"></div>' +
-          // Low label
-          '<div style="position:absolute;left:'+lowPct+'%;top:0;transform:translateX(-50%);font-size:.6rem;color:rgba(255,255,255,.4);white-space:nowrap">₹'+indiaLow+' Cr</div>' +
-          // High label
-          '<div style="position:absolute;left:'+highPct+'%;top:0;transform:translateX(-50%);font-size:.6rem;color:rgba(255,255,255,.4);white-space:nowrap">₹'+indiaHigh+' Cr</div>' +
-          // Running total marker
-          (markerPct !== null ?
-            '<div style="position:absolute;left:'+markerPct+'%;top:50%;transform:translate(-50%,-50%)">' +
-              '<div style="width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,#22c55e,#15803d);border:2px solid #f00;box-shadow:0 0 10px #22c55e88"></div>' +
-              '<div style="position:absolute;top:22px;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap">' +
-                '<div style="font-size:.65rem;font-weight:700;color:#22c55e">₹'+runningTotal+' Cr so far</div>' +
-                '<div style="font-size:.6rem;color:rgba(255,255,255,.4)">₹'+runningTotal+' Cr</div>' +
-              '</div>' +
-            '</div>'
-          : '') +
+        // ── Three scenario cards ──
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.25rem">' +
+          [
+            {label:'Bear Case', indiaV:indiaLow,  wwV:wwLow,  col:'#f87171', bg:'rgba(248,113,113,.07)', border:'rgba(248,113,113,.2)', prob: Math.round(Math.max(10, 30 - 0.18*65))},
+            {label:'Base Case', indiaV:indiaMid,  wwV:wwMid,  col:'#f5c518', bg:'rgba(245,197,24,.07)',  border:'rgba(245,197,24,.25)', prob: Math.round(Math.min(65, 35 + 0.32*65))},
+            {label:'Bull Case', indiaV:indiaHigh, wwV:wwHigh, col:'#4ade80', bg:'rgba(74,222,128,.07)', border:'rgba(74,222,128,.2)',  prob: 100 - Math.round(Math.max(10, 30 - 0.18*65)) - Math.round(Math.min(65, 35 + 0.32*65))},
+          ].map(function(s){
+            return '<div style="background:'+s.bg+';border:0.5px solid '+s.border+';border-radius:6px;padding:.85rem 1rem;text-align:center">' +
+              '<div style="font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:'+s.col+';margin-bottom:.45rem">'+s.label+'</div>' +
+              '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.5rem;font-weight:900;color:'+s.col+';line-height:1;margin-bottom:.2rem">₹'+s.indiaV+'<span style="font-size:.8rem;font-weight:600"> Cr</span></div>' +
+              '<div style="font-size:.6rem;color:rgba(255,255,255,.35);margin-bottom:.5rem">WW ₹'+s.wwV+' Cr</div>' +
+              '<div style="font-size:.68rem;font-weight:700;color:'+s.col+'">'+(s.prob > 0 ? s.prob : '~5')+'%</div>' +
+              '<div style="font-size:.52rem;color:rgba(255,255,255,.25)">probability</div>' +
+            '</div>';
+          }).join('') +
         '</div>' +
-        (markerPct !== null ? '<div style="font-size:.65rem;color:rgba(255,255,255,.3);margin-top:1.5rem;padding-top:.5rem">'+(act.legs_multiple?act.legs_multiple+'x legs → ₹'+runningTotal+' Cr':'Running total: ₹'+runningTotal+' Cr') +(runningTotal < indiaLow?' (below model range)':runningTotal > indiaHigh?' (above model range)':' (within model range)')+'</div>' : '') +
+
+        // ── Comp basis ──
+        '<div style="border-top:0.5px solid rgba(255,255,255,.07);padding-top:.9rem">' +
+          '<div style="font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.6rem">Key Comparables</div>' +
+          '<div style="display:flex;flex-direction:column;gap:4px">' +
+          (ref && ref.note ? '<div style="font-size:.7rem;color:rgba(255,255,255,.45);line-height:1.65;padding:.6rem .75rem;background:rgba(249,115,22,.06);border-left:2px solid rgba(249,115,22,.3);border-radius:0 4px 4px 0;margin-bottom:.5rem">'+ref.note+'</div>' : '') +
+          (base.comp_films || []).map(function(c){
+            return '<div style="display:flex;align-items:flex-start;gap:8px;padding:.4rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">' +
+              '<div style="width:6px;height:6px;border-radius:50%;background:rgba(249,115,22,.4);flex-shrink:0;margin-top:5px"></div>' +
+              '<div><div style="font-size:.72rem;color:rgba(255,255,255,.7);font-weight:500">'+c.n+'</div>' +
+              '<div style="font-size:.6rem;color:rgba(255,255,255,.3);margin-top:1px">'+c.note+'</div></div>' +
+            '</div>';
+          }).join('') +
+          '</div>' +
+        '</div>' +
       '</div>' +
 
       // ── PROFITABILITY WIDGET ──
@@ -7337,20 +7529,8 @@ function showFilmPageWithPredictions(key) {
 
 
 
-      // ── TWO COL: WW PREDICTION + COMP FILMS ──
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">' +
-
-        // WW Prediction
-        '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.25rem 1.5rem">' +
-          '<div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.85rem">Worldwide Prediction (₹ Cr)</div>' +
-          [['Low','#ef4444',wwLow],['Mid','#f59e0b',wwMid],['High','#22c55e',wwHigh]].map(function(sc){
-            var pct=Math.round(sc[2]/wwHigh*100);
-            return '<div style="margin-bottom:.65rem"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:.62rem;color:rgba(255,255,255,.35)">'+sc[0]+'</span><span style="font-size:.8rem;font-weight:700;color:'+sc[1]+'">₹'+sc[2]+' Cr</span></div>' +
-              '<div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px"><div style="height:6px;width:'+pct+'%;background:'+sc[1]+';border-radius:3px"></div></div></div>';
-          }).join('') +
-        '</div>' +
-
-        // Comparable films
+      // ── COMP FILMS ──
+      '<div>' +
         '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.25rem 1.5rem">' +
           '<div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.85rem">Comparable Films · WW Gross</div>' +
           p.comparable.map(function(c){
@@ -7916,11 +8096,10 @@ function showPage(p) {
 // THIS WEEK AT THE BOX OFFICE
 // ═══════════════════════════════════════
 var WEEKLY_DATA = [
-  {rank:1,  prev:null, n:'Drishyam 3',    l:'Malayalam',wk:3,  thisWeek:24.1,  total:96.70,  hasPg:false, key:null, ff:2.9},
-  {rank:2,  prev:1,   n:'Karuppu',       l:'Tamil',   wk:2,  thisWeek:28.40, total:148.30, hasPg:true,  key:'karuppu'},
-  {rank:3,  prev:2,   n:'Bhoot Bhangla', l:'Hindi',   wk:5,  thisWeek:8.55,  total:170.75, hasPg:true,  key:'bhoot-bhangla'},
-  {rank:4,  prev:3,   n:'Dhurandhar 2',  l:'Hindi',   wk:9,  thisWeek:3.27,  total:1146.55,hasPg:true,  key:'dhurandhar-2'},
-  {rank:5,  prev:4,   n:'Raja Shivaji',  l:'Hindi',   wk:4,  thisWeek:0.75,  total:88,     hasPg:false, key:null},
+  {rank:1,  prev:null, n:'Cocktail 2',    l:'Hindi',   wk:1,  thisWeek:13.50, total:13.50,    hasPg:false, key:null},
+  {rank:2,  prev:1,    n:'Peddi',         l:'Telugu',  wk:3,  thisWeek:12.00, total:228.00,   hasPg:true,  key:'peddi'},
+  {rank:3,  prev:3,    n:'Karuppu',       l:'Tamil',   wk:6,  thisWeek:0.62,  total:197.59,   hasPg:true,  key:'karuppu'},
+
 ];
 
 var WEEKLY_MAX = Math.max.apply(null, WEEKLY_DATA.map(function(f){return f.thisWeek;}));
@@ -7996,91 +8175,91 @@ renderWeekly();
 // ═══════════════════════════════════════
 var LIVE_FILMS = [
   {
+    key:          'alpha',
+    title:        'Alpha',
+    lang:         'Hindi',
+    releaseDate:  '2026-07-03',
+    lastUpdated:  'Jul 5',
+    indiaRunning:  34.00,
+    wwRunning:     58.80,
+    yesterdayIndia: 13.25,
+    wow:           null,
+    indiaLow:      70,
+    indiaMid:      110,
+    indiaHigh:     160,
+    wwLow:         120,
+    wwMid:         185,
+    wwHigh:        270,
+    budget:        null,
+    statusOverride: null,
+    ottEstimate:   'TBA',
+    note:          'OW ₹34.00 Cr (Fri–Sun) · ₹58.80 Cr WW after Day 3. Strong Sunday jump (+15.2% vs Saturday). WW/India ratio 1.73× — healthy overseas pull.',
+  },
+  {
+    key:         'welcome-to-the-jungle',
+    title:       'Welcome To The Jungle',
+    lang:        'Hindi',
+    releaseDate: '2026-06-25',
+    lastUpdated: 'Jun 26',
+    indiaRunning: 18.75,
+    wwRunning:    29,
+    yesterdayIndia: 15.00,
+    wow: null,
+    indiaLow:   121,
+    indiaMid:   212,
+    indiaHigh:  327,
+    wwLow:      155,
+    wwMid:      270,
+    wwHigh:     415,
+    budget:     180,
+    statusOverride: 'on-track',
+    ottEstimate: 'TBA',
+    note: 'Day 1 (Jun 26) · ₹15 Cr India nett · Previews (Jun 25) ₹3.75 Cr · Running total ₹18.75 Cr. OW projection ~₹48–55 Cr on current trajectory. Lifetime range ₹121–327 Cr.',
+  },
+  {
+    key:         'cocktail-2',
+    title:       'Cocktail 2',
+    lang:        'Hindi',
+    releaseDate: '2026-06-19',
+    lastUpdated: 'Jun 28',
+    indiaRunning: 82.95,
+    wwRunning:    126.85,
+    yesterdayIndia: 4.4,
+    wow: null,
+    indiaLow:   85,
+    indiaMid:   140,
+    indiaHigh:  210,
+    wwLow:      110,
+    wwMid:      180,
+    wwHigh:     270,
+    budget:     150,
+    statusOverride: null,
+    ottEstimate: 'TBA',
+    note: 'Day 10 · ₹82.95 Cr India nett · ₹126.85 Cr WW. Opening weekend (Fri–Sun) ~₹47.5 Cr. Strong weekday holds in Week 1. Tracking at mid-case.',
+  },
+  {
     key:         'peddi',
     title:       'Peddi',
     lang:        'Telugu',
     releaseDate: '2026-06-03',
-    lastUpdated: 'Jun 3',
-    indiaRunning: null,
-    wwRunning:    21.83,
-    yesterdayIndia: 18.50,
-    wow: null,
-    indiaLow:   80,
-    indiaMid:   200,
-    indiaHigh:  380,
-    wwLow:      110,
-    wwMid:      280,
-    wwHigh:     530,
+    lastUpdated: 'Jun 19',
+    indiaRunning: 228.00,
+    wwRunning:    322.65,
+    yesterdayIndia: 2.00,
+    wow: -68.3,
+    indiaLow:   233,
+    indiaMid:   245,
+    indiaHigh:  265,
+    wwLow:      330,
+    wwMid:      355,
+    wwHigh:     390,
     budget:     220,
-    statusOverride: 'pre-release',
-    ottEstimate: 'TBA',
-    note: 'Day 1 (Wed Jun 3) · ₹18.50 Cr India nett · ₹21.83 Cr WW. Weekday opening — first weekend (Thu–Sun) will be decisive. Pre-release model range: ₹80–380 Cr India nett.',
-  },
-  {
-    key:         'karuppu',
-    title:       'Karuppu',
-    lang:        'Tamil',
-    releaseDate: '2026-05-14',
-    lastUpdated: 'May 20',
-    indiaRunning: 188.45,
-    wwRunning:    297,
-    yesterdayIndia: 1.55,
-    wow: null,
-    indiaLow:   185,
-    indiaMid:   215,
-    indiaHigh:  270,
-    wwLow:      290,
-    wwMid:      320,
-    wwHigh:     375,
-    budget:     130,
     statusOverride: null,
     ottEstimate: 'TBA',
-          note: 'Day 10 · ₹148.30 Cr India nett banked. Sunday May 24 added ₹14.45 Cr — 2nd Sunday surge of +18.4% over 2nd Saturday, an excellent sign. ₹236 Cr WW. Legs multiplier now at 2.18× and climbing. Tracking comfortably towards ₹210–240 Cr India nett lifetime.',
+    note: 'Through Day 18 (Thu Jun 19) · ₹228.00 Cr India nett (incl. ₹18.50 Cr previews) · ₹322.65 Cr WW. Opening weekend (Fri–Sun) ₹88.15 Cr. Opening day (Thu) ₹51 Cr. Week 1 ₹193.55 Cr. Week 2 ₹34.45 Cr. Legs multiplier 2.59× on OW. Lifetime India nett expected ₹240–250 Cr.',
   },
-  {
-    key:         'raja-shivaji',
-    title:       'Raja Shivaji',
-    lang:        'Hindi',
-    releaseDate: '2026-05-01',
-    lastUpdated: 'May 29',
-    indiaRunning: 93.75,
-    wwRunning:    115,
-    yesterdayIndia: 4.30,
-    wow: null,
-    indiaLow:   95,
-    indiaMid:   110,
-    indiaHigh:  130,
-    wwLow:      117,
-    wwMid:      135,
-    wwHigh:     160,
-    budget:     90,
-    statusOverride: null,
-    ottEstimate: 'TBA',
-    note: 'Week 4 · ₹93.75 Cr India nett · ₹115 Cr WW. ₹4.8M footfalls. ₹4.8 Cr this week. Tracking towards ₹95–100 Cr India nett lifetime.',
-    ff: 4.8,
-  },
-  {
-    key:         'bhoot-bhangla',
-    title:       'Bhoot Bhangla',
-    lang:        'Hindi',
-    releaseDate: '2026-04-16',
-    lastUpdated: 'May 20',
-    // ── RUNNING TOTALS (update daily) ──
-    indiaRunning: 179.35,
-    wwRunning:    266,
-    yesterdayIndia: 1.10,
-    wow: null,
-    indiaLow:   179,
-    indiaMid:   180,
-    indiaHigh:  182,
-    wwLow:      265,
-    wwMid:      267,
-    wwHigh:     270,
-    budget:     120,
-    statusOverride: null,
-    ottEstimate: 'Mid-June 2026',
-    note: 'Through Day 46 (Sun May 31). ₹179.35 Cr India nett · ₹266 Cr WW. 3.31× legs (₹179.35 Cr ÷ ₹54.25 Cr OW). Deep tail — ₹0.25–1.10 Cr/day. Lifetime expected to close ₹180–182 Cr India nett.',
-  },
+
+// (Raja Shivaji removed — theatrical run ended)
 
 ];
 
@@ -8943,8 +9122,7 @@ renderFFRecords();
 // ═══════════════════════════════════════
 var PREDS = [
   {title:'Hai Jawani Toh Ishq Hona Hai', lang:'Hindi', actor:'Varun Dhawan',  director:'David Dhawan',   date:'2026-06-05', bo:{low:40,mid:80,high:130},   ow:{low:10,mid:20,high:35},   ff:{low:2,mid:4,high:7},    notes:'David Dhawan and Varun Dhawan reunion — their earlier collaborations (Main Tera Hero, JUDWAA 2) were solid mid-range hits. Expected to be a breezy summer comedy.'},
-  {title:'Cocktail 2',                   lang:'Hindi', actor:'Shahid Kapoor',  director:'TBA',            date:'2026-06-19', bo:{low:85,mid:140,high:210},  ow:{low:22,mid:35,high:55},   ff:{low:3,mid:6,high:10},   notes:'Based on Shahid\'s last 4 films post-Kabir Singh: Jersey (OW ₹12 Cr, 1.58× legs → ₹19 Cr India), Teri Baaton (OW ₹27 Cr, 3.0× legs → ₹81 Cr), Deva (OW ₹19 Cr, 1.68× legs → ₹32 Cr), O Romeo (OW ₹28 Cr, 2.14× legs → ₹60 Cr). Avg OW ~₹21.5 Cr bumped to ~₹35 Cr mid for Cocktail nostalgia and multi-star factor. Avg legs 2.1× mid assumption (range 1.8–2.8×). Kabir Singh (OW ₹71 Cr, ₹278 Cr India) remains the outlier ceiling — Cocktail 2 is unlikely to match it but the brand has real pull.'},
-  {title:'Welcome To The Jungle',        lang:'Hindi', actor:'Akshay Kumar',   director:'TBA',            date:'2026-06-26', bo:{low:121,mid:212,high:327}, ow:{low:35,mid:50,high:65},   ff:{low:3,mid:6,high:10},   notes:'Based on Akshay\'s last 5 films: Sky Force (OW ₹73 Cr, 1.79× legs), Bhoot Bhangla (OW ₹54 Cr, 3.24×), Jolly LLB 3 (OW ₹51 Cr, 2.23×), OMG 2 (OW ₹43 Cr, 3.49×), Khel Khel Mein (OW ₹20 Cr, 2.85×). Avg OW ~₹48 Cr, avg legs ~2.55×. Ensemble comedy sequel weighted towards Bhoot Bhangla/Jolly LLB 3 as closest genre comps — legs assumption 2.7× mid. WW calculated at 75/25 India/overseas split.'},
+  {title:'Welcome To The Jungle',        lang:'Hindi', actor:'Akshay Kumar',   director:'Ahmed Khan',     date:'2026-06-25', bo:{low:121,mid:212,high:327}, ow:{low:35,mid:50,high:65},   ff:{low:3,mid:6,high:10},   notes:'Day 1 (Jun 26): ₹15 Cr nett · Previews (Jun 25): ₹3.75 Cr. OW tracking in line with base case. Comp: Bhoot Bhangla (OW ₹54 Cr, 3.36×), Jolly LLB 3 (OW ₹51 Cr, 2.23×). Mid assumes ~₹50 Cr OW and 2.7× legs.'},
   {title:'Alpha',                        lang:'Hindi', actor:'Alia Bhatt',     director:'Shiv Rawail',    date:'2026-07-03', bo:{low:85,mid:207,high:298}, ow:{low:27,mid:47,high:63},  ff:{low:3,mid:7,high:11},  notes:'Based on Alia\'s last 3 lead films: Jigra (OW ₹16.6 Cr, 1.8× legs), Rocky Aur Rani (OW ₹45.9 Cr, 3.34×), Gangubai (OW ₹39 Cr, 3.31×). Avg OW ~₹34 Cr bumped up ~₹10 Cr for YRF spy universe franchise boost, offset by War 2 flopping and female-led action being unproven at this scale. Legs assumed 2–3× given action genre has shorter legs than Alia\'s drama comps. WW at 75/25 split.'},
   {title:'Dhamaal 4',                    lang:'Hindi', actor:'Ajay Devgn',     director:'Indra Kumar',    date:'2026-07-17', bo:{low:75,mid:145,high:215},  ow:{low:30,mid:48,high:68},   ff:{low:2,mid:5,high:8},    notes:'Based on Ajay\'s last 4 films: De De Pyaar De 2 (OW ₹33 Cr, 2.12× legs → ₹70 Cr), Son of Sardaar 2 (OW ₹24 Cr, 1.79× legs → ₹43 Cr), Raid 2 (OW ₹53 Cr, 3.36× legs → ₹178 Cr), Singham Again (OW ₹125 Cr, 2.14× legs → ₹268 Cr). Avg OW ~₹59 Cr; avg legs ~2.35×. OW low of ₹30 Cr reflects that even Raid 2 opened to ₹53 Cr — a pure ensemble comedy floor is conservatively ~₹30 Cr, not lower. Mid OW ~₹48 Cr aligns with Total Dhamaal (₹62 Cr) discounted for a later-sequel drop-off. Total Dhamaal (2019) — OW ₹62 Cr, ₹154 Cr lifetime — is the closest direct comp and sets the mid ceiling. Legs assumed 2.35× mid; higher end possible if comedy nostalgia drives strong repeat viewing like Raid 2.'},
   {title:'Toxic',          lang:'Kannada', actor:'Yash',            director:'Geetu Krishna',     date:'2026-08-01', bo:{low:300,mid:500,high:750},  ow:{low:80,mid:130,high:200},  ff:{low:10,mid:16,high:24},  notes:'Yash\'s first pan-India solo since KGF 2. High expectations after two blockbusters.'},
