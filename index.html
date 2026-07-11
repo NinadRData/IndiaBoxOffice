@@ -1349,8 +1349,6 @@ var FF_SORTED = [
   {n:'Chennai Express',         y:2013, l:'Hindi',   ff:25.23,actors:['Shah Rukh Khan','Deepika Padukone']},
   {n:'Dabangg',                 y:2010, l:'Hindi',   ff:25.09,actors:['Salman Khan','Sonakshi Sinha']},
   {n:'Bees Saal Baad',         y:1962, l:'Hindi',   ff:25,   actors:['Biswajit','Waheeda Rehman']},
-  // Additional entries for milestone accuracy
-  {n:'Thugs of Hindustan', y:2018, l:'Hindi', ff:11.21, actors:['Aamir Khan','Amitabh Bachchan','Katrina Kaif']},
 ];
 
 FF_SORTED.sort(function(a,b){ return b.ff - a.ff; });
@@ -1390,7 +1388,7 @@ var TOP50 = [
   {n:'Secret Superstar',            y:2017, l:'Hindi',   ww:875,  india:73},
   {n:'Baahubali',                   y:2015, l:'Telugu',  ww:650,  india:420},
   {n:'Sultan',                      y:2016, l:'Hindi',   ww:614,  india:300},
-      {n:'Ponniyin Selvan I',           y:2022, l:'Tamil',   ww:488,  india:267},
+  {n:'Ponniyin Selvan I',           y:2022, l:'Tamil',   ww:488,  india:267},
   {n:'Varisu',                      y:2023, l:'Tamil',   ww:297,  india:178, ow:49},
   {n:'Bigil',                       y:2019, l:'Tamil',   ww:295,  india:171, ow:83},
   {n:'Master',                      y:2021, l:'Tamil',   ww:223,  india:154, ow:43},
@@ -1398,7 +1396,6 @@ var TOP50 = [
   {n:'Mersal',                      y:2017, l:'Tamil',   ww:253,  india:null},
   {n:'Sarkar',                      y:2018, l:'Tamil',   ww:252,  india:141, ow:31},
   {n:'The GOAT',                    y:2024, l:'Tamil',   ww:457,  india:252, ow:92},
-  {n:'Mersal',                      y:2017, l:'Tamil',   ww:253,  india:null},
   {n:'Sarkar',                      y:2018, l:'Tamil',   ww:252,  india:141, ow:31},
   {n:'War',                         y:2019, l:'Hindi',   ww:475,  india:318},
   {n:'Dunki',                       y:2023, l:'Hindi',   ww:470,  india:212},
@@ -1429,7 +1426,6 @@ var TOP3 = TOPGROSSERS.slice(0,3);
 // Upcoming films (static — no data yet)
 var UPCOMING = [
   {n:'Toxic',          y:2026, l:'Kannada', note:'Yash · dir. Geetu Krishna · Jun 2026'},
-  {n:'Peddi',          y:2026, l:'Telugu',  note:'Ram Charan · dir. Shankar · Jun 2026'},
   {n:'Ramayana',       y:2026, l:'Hindi',   note:'Ranbir Kapoor · dir. Nitesh Tiwari · Nov 2026'},
   {n:'King',           y:2026, l:'Hindi',   note:'Shah Rukh Khan · dir. Siddharth Anand · Dec 2026'},
   {n:'Varanasi',       y:2026, l:'Hindi',   note:'Mahesh Babu · dir. S.S. Rajamouli · Dec 2026'},
@@ -1460,6 +1456,7 @@ var YR_DATA = {
     {n:'Karuppu',                   l:'Tamil',   ow:68,     india:198.09,  ww:310.02,  studio:'TBA', liveKey:'karuppu'},
     {n:'Vaazha 2: Biopic of a Billion Bros', l:'Malayalam', ow:17.45, india:129.42, ww:235.26, studio:'TBA'},
     {n:'O Romeo',                   l:'Hindi',   ow:28,     india:60,      ww:93,    studio:'TBA'},
+    {n:'Dhamaal 4',                   l:'Hindi',   ow:null,  india:36.5,      ww:48.8,    studio:'TBA'},
   ],  '2025': [
     {n:'Dhurandhar',              l:'Hindi',   ow:106.50, india:895,  ww:1349,  studio:'Jio Studios'},
     {n:'Kantara: Chapter 1',      l:'Kannada', ow:163,    india:622,  ww:852,   studio:'Hombale'},
