@@ -1451,7 +1451,7 @@ var YR_DATA = {
     {n:'Drishyam 3',                l:'Malayalam',ow:38.7,  india:110.48, ww:239.82,studio:'Panorama Studios'},
     {n:'Mana ShankaraVaraprasad Garu', l:'Telugu', ow:56,  india:218,     ww:301,   studio:'TBA'},
     {n:'RajaSaab',                  l:'Telugu',  ow:98,     india:146,     ww:208,   studio:'Mythri'},
-    {n:'Bhoot Bhangla',             l:'Hindi',   ow:54.25,  india:182.33,  ww:270.88, studio:'Tips Films'},
+    {n:'Bhoot Bhangla',             l:'Hindi',   ow:58,  india:182.33,  ww:270.88, studio:'Tips Films'},
     {n:'Raja Shivaji',              l:'Hindi',   ow:34,     india:96.38,   ww:117.96, studio:'TBA'},
     {n:'Karuppu',                   l:'Tamil',   ow:68,     india:198.09,  ww:310.02,  studio:'TBA', liveKey:'karuppu'},
     {n:'Vaazha 2: Biopic of a Billion Bros', l:'Malayalam', ow:17.45, india:129.42, ww:235.26, studio:'TBA'},
@@ -5600,46 +5600,17 @@ var FILM_PAGES = {
     runtime: null,
     budget: 120,
     india: 151.45,
-    ow: 54.25,
+    ow: 58,
     ww: 228,
     ff: 9.8,
     multiplier: 3.31,
     lb: 2.6,
     ott: 'TBA',
     music: 'Pritam',
-    awards: [],
-    // ── PREDICTION MODEL ──
-    india: 182.33,
-    ow: 54.25,
-    ww: 270.88,
-    ff: 9.8,
-    multiplier: +(182.33/54.25).toFixed(2),
-    prediction: {
-      status: 'final',
-      note: 'Final. ₹182.33 Cr India nett · ₹270.88 Cr WW. Theatrical run concluded. 3.36× legs on ₹54.25 Cr opening weekend. Budget ₹120 Cr — breakeven ~₹300 Cr WW — film fell short of breakeven.',
-      // Pre-release baseline (director/actor comps)
-      baseline: {
-        comp_films: [
-          {n:'Bhool Bhulaiyaa (2007)',   ww:null, india:null,   ow:null,  note:'Akshay + Priyadarshan original · Lifetime India data unavailable'},
-          {n:'Jolly LLB 3 (2025)',       ww:null, india:113.6,  ow:51,    note:'OW ₹51 Cr · 2.23× legs → ₹113.6 Cr lifetime · if BB had same legs: <strong style="color:#facc15">₹145.5 Cr</strong>'},
-          {n:'Housefull 5 (2025)',       ww:null, india:160,    ow:81,    note:'OW ₹81 Cr · 1.98× legs → ₹160 Cr lifetime · if BB had same legs: <strong style="color:#facc15">₹129.4 Cr</strong>'},
-          {n:'Bhool Bhulaiyaa 2 (2022)', ww:266,  india:185.92, ow:55.96, note:'OW ₹55.96 Cr · 3.32× legs → ₹185.92 Cr lifetime · if BB had same legs: <strong style="color:#4ade80">₹216.9 Cr</strong>'},
-          {n:'Bhool Bhulaiyaa 3 (2024)', ww:423,  india:283,    ow:110,   note:'OW ₹110 Cr · 2.57× legs → ₹283 Cr lifetime · if BB had same legs: <strong style="color:#4ade80">₹167.9 Cr</strong>'},
-        ],
-        // Predicted India nett range BEFORE any actuals
-        india_low: 80,
-        india_mid: 130,
-        india_high: 185,
-        ww_low: 95,
-        ww_mid: 165,
-        ww_high: 230,
-        ow_low: 20,
-        ow_mid: 32,
-        ow_high: 46,
-      },
+
       // Will be filled in once actuals arrive
               actuals: {
-        ow: 54.25,
+        ow: 58.00,
         day1: 12.25,
         day2: 19.00,
         day3: 23.00,
@@ -5713,13 +5684,6 @@ var FILM_PAGES = {
       {label:'Week 3',            val:21.10},
       {label:'Week 4',            val:15.80},
       {label:'Week 5 (so far)',   val:5.75},
-    ],
-    overseas: [
-      {market:'USA/Canada', val:null},
-      {market:'Gulf',       val:null},
-      {market:'UK',         val:null},
-      {market:'Australia',  val:null},
-      {market:'Other',      val:null},
     ],
     comparable: [
       {n:'Bhool Bhulaiyaa 3 (2024)', ww:423,  col:'#22c55e'},
@@ -9514,7 +9478,7 @@ var ACTION_FILMS = [
   {n:'Coolie',            y:2025, l:'Tamil',   ow:129,  india:285,  ww:518,  ff:18.4, legs:2.21},
   {n:'Border 2',          y:2026, l:'Hindi',   ow:129.9,india:341,  ww:464,  ff:15.79,legs:2.63},
   {n:'Saiyaara',          y:2025, l:'Hindi',   ow:84.5, india:337,  ww:577,  ff:null, legs:3.99},
-  {n:'Bhoot Bhangla',     y:2026, l:'Hindi',   ow:54.25,india:182.33,ww:270.88,      ff:9.8,  legs:3.36, liveKey:'bhoot-bhangla'},
+  {n:'Bhoot Bhangla',     y:2026, l:'Hindi',   ow:58,india:182.33,ww:270.88,      ff:9.8,  legs:3.36, liveKey:'bhoot-bhangla'},
   {n:'Peddi',             y:2026, l:'Telugu', ow:88.15, india:244.24, ww:341.46, ff:7.2, legs:2.77, liveKey:'peddi'},
 
 
