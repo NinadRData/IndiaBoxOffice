@@ -1456,7 +1456,7 @@ var YR_DATA = {
     {n:'Karuppu',                   l:'Tamil',   ow:68,     india:198.09,  ww:310.02,  studio:'TBA', liveKey:'karuppu'},
     {n:'Vaazha 2: Biopic of a Billion Bros', l:'Malayalam', ow:17.45, india:129.42, ww:235.26, studio:'TBA'},
     {n:'O Romeo',                   l:'Hindi',   ow:28,     india:60,      ww:93,    studio:'TBA'},
-    {n:'Dhamaal 4',                   l:'Hindi',   ow:null,  india:36.5,      ww:48.8,    studio:'TBA'},
+    {n:'Dhamaal 4',                   l:'Hindi',   ow:null,  india:36.5,      ww:48.8,    studio:'TBA', liveKey:'dhamaal-4'},
   ],  '2025': [
     {n:'Dhurandhar',              l:'Hindi',   ow:106.50, india:895,  ww:1349,  studio:'Jio Studios'},
     {n:'Kantara: Chapter 1',      l:'Kannada', ow:163,    india:622,  ww:852,   studio:'Hombale'},
@@ -6757,6 +6757,145 @@ var FILM_PAGES = {
       'The film is tracking as one of the biggest Tamil releases of 2026, with predictions ranging from ₹150–255 Cr India nett.',
     ],
   },
+  'dhamaal-4': {
+  key: 'dhamaal-4',
+  title: 'Dhamaal 4',
+  year: 2026,
+  lang: 'Hindi',
+  director: 'Indra Kumar',
+  studio: 'T-Series / Maruti International',
+  cast: [
+    {name:'Ajay Devgn', role:'TBA'},
+    {name:'Riteish Deshmukh', role:'TBA'},
+  ],
+  synopsis: 'The fourth installment of the Dhamaal franchise follows a chaotic treasure hunt centered around a legendary pirate ship filled with long-lost riches. Director Indra Kumar reunites the franchise\'s signature slapstick comedy with a globe-trotting adventure, blending outrageous gags, ensemble comedy and high-stakes treasure hunting.',
+  release: '2026-07-10',
+  runtime: null,
+  budget: 200,
+  india: null,
+  ow: null,
+  ww: null,
+  ff: null,
+  multiplier: null,
+  lb: null,
+  ott: 'TBA',
+  music: 'TBA',
+  awards: [],
+
+  prediction: {
+    status: 'live',
+    note: 'Through Day 2 (Sat Jul 11) · ₹36.50 Cr India nett · ₹48.80 Cr worldwide gross. Opening day ₹14 Cr. Opening weekend currently tracking toward ₹60–70 Cr. Budget ₹200 Cr — breakeven around ₹500 Cr worldwide. Lifetime India nett range ₹125–295 Cr.',
+
+    baseline: {
+      comp_films: [
+        {
+          n:'Total Dhamaal (2019)',
+          ww:152,
+          india:154,
+          ow:62,
+          note:'Direct franchise comparison · OW ₹62 Cr → ₹154 Cr India (2.48× legs). If Dhamaal 4 follows similar trend: ~₹149–160 Cr.'
+        },
+        {
+          n:'Welcome To The Jungle (2026)',
+          ww:180,
+          india:125,
+          ow:64,
+          note:'Large ensemble comedy · early trajectory suggests ₹125–150 Cr India.'
+        },
+        {
+          n:'Bhoot Bhangla (2026)',
+          ww:271,
+          india:182,
+          ow:54,
+          note:'Comedy with strong word of mouth · 3.36× legs would imply ~₹215 Cr from a ₹64 Cr OW.'
+        },
+        {
+          n:'Golmaal Again (2017)',
+          ww:311,
+          india:205,
+          ow:87,
+          note:'Ajay Devgn comedy benchmark · blockbuster trajectory.'
+        },
+        {
+          n:'Housefull 5 (2025)',
+          ww:null,
+          india:210,
+          ow:74,
+          note:'Big ensemble comedy with holiday appeal.'
+        },
+      ],
+
+      india_low: 125,
+      india_mid: 190,
+      india_high: 295,
+      ww_low: 180,
+      ww_mid: 285,
+      ww_high: 430,
+      ow_low: 58,
+      ow_mid: 65,
+      ow_high: 72,
+    },
+
+    actuals: {
+      ow: null,
+      day1: 14.00,
+      day2: 22.50,
+      day3: null,
+      day4: null,
+      day5: null,
+      week1: null,
+      ww_ow: null,
+      second_weekend_drop: null,
+      legs_multiple: null,
+      running_total: 36.50,
+      running_ww: 48.80,
+    },
+
+    refined: {
+      india_low: 125,
+      india_mid: 190,
+      india_high: 295,
+      ww_low: 180,
+      ww_mid: 285,
+      ww_high: 430,
+      note: 'After Day 2. ₹36.50 Cr India nett and ₹48.80 Cr worldwide. Strong Saturday growth (+60.7%) keeps the film on course for a ₹60–70 Cr opening weekend. Lifetime range unchanged pending Sunday performance.',
+    },
+  },
+
+  daily: [
+    {date:'Fri Jul 10', day:'Fri', gross:14.00, chgDay:null, chgWeek:null, total:14.00},
+    {date:'Sat Jul 11', day:'Sat', gross:22.50, chgDay:+60.7, chgWeek:null, total:36.50},
+  ],
+
+  timeline: [
+    {label:'Day 1', val:14.00},
+    {label:'Day 2', val:22.50},
+  ],
+
+  overseas: [
+    {market:'USA/Canada', val:null},
+    {market:'Gulf', val:null},
+    {market:'UK', val:null},
+    {market:'Australia', val:null},
+    {market:'Other', val:null},
+  ],
+
+  comparable: [
+    {n:'Dhamaal (2007)', col:'#22c55e'},
+    {n:'Double Dhamaal (2011)', col:'#ef4444'},
+    {n:'Total Dhamaal (2019)', ww:152, col:'#4fc3f7'},
+    {n:'Golmaal Again (2017)', ww:311, col:'#f97316'},
+    {n:'Welcome To The Jungle (2026)', ww:180, col:'#a78bfa'},
+    {n:'Dhamaal 4 (2026)', ww:null, col:'#f5c518', highlight:true},
+  ],
+
+  trivia: [
+    'Dhamaal 4 is the fourth film in the Dhamaal franchise directed by Indra Kumar.',
+    'The film shifts the series toward a pirate-ship treasure hunt while retaining the franchise\'s ensemble slapstick comedy.',
+    'Ajay Devgn and Riteish Deshmukh headline the principal cast.',
+    'With a reported ₹200 crore budget, it is the most expensive film in the Dhamaal franchise.',
+  ],
+},
   'peddi': {
     key: 'peddi',
     title: 'Peddi',
@@ -8288,7 +8427,27 @@ var LIVE_FILMS = [
     ottEstimate: 'TBA',
     note: 'Through Day 18 (Thu Jun 19) · ₹228.00 Cr India nett (incl. ₹18.50 Cr previews) · ₹322.65 Cr WW. Opening weekend (Fri–Sun) ₹88.15 Cr. Opening day (Thu) ₹51 Cr. Week 1 ₹193.55 Cr. Week 2 ₹34.45 Cr. Legs multiplier 2.59× on OW. Lifetime India nett expected ₹240–250 Cr.',
   },
-
+{
+  key:         'dhamaal-4',
+  title:       'Dhamaal 4',
+  lang:        'Hindi',
+  releaseDate: '2026-07-10',
+  lastUpdated: 'Jul 11',
+  indiaRunning: 36.50,
+  wwRunning:    48.80,
+  yesterdayIndia: 22.50,
+  wow: null,
+  indiaLow:   125,
+  indiaMid:   190,
+  indiaHigh:  295,
+  wwLow:      180,
+  wwMid:      285,
+  wwHigh:     430,
+  budget:     200,
+  statusOverride: null,
+  ottEstimate: 'TBA',
+  note: 'Through Day 2 (Sat Jul 11) · ₹36.50 Cr India nett · ₹48.80 Cr worldwide gross. Opening day (Fri) ₹14 Cr. Opening weekend tracking toward ₹60–70 Cr. Budget ₹200 Cr. Lifetime India nett expected ₹125–295 Cr.',
+},
 // (Raja Shivaji removed — theatrical run ended)
 
 ];
