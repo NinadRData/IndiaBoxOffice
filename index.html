@@ -1441,7 +1441,7 @@ var UPCOMING = [
 // Yearly data
 var YR_DATA = {
   '2026': [
-    {n:'Cocktail 2',                   l:'Hindi',   ow:47.50,  india:92.00,  ww:140.00, studio:'Dinesh Vijan', liveKey:'cocktail-2'},
+    {n:'Cocktail 2',                   l:'Hindi',   ow:47.50,  india:95.20,  ww:147.42, studio:'Dinesh Vijan', liveKey:'cocktail-2'},
     {n:'Alpha',                        l:'Hindi',   ow:34.00,  india:57.88,  ww:98.80, studio:'YRF', liveKey:'alpha'},
     {n:'Welcome To The Jungle',      l:'Hindi',   ow:63.50,  india:81.25,  ww:120,   studio:'Tips Films', liveKey:'welcome-to-the-jungle'},
     {n:'Dhurandhar 2',              l:'Hindi',   ow:308,    india:1147.58, ww:1800,  studio:'Jio Studios'},
@@ -8269,8 +8269,7 @@ function showPage(p) {
 // THIS WEEK AT THE BOX OFFICE
 // ═══════════════════════════════════════
 var WEEKLY_DATA = [
-  {rank:1,  prev:null, n:'Cocktail 2',    l:'Hindi',   wk:1,  thisWeek:13.50, total:13.50,    hasPg:false, key:null},
-  {rank:2,  prev:1,    n:'Peddi',         l:'Telugu',  wk:3,  thisWeek:12.00, total:228.00,   hasPg:true,  key:'peddi'}
+  {rank:1,  prev:1,    n:'Peddi',         l:'Telugu',  wk:3,  thisWeek:12.00, total:228.00,   hasPg:true,  key:'peddi'}
 ];
 
 var WEEKLY_MAX = Math.max.apply(null, WEEKLY_DATA.map(function(f){return f.thisWeek;}));
@@ -8386,27 +8385,6 @@ var LIVE_FILMS = [
     statusOverride: 'on-track',
     ottEstimate: 'TBA',
     note: 'Day 1 (Jun 26) · ₹15 Cr India nett · Previews (Jun 25) ₹3.75 Cr · Running total ₹18.75 Cr. OW projection ~₹48–55 Cr on current trajectory. Lifetime range ₹121–327 Cr.',
-  },
-  {
-    key:         'cocktail-2',
-    title:       'Cocktail 2',
-    lang:        'Hindi',
-    releaseDate: '2026-06-19',
-    lastUpdated: 'Jun 28',
-    indiaRunning: 82.95,
-    wwRunning:    126.85,
-    yesterdayIndia: 4.4,
-    wow: null,
-    indiaLow:   85,
-    indiaMid:   140,
-    indiaHigh:  210,
-    wwLow:      110,
-    wwMid:      180,
-    wwHigh:     270,
-    budget:     150,
-    statusOverride: null,
-    ottEstimate: 'TBA',
-    note: 'Day 10 · ₹82.95 Cr India nett · ₹126.85 Cr WW. Opening weekend (Fri–Sun) ~₹47.5 Cr. Strong weekday holds in Week 1. Tracking at mid-case.',
   },
   {
     key:         'peddi',
