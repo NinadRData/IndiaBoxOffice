@@ -8344,27 +8344,6 @@ renderWeekly();
 // — UPDATE THESE NUMBERS EACH MORNING —
 // ═══════════════════════════════════════
 var LIVE_FILMS = [
-  {
-    key:         'welcome-to-the-jungle',
-    title:       'Welcome To The Jungle',
-    lang:        'Hindi',
-    releaseDate: '2026-06-25',
-    lastUpdated: 'Jun 26',
-    indiaRunning: 18.75,
-    wwRunning:    29,
-    yesterdayIndia: 15.00,
-    wow: null,
-    indiaLow:   121,
-    indiaMid:   212,
-    indiaHigh:  327,
-    wwLow:      155,
-    wwMid:      270,
-    wwHigh:     415,
-    budget:     180,
-    statusOverride: 'on-track',
-    ottEstimate: 'TBA',
-    note: 'Day 1 (Jun 26) · ₹15 Cr India nett · Previews (Jun 25) ₹3.75 Cr · Running total ₹18.75 Cr. OW projection ~₹48–55 Cr on current trajectory. Lifetime range ₹121–327 Cr.',
-  },
 {
   key:         'dhamaal-4',
   title:       'Dhamaal 4',
@@ -9247,12 +9226,7 @@ renderFFRecords();
 // PREDICTIONS PAGE — static hardcoded list
 // ═══════════════════════════════════════
 var PREDS = [
-  {title:'Hai Jawani Toh Ishq Hona Hai', lang:'Hindi', actor:'Varun Dhawan',  director:'David Dhawan',   date:'2026-06-05', bo:{low:40,mid:80,high:130},   ow:{low:10,mid:20,high:35},   ff:{low:2,mid:4,high:7},    notes:'David Dhawan and Varun Dhawan reunion — their earlier collaborations (Main Tera Hero, JUDWAA 2) were solid mid-range hits. Expected to be a breezy summer comedy.'},
-  {title:'Welcome To The Jungle',        lang:'Hindi', actor:'Akshay Kumar',   director:'Ahmed Khan',     date:'2026-06-25', bo:{low:121,mid:212,high:327}, ow:{low:35,mid:50,high:65},   ff:{low:3,mid:6,high:10},   notes:'Day 1 (Jun 26): ₹15 Cr nett · Previews (Jun 25): ₹3.75 Cr. OW tracking in line with base case. Comp: Bhoot Bhangla (OW ₹54 Cr, 3.36×), Jolly LLB 3 (OW ₹51 Cr, 2.23×). Mid assumes ~₹50 Cr OW and 2.7× legs.'},
-  {title:'Alpha',                        lang:'Hindi', actor:'Alia Bhatt',     director:'Shiv Rawail',    date:'2026-07-03', bo:{low:85,mid:207,high:298}, ow:{low:27,mid:47,high:63},  ff:{low:3,mid:7,high:11},  notes:'Based on Alia\'s last 3 lead films: Jigra (OW ₹16.6 Cr, 1.8× legs), Rocky Aur Rani (OW ₹45.9 Cr, 3.34×), Gangubai (OW ₹39 Cr, 3.31×). Avg OW ~₹34 Cr bumped up ~₹10 Cr for YRF spy universe franchise boost, offset by War 2 flopping and female-led action being unproven at this scale. Legs assumed 2–3× given action genre has shorter legs than Alia\'s drama comps. WW at 75/25 split.'},
-  {title:'Dhamaal 4',                    lang:'Hindi', actor:'Ajay Devgn',     director:'Indra Kumar',    date:'2026-07-17', bo:{low:75,mid:145,high:215},  ow:{low:30,mid:48,high:68},   ff:{low:2,mid:5,high:8},    notes:'Based on Ajay\'s last 4 films: De De Pyaar De 2 (OW ₹33 Cr, 2.12× legs → ₹70 Cr), Son of Sardaar 2 (OW ₹24 Cr, 1.79× legs → ₹43 Cr), Raid 2 (OW ₹53 Cr, 3.36× legs → ₹178 Cr), Singham Again (OW ₹125 Cr, 2.14× legs → ₹268 Cr). Avg OW ~₹59 Cr; avg legs ~2.35×. OW low of ₹30 Cr reflects that even Raid 2 opened to ₹53 Cr — a pure ensemble comedy floor is conservatively ~₹30 Cr, not lower. Mid OW ~₹48 Cr aligns with Total Dhamaal (₹62 Cr) discounted for a later-sequel drop-off. Total Dhamaal (2019) — OW ₹62 Cr, ₹154 Cr lifetime — is the closest direct comp and sets the mid ceiling. Legs assumed 2.35× mid; higher end possible if comedy nostalgia drives strong repeat viewing like Raid 2.'},
   {title:'Toxic',          lang:'Kannada', actor:'Yash',            director:'Geetu Krishna',     date:'2026-08-01', bo:{low:300,mid:500,high:750},  ow:{low:80,mid:130,high:200},  ff:{low:10,mid:16,high:24},  notes:'Yash\'s first pan-India solo since KGF 2. High expectations after two blockbusters.'},
-  {title:'Peddi',          lang:'Telugu',  actor:'Ram Charan',       director:'Buchi Babu Sana',   date:'2026-06-03', bo:{low:150,mid:280,high:480},  ow:{low:38,mid:75,high:130},  ff:{low:6,mid:11,high:18},  notes:'Ram Charan\'s first solo release since the Game Changer disaster (₹186 Cr WW). Director Buchi Babu Sana made the acclaimed Uppena (2021) — a strong debut but on a micro budget. This is a massive step up in scale. RRR halo gives Charan a floor, but with a debutant at this level and recent box office baggage, the range is very wide.', confidence:40},
   {title:'Ramayana',       lang:'Hindi',   actor:'Ranbir Kapoor',    director:'Nitesh Tiwari',     date:'2026-11-01', bo:{low:500,mid:900,high:1500}, ow:{low:150,mid:270,high:450}, ff:{low:18,mid:30,high:50},  notes:'Most anticipated Hindi film in years. Mythological epic with massive VFX budget. Diwali release.'},
   {title:'King',           lang:'Hindi',   actor:'Shah Rukh Khan',   director:'Siddharth Anand',   date:'2026-12', bo:{low:400,mid:700,high:1100}, ow:{low:120,mid:200,high:320}, ff:{low:14,mid:23,high:38},  notes:'SRK\'s big Christmas release. Father-daughter action thriller — early buzz is very strong.'},
   {title:'Varanasi',       lang:'Hindi',   actor:'Mahesh Babu',      director:'S.S. Rajamouli',    date:'2026-12', bo:{low:500,mid:900,high:1500},  ow:{low:150,mid:270,high:450},  ff:{low:18,mid:32,high:55},   notes:'Rajamouli + Mahesh Babu — a dream pairing fans have waited years for. Rajamouli\'s last two — Baahubali 2 (₹1810 Cr) and RRR (₹1230 Cr) — set the bar astronomically high. Mahesh Babu\'s pan-India debut under Rajamouli could be a once-in-a-decade event film.'},
