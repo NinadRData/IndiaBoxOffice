@@ -1457,6 +1457,7 @@ var YR_DATA = {
     {n:'Vaazha 2: Biopic of a Billion Bros', l:'Malayalam', ow:17.45, india:129.42, ww:235.26, studio:'TBA'},
     {n:'O Romeo',                   l:'Hindi',   ow:28,     india:60,      ww:93,    studio:'TBA'},
     {n:'Dhamaal 4',                   l:'Hindi',   ow:65,  india:65,      ww:92,    studio:'TBA', liveKey:'dhamaal-4'},
+    {n:'Jana Nayagan',               l:'Tamil',   ow:0,  india:92.35,      ww:171.84,    studio:'TBA', liveKey:'jana-nayagan'},
   ],  '2025': [
     {n:'Dhurandhar',              l:'Hindi',   ow:106.50, india:895,  ww:1349,  studio:'Jio Studios'},
     {n:'Kantara: Chapter 1',      l:'Kannada', ow:163,    india:622,  ww:852,   studio:'Hombale'},
@@ -6896,6 +6897,149 @@ var FILM_PAGES = {
     'The film shifts the series toward a pirate-ship treasure hunt while retaining the franchise\'s ensemble slapstick comedy.',
     'Ajay Devgn and Riteish Deshmukh headline the principal cast.',
     'With a reported ₹200 crore budget, it is the most expensive film in the Dhamaal franchise.',
+  ],
+},
+  'jana-nayagan': {
+  key: 'jana-nayagan',
+  title: 'Jana Nayagan',
+  year: 2026,
+  lang: 'Tamil',
+  director: 'H. Vinoth',
+  studio: 'KVN Productions',
+  cast: [
+    {name:'Vijay', role:'TBA'},
+    {name:'Pooja Hegde', role:'TBA'},
+    {name:'Bobby Deol', role:'TBA'},
+    {name:'Mamitha Baiju', role:'TBA'},
+  ],
+  synopsis: 'Jana Nayagan is an action drama starring Vijay in what has been announced as his final film before entering full-time politics. Directed by H. Vinoth, the film blends mass action, political themes, and emotional drama while serving as one of the most anticipated Tamil films of 2026.',
+  release: '2026-01-08',
+  runtime: null,
+  budget: 300,
+  india: 92.35,
+  ow: null,
+  ww: 171.84,
+  ff: null,
+  multiplier: null,
+  lb: null,
+  ott: 'Amazon Prime Video',
+  music: 'Anirudh Ravichander',
+  awards: [],
+
+  prediction: {
+    status: 'live',
+    note: 'Through Day 3 (Sat Jan 10) · ₹92.35 Cr India nett · ₹171.84 Cr worldwide gross. Opening day ₹42.70 Cr. Opening weekend tracking toward ₹95–100 Cr India nett.',
+
+    baseline: {
+      comp_films: [
+        {
+          n:'Leo (2023)',
+          ww:615,
+          india:342,
+          ow:210,
+          note:'Current Vijay benchmark with record-breaking opening.'
+        },
+        {
+          n:'The Greatest of All Time (2024)',
+          ww:457,
+          india:252,
+          ow:149,
+          note:'Most relevant recent Vijay comparison.'
+        },
+        {
+          n:'Jailer (2023)',
+          ww:607,
+          india:348,
+          ow:146,
+          note:'Mass blockbuster with exceptional legs.'
+        },
+        {
+          n:'Beast (2022)',
+          ww:236,
+          india:135,
+          ow:129,
+          note:'Huge Vijay opening despite mixed word of mouth.'
+        },
+        {
+          n:'Thunivu (2023)',
+          ww:200,
+          india:122,
+          ow:95,
+          note:'Previous H. Vinoth directorial comparison.'
+        },
+      ],
+
+      india_low: 240,
+      india_mid: 300,
+      india_high: 380,
+      ww_low: 420,
+      ww_mid: 560,
+      ww_high: 700,
+      ow_low: 90,
+      ow_mid: 95,
+      ow_high: 100,
+    },
+
+    actuals: {
+      ow: null,
+      day1: 42.70,
+      day2: 21.15,
+      day3: 28.50,
+      day4: null,
+      day5: null,
+      week1: null,
+      ww_ow: 171.84,
+      second_weekend_drop: null,
+      legs_multiple: null,
+      running_total: 92.35,
+      running_ww: 171.84,
+    },
+
+    refined: {
+      india_low: 255,
+      india_mid: 320,
+      india_high: 400,
+      ww_low: 460,
+      ww_mid: 610,
+      ww_high: 760,
+      note: 'After Day 3. ₹92.35 Cr India nett and ₹171.84 Cr worldwide gross. The film posted a record-breaking Thursday opening before dropping on Friday and recovering strongly on Saturday (+34.8%). Weekday trends will determine whether it can challenge Leo as Vijay\'s highest-grossing film.',
+    },
+  },
+
+  daily: [
+    {date:'Thu Jan 08', day:'Thu', gross:42.70, chgDay:null, chgWeek:null, total:42.70},
+    {date:'Fri Jan 09', day:'Fri', gross:21.15, chgDay:-50.5, chgWeek:null, total:63.85},
+    {date:'Sat Jan 10', day:'Sat', gross:28.50, chgDay:+34.8, chgWeek:null, total:92.35},
+  ],
+
+  timeline: [
+    {label:'Day 1', val:42.70},
+    {label:'Day 2', val:21.15},
+    {label:'Day 3', val:28.50},
+  ],
+
+  overseas: [
+    {market:'USA/Canada', val:null},
+    {market:'Gulf', val:null},
+    {market:'UK', val:null},
+    {market:'Australia', val:null},
+    {market:'Other', val:null},
+  ],
+
+  comparable: [
+    {n:'Beast (2022)', ww:236, col:'#22c55e'},
+    {n:'Varisu (2023)', ww:310, col:'#ef4444'},
+    {n:'The Greatest of All Time (2024)', ww:457, col:'#4fc3f7'},
+    {n:'Jailer (2023)', ww:607, col:'#a78bfa'},
+    {n:'Leo (2023)', ww:615, col:'#f97316'},
+    {n:'Jana Nayagan (2026)', ww:null, col:'#f5c518', highlight:true},
+  ],
+
+  trivia: [
+    'Jana Nayagan is directed by H. Vinoth.',
+    'The film is Vijay\'s announced final acting role before entering full-time politics.',
+    'Anirudh Ravichander composed the film\'s soundtrack.',
+    'The film opened to one of the biggest first days in Tamil cinema history.',
   ],
 },
   'peddi': {
