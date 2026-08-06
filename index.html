@@ -9059,12 +9059,12 @@ function renderTG(){
   });
   extendedPool.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
 
-  function applyFilters(arr, limit){
-    var filtered = arr.filter(function(f){ return (tgLang==='all'||f.l===tgLang)&&(tgEra==='all'||era(f.y)===tgEra)&&(!q||f.n.toLowerCase().indexOf(q)>=0); });
-    // When filtering by language/era, show top 15; otherwise show full list
-    if (tgLang !== 'all' || tgEra !== 'all') return filtered.slice(0, 15);
-    return filtered;
-  }
+ function applyFilters(arr, limit){
+  var filtered = arr.filter(function(f){ return (tgLang==='all'||f.l===tgLang)&&(tgEra==='all'||era(f.y)===tgEra)&&(!q||f.n.toLowerCase().indexOf(q)>=0); });
+  // When filtering by language/era, show top 25
+  if (tgLang !== 'all' || tgEra !== 'all') return filtered.slice(0, 25);
+  return filtered;
+}
 
   // ── Stats (based on WW list) ──
   var listWW = applyFilters(extendedPool.slice()).slice(0, 75);          // ★ EDIT 1
