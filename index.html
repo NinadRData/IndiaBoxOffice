@@ -9059,15 +9059,20 @@ function renderTG(){
   });
   extendedPool.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
 
- function applyFilters(arr, limit){
-  var filtered = arr.filter(function(f){ return (tgLang==='all'||f.l===tgLang)&&(tgEra==='all'||era(f.y)===tgEra)&&(!q||f.n.toLowerCase().indexOf(q)>=0); });
-  // When filtering by language/era, show top 25
-  if (tgLang !== 'all' || tgEra !== 'all') return filtered.slice(0, 25);
-  return filtered;
-}
+  // ★ applyFilters now assigns true rank BEFORE the search text narrows the list,
+  // so searching a film shows its real rank instead of resetting to #1.
+  // `arr` must already be sorted by the relevant metric before calling this.
+  function applyFilters(arr, cap){
+    var filtered = arr.filter(function(f){ return (tgLang==='all'||f.l===tgLang)&&(tgEra==='all'||era(f.y)===tgEra); });
+    var effectiveCap = (tgLang !== 'all' || tgEra !== 'all') ? 25 : (cap || filtered.length);
+    filtered = filtered.slice(0, effectiveCap);
+    filtered.forEach(function(f, idx){ f._rank = idx + 1; });   // ★ true rank locked in here
+    if (q) filtered = filtered.filter(function(f){ return f.n.toLowerCase().indexOf(q) >= 0; });  // ★ search happens after
+    return filtered;
+  }
 
   // ── Stats (based on WW list) ──
-  var listWW = applyFilters(extendedPool.slice()).slice(0, 75);          // ★ EDIT 1
+  var listWW = applyFilters(extendedPool.slice(), 75);
   var maxWW = listWW.length?listWW[0].ww:1;
   var total500 = listWW.filter(function(f){return f.ww>=500;}).length;
   var total1000= listWW.filter(function(f){return f.ww>=1000;}).length;
@@ -9084,12 +9089,12 @@ function renderTG(){
 
   // ── WW list ──
   document.getElementById('tg-list').innerHTML = !listWW.length ? emptyHtml :
-    listWW.map(function(f,i){ return tgRow(f, i+1, 'ww','var(--gold)','india','India Net',maxWW); }).join('');
+    listWW.map(function(f){ return tgRow(f, f._rank, 'ww','var(--gold)','india','India Net',maxWW); }).join('');   // ★ f._rank, not i+1
 
   // ── India Nett list ──
-  var listIndia = applyFilters(extendedPool.filter(function(f){return f.india;})).slice().sort(function(a,b){return b.india-a.india;}).slice(0, 75);   // ★ EDIT 2
+  var sortedIndia = extendedPool.filter(function(f){return f.india;}).slice().sort(function(a,b){return b.india-a.india;});  // ★ sort BEFORE applyFilters
+  var listIndia = applyFilters(sortedIndia, 75);
   var maxIndia = listIndia.length?listIndia[0].india:1;
-  // Custom row for India nett: primary value = india, secondary = ww
   function tgIndiaRow(f, rank, maxVal) {
     var pct = Math.round((f.india||0)/maxVal*100);
     var col = LC[f.l]||'#888';
@@ -9106,13 +9111,14 @@ function renderTG(){
     '</div>';
   }
   document.getElementById('tg-india-list').innerHTML = !listIndia.length ? emptyHtml :
-    listIndia.map(function(f,i){ return tgIndiaRow(f, i+1, maxIndia); }).join('');
+    listIndia.map(function(f){ return tgIndiaRow(f, f._rank, maxIndia); }).join('');   // ★ f._rank, not i+1
 
-  // ── OW list — use TG_OW_DATA directly, no dedup needed ──
-  var listOW = applyFilters(TG_OW_DATA.slice()).sort(function(a,b){return b.ow-a.ow;}).slice(0, 75);   // ★ EDIT 3
+  // ── OW list ──
+  var sortedOW = TG_OW_DATA.slice().sort(function(a,b){return b.ow-a.ow;});   // ★ sort BEFORE applyFilters
+  var listOW = applyFilters(sortedOW, 75);
   var maxOW = listOW.length ? listOW[0].ow : 1;
   document.getElementById('tg-ow-list').innerHTML = !listOW.length ? emptyHtml :
-    listOW.map(function(f,i){ return tgRow(f, i+1, 'ow','#22c55e','india','India Net',maxOW); }).join('');
+    listOW.map(function(f){ return tgRow(f, f._rank, 'ow','#22c55e','india','India Net',maxOW); }).join('');   // ★ f._rank, not i+1
 }
 renderTG();
 
