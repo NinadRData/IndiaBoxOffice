@@ -9064,7 +9064,7 @@ function renderTG(){
   }
 
   // ── Stats (based on WW list) ──
-  var listWW = applyFilters(extendedPool.slice());
+  var listWW = applyFilters(extendedPool.slice()).slice(0, 75);          // ★ EDIT 1
   var maxWW = listWW.length?listWW[0].ww:1;
   var total500 = listWW.filter(function(f){return f.ww>=500;}).length;
   var total1000= listWW.filter(function(f){return f.ww>=1000;}).length;
@@ -9084,7 +9084,7 @@ function renderTG(){
     listWW.map(function(f,i){ return tgRow(f, i+1, 'ww','var(--gold)','india','India Net',maxWW); }).join('');
 
   // ── India Nett list ──
-  var listIndia = applyFilters(extendedPool.filter(function(f){return f.india;})).slice().sort(function(a,b){return b.india-a.india;});
+  var listIndia = applyFilters(extendedPool.filter(function(f){return f.india;})).slice().sort(function(a,b){return b.india-a.india;}).slice(0, 75);   // ★ EDIT 2
   var maxIndia = listIndia.length?listIndia[0].india:1;
   // Custom row for India nett: primary value = india, secondary = ww
   function tgIndiaRow(f, rank, maxVal) {
@@ -9106,7 +9106,7 @@ function renderTG(){
     listIndia.map(function(f,i){ return tgIndiaRow(f, i+1, maxIndia); }).join('');
 
   // ── OW list — use TG_OW_DATA directly, no dedup needed ──
-  var listOW = applyFilters(TG_OW_DATA.slice()).sort(function(a,b){return b.ow-a.ow;});
+  var listOW = applyFilters(TG_OW_DATA.slice()).sort(function(a,b){return b.ow-a.ow;}).slice(0, 75);   // ★ EDIT 3
   var maxOW = listOW.length ? listOW[0].ow : 1;
   document.getElementById('tg-ow-list').innerHTML = !listOW.length ? emptyHtml :
     listOW.map(function(f,i){ return tgRow(f, i+1, 'ow','#22c55e','india','India Net',maxOW); }).join('');
