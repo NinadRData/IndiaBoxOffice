@@ -361,7 +361,15 @@ var FILMS = [
   {n:'Jersey',                  y:2022,l:'Hindi',  actors:['Shahid Kapoor','Mrunal Thakur'],                          studio:'Dil Raju Productions', india:19,  ww:28,  ow:12,  ff:null, lb:3.3},
   {n:'Jana Nayagan',            y:2026,l:'Tamil',  actors:['Shahid Vijay','Pooja Hegde'],                            studio:'KVN Productions',              india:182,  ww:303, ow:82,  ff:6.8, lb:3.1},
   {n:'Karuppu',                 y:2026,    l:'Tamil',  actors:['Suriya','Trisha'],                            studio:'Dream Warrior Pictures',              india:198,  ww:310, ow:68,  ff:10.6, lb:3.1},
-
+  {n:'Tanhaji', y:2020, l:'Hindi', actors:[], studio:'T-Series', india:279.55, ww:367.65, ow:61.75, ff:null, lb:null},
+  {n:'The Kerala Story', y:2023, l:'Hindi', actors:[], studio:'Sunshine Pictures', india:242, ww:303, ow:35, ff:null, lb:null},
+  {n:'Vettaiyan', y:2024, l:'Tamil', actors:[], studio:'Lyca Productions', india:147, ww:253, ow:73, ff:null, lb:null},
+  {n:'They Call Him OG', y:2025, l:'Telugu', actors:[], studio:'DVV Entertainment', india:194.15, ww:295, ow:54, ff:null, lb:null},
+  {n:'Manjummel Boys', y:2024, l:'Malayalam', actors:[], studio:null, india:142, ww:241, ow:12, ff:null, lb:null},
+  {n:'L2: Empuraan', y:2025, l:'Malayalam', actors:[], studio:null, india:106.77, ww:266, ow:38, ff:null, lb:null},
+  {n:'Thudarum', y:2025, l:'Malayalam', actors:[], studio:null, india:122, ww:235.4, ow:24, ff:null, lb:null},
+  {n:'Drishyam 3', y:2026, l:'Malayalam', actors:[], studio:null, india:110, ww:239.8, ow:38.7, ff:null, lb:null},
+  {n:'Vaazha 2: Biopic of a Billion Bros', y:2026, l:'Malayalam', actors:[], studio:null, india:129.4, ww:235.26, ow:17, ff:null, lb:null},
   {n:'Teri Baaton Mein Aisa Uljha Jiya',y:2024,l:'Hindi',  actors:['Shahid Kapoor','Kriti Sanon'],                            studio:'Maddock',              india:81,  ww:134, ow:27,  ff:null, lb:3.1},
   {n:'Game Changer',            y:2025,l:'Telugu', actors:['Ram Charan','Kiara Advani','S.J. Suryah'],     studio:'Dil Raju Productions', india:131,  ww:186,  ow:87,   ff:7.0,  lb:2.1},
   {n:'Son of Sardaar 2',        y:2025,l:'Hindi',  actors:['Ajay Devgn','Mrunal Thakur','Sanjay Dutt'], studio:'Ajay Devgn Ffilms',  india:43,   ww:62,   ow:24,   ff:null, lb:2.6},
@@ -1638,6 +1646,8 @@ var YR_DATA = {
         <button class="lf" onclick="setTGFilter('lang','Telugu',this)">Telugu</button>
         <button class="lf" onclick="setTGFilter('lang','Tamil',this)">Tamil</button>
         <button class="lf" onclick="setTGFilter('lang','Kannada',this)">Kannada</button>
+       <button class="lf" onclick="setTGFilter('lang','Malayalam',this)">Malayalam</button>
+
       </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap" id="tg-era-filters">
         <button class="lf" style="background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.3);color:var(--orange)" onclick="setTGFilter('era','all',this)">All Eras</button>
