@@ -9875,7 +9875,7 @@ function renderAction(){
   }).join('');
 
   // Legs ranking — all films with legs data, sorted by legs desc
-  var legsRanked = list.filter(function(f){return f.legs && f.india>=150;}).slice().sort(function(a,b){return b.legs-a.legs;}).slice(0,85);
+  var legsRanked = list.filter(function(f){return f.legs && f.india>=150;}).slice().sort(function(a,b){return b.legs-a.legs;}).slice(0,100);
   var maxLegsVal = legsRanked.length?legsRanked[0].legs:1;
   document.getElementById('act-legs-chart').innerHTML = legsRanked.map(function(f,i){
     var pct = Math.round(f.legs/maxLegsVal*100);
