@@ -9133,11 +9133,14 @@ function renderTG(){
   // ★ applyFilters now assigns true rank BEFORE the search text narrows the list,
   // so searching a film shows its real rank instead of resetting to #1.
   // `arr` must already be sorted by the relevant metric before calling this.
- function applyFilters(arr, cap){
+function applyFilters(arr, cap){
   var filtered = arr.filter(function(f){ return (tgLang==='all'||f.l===tgLang)&&(tgEra==='all'||era(f.y)===tgEra); });
-  filtered.forEach(function(f, idx){ f._rank = idx + 1; });   // ★ rank stamped on the FULL list, before any cap
-  if (q) return filtered.filter(function(f){ return f.n.toLowerCase().indexOf(q) >= 0; });   // ★ search bypasses the cap entirely
-  var effectiveCap = (tgLang !== 'all' || tgEra !== 'all') ? 25 : (cap || filtered.length);
+  filtered.forEach(function(f, idx){ f._rank = idx + 1; });
+  if (q) return filtered.filter(function(f){ return f.n.toLowerCase().indexOf(q) >= 0; });
+  var effectiveCap;
+  if (tgLang === 'Hindi') effectiveCap = 40;
+  else if (tgLang !== 'all' || tgEra !== 'all') effectiveCap = 25;
+  else effectiveCap = cap || filtered.length;
   return filtered.slice(0, effectiveCap);
 }
 
