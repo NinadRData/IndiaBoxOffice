@@ -1791,6 +1791,13 @@ var YR_DATA = {
         <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.5rem">Decade</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap" id="ff-decade-filters"></div>
       </div>
+       <div style="margin-bottom:.85rem">
+         <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.5rem">Year</div>
+        <select id="ff-year-filter" onchange="setFFYear(this.value)"
+      style="background:rgba(255,255,255,.05);border:0.5px solid rgba(79,195,247,.25);border-radius:4px;color:#fff;font-family:'Barlow',sans-serif;font-size:.78rem;padding:.4rem .6rem;outline:none">
+      <option value="all">All Years</option>
+    </select>
+  </div>
       <div>
         <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.5rem">Actor</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap" id="ff-actor-filters"></div>
@@ -9292,7 +9299,7 @@ renderTG();
 // ═══════════════════════════════════════
 // FOOTFALLS PAGE
 // ═══════════════════════════════════════
-var ffLang='all',ffDecade='all',ffActor='all',ffPage=1;
+var ffLang='all',ffDecade='all',ffActor='all',ffYear='all',ffPage=1;
 var FF_PAGE_SIZE=50;
 
 // Build unique actor list from FF_SORTED
@@ -9312,6 +9319,17 @@ var ffActorAllowed = ['Amitabh Bachchan','Dilip Kumar','Rajesh Khanna','Raj Kapo
 document.getElementById('ff-actor-filters').innerHTML=
   '<button class="lf" style="background:rgba(79,195,247,.12);border-color:rgba(79,195,247,.3);color:var(--blue)" onclick="setFF(\'actor\',\'all\',this)">All</button>'+
   ffActorAllowed.map(function(a){return '<button class="lf" onclick="setFF(\'actor\',\''+a.replace(/'/g,"\\'")+ '\',this)">'+a+'</button>';}).join('');
+  (function populateFFYearFilter(){
+  var sel = document.getElementById('ff-year-filter');
+  if (!sel) return;
+  for (var y = 2026; y >= 1970; y--) {
+    var opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    sel.appendChild(opt);
+  }
+})();
+  
 
 function setFF(type,val,btn){
   if(type==='lang') ffLang=val;
@@ -9321,6 +9339,11 @@ function setFF(type,val,btn){
   document.querySelectorAll('#'+ids[type]+' .lf').forEach(function(b){b.style.background='';b.style.borderColor='';b.style.color='';});
   btn.style.background='rgba(79,195,247,.12)';btn.style.borderColor='rgba(79,195,247,.3)';btn.style.color='var(--blue)';
   ffPage=1;renderFF();
+}
+  function setFFYear(val){
+  ffYear = val;
+  ffPage = 1;
+  renderFF();
 }
 
 document.getElementById('ff-stats').innerHTML=[
@@ -9341,7 +9364,8 @@ function renderFF(){
   if(ffLang!=='all') list=list.filter(function(f){return f.l===ffLang;});
   if(ffDecade!=='all') list=list.filter(function(f){return era(f.y)===ffDecade;});
   if(ffActor!=='all') list=list.filter(function(f){return (f.actors||[]).indexOf(ffActor)>=0;});
-  var isFiltered=ffLang!=='all'||ffDecade!=='all'||ffActor!=='all'||q;
+  if(ffYear!=='all') list=list.filter(function(f){return f.y===parseInt(ffYear,10);});   // ★ new
+var isFiltered=ffLang!=='all'||ffDecade!=='all'||ffActor!=='all'||ffYear!=='all'||q;   // ★ ffYear added here too
   var cnt=list.length;
   var totalPages=Math.min(3,Math.ceil(cnt/FF_PAGE_SIZE));
   if(isFiltered) ffPage=1;
