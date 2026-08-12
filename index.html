@@ -9177,8 +9177,8 @@ function applyFilters(arr, cap){
   filtered.forEach(function(f, idx){ f._rank = idx + 1; });
   if (q) return filtered.filter(function(f){ return f.n.toLowerCase().indexOf(q) >= 0; });
   var effectiveCap;
-  if (tgLang === 'Hindi') effectiveCap = 40;
-  else if (tgLang !== 'all' || tgEra !== 'all') effectiveCap = 25;
+  if (tgLang === 'Hindi') effectiveCap = 60;
+  else if (tgLang !== 'all' || tgEra !== 'all') effectiveCap = 30;
   else effectiveCap = cap || filtered.length;
   return filtered.slice(0, effectiveCap);
 }
