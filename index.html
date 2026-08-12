@@ -1455,71 +1455,14 @@ var MAX_FF = 127;
 var FF_PAGE_SIZE = 50;
 
 // Top 50 highest  — fixed canonical list
-var TOP50 = [
-  {n:'Dangal',                      y:2016, l:'Hindi',   ww:2070, india:387},
-  {n:'Baahubali 2',                 y:2017, l:'Telugu',  ww:1810, india:1030},
-  {n:'Pushpa 2',                    y:2024, l:'Telugu',  ww:1742, india:1234},
-  {n:'Dhurandhar 2',                y:2026, l:'Hindi',   ww:1795, india:1143},
-  {n:'Dhurandhar',                  y:2025, l:'Hindi',   ww:1349, india:895},
-  {n:'KGF 2',                       y:2022, l:'Kannada', ww:1215, india:859},
-  {n:'RRR',                         y:2022, l:'Telugu',  ww:1230, india:782},
-  {n:'Jawan',                       y:2023, l:'Hindi',   ww:1148, india:644},
-  {n:'Pathaan',                     y:2023, l:'Hindi',   ww:1050, india:543},
-  {n:'Kalki 2898 AD',               y:2024, l:'Telugu',  ww:1042, india:646},
-  {n:'Animal',                      y:2023, l:'Hindi',   ww:917,  india:556},
-  {n:'Bajrangi Bhaijaan',           y:2015, l:'Hindi',   ww:918,  india:320},
-  {n:'Stree 2',                     y:2024, l:'Hindi',   ww:874,  india:627},
-  {n:'Kantara: Chapter 1',          y:2025, l:'Kannada', ww:852,  india:622},
-  {n:'Chaava',                      y:2025, l:'Hindi',   ww:797,  india:600},
-  {n:'PK',                          y:2014, l:'Hindi',   ww:769,  india:340},
-  {n:'Gadar 2',                     y:2023, l:'Hindi',   ww:691,  india:525},
-  {n:'2.0',                         y:2018, l:'Tamil',   ww:691,  india:407},
-  {n:'Saiyaara',                    y:2025, l:'Hindi',   ww:577,  india:337},
-  {n:'Sanju',                       y:2018, l:'Hindi',   ww:586,  india:342},
-  {n:'Gadar 2',                     y:2023, l:'Hindi',   ww:691,  india:525},
-  {n:'Salaar',                      y:2023, l:'Telugu',  ww:617,  india:406},
-  {n:'Leo',                         y:2023, l:'Tamil',   ww:605,  india:341},
-  {n:'Jailer',                      y:2023, l:'Tamil',   ww:604,  india:348},
-  {n:'Padmaavat',                   y:2018, l:'Hindi',   ww:571,  india:302},
-  {n:'Tiger Zinda Hai',             y:2017, l:'Hindi',   ww:565,  india:339},
-  {n:'Dhoom 3',                     y:2013, l:'Hindi',   ww:556,  india:284},
-  {n:'Coolie',                      y:2025, l:'Tamil',   ww:518,  india:285},
-  {n:'Secret Superstar',            y:2017, l:'Hindi',   ww:875,  india:73},
-  {n:'Baahubali',                   y:2015, l:'Telugu',  ww:650,  india:420},
-  {n:'Sultan',                      y:2016, l:'Hindi',   ww:614,  india:300},
-  {n:'Ponniyin Selvan I',           y:2022, l:'Tamil',   ww:488,  india:267},
-  {n:'Varisu',                      y:2023, l:'Tamil',   ww:297,  india:178, ow:49},
-  {n:'Bigil',                       y:2019, l:'Tamil',   ww:295,  india:171, ow:83},
-  {n:'Master',                      y:2021, l:'Tamil',   ww:223,  india:154, ow:43},
-  {n:'Beast',                       y:2022, l:'Tamil',   ww:216,  india:130, ow:43},
-  {n:'Mersal',                      y:2017, l:'Tamil',   ww:253,  india:null},
-  {n:'The GOAT',                    y:2024, l:'Tamil',   ww:457,  india:252, ow:92},
-  {n:'Sarkar',                      y:2018, l:'Tamil',   ww:252,  india:141, ow:31},
-  {n:'War',                         y:2019, l:'Hindi',   ww:475,  india:318},
-  {n:'Dunki',                       y:2023, l:'Hindi',   ww:470,  india:212},
-  {n:'Tiger 3',                     y:2023, l:'Hindi',   ww:466,  india:286},
-  {n:'Border 2',                    y:2026, l:'Hindi',   ww:464,  india:341},
-  {n:'The GOAT',                    y:2024, l:'Tamil',   ww:457,  india:252},
-  {n:'Andhadhun',                   y:2018, l:'Hindi',   ww:456,  india:100},
-  {n:'Saaho',                       y:2019, l:'Telugu',  ww:451,  india:290},
-  {n:'Devara',                      y:2024, l:'Telugu',  ww:428,  india:292},
-  {n:'Chennai Express',             y:2013, l:'Hindi',   ww:424,  india:227},
-  {n:'Bhool Bhulaiyaa 3',           y:2024, l:'Hindi',   ww:423,  india:283},
-  {n:'Brahmastra',                  y:2022, l:'Hindi',   ww:418,  india:257},
-  {n:'Vikram',                      y:2022, l:'Tamil',   ww:414,  india:247},
-  {n:'Kantara',                     y:2022, l:'Kannada', ww:407,  india:309},
-  {n:'3 Idiots',                    y:2009, l:'Hindi',   ww:400,  india:202},
-  {n:'Simmba',                      y:2018, l:'Hindi',   ww:400,  india:240},
-  {n:'Krrish 3',                    y:2013, l:'Hindi',   ww:393,  india:244},
-  {n:'Adipurush',                   y:2023, l:'Telugu',  ww:393,  india:288},
-  {n:'Singham Again',               y:2024, l:'Hindi',   ww:389,  india:268},
-  {n:'Kick',                        y:2014, l:'Hindi',   ww:388,  india:232},
-  {n:'Prem Ratan Dhan Payo',        y:2015, l:'Hindi',   ww:388,  india:210},
-];
-// Films sorted by WW for top grossers
-var TOPGROSSERS = TOP50;
+// TOPGROSSERS derived directly from FILMS — no separate array to maintain
+function getTopGrossers(){
+  return FILMS.filter(function(f){ return f.ww!=null; })
+    .slice()
+    .sort(function(a,b){ return b.ww-a.ww; });
+}
 var RECENT_FILMS = FILMS.filter(function(f){ return f.y >= 2024 && f.ww != null; }).sort(function(a,b){ return b.india - a.india; });
-var TOP3 = TOPGROSSERS.slice(0,3);
+var TOP3 = getTopGrossers().slice(0,3);
 
 // Upcoming films (static — no data yet)
 var UPCOMING = [
@@ -9203,10 +9146,7 @@ function tgRow(f, rank, valKey, valCol, secKey, secLabel, maxVal){
   var hasPg = typeof getFilmPage==='function' && !!getFilmPage(f.n);
   var name = f.n.replace(/'/g,"\\'");
   // Calculate legs from ACTION_FILMS or TG_OW_DATA
-  var legsVal = null;
-  var af = TG_OW_DATA.find(function(x){ return x.n===f.n && x.y===f.y; });
-  if (af && af.ow && af.india) legsVal = Math.round(af.india/af.ow*100)/100;
-  else if (f.ow && f.india) legsVal = Math.round(f.india/f.ow*100)/100;
+ var legsVal = (f.ow && f.india) ? Math.round(f.india/f.ow*100)/100 : null;
   var legsCol = !legsVal?'rgba(255,255,255,.2)':legsVal>=5?'#4ade80':legsVal>=3?'#facc15':legsVal>=2?'rgba(255,255,255,.5)':'#f87171';
   return '<div style="display:grid;grid-template-columns:40px 1fr 70px 90px 90px 70px;padding:.55rem 8px;border-bottom:0.5px solid rgba(255,255,255,.04);align-items:center;cursor:'+(hasPg?'pointer':'default')+'" onclick="'+(hasPg?'maybeOpenFilm(\''+name+'\')':'')+'" onmouseover="this.style.background=\'rgba(255,255,255,.03)\'" onmouseout="this.style.background=\'\'">'+
     '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:.9rem;font-weight:800;color:'+(rank<=3?'var(--gold)':'rgba(255,255,255,.2)')+'">&#35;'+rank+'</div>'+
@@ -9225,17 +9165,9 @@ function renderTG(){
   var q = (document.getElementById('tg-search') ? document.getElementById('tg-search').value.trim().toLowerCase() : '');
 
   // Build extended dataset: TOP50 + FILMS with ww data, deduped
-  var extendedPool = TOPGROSSERS.slice();
-  var poolKeys = {};
-  TOPGROSSERS.forEach(function(f){ poolKeys[f.n.toLowerCase().trim()+'|'+f.y] = true; });
-  FILMS.forEach(function(f){
-    if (!f.ww) return;
-    var k = f.n.toLowerCase().trim()+'|'+f.y;
-    if (poolKeys[k]) return;
-    poolKeys[k] = true;
-    extendedPool.push({n:f.n, y:f.y, l:f.l, ww:f.ww, india:f.india||null, ow:f.ow||null});
-  });
-  extendedPool.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
+var extendedPool = FILMS.filter(function(f){ return f.ww!=null; })
+  .map(function(f){ return {n:f.n, y:f.y, l:f.l, ww:f.ww, india:f.india||null, ow:f.ow||null}; });
+extendedPool.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
 
   // ★ applyFilters now assigns true rank BEFORE the search text narrows the list,
   // so searching a film shows its real rank instead of resetting to #1.
@@ -9294,8 +9226,9 @@ function applyFilters(arr, cap){
     listIndia.map(function(f){ return tgIndiaRow(f, f._rank, maxIndia); }).join('');   // ★ f._rank, not i+1
 
   // ── OW list ──
-  var sortedOW = TG_OW_DATA.slice().sort(function(a,b){return b.ow-a.ow;});   // ★ sort BEFORE applyFilters
-  var listOW = applyFilters(sortedOW, 75);
+var owPool = FILMS.filter(function(f){ return f.ow!=null; })
+  .map(function(f){ return {n:f.n, y:f.y, l:f.l, ow:f.ow, india:f.india||null, ww:f.ww||null}; });
+var sortedOW = owPool.sort(function(a,b){ return b.ow-a.ow; });  var listOW = applyFilters(sortedOW, 75);
   var maxOW = listOW.length ? listOW[0].ow : 1;
   document.getElementById('tg-ow-list').innerHTML = !listOW.length ? emptyHtml :
     listOW.map(function(f){ return tgRow(f, f._rank, 'ow','#22c55e','india','India Net',maxOW); }).join('');   // ★ f._rank, not i+1
@@ -9821,135 +9754,14 @@ renderPreds();
 // ═══════════════════════════════════════
 // ACTION OW & LEGS PAGE
 // ═══════════════════════════════════════
-var ACTION_FILMS = [
-  // 2020s
-  {n:'Pushpa 2',          y:2024, l:'Telugu',  ow:353,  india:1234, ww:1742, ff:63,   legs:+(1234/353).toFixed(2)},
-  {n:'Dhurandhar 2',      y:2026, l:'Hindi',   ow:308.5,india:1147.85, ww:1801, ff:43.8, legs:+(1147.85/308.5).toFixed(2), liveKey:'dhurandhar-2'},
-  {n:'Dhurandhar',        y:2025, l:'Hindi',   ow:106.5,india:895,  ww:1349, ff:37,   legs:8.4},
-  {n:'Jawan',             y:2023, l:'Hindi',   ow:211,  india:643,  ww:1148, ff:39.2, legs:3.05},
-  {n:'Pathaan',           y:2023, l:'Hindi',   ow:152,  india:543,  ww:1050, ff:34.9, legs:3.57},
-  {n:'RRR',               y:2022, l:'Telugu',  ow:323,  india:782,  ww:1230, ff:44,   legs:2.42},
-  {n:'KGF 2',             y:2022, l:'Kannada', ow:262,  india:859,  ww:1215, ff:56.7, legs:3.28},
-  {n:'Kalki 2898 AD',     y:2024, l:'Telugu',  ow:213,  india:646,  ww:1042, ff:36.4, legs:3.03},
-  {n:'Animal',            y:2023, l:'Hindi',   ow:201.8,india:556,  ww:917,  ff:33.2, legs:2.76},
-  {n:'Gadar 2',           y:2023, l:'Hindi',   ow:134,  india:525,  ww:691,  ff:34,   legs:3.92},
-  {n:'Kantara: Chapter 1',y:2025, l:'Kannada', ow:163,  india:622,  ww:852,  ff:34.2, legs:+(622/163).toFixed(2)},
-  {n:'Karuppu',           y:2026, l:'Tamil',   ow:68,   india:198.1, ww:310, ff: 10.6, legs:2.91},
-  {n:'Leo',               y:2023, l:'Tamil',   ow:112,  india:341,  ww:605,  ff:24.3, legs:3.04},
-  {n:'Jailer',            y:2023, l:'Tamil',   ow:116,  india:348,  ww:604,  ff:26.9, legs:3.0},
-  {n:'Salaar',            y:2023, l:'Telugu',  ow:208,  india:406,  ww:617,  ff:26,   legs:1.95},
-  {n:'Stree 2',           y:2024, l:'Hindi',   ow:139,  india:627,  ww:874,  ff:32,   legs:4.50},
-  {n:'Chaava',            y:2025, l:'Hindi',   ow:121,  india:600,  ww:797,  ff:30.5, legs:+(600/121).toFixed(2)},
-  {n:'HanuMan',           y:2024, l:'Telugu',  ow:41,   india:202,  ww:295,  ff:14.4, legs:4.93},
-  {n:'Vikram',            y:2022, l:'Tamil',   ow:95,   india:247,  ww:414,  ff:20.1, legs:2.6},
-  {n:'War 2',             y:2025, l:'Hindi',   ow:122,  india:236,  ww:364,  ff:11.7, legs:1.94},
-  {n:'Tiger 3',           y:2023, l:'Hindi',   ow:148.5,india:285,  ww:466,  ff:15,   legs:1.92},
-  {n:'Devara',            y:2024, l:'Telugu',  ow:160,  india:292,  ww:428,  ff:null, legs:1.83},
-  {n:'Fighter',           y:2024, l:'Hindi',   ow:90,   india:248,  ww:344,  ff:9.8,  legs:2.76},
-  {n:'Singham Again',     y:2024, l:'Hindi',   ow:125,  india:268,  ww:389,  ff:11,   legs:2.14},
-  {n:'Adipurush',         y:2023, l:'Telugu',  ow:220,  india:288,  ww:393,  ff:18.5, legs:1.31},
-  {n:'Brahmastra',        y:2022, l:'Hindi',   ow:120,  india:257,  ww:418,  ff:15.2, legs:2.14},
-  {n:'Kantara',           y:2022, l:'Kannada', ow:9.5,  india:309,  ww:407,  ff:15,   legs:32.5},
-  {n:'Mahavtar Narsimha', y:2025, l:'Hindi',   ow:15,   india:251,  ww:326,  ff:15.1, legs:16.7},
-  {n:'Lokah: Chapter 1', y:2025, l:'Malayalam',ow:14,  india:157,  ww:303,  ff:11.3, legs:11.21},
-  {n:'Raid 2',              y:2025, l:'Hindi',   ow:54,   india:178,  ww:243,  ff:null, legs:+(178/54).toFixed(2)},
-  {n:'Sitaare Zameen Par',  y:2025, l:'Hindi',   ow:57.3, india:165.7,ww:266,  ff:8.64, legs:+(165.7/57.3).toFixed(2)},
-  {n:'Mana ShankaraVaraprasad Garu', y:2026, l:'Telugu', ow:56, india:218, ww:301, ff:null, legs:+(218/56).toFixed(2)},
-  {n:'Coolie',            y:2025, l:'Tamil',   ow:129,  india:285,  ww:518,  ff:18.4, legs:2.21},
-  {n:'Border 2',          y:2026, l:'Hindi',   ow:129.9,india:341,  ww:464,  ff:15.79,legs:2.63},
-  {n:'Saiyaara',          y:2025, l:'Hindi',   ow:84.5, india:337,  ww:577,  ff:null, legs:3.99},
-  {n:'Bhoot Bhangla',     y:2026, l:'Hindi',   ow:54.25,india:182.33,ww:270.88,      ff:9.8,  legs:3.36, liveKey:'bhoot-bhangla'},
-  {n:'Peddi',             y:2026, l:'Telugu', ow:88.15, india:244.24, ww:341.46, ff:7.2, legs:2.77, liveKey:'peddi'},
-  {n:'Dhamaal 4',          y:2026, l:'Hindi',  ow:65.00, india:162.35, ww:223.63,   ff:6.8, legs:+(162.35/65).toFixed(2), liveKey:'dhamaal-4'},
-  {n:'Jana Nayagan',       y:2026, l:'Tamil',  ow:82.05, india:181.55, ww:303.74, ff:6.3, legs:+(181.55/82.05).toFixed(2), liveKey:'jana-nayagan'},
-  {n:'The Kashmir Files', y:2022, l:'Hindi', ow:27.15, india:252.9, ww:340.92, ff:null, legs:9.31},
-  {n:'Sankranthiki Vasthunam', y:2025, l:'Telugu', ow:53, india:186.97, ww:255.5, ff:null, legs:3.53},
-  {n:'Amaran', y:2024, l:'Tamil', ow:62, india:220, ww:333.67, ff:null, legs:3.55},
-  {n:'Uri', y:2019, l:'Hindi', ow:35.7, india:245.36, ww:342, ff:null, legs:6.87},
-  {n:'Drishyam 2', y:2022, l:'Hindi', ow:64.14, india:240.5, ww:345, ff:null, legs:3.75},
-  {n:'Ponniyin Selvan I', y:2022, l:'Tamil',   ow:101,  india:266,  ww:488,  ff:21.7, legs:+(266/101).toFixed(2)},
-  {n:'Ponniyin Selvan II',y:2023, l:'Tamil',   ow:80,   india:181.96,ww:344, ff:null, legs:+(181.96/80).toFixed(2)},
-  {n:'Bhool Bhulaiyaa 2', y:2022, l:'Hindi', ow:55.96, india:185.92, ww:266.88, ff:null, legs:3.32},
-  {n:'The Kashmir Files', y:2022, l:'Hindi', ow:27.15, india:252.90, ww:340.92, ff:null, legs:9.31},
-  {n:'Tanhaji', y:2020, l:'Hindi', ow:61.75, india:279.55, ww:367.65, ff:null, legs:4.53},
-  {n:'The Kerala Story', y:2023, l:'Hindi', ow:35, india:242, ww:303, ff:null, legs:6.91},
-  {n:'They Call Him OG', y:2025, l:'Telugu', ow:54, india:194.15, ww:295, ff:null, legs:3.60},
-  {n:'Kabir Singh',       y:2019, l:'Hindi',   ow:71,   india:278,  ww:379,  ff:26,   legs:3.92},
-  {n:'Adipurush',         y:2023, l:'Telugu',  ow:220,  india:288,  ww:393,  ff:18.5, legs:1.31},
-  {n:'Saaho',             y:2019, l:'Telugu',  ow:200,  india:310,  ww:451,  ff:26.5, legs:1.55},
-  {n:'War',               y:2019, l:'Hindi',   ow:87,   india:318,  ww:475,  ff:22.5, legs:3.66},
-{n:'Walter Veeraiya', y:2023, l:'Telugu', ow:70, india:161.1, ww:219, ff:null, legs:2.30},
-{n:'Ala Vaikunthapurramloo', y:2020, l:'Telugu', ow:38, india:200.98, ww:269.35, ff:null, legs:5.29},
-{n:'Sarileru Neekevvaru', y:2020, l:'Telugu', ow:59, india:169.55, ww:221.7, ff:null, legs:2.87},
-{n:'OMG 2', y:2023, l:'Hindi', ow:43.11, india:150.17, ww:221.08, ff:null, legs:3.48},
-{n:'Housefull 5', y:2025, l:'Hindi', ow:81.85, india:160.72, ww:242.8, ff:null, legs:1.96},
-
-  // 2010s
-  {n:'Baahubali 2',       y:2017, l:'Telugu',  ow:304,  india:1030, ww:1810, ff:107.7,legs:3.39},
-  {n:'Dangal',            y:2016, l:'Hindi',   ow:107,  india:387,  ww:2070, ff:37,   legs:3.62},
-  {n:'Bajrangi Bhaijaan', y:2015, l:'Hindi',   ow:102,  india:320,  ww:918,  ff:35.42,legs:3.13},
-  {n:'Sultan',            y:2016, l:'Hindi',   ow:105,  india:300,  ww:614,  ff:32.09,legs:2.86},
-  {n:'Tiger Zinda Hai',   y:2017, l:'Hindi',   ow:114,  india:339,  ww:565,  ff:30.89,legs:2.97},
-  {n:'PK',                y:2014, l:'Hindi',   ow:95,   india:340,  ww:769,  ff:35.06,legs:3.58},
-  {n:'Dhoom 3',           y:2013, l:'Hindi',   ow:107,  india:284,  ww:556,  ff:29.79,legs:2.65},
-  {n:'Padmaavat',         y:2018, l:'Hindi',   ow:114,  india:302,  ww:571,  ff:23.44,legs:2.65},
-  {n:'Sanju',             y:2018, l:'Hindi',   ow:120,  india:342,  ww:586,  ff:28,   legs:2.85},
-  {n:'2.0',               y:2018, l:'Tamil',   ow:155,  india:407,  ww:691,  ff:42.5, legs:2.63},
-  {n:'Chennai Express',   y:2013, l:'Hindi',   ow:100,  india:227,  ww:424,  ff:25.23,legs:2.27},
-  {n:'Krrish 3',          y:2013, l:'Hindi',   ow:72,   india:244,  ww:393,  ff:21.82,legs:3.39},
-  {n:'Simmba',            y:2018, l:'Hindi',   ow:75,   india:240,  ww:400,  ff:19.13,legs:3.20},
-  {n:'Ek Tha Tiger',       y:2012, l:'Hindi', ow:52.5, india:198.78, ww:334, ff:24.74, legs:3.79},
-  {n:'Kick',              y:2014, l:'Hindi',   ow:84,   india:231.85,  ww:388,  ff:24.19,legs:+(232/84).toFixed(2)},
-  {n:'Happy New Year',    y:2014, l:'Hindi',   ow:108,  india:203,  ww:383,  ff:19.73,legs:1.88},
-  {n:'Bajirao Mastani',   y:2015, l:'Hindi',   ow:46,   india:184,  ww:355,  ff:18.75,legs:+(184/46).toFixed(2)},
-  {n:'Prem Ratan Dhan Payo',y:2015,l:'Hindi',  ow:80,   india:210.16,  ww:388,  ff:22.76,legs:2.63},
-  {n:'Bang Bang!',        y:2014, l:'Hindi',   ow:87,   india:181,  ww:332,  ff:15.14,legs:2.08},
-  {n:'Dabangg 2',         y:2012, l:'Hindi',   ow:65,   india:155,  ww:253,  ff:20.53,legs:+(155/65).toFixed(2)},
-  {n:'Yeh Jawaani Hai Deewani', y:2013, l:'Hindi', ow:62, india:188, ww:344, ff:null, legs:3.03},
-  {n:'Golmaal Again', y:2017, l:'Hindi', ow:87.6, india:205.69, ww:311, ff:null, legs:2.35},
-  {n:'Good Newzz', y:2019, l:'Hindi', ow:65.99, india:205.14, ww:318.57, ff:null, legs:3.11}, 
-  {n:'Mission Mangal', y:2019, l:'Hindi', ow:68.4, india:202.98, ww:290.59, ff:null, legs:2.97},
-    {n:'Housefull 4', y:2019, l:'Hindi', ow:46.5, india:194.6, ww:280.27, ff:null, legs:4.19},
-  {n:'Kesari', y:2019, l:'Hindi', ow:57, india:154.41, ww:207, ff:null, legs:2.71},
-{n:'Total Dhamaal', y:2019, l:'Hindi', ow:62.4, india:154.23, ww:228.27, ff:null, legs:2.47},
-{n:'Chhichhore', y:2019, l:'Hindi', ow:35.98, india:153.1, ww:215.41, ff:null, legs:4.26},
-  {n:'Baaghi 2', y:2018, l:'Hindi', ow:73.1, india:164.38, ww:254.33, ff:null, legs:2.25},
-  {n:'Dilwale', y:2015, l:'Hindi', ow:65.09, india:148.72, ww:376.85, ff:null, legs:2.28},
-{n:'Ae Dil Hai Mushkil', y:2016, l:'Hindi', ow:35.6, india:112.48, ww:239.67, ff:null, legs:3.16},
-{n:'Airlift', y:2016, l:'Hindi', ow:44.3, india:128.1, ww:221.67, ff:null, legs:2.89},
-{n:'Toilet: Ek Prem Katha', y:2017, l:'Hindi', ow:51.45, india:134.22, ww:308.02, ff:null, legs:2.61},
-{n:'Hindi Medium', y:2017, l:'Hindi', ow:12.56, india:69.59, ww:322.4, ff:null, legs:5.54},
-{n:'Raees', y:2017, l:'Hindi', ow:46.5, india:137.51, ww:281.44, ff:null, legs:2.96},
-{n:'Thugs of Hindustan', y:2018, l:'Hindi', ow:70.75, india:151.19, ww:322.07, ff:null, legs:2.14},
-{n:'Bang Bang', y:2014, l:'Hindi', ow:57.7, india:181.03, ww:332.43, ff:null, legs:3.14},
-  {n:'Sye Raa Narasimha Reddy', y:2019, l:'Telugu', ow:46, india:185.1, ww:216.6, ff:null, legs:4.02},
-{n:'KGF: Chapter 1', y:2018, l:'Kannada', ow:57.7, india:185.25, ww:238, ff:null, legs:3.21},
-  {n:'MS Dhoni: The Untold Story', y:2016, l:'Hindi', ow:66, india:133.04, ww:215.4},
-{n:'Stree', y:2018, l:'Hindi', ow:31.26, india:129.90, ww:180.76},
-{n:'Welcome to the Jungle', y:2026, l:'Hindi', ow:64, india:133.57, ww:192.14},
-{n:'Gangubai Kathiawadi', y:2022, l:'Hindi', ow:39.12, india:129.1, ww:209.77},
-{n:'Rustom', y:2016, l:'Hindi', ow:50.4, india:127.49, ww:218.2},
-
-  // 2000s
-  {n:'Gadar 2',           y:2023, l:'Hindi',   ow:134,  india:525,  ww:691,  ff:34,   legs:3.92},
-  {n:'3 Idiots',          y:2009, l:'Hindi',   ow:40.7, india:202,  ww:400,  ff:31.79, legs:4.96},
-  {n:'Ghajini',           y:2008, l:'Hindi',   ow:54,   india:161,  ww:201,  ff:24.01,legs:2.98},
-  {n:'Dabangg',           y:2010, l:'Hindi',   ow:48,   india:139,  ww:261,  ff:25.09,legs:+(139/48).toFixed(2)},
-  {n:'Baahubali',         y:2015, l:'Telugu',  ow:72,   india:420,  ww:650,  ff:48,   legs:5.83},
-  {n:'Pushpa: The Rise',  y:2021, l:'Telugu',  ow:109,  india:267.55,ww:350, ff:25,   legs:+(267.55/109).toFixed(2)},
-  {n:'Enthiran',          y:2010, l:'Tamil',   ow:55,   india:178,  ww:291,  ff:30.1, legs:3.24},
-
-];
-
-// Remove duplicates (Gadar 2 added twice — keep once)
-(function(){
-  var seen = {};
-  ACTION_FILMS = ACTION_FILMS.filter(function(f){
-    var k = f.n.toLowerCase()+'|'+f.y;
-    if(seen[k]) return false;
-    seen[k]=true; return true;
-  });
-})();
+function getActionFilms(){
+  return FILMS.filter(function(f){ return (f.india||0)>=150 && f.ow!=null; })
+    .map(function(f){
+      return {n:f.n, y:f.y, l:f.l, ow:f.ow, india:f.india, ww:f.ww, ff:f.ff,
+        legs: (f.ow && f.india) ? Math.round(f.india/f.ow*100)/100 : null,
+        liveKey: f.liveKey||null};
+    });
+}
 
 var actLang='all', actEra='all', actSort='ow';
 
@@ -9968,22 +9780,21 @@ function setActSort(s,btn){
 }
 
 function renderAction(){
-  // Sync live-tracked films before rendering
-  ACTION_FILMS.forEach(function(f) {
+  // Sync live-tracked films directly on FILMS before deriving the list
+  FILMS.forEach(function(f) {
     if (!f.liveKey) return;
     var live = LIVE_FILMS.find(function(lf){ return lf.key === f.liveKey; });
     if (!live) return;
     if (live.indiaRunning) f.india = live.indiaRunning;
     if (live.wwRunning)    f.ww    = live.wwRunning;
-    if (f.ow && f.india)   f.legs  = Math.round(f.india / f.ow * 100) / 100;
   });
 
-  var list = ACTION_FILMS.filter(function(f){
-    if((f.india||0) < 150) return false;
+  var list = getActionFilms().filter(function(f){
     if(actLang!=='all' && f.l!==actLang) return false;
     if(actEra!=='all' && era(f.y)!==actEra) return false;
     return true;
   });
+  // ...rest of renderAction (sort, stats, charts, table) stays exactly the same
 
   // Sort
   list = list.slice().sort(function(a,b){
