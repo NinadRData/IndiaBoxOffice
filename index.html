@@ -8841,7 +8841,7 @@ UPCOMING.forEach(function(f,i){
 
 // All-time poster row
 var pr = document.getElementById('posterRow');
-TOPGROSSERS.slice(0,15).forEach(function(f,i){
+getTopGrossers().slice(0,15).forEach(function(f,i){
   var hasPg = !!getFilmPage(f.n);
   var el = document.createElement('div');
   el.className = 'pcard';
