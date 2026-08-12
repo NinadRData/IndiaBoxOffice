@@ -2078,10 +2078,11 @@ var YR_DATA = {
       </div>
     </div>
 
-    <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
-      <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
-      <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
-    </div>
+ <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
+  <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
+  <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
+  <button class="rec-tab" onclick="setCmpMode('clash',this)">Box Office Clashes</button>
+</div>
 
     <div id="cmp-panel-actor">
       <div id="cmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">← Select two actors to compare</div>
@@ -2154,6 +2155,10 @@ var YR_DATA = {
       <div id="fcmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">Search and select two films above to compare</div>
       <div id="fcmp-content" style="display:none"></div>
     </div><!-- /cmp-panel-film -->
+    <!-- BOX OFFICE CLASHES PANEL -->
+<div id="cmp-panel-clash" style="display:none">
+  <div id="clash-list"></div>
+</div><!-- /cmp-panel-clash -->
   </div>
   <footer>Box Office India · All comparisons based on master database · Data through April 2026</footer>
 </div>
@@ -10620,6 +10625,8 @@ function setCmpMode(tab, btn) {
   btn.classList.add('on');
   document.getElementById('cmp-panel-actor').style.display = tab === 'actor' ? 'block' : 'none';
   document.getElementById('cmp-panel-film').style.display  = tab === 'film'  ? 'block' : 'none';
+  document.getElementById('cmp-panel-clash').style.display = tab === 'clash' ? 'block' : 'none';   // ★ new
+  if (tab === 'clash') renderClashCompare();   // ★ new — render on first switch to this tab
 }
 
 var filmCmpSelA = null, filmCmpSelB = null;
@@ -10639,6 +10646,49 @@ function allFilmsFlat() {
     add(p.title,p.year,p.lang,p.ww,p.india,p.ff,p.lb,p.ow,p.budget,p.multiplier);
   });
   return out.sort(function(a,b){ return b.y - a.y; });
+}
+  var FILM_CLASHES = [
+  {occasion:'Diwali 2024', films:[{n:'Bhool Bhulaiyaa 3',y:2024},{n:'Singham Again',y:2024}]},
+  {occasion:'Independence Day 2025', films:[{n:'Coolie',y:2025},{n:'War 2',y:2025}]},
+  {occasion:'Christmas 2015', films:[{n:'Dilwale',y:2015},{n:'Bajirao Mastani',y:2015}]},
+  {occasion:'Independence Day 2023', films:[{n:'Dream Girl 2',y:2023},{n:'OMG 2',y:2023}]},
+];
+
+function findClash(f) {
+  return FILM_CLASHES.find(function(c){
+    return c.films.some(function(x){ return x.n.toLowerCase().trim()===f.n.toLowerCase().trim() && x.y===f.y; });
+  });
+}
+
+function renderClashCompare() {
+  var colA='#f472b6', colB='#4fc3f7';
+  var listEl = document.getElementById('clash-list');
+  if (!FILM_CLASHES.length) {
+    listEl.innerHTML = '<div style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">No clashes on record yet.</div>';
+    return;
+  }
+  listEl.innerHTML = FILM_CLASHES.map(function(c){
+    var fA = FILMS.find(function(x){ return x.n.toLowerCase().trim()===c.films[0].n.toLowerCase().trim() && x.y===c.films[0].y; }) || c.films[0];
+    var fB = FILMS.find(function(x){ return x.n.toLowerCase().trim()===c.films[1].n.toLowerCase().trim() && x.y===c.films[1].y; }) || c.films[1];
+    var maxWW = Math.max(fA.ww||0, fB.ww||0) || 1;
+    var pA = Math.round((fA.ww||0)/maxWW*100), pB = Math.round((fB.ww||0)/maxWW*100);
+    return '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.1rem 1.4rem;margin-bottom:1rem">'+
+      '<div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.75rem">'+c.occasion+'</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 28px 1fr;gap:.6rem;align-items:center">'+
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">'+
+          '<span style="font-size:.85rem;font-weight:700;color:'+colA+'">'+fA.n+' ('+fA.y+')</span>'+
+          '<span style="font-size:.75rem;color:rgba(255,255,255,.4)">'+(fA.ww?'₹'+fA.ww+' Cr WW':'—')+'</span>'+
+          '<div style="height:6px;width:'+pA+'%;max-width:100%;background:'+colA+';border-radius:3px 0 0 3px;margin-left:auto"></div>'+
+        '</div>'+
+        '<div style="text-align:center;font-size:.5rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.15)">vs</div>'+
+        '<div style="display:flex;flex-direction:column;gap:4px">'+
+          '<span style="font-size:.85rem;font-weight:700;color:'+colB+'">'+fB.n+' ('+fB.y+')</span>'+
+          '<span style="font-size:.75rem;color:rgba(255,255,255,.4)">'+(fB.ww?'₹'+fB.ww+' Cr WW':'—')+'</span>'+
+          '<div style="height:6px;width:'+pB+'%;max-width:100%;background:'+colB+';border-radius:0 3px 3px 0"></div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
 }
   var FILM_CLASHES = [
   {occasion:'Diwali 2024', films:[{n:'Bhool Bhulaiyaa 3',y:2024},{n:'Singham Again',y:2024}]},
