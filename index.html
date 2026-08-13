@@ -10722,11 +10722,12 @@ function renderClashCompare() {
       '</div></div>';
   }
 
-  var barsHtml =
-    bar('Opening Weekend (₹ Cr)', fA.ow, fB.ow, function(v){return v?'₹'+v+' Cr':'—';})+
-    bar('India Nett (₹ Cr)', fA.india, fB.india, function(v){return v?'₹'+v+' Cr':'—';})+
-    bar('Worldwide Gross (₹ Cr)', fA.ww, fB.ww, function(v){return v?'₹'+v+' Cr':'—';})+
-    bar('Footfalls', fA.ff, fB.ff, function(v){return v?v+'M':'—';});
+var barsHtml =
+  bar('Opening Weekend (₹ Cr)', fA.ow, fB.ow, function(v){return v?'₹'+v+' Cr':'—';})+
+  bar('India Nett (₹ Cr)', fA.india, fB.india, function(v){return v?'₹'+v+' Cr':'—';})+
+  bar('Worldwide Gross (₹ Cr)', fA.ww, fB.ww, function(v){return v?'₹'+v+' Cr':'—';})+
+  bar('Footfalls', fA.ff, fB.ff, function(v){return v?v+'M':'—';})+
+  bar('Legs Multiplier', (fA.ow&&fA.india)?Math.round(fA.india/fA.ow*100)/100:null, (fB.ow&&fB.india)?Math.round(fB.india/fB.ow*100)/100:null, function(v){return v?v+'×':'—';});   // ★ new
 
   content.innerHTML=
     '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.75rem 2rem">'+
