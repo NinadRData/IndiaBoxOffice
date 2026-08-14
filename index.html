@@ -10825,45 +10825,19 @@ function renderFilmCompare() {
     bar('Letterboxd Rating', a.lb, b.lb, function(v){return v?v+'/5':'—';}, true)+
     bar('Budget (₹ Cr)', a.budget, b.budget, function(v){return v?'₹'+v+' Cr':'—';}, false);
 
-  // ★ NEW — clash lookup helper
-  function clashHtml(f, col) {
-    var clash = findClash(f);
-    if (!clash) return '<div style="font-size:.72rem;color:rgba(255,255,255,.25)">No known clash on record for '+f.n+'.</div>';
-    var rivals = clash.films.filter(function(x){ return !(x.n.toLowerCase().trim()===f.n.toLowerCase().trim() && x.y===f.y); });
-    return '<div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:.4rem">'+clash.occasion+'</div>'+
-      rivals.map(function(r){
-        var rf = FILMS.find(function(x){ return x.n.toLowerCase().trim()===r.n.toLowerCase().trim() && x.y===r.y; });
-        return '<div style="display:flex;justify-content:space-between;font-size:.75rem;padding:.35rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+
-          '<span style="color:rgba(255,255,255,.65)">'+r.n+'</span>'+
-          '<span style="color:'+col+';font-weight:600">'+(rf&&rf.ww?'₹'+rf.ww+' Cr':'—')+'</span>'+
-        '</div>';
-      }).join('');
-  }
-
-  // ★ NEW — clash section
-  var clashSection =
-    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.1rem 1.4rem;margin-bottom:1rem">'+
-      '<div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.75rem">Box Office Clash</div>'+
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">'+
-        '<div><div style="font-size:.65rem;font-weight:600;color:'+colA+';margin-bottom:.5rem">'+a.n+' ('+a.y+')</div>'+clashHtml(a,colA)+'</div>'+
-        '<div><div style="font-size:.65rem;font-weight:600;color:'+colB+';margin-bottom:.5rem">'+b.n+' ('+b.y+')</div>'+clashHtml(b,colB)+'</div>'+
-      '</div>'+
-    '</div>';
-
   var vlines=[];
   if(a.ww&&b.ww) vlines.push((a.ww>b.ww?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' earned more worldwide (₹'+Math.max(a.ww,b.ww)+' Cr vs ₹'+Math.min(a.ww,b.ww)+' Cr).');
   if(a.ff&&b.ff)  vlines.push((a.ff>b.ff?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' sold more tickets ('+Math.max(a.ff,b.ff)+'M vs '+Math.min(a.ff,b.ff)+'M).');
   if(a.lb&&b.lb)  vlines.push((a.lb>b.lb?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' rates higher on Letterboxd ('+Math.max(a.lb,b.lb)+' vs '+Math.min(a.lb,b.lb)+').');
   if(!vlines.length) vlines.push('Not enough overlapping data — try films with more complete records.');
 
-  content.innerHTML=
+ content.innerHTML=
     '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1rem">'+
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">'+
         '<div style="font-size:.88rem;font-weight:700;color:'+colA+'">'+a.n+' ('+a.y+')</div>'+
         '<div style="font-size:.88rem;font-weight:700;color:'+colB+';text-align:right">'+b.n+' ('+b.y+')</div>'+
       '</div>'+barsHtml+
     '</div>'+
-    clashSection+   // ★ NEW — inserted here
     '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.1rem 1.4rem">'+
       '<div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.65rem">Verdict</div>'+
       vlines.map(function(l){return '<div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.7;padding:.2rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+l+'</div>';}).join('')+
