@@ -1983,6 +1983,78 @@ var YR_DATA = {
   <footer>Box Office India · Opening weekend = 3-day India nett · Legs = India net ÷ Opening weekend · Data through April 2026</footer>
 </div>
 
+<!-- ═══════════ PAGE: ACTION OW ═══════════ -->
+<div id="page-action" class="page">
+  <div class="page-hero" style="background:linear-gradient(135deg,#0d0500,#1a0a00)">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(251,146,60,.09),transparent 65%)"></div>
+    <div class="page-hero-inner">
+      <div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:#fb923c;margin-bottom:.6rem;opacity:.8">Indian Cinema · Action Films</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">Opening Weekend <span style="color:#fb923c">&amp; Legs</span></div>
+
+    </div>
+  </div>
+  <div style="max-width:980px;margin:0 auto;padding:2rem">
+
+    <!-- Filters -->
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem">
+      <div style="display:flex;gap:6px;flex-wrap:wrap" id="act-lang-filters">
+        <button class="lf" style="background:rgba(251,146,60,.15);border-color:rgba(251,146,60,.4);color:#fb923c" onclick="setActFilter('lang','all',this)">All</button>
+        <button class="lf" onclick="setActFilter('lang','Hindi',this)">Hindi</button>
+        <button class="lf" onclick="setActFilter('lang','Telugu',this)">Telugu</button>
+        <button class="lf" onclick="setActFilter('lang','Tamil',this)">Tamil</button>
+        <button class="lf" onclick="setActFilter('lang','Kannada',this)">Kannada</button>
+      </div>
+
+      <div style="display:flex;gap:6px" id="act-sort-btns">
+        <span style="font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);align-self:center">Sort:</span>
+        <button class="lf on" onclick="setActSort('ow',this)">OW</button>
+        <button class="lf" onclick="setActSort('legs',this)">Legs</button>
+        <button class="lf" onclick="setActSort('india',this)">India Net</button>
+        <button class="lf" onclick="setActSort('ww',this)">Worldwide</button>
+      </div>
+    </div>
+
+    <!-- Summary stats -->
+    <div id="act-stats" class="stat-grid" style="margin-bottom:1.75rem"></div>
+
+    <!-- Dual chart: OW vs Lifetime bar chart -->
+    <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
+      <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap">
+        <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25)">Opening Weekend vs India Net (₹ Cr)</div>
+        <div style="display:flex;gap:1rem">
+          <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:2px;background:#fb923c"></div><span style="font-size:.62rem;color:rgba(255,255,255,.4)">Opening Weekend</span></div>
+          <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:2px;background:#c084fc"></div><span style="font-size:.62rem;color:rgba(255,255,255,.4)">India Net Total</span></div>
+        </div>
+      </div>
+      <div id="act-ow-chart" style="display:flex;flex-direction:column;gap:4px"></div>
+    </div>
+
+    <!-- Legs scatter / ranked table -->
+    <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
+      <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem">Legs Multiplier Ranking (India Net ÷ Opening Weekend)</div>
+      <div id="act-legs-chart"></div>
+      <div class="ff-note" style="margin-top:1rem">A legs multiplier of 3× means the film earned 3× its opening weekend over its total run. Films with weaker OW but strong word-of-mouth (e.g. Kantara, HanuMan) show the highest legs.</div>
+    </div>
+
+    <!-- Full data table -->
+    <div>
+      <div style="display:grid;grid-template-columns:28px 1fr 55px 80px 80px 80px 65px 65px;gap:0;padding:.4rem 8px;margin-bottom:4px;border-bottom:0.5px solid rgba(255,255,255,.08)">
+        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">#</div>
+        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Film</div>
+        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Year</div>
+        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">OW ₹Cr</div>
+        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">India ₹Cr</div>
+        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">WW ₹Cr</div>
+        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Legs</div>
+        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">FF(M)</div>
+      </div>
+      <div id="act-table"></div>
+    </div>
+
+  </div>
+  <footer>Box Office India · Opening weekend = 3-day India nett · Legs = India net ÷ Opening weekend · Data through April 2026</footer>
+</div>
+
 <!-- ═══════════ PAGE: ACTRESSES ═══════════ -->
 <div id="page-actresses" class="page">
   <div class="page-hero" style="background:linear-gradient(135deg,#0d0008,#1a0015)">
