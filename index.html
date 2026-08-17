@@ -2170,10 +2170,11 @@ var YR_DATA = {
       </div>
     </div>
 
-    <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
-      <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
-      <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
-    </div>
+  <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
+  <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
+  <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
+  <button class="rec-tab" onclick="setCmpMode('clash',this)">Box Office Clashes</button>
+</div>
 
     <div id="cmp-panel-actor">
       <div id="cmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">← Select two actors to compare</div>
@@ -10791,6 +10792,7 @@ function setCmpMode(tab, btn) {
   btn.classList.add('on');
   document.getElementById('cmp-panel-actor').style.display = tab === 'actor' ? 'block' : 'none';
   document.getElementById('cmp-panel-film').style.display  = tab === 'film'  ? 'block' : 'none';
+  document.getElementById('cmp-panel-clash').style.display = tab === 'clash' ? 'block' : 'none';
 }
 
 var filmCmpSelA = null, filmCmpSelB = null;
