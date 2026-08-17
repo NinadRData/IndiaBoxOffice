@@ -446,7 +446,6 @@ var FILMS = [
 {n:'Pushpa: The Rise', y:2021, l:'Telugu', actors:['Allu Arjun'], studio:'Mythri Movie Makers', india:267.55, ww:350.1, ow:110.5, ff:25, lb:null},
 {n:'Drishyam 3',                y:2026, l:'Malayalam', actors:[], studio:'Panorama Studios', india:110.48, ww:239.82, ow:38.70, ff:null, lb:null},
 {n:'Mana ShankaraVaraprasad Garu', y:2026, l:'Telugu', actors:[], studio:'TBA', india:218, ww:301, ow:56, ff:null, lb:null},
-{n:'Vaazha 2: Biopic of a Billion Bros', y:2026, l:'Malayalam', actors:[], studio:'TBA', india:129.42, ww:235.26, ow:17.45, ff:null, lb:null},
 {n:'O Romeo', y:2026, l:'Hindi', actors:[], studio:'TBA', india:60, ww:93, ow:28, ff:null, lb:null},  {n:'Hindi Medium', y:2017, l:'Hindi', actors:[], studio:null, india:69.59, ww:322.4, ow:12.56, ff:null, lb:null},
 {n:'Raees', y:2017, l:'Hindi', actors:['Shah Rukh Khan'], studio:'Red Chillies Entertainment', india:137.51, ww:281.44, ow:46.5, ff:null, lb:null},
 {n:'Thugs of Hindustan', y:2018, l:'Hindi', actors:['Aamir Khan'], studio:'YRF', india:151.19, ww:322.07, ow:70.75, ff:null, lb:null},
@@ -9179,27 +9178,20 @@ function normalizeTitle(s) {
 
 function getYearFilms(yr) {
   var yrNum = parseInt(yr);
-  var seen = {};
-  var results = [];
+  var results = FILMS.filter(function(f){ return f.y === yrNum && f.ww != null; })
+    .map(function(f){
+      var merged = {n:f.n, l:f.l, ow:f.ow, india:f.india, ww:f.ww, studio:f.studio, liveKey:f.liveKey||null};
+      if (f.liveKey) {
+        var live = getLiveFilmData(f.liveKey);
+        if (live) {
+          if (live.ow    != null) merged.ow    = live.ow;
+          if (live.india != null) merged.india = live.india;
+          if (live.ww    != null) merged.ww    = live.ww;
+        }
+      }
+      return merged;
+    });
 
-  // Start with hardcoded YR_DATA (has studio info and liveKey)
-  var base = (YR_DATA[yr] || []).map(function(f) {
-    var live = f.liveKey ? getLiveFilmData(f.liveKey) : null;
-    var merged = Object.assign({}, f);
-    if (live) {
-      if (live.ow    != null) merged.ow    = live.ow;
-      if (live.india != null) merged.india = live.india;
-      if (live.ww    != null) merged.ww    = live.ww;
-    }
-    var key = normalizeTitle(merged.n);
-    seen[key] = true;
-    results.push(merged);
-    return key;
-  });
-
-
-
-  // Sort by worldwide gross descending, take top 10
   results.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
   return results.slice(0,15);
 }
