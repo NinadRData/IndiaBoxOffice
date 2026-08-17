@@ -2170,11 +2170,10 @@ var YR_DATA = {
       </div>
     </div>
 
- <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
-  <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
-  <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
-<button class="rec-tab" onclick="setCmpMode('clash',this)">Box Office Clashes</button>
- </div>
+    <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
+      <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
+      <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
+    </div>
 
     <div id="cmp-panel-actor">
       <div id="cmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">← Select two actors to compare</div>
@@ -2247,56 +2246,9 @@ var YR_DATA = {
       <div id="fcmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">Search and select two films above to compare</div>
       <div id="fcmp-content" style="display:none"></div>
     </div><!-- /cmp-panel-film -->
-<!-- BOX OFFICE CLASHES PANEL -->
-<div id="cmp-panel-clash" style="display:none">
-  <div style="margin-bottom:2rem">
-    <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.6rem">Select a Clash</div>
-    <div style="position:relative;max-width:420px">
-      <select id="clashSelect" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(255,255,255,.2);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.6rem 2.2rem .6rem .9rem;cursor:pointer;outline:none" onchange="renderClashCompare()">
-        <option value="">— Choose a Clash —</option>
-      </select>
-      <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(255,255,255,.4);font-size:.7rem">▼</div>
-    </div>
   </div>
-  <div id="clash-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">← Choose a clash above</div>
-  <div id="clash-content" style="display:none"></div>
-</div><!-- /cmp-panel-clash -->
-
-<!-- ═══════════ PAGE: LOOKUP ═══════════ -->
-<div id="page-lookup" class="page">
-  <div style="min-height:100vh;background:var(--bg);padding:5.5rem 1.5rem 4rem;display:flex;flex-direction:column;align-items:center">
-
-    <!-- Header -->
-    <div style="text-align:center;margin-bottom:2.5rem;max-width:560px">
-      <div style="font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:#34d399;font-weight:700;margin-bottom:.6rem">Film Database</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,6vw,3.4rem);font-weight:900;line-height:1;margin-bottom:.5rem">Film <span style="color:#34d399">Lookup</span></div>
-      <div style="font-size:.82rem;color:rgba(255,255,255,.35);line-height:1.6">Search any Indian film. Get box office, footfalls, cast, and trivia in one card.</div>
-    </div>
-
-    <!-- Search box -->
-    <div style="width:100%;max-width:560px;position:relative;margin-bottom:2rem">
-      <input id="lookup-input" type="text" placeholder="e.g. Sholay, Pushpa 2, Dangal, PK…"
-        oninput="handleLookup(this.value)"
-        onkeydown="if(event.key==='Enter'){var f=lookupFirstMatch();if(f)openLookupResult(f);}"
-        onfocus="this.style.boxShadow='0 0 0 3px rgba(52,211,153,.18)';this.style.borderColor='rgba(52,211,153,.55)'"
-        onblur="this.style.boxShadow='';this.style.borderColor='rgba(52,211,153,.2)'"
-        style="width:100%;box-sizing:border-box;background:#111;border:1.5px solid rgba(52,211,153,.2);border-radius:8px;color:#fff;font-family:'Barlow',sans-serif;font-size:1rem;padding:.9rem 1.1rem .9rem 3rem;outline:none;transition:border-color .2s,box-shadow .2s;caret-color:#34d399">
-      <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-size:1.1rem;color:rgba(52,211,153,.5);pointer-events:none">⌕</span>
-      <!-- Clear button -->
-      <button onclick="clearLookup()" id="lookup-clear" style="display:none;position:absolute;right:.85rem;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.75rem;cursor:pointer;line-height:1;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'">✕</button>
-    </div>
-
-    <!-- Suggestion chips (shown before search) -->
-    <div id="lookup-chips" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:620px;margin-bottom:2.5rem">
-    </div>
-
-    <!-- Results / Card area -->
-    <div id="lookup-results" style="width:100%;max-width:640px"></div>
-
-  </div>
+  <footer>Box Office India · All comparisons based on master database · Data through April 2026</footer>
 </div>
-
-<script>
 
 <!-- ═══════════ PAGE: LOOKUP ═══════════ -->
 <div id="page-lookup" class="page">
@@ -10839,7 +10791,6 @@ function setCmpMode(tab, btn) {
   btn.classList.add('on');
   document.getElementById('cmp-panel-actor').style.display = tab === 'actor' ? 'block' : 'none';
   document.getElementById('cmp-panel-film').style.display  = tab === 'film'  ? 'block' : 'none';
-  document.getElementById('cmp-panel-clash').style.display = tab === 'clash' ? 'block' : 'none';
 }
 
 var filmCmpSelA = null, filmCmpSelB = null;
@@ -10860,75 +10811,17 @@ function allFilmsFlat() {
   });
   return out.sort(function(a,b){ return b.y - a.y; });
 }
-var FILM_CLASHES = [
+  var FILM_CLASHES = [
   {occasion:'Diwali 2024', films:[{n:'Bhool Bhulaiyaa 3',y:2024},{n:'Singham Again',y:2024}]},
   {occasion:'Independence Day 2025', films:[{n:'Coolie',y:2025},{n:'War 2',y:2025}]},
   {occasion:'Christmas 2015', films:[{n:'Dilwale',y:2015},{n:'Bajirao Mastani',y:2015}]},
-  {occasion:'Independence Day 2023', films:[{n:'Gadar 2',y:2023},{n:'OMG 2',y:2023}]},
-  {occasion:'Republic Day 2017', films:[{n:'Kaabil',y:2017},{n:'Raees',y:2017}]},
-  {occasion:'Christmas 2023', films:[{n:'Dunki',y:2023},{n:'Salaar',y:2023}]},
-  {occasion:'Christmas 2018', films:[{n:'Zero',y:2018},{n:'KGF: Chapter 1',y:2018}]},
+  {occasion:'Independence Day 2023', films:[{n:'Dream Girl 2',y:2023},{n:'OMG 2',y:2023}]},
 ];
 
-function populateClashSelect() {
-  var sel = document.getElementById('clashSelect');
-  if (!sel) return;
-  FILM_CLASHES.forEach(function(c, i){
-    var opt = document.createElement('option');
-    opt.value = i;
-    opt.textContent = c.films[0].n + ' vs ' + c.films[1].n + ' (' + c.occasion + ')';
-    sel.appendChild(opt);
+function findClash(f) {
+  return FILM_CLASHES.find(function(c){
+    return c.films.some(function(x){ return x.n.toLowerCase().trim()===f.n.toLowerCase().trim() && x.y===f.y; });
   });
-}
-populateClashSelect();
-
-function renderClashCompare() {
-  var sel = document.getElementById('clashSelect');
-  var empty = document.getElementById('clash-empty');
-  var content = document.getElementById('clash-content');
-  var idx = sel.value;
-  if (idx === '') { empty.style.display='block'; content.style.display='none'; return; }
-  empty.style.display='none'; content.style.display='block';
-
-  var c = FILM_CLASHES[idx];
-  var colA='#f472b6', colB='#4fc3f7';
-  var fA = FILMS.find(function(x){ return x.n.toLowerCase().trim()===c.films[0].n.toLowerCase().trim() && x.y===c.films[0].y; }) || c.films[0];
-  var fB = FILMS.find(function(x){ return x.n.toLowerCase().trim()===c.films[1].n.toLowerCase().trim() && x.y===c.films[1].y; }) || c.films[1];
-
-  function bar(label, aV, bV, fmtFn) {
-    if (!aV && !bV) return '';
-    var mx=Math.max(aV||0,bV||0)||1, pA=Math.round((aV||0)/mx*100), pB=Math.round((bV||0)/mx*100);
-    var wA=(aV||0)>=(bV||0), wB=(bV||0)>=(aV||0);
-    return '<div style="margin-bottom:1.4rem">'+
-      '<div style="font-size:.95rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.6rem">'+label+'</div>'+
-      '<div style="display:grid;grid-template-columns:1fr 40px 1fr;gap:.6rem;align-items:center">'+
-        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">'+
-          '<span style="font-size:1.4rem;font-weight:800;font-family:\'Barlow Condensed\',sans-serif;color:'+(wA?colA:'rgba(255,255,255,.3)')+'">'+fmtFn(aV)+'</span>'+
-          '<div style="height:9px;width:'+pA+'%;max-width:100%;background:'+colA+(wA?'':'44')+';border-radius:4px 0 0 4px;margin-left:auto"></div>'+
-        '</div>'+
-        '<div style="text-align:center;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.2)">vs</div>'+
-        '<div style="display:flex;flex-direction:column;gap:5px">'+
-          '<span style="font-size:1.4rem;font-weight:800;font-family:\'Barlow Condensed\',sans-serif;color:'+(wB?colB:'rgba(255,255,255,.3)')+'">'+fmtFn(bV)+'</span>'+
-          '<div style="height:9px;width:'+pB+'%;max-width:100%;background:'+colB+(wB?'':'44')+';border-radius:0 4px 4px 0"></div>'+
-        '</div>'+
-      '</div></div>';
-  }
-
-var barsHtml =
-  bar('Opening Weekend (₹ Cr)', fA.ow, fB.ow, function(v){return v?'₹'+v+' Cr':'—';})+
-  bar('India Nett (₹ Cr)', fA.india, fB.india, function(v){return v?'₹'+v+' Cr':'—';})+
-  bar('Worldwide Gross (₹ Cr)', fA.ww, fB.ww, function(v){return v?'₹'+v+' Cr':'—';})+
-  bar('Footfalls', fA.ff, fB.ff, function(v){return v?v+'M':'—';})+
-  bar('Legs Multiplier', (fA.ow&&fA.india)?Math.round(fA.india/fA.ow*100)/100:null, (fB.ow&&fB.india)?Math.round(fB.india/fB.ow*100)/100:null, function(v){return v?v+'×':'—';});   // ★ new
-
-  content.innerHTML=
-    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.75rem 2rem">'+
-      '<div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.25rem;text-align:center">'+c.occasion+'</div>'+
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">'+
-        '<div style="font-size:1.3rem;font-weight:800;font-family:\'Barlow Condensed\',sans-serif;color:'+colA+'">'+fA.n+' ('+fA.y+')</div>'+
-        '<div style="font-size:1.3rem;font-weight:800;font-family:\'Barlow Condensed\',sans-serif;color:'+colB+';text-align:right">'+fB.n+' ('+fB.y+')</div>'+
-      '</div>'+barsHtml+
-    '</div>';
 }
 
 function clearFilmCmp(side) {
@@ -11017,19 +10910,45 @@ function renderFilmCompare() {
     bar('Letterboxd Rating', a.lb, b.lb, function(v){return v?v+'/5':'—';}, true)+
     bar('Budget (₹ Cr)', a.budget, b.budget, function(v){return v?'₹'+v+' Cr':'—';}, false);
 
+  // ★ NEW — clash lookup helper
+  function clashHtml(f, col) {
+    var clash = findClash(f);
+    if (!clash) return '<div style="font-size:.72rem;color:rgba(255,255,255,.25)">No known clash on record for '+f.n+'.</div>';
+    var rivals = clash.films.filter(function(x){ return !(x.n.toLowerCase().trim()===f.n.toLowerCase().trim() && x.y===f.y); });
+    return '<div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:.4rem">'+clash.occasion+'</div>'+
+      rivals.map(function(r){
+        var rf = FILMS.find(function(x){ return x.n.toLowerCase().trim()===r.n.toLowerCase().trim() && x.y===r.y; });
+        return '<div style="display:flex;justify-content:space-between;font-size:.75rem;padding:.35rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+
+          '<span style="color:rgba(255,255,255,.65)">'+r.n+'</span>'+
+          '<span style="color:'+col+';font-weight:600">'+(rf&&rf.ww?'₹'+rf.ww+' Cr':'—')+'</span>'+
+        '</div>';
+      }).join('');
+  }
+
+  // ★ NEW — clash section
+  var clashSection =
+    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.1rem 1.4rem;margin-bottom:1rem">'+
+      '<div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.75rem">Box Office Clash</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">'+
+        '<div><div style="font-size:.65rem;font-weight:600;color:'+colA+';margin-bottom:.5rem">'+a.n+' ('+a.y+')</div>'+clashHtml(a,colA)+'</div>'+
+        '<div><div style="font-size:.65rem;font-weight:600;color:'+colB+';margin-bottom:.5rem">'+b.n+' ('+b.y+')</div>'+clashHtml(b,colB)+'</div>'+
+      '</div>'+
+    '</div>';
+
   var vlines=[];
   if(a.ww&&b.ww) vlines.push((a.ww>b.ww?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' earned more worldwide (₹'+Math.max(a.ww,b.ww)+' Cr vs ₹'+Math.min(a.ww,b.ww)+' Cr).');
   if(a.ff&&b.ff)  vlines.push((a.ff>b.ff?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' sold more tickets ('+Math.max(a.ff,b.ff)+'M vs '+Math.min(a.ff,b.ff)+'M).');
   if(a.lb&&b.lb)  vlines.push((a.lb>b.lb?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' rates higher on Letterboxd ('+Math.max(a.lb,b.lb)+' vs '+Math.min(a.lb,b.lb)+').');
   if(!vlines.length) vlines.push('Not enough overlapping data — try films with more complete records.');
 
- content.innerHTML=
+  content.innerHTML=
     '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1rem">'+
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">'+
         '<div style="font-size:.88rem;font-weight:700;color:'+colA+'">'+a.n+' ('+a.y+')</div>'+
         '<div style="font-size:.88rem;font-weight:700;color:'+colB+';text-align:right">'+b.n+' ('+b.y+')</div>'+
       '</div>'+barsHtml+
     '</div>'+
+    clashSection+   // ★ NEW — inserted here
     '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.1rem 1.4rem">'+
       '<div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.65rem">Verdict</div>'+
       vlines.map(function(l){return '<div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.7;padding:.2rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+l+'</div>';}).join('')+
