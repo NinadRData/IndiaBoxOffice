@@ -10838,6 +10838,18 @@ var FILM_CLASHES = [
   {occasion:'Christmas 2018', films:[{n:'Zero',y:2018},{n:'KGF: Chapter 1',y:2018}]},
 ];
 
+  function populateClashSelect() {
+  var sel = document.getElementById('clashSelect');
+  if (!sel) return;
+  FILM_CLASHES.forEach(function(c, i){
+    var opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = c.films[0].n + ' vs ' + c.films[1].n + ' (' + c.occasion + ')';
+    sel.appendChild(opt);
+  });
+}
+populateClashSelect();
+  
 function findClash(f) {
   return FILM_CLASHES.find(function(c){
     return c.films.some(function(x){ return x.n.toLowerCase().trim()===f.n.toLowerCase().trim() && x.y===f.y; });
