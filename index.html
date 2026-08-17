@@ -2253,8 +2253,7 @@ var YR_DATA = {
       <div style="margin-bottom:2rem">
         <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.6rem">Select a Clash</div>
         <div style="position:relative;max-width:420px">
-          <select id="clashSelect" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(255,255,255,.2);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.6rem 2.2rem .6rem .9rem;cursor:pointer;outline:none">
-            <option value="">— Choose a Clash —</option>
+<select id="clashSelect" onchange="renderClashCompare()" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(255,255,255,.2);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.6rem 2.2rem .6rem .9rem;cursor:pointer;outline:none">            <option value="">— Choose a Clash —</option>
           </select>
           <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(255,255,255,.4);font-size:.7rem">▼</div>
         </div>
@@ -10849,6 +10848,54 @@ var FILM_CLASHES = [
   });
 }
 populateClashSelect();
+  function renderClashCompare() {
+  var sel = document.getElementById('clashSelect');
+  var empty = document.getElementById('clash-empty');
+  var content = document.getElementById('clash-content');
+  var idx = sel.value;
+  if (idx === '') { empty.style.display='block'; content.style.display='none'; return; }
+  empty.style.display='none'; content.style.display='block';
+
+  var c = FILM_CLASHES[idx];
+  var colA='#f472b6', colB='#4fc3f7';
+  var fA = FILMS.find(function(x){ return x.n.toLowerCase().trim()===c.films[0].n.toLowerCase().trim() && x.y===c.films[0].y; }) || c.films[0];
+  var fB = FILMS.find(function(x){ return x.n.toLowerCase().trim()===c.films[1].n.toLowerCase().trim() && x.y===c.films[1].y; }) || c.films[1];
+
+  function bar(label, aV, bV, fmtFn) {
+    if (!aV && !bV) return '';
+    var mx=Math.max(aV||0,bV||0)||1, pA=Math.round((aV||0)/mx*100), pB=Math.round((bV||0)/mx*100);
+    var wA=(aV||0)>=(bV||0), wB=(bV||0)>=(aV||0);
+    return '<div style="margin-bottom:1.4rem">'+
+      '<div style="font-size:.95rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.6rem">'+label+'</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 40px 1fr;gap:.6rem;align-items:center">'+
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">'+
+          '<span style="font-size:1.4rem;font-weight:800;font-family:\'Barlow Condensed\',sans-serif;color:'+(wA?colA:'rgba(255,255,255,.3)')+'">'+fmtFn(aV)+'</span>'+
+          '<div style="height:9px;width:'+pA+'%;max-width:100%;background:'+colA+(wA?'':'44')+';border-radius:4px 0 0 4px;margin-left:auto"></div>'+
+        '</div>'+
+        '<div style="text-align:center;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.2)">vs</div>'+
+        '<div style="display:flex;flex-direction:column;gap:5px">'+
+          '<span style="font-size:1.4rem;font-weight:800;font-family:\'Barlow Condensed\',sans-serif;color:'+(wB?colB:'rgba(255,255,255,.3)')+'">'+fmtFn(bV)+'</span>'+
+          '<div style="height:9px;width:'+pB+'%;max-width:100%;background:'+colB+(wB?'':'44')+';border-radius:0 4px 4px 0"></div>'+
+        '</div>'+
+      '</div></div>';
+  }
+
+  var barsHtml =
+    bar('Opening Weekend (₹ Cr)', fA.ow, fB.ow, function(v){return v?'₹'+v+' Cr':'—';})+
+    bar('India Nett (₹ Cr)', fA.india, fB.india, function(v){return v?'₹'+v+' Cr':'—';})+
+    bar('Worldwide Gross (₹ Cr)', fA.ww, fB.ww, function(v){return v?'₹'+v+' Cr':'—';})+
+    bar('Footfalls', fA.ff, fB.ff, function(v){return v?v+'M':'—';})+
+    bar('Legs Multiplier', (fA.ow&&fA.india)?Math.round(fA.india/fA.ow*100)/100:null, (fB.ow&&fB.india)?Math.round(fB.india/fB.ow*100)/100:null, function(v){return v?v+'×':'—';});
+
+  content.innerHTML=
+    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.75rem 2rem">'+
+      '<div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.25rem;text-align:center">'+c.occasion+'</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">'+
+        '<div style="font-size:1.3rem;font-weight:800;font-family:\'Barlow Condensed\',sans-serif;color:'+colA+'">'+fA.n+' ('+fA.y+')</div>'+
+        '<div style="font-size:1.3rem;font-weight:800;font-family:\'Barlow Condensed\',sans-serif;color:'+colB+';text-align:right">'+fB.n+' ('+fB.y+')</div>'+
+      '</div>'+barsHtml+
+    '</div>';
+}
   
 function findClash(f) {
   return FILM_CLASHES.find(function(c){
