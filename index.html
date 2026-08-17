@@ -295,20 +295,20 @@ function era(y){
 // Fields: n=title, y=year, l=language, actors=[], studio, india, ww, ow, ff, lb
 var FILMS = [
   // 2020s
-  {n:'Dangal',                  y:2016,l:'Hindi',  actors:['Aamir Khan','Fatima Sana Shaikh'],                                        studio:'Aamir Khan Prod.',    india:387.38, ww:2070, ow:107, ff:37,   lb:3.9},
-  {n:'Baahubali 2',             y:2017,l:'Telugu', actors:['Prabhas','Rana Daggubati','Anushka Shetty'],                              studio:'Arka Media',          india:1030, ww:1810, ow:304, ff:107.7,lb:3.4},
-  {n:'Pushpa 2',                y:2024,l:'Telugu', actors:['Allu Arjun','Rashmika Mandanna','Fahadh Faasil'],                         studio:'Mythri',              india:1234, ww:1742, ow:353,  ff:63,   lb:3.2},
-  {n:'Dhurandhar',              y:2025,l:'Hindi',  actors:['Ranveer Singh','Sanjay Dutt','R. Madhavan'],                              studio:'Jio Studios',         india:895, ww:1349, ow:108,  ff:37,   lb:3.6},
-  {n:'Dhurandhar 2',            y:2026,l:'Hindi',  actors:['Ranveer Singh','Sanjay Dutt','R. Madhavan'],                              studio:'Jio Studios',         india:1143, ww:1795, ow:308,  ff:43.6,   lb:3.5},
-  {n:'RRR',                     y:2022,l:'Telugu', actors:['Ram Charan','Jr. NTR','Alia Bhatt'],                                      studio:'DVV Entertainment',   india:782,  ww:1230, ow:323, ff:44,   lb:3.8},
-  {n:'KGF 2',          y:2022,l:'Kannada',actors:['Yash','Sanjay Dutt','Raveena Tandon'],                                    studio:'Hombale',             india:859, ww:1215, ow:262, ff:56.7, lb:3.1},
-  {n:'Jawan',                   y:2023,l:'Hindi',  actors:['Shah Rukh Khan','Nayanthara','Vijay Sethupathi'],                         studio:'Red Chillies',        india:643,  ww:1148, ow:211,  ff:39.2, lb:3.3},
-  {n:'Pathaan',                 y:2023,l:'Hindi',  actors:['Shah Rukh Khan','Deepika Padukone','John Abraham'],                       studio:'YRF',                 india:543,  ww:1050, ow:152,  ff:34.9, lb:2.8},
-  {n:'Kalki 2898 AD',           y:2024,l:'Telugu', actors:['Prabhas','Deepika Padukone','Amitabh Bachchan','Kamal Haasan'],           studio:'Vyjayanthi',          india:646,  ww:1042, ow:213,  ff:36.4, lb:3.1},
-  {n:'Bajrangi Bhaijaan',       y:2015,l:'Hindi',  actors:['Salman Khan','Harshaali Malhotra'],                                      studio:'Rockline',            india:320,  ww:918,  ow:102.4, ff:35.42,lb:3.8},
-  {n:'Animal',                  y:2023,l:'Hindi',  actors:['Ranbir Kapoor','Rashmika Mandanna','Anil Kapoor'],                        studio:'Bhadrakali',          india:556,  ww:917,  ow:201.76,  ff:30,   lb:2.4},
-  {n:'Secret Superstar',        y:2017,l:'Hindi',  actors:['Aamir Khan','Zaira Wasim'],                                               studio:'Aamir Khan Prod.',    india:73,   ww:875,  ow:26, ff:5.09, lb:3.4},
-  {n:'Stree 2',                 y:2024,l:'Hindi',  actors:['Rajkummar Rao','Shraddha Kapoor','Tamannaah'],                            studio:'Maddock',             india:627,  ww:874,  ow:139.4,  ff:null, lb:3.5},
+{n:'Dangal', y:2016,l:'Hindi', actors:['Aamir Khan','Fatima Sana Shaikh'], studio:'Aamir Khan Prod.', india:387.38, ww:2070, ow:107, ff:37, lb:3.9, budget:70},
+{n:'Baahubali 2', y:2017,l:'Telugu', actors:['Prabhas','Rana Daggubati','Anushka Shetty'], studio:'Arka Media', india:1030, ww:1810, ow:304, ff:107.7, lb:3.4, budget:250},
+{n:'Pushpa 2', y:2024,l:'Telugu', actors:['Allu Arjun','Rashmika Mandanna','Fahadh Faasil'], studio:'Mythri', india:1234, ww:1742, ow:353, ff:63, lb:3.2, budget:400},
+{n:'Dhurandhar', y:2025,l:'Hindi', actors:['Ranveer Singh','Sanjay Dutt','R. Madhavan'], studio:'Jio Studios', india:895, ww:1349, ow:108, ff:37, lb:3.6, budget:180},
+{n:'Dhurandhar 2', y:2026,l:'Hindi', actors:['Ranveer Singh','Sanjay Dutt','R. Madhavan'], studio:'Jio Studios', india:1143, ww:1795, ow:308, ff:43.6, lb:3.5, budget:220},
+{n:'RRR', y:2022,l:'Telugu', actors:['Ram Charan','Jr. NTR','Alia Bhatt'], studio:'DVV Entertainment', india:782, ww:1230, ow:323, ff:44, lb:3.8, budget:550},
+{n:'KGF 2', y:2022,l:'Kannada', actors:['Yash','Sanjay Dutt','Raveena Tandon'], studio:'Hombale', india:859, ww:1215, ow:262, ff:56.7, lb:3.1, budget:100},
+{n:'Jawan', y:2023,l:'Hindi', actors:['Shah Rukh Khan','Nayanthara','Vijay Sethupathi'], studio:'Red Chillies', india:643, ww:1148, ow:211, ff:39.2, lb:3.3, budget:300},
+{n:'Pathaan', y:2023,l:'Hindi', actors:['Shah Rukh Khan','Deepika Padukone','John Abraham'], studio:'YRF', india:543, ww:1050, ow:152, ff:34.9, lb:2.8, budget:250},
+{n:'Kalki 2898 AD', y:2024,l:'Telugu', actors:['Prabhas','Deepika Padukone','Amitabh Bachchan','Kamal Haasan'], studio:'Vyjayanthi', india:646, ww:1042, ow:213, ff:36.4, lb:3.1, budget:600},
+{n:'Bajrangi Bhaijaan', y:2015,l:'Hindi', actors:['Salman Khan','Harshaali Malhotra'], studio:'Rockline', india:320, ww:918, ow:102.4, ff:35.42, lb:3.8, budget:85},
+{n:'Animal', y:2023,l:'Hindi', actors:['Ranbir Kapoor','Rashmika Mandanna','Anil Kapoor'], studio:'Bhadrakali', india:556, ww:917, ow:201.76, ff:30, lb:2.4, budget:100},
+{n:'Secret Superstar', y:2017,l:'Hindi', actors:['Aamir Khan','Zaira Wasim'], studio:'Aamir Khan Prod.', india:73, ww:875, ow:26, ff:5.09, lb:3.4, budget:15},
+{n:'Stree 2', y:2024,l:'Hindi', actors:['Rajkummar Rao','Shraddha Kapoor','Tamannaah'], studio:'Maddock', india:627, ww:874, ow:139.4, ff:null, lb:3.5, budget:55},
 
   {n:'Chaava',                  y:2025,l:'Hindi',  actors:['Vicky Kaushal','Rashmika Mandanna'],                                      studio:'Maddock',             india:600,  ww:797,  ow:121.43,   ff:30.5, lb:3.6},
   {n:'PK',                      y:2014,l:'Hindi',  actors:['Aamir Khan','Anushka Sharma'],                                            studio:'Vidhu Vinod Chopra',  india:340,  ww:769,  ow:95, ff:35.06,lb:3.8},
@@ -1864,9 +1864,10 @@ var YR_DATA = {
   </div>
 <div style="max-width:960px;margin:0 auto;padding:2rem">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:2rem;flex-wrap:wrap">
-      <button class="rec-tab on" onclick="setRecSection('footfalls',this)">Footfall Milestones</button>
-      <button class="rec-tab" onclick="setRecSection('boxoffice',this)">Box Office Milestones</button>
-      <button class="rec-tab" onclick="setRecSection('franchise',this)">Franchise Totals</button>
+    <button class="rec-tab on" onclick="setRecSection('footfalls',this)">Footfall Milestones</button>
+<button class="rec-tab" onclick="setRecSection('boxoffice',this)">Box Office Milestones</button>
+<button class="rec-tab" onclick="setRecSection('franchise',this)">Franchise Totals</button>
+<button class="rec-tab" onclick="setRecSection('profitable',this)">Most Profitable</button>
     </div>
 
     <!-- FOOTFALLS SECTION -->
@@ -1910,6 +1911,14 @@ var YR_DATA = {
         <strong style="color:rgba(255,255,255,.45)">Note:</strong> Totals are calculated dynamically from films in the database. Franchise groupings are manually curated.
       </div>
     </div>
+  <!-- MOST PROFITABLE SECTION -->
+<div id="rec-sec-profitable" style="display:none">
+  <div id="profit-chart-lbl" style="font-size:.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem">Most Profitable Films · By ROI</div>
+  <div id="profit-chart"></div>
+  <div class="ff-note" style="margin-top:1.5rem;border-left-color:rgba(34,197,94,.3);background:rgba(34,197,94,.04)">
+    <strong style="color:rgba(255,255,255,.45)">Note:</strong> ROI = worldwide gross ÷ budget. Only includes films with a known budget on record. Multiplier does not account for print & advertising costs or revenue-sharing.
+  </div>
+</div>
   </div>
   <footer>Box Office India · All milestones calculated from master database</footer>
 </div>
@@ -9726,7 +9735,8 @@ function setRecSection(sec,btn){
   document.querySelectorAll('.page#page-records .rec-tab[onclick*="setRecSection"]').forEach(function(b){b.classList.remove('on');});
   btn.classList.add('on');
   if(sec==='boxoffice') renderBORecords();
-  if(sec==='franchise') renderFranchiseRecords();   // ★ new
+  if(sec==='franchise') renderFranchiseRecords();
+  if(sec==='profitable') renderProfitableRecords();
 }
 
 function setFFTab(tab,btn){
@@ -9898,13 +9908,38 @@ function getFranchiseTotals(){
       return FILMS.find(function(f){ return f.n.toLowerCase().trim()===ref.n.toLowerCase().trim() && f.y===ref.y; });
     }).filter(Boolean);
     var totalWW = matched.reduce(function(s,f){ return s+(f.ww||0); },0);
-    totalWW = Math.round(totalWW*100)/100;   // ★ round to 2 decimals
+    totalWW = Math.round(totalWW*100)/100;
     return {name:fr.name, count:matched.length, total:totalWW, films:matched};
   }).filter(function(fr){ return fr.total>0; })
     .sort(function(a,b){ return b.total-a.total; });
 }
-  
-          
+
+function getMostProfitable(){
+  return FILMS.filter(function(f){ return f.ww!=null && f.budget!=null && f.budget>0; })
+    .map(function(f){
+      var roi = Math.round((f.ww/f.budget)*100)/100;
+      return {n:f.n, y:f.y, l:f.l, ww:f.ww, budget:f.budget, roi:roi};
+    })
+    .sort(function(a,b){ return b.roi-a.roi; });
+}
+  function renderProfitableRecords(){
+  var data = getMostProfitable();
+  var maxRoi = data.length ? data[0].roi : 1;
+  document.getElementById('profit-chart-lbl').textContent = data.length+' films with known budgets';
+  document.getElementById('profit-chart').innerHTML = data.map(function(d,i){
+    var pct = Math.round(d.roi/maxRoi*100);
+    var isTop = i<3;
+    var col = LC[d.l]||'#888';
+    var hasPg = !!getFilmPage(d.n);
+    return '<div class="rec-row" style="cursor:'+(hasPg?'pointer':'default')+'" onclick="maybeOpenFilm(\''+d.n.replace(/'/g,"\\'")+'\')">' +
+      '<span class="rec-rank'+(isTop?' t3':'')+'">&#35;'+(i+1)+'</span>' +
+      '<span class="rec-name">'+d.n+' <span style="font-size:.6rem;color:'+col+'">('+d.y+')</span></span>' +
+      '<div class="rec-bar-wrap"><div class="rec-bar-bg"><div class="rec-bar-fill" style="width:'+pct+'%;background:'+(isTop?'linear-gradient(90deg,#0d4d00,var(--green))':'linear-gradient(90deg,#1a3d0d,#3d7a1a)')+'"><span class="rec-bar-lbl">₹'+d.budget+' Cr → ₹'+d.ww+' Cr</span></div></div></div>' +
+      '<span class="rec-count" style="color:var(--green)">'+d.roi+'×</span>' +
+    '</div>';
+  }).join('');
+}
+
 renderFFRecords();
 
 // ═══════════════════════════════════════
