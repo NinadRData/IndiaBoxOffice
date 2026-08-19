@@ -9694,26 +9694,32 @@ function renderActor(){
   var fms=getActorFilms(actor);
   if(!fms.length){empty.style.display='block';empty.textContent='No films found for '+actor;return;}
 
-      var withFF=fms.filter(function(f){return f.ff>0;});
+   var withFF=fms.filter(function(f){return f.ff>0;});
   var withBO=fms.filter(function(f){return f.bo>0;});
   var withLB=fms.filter(function(f){return f.lb>0;});
   var topFF=withFF.length?withFF.reduce(function(a,b){return b.ff>a.ff?b:a;}):null;
   var topBO=withBO.length?withBO.reduce(function(a,b){return b.bo>a.bo?b:a;}):null;
   var totalFF=withFF.reduce(function(s,f){return s+f.ff;},0);
   var avgLB=withLB.length?(withLB.reduce(function(s,f){return s+f.lb;},0)/withLB.length).toFixed(2):null;
+  var withOW=fms.filter(function(f){return f.ow>0;});
+  var withIndia=fms.filter(function(f){return f.india>0;});
+  var totalOW=withOW.reduce(function(s,f){return s+f.ow;},0);
+  var totalIndia=withIndia.reduce(function(s,f){return s+f.india;},0);
 
   statsEl.className='stat-grid';
-  statsEl.innerHTML=[
-    {l:'Total Films',v:fms.length,s:'in database'},
-    {l:'Career Span',v:fms[0].y+'–'+fms[fms.length-1].y,s:(fms[fms.length-1].y-fms[0].y)+' years'},
-    {l:'Peak Footfalls',v:topFF?topFF.ff+'M':'—',s:topFF?topFF.n:'No data'},
-    {l:'Biggest Grosser',v:topBO?'₹'+topBO.bo+' Cr':'—',s:topBO?topBO.n:'No data'},
-    {l:'Career Footfalls',v:totalFF.toFixed(1)+'M',s:'combined'},
-    {l:'Avg Footfalls/Film',v:withFF.length?(totalFF/withFF.length).toFixed(1)+'M':'—',s:'across '+withFF.length+' films'},
-    {l:'Avg Letterboxd',v:avgLB?avgLB+' / 5':'—',s:withLB.length+' rated films'},
-  ].map(function(m){
-    return '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">'+m.l+'</div><div class="stat-val" style="color:var(--purple)">'+m.v+'</div><div class="stat-sub">'+m.s+'</div></div>';
-  }).join('');
+statsEl.innerHTML=[
+  {l:'Total Films',v:fms.length,s:'in database'},
+  {l:'Career Span',v:fms[0].y+'–'+fms[fms.length-1].y,s:(fms[fms.length-1].y-fms[0].y)+' years'},
+  {l:'Peak Footfalls',v:topFF?topFF.ff+'M':'—',s:topFF?topFF.n:'No data'},
+  {l:'Biggest Grosser',v:topBO?'₹'+topBO.bo+' Cr':'—',s:topBO?topBO.n:'No data'},
+  {l:'Career Footfalls',v:totalFF.toFixed(1)+'M',s:'combined'},
+  {l:'Avg Footfalls/Film',v:withFF.length?(totalFF/withFF.length).toFixed(1)+'M':'—',s:'across '+withFF.length+' films'},
+  {l:'Avg Letterboxd',v:avgLB?avgLB+' / 5':'—',s:withLB.length+' rated films'},
+  {l:'Avg Opening Wknd',v:withOW.length?'₹'+(totalOW/withOW.length).toFixed(1)+' Cr':'—',s:'across '+withOW.length+' films'},
+  {l:'Avg India Net',v:withIndia.length?'₹'+(totalIndia/withIndia.length).toFixed(1)+' Cr':'—',s:'across '+withIndia.length+' films'},
+].map(function(m){
+  return '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">'+m.l+'</div><div class="stat-val" style="color:var(--purple)">'+m.v+'</div><div class="stat-sub">'+m.s+'</div></div>';
+}).join('');
 
   var chartFms=fms.slice().sort(function(a,b){return a.y-b.y;}).filter(function(f){return f.ff>0;});
   var maxCFF=Math.max.apply(null,chartFms.map(function(f){return f.ff;}));
