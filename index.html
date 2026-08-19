@@ -1913,6 +1913,14 @@ var YR_DATA = {
     </div>
   <!-- MOST PROFITABLE SECTION -->
 <div id="rec-sec-profitable" style="display:none">
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem" id="prof-lang-filters">
+    <button class="lf on" onclick="setProfLangFilter('all',this)">All</button>
+    <button class="lf" onclick="setProfLangFilter('Hindi',this)">Hindi</button>
+    <button class="lf" onclick="setProfLangFilter('Telugu',this)">Telugu</button>
+    <button class="lf" onclick="setProfLangFilter('Tamil',this)">Tamil</button>
+    <button class="lf" onclick="setProfLangFilter('Kannada',this)">Kannada</button>
+    <button class="lf" onclick="setProfLangFilter('Malayalam',this)">Malayalam</button>
+  </div>
   <div id="profit-chart-lbl" style="font-size:.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem">Most Profitable Films · By ROI</div>
   <div id="profit-chart"></div>
   <div class="ff-note" style="margin-top:1.5rem;border-left-color:rgba(34,197,94,.3);background:rgba(34,197,94,.04)">
@@ -9913,7 +9921,14 @@ function getFranchiseTotals(){
   }).filter(function(fr){ return fr.total>0; })
     .sort(function(a,b){ return b.total-a.total; });
 }
-
+var profLangFilter = 'all';
+function setProfLangFilter(l, btn){
+  profLangFilter = l;
+  document.querySelectorAll('#prof-lang-filters .lf').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  renderProfitableRecords();
+}
+  
 function getMostProfitable(){
   return FILMS.filter(function(f){ return f.ww!=null && f.budget!=null && f.budget>0; })
     .map(function(f){
@@ -9922,8 +9937,10 @@ function getMostProfitable(){
     })
     .sort(function(a,b){ return b.roi-a.roi; });
 }
-  function renderProfitableRecords(){
+  
+function renderProfitableRecords(){
   var data = getMostProfitable();
+  if (profLangFilter !== 'all') data = data.filter(function(d){ return d.l === profLangFilter; });
   var maxRoi = data.length ? data[0].roi : 1;
   document.getElementById('profit-chart-lbl').textContent = data.length+' films with known budgets';
   document.getElementById('profit-chart').innerHTML = data.map(function(d,i){
