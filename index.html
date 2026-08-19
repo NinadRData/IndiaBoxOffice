@@ -1832,22 +1832,23 @@ var YR_DATA = {
     </div>
   </div>
   <div style="max-width:960px;margin:0 auto;padding:2rem">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
-      <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actor</div>
-      <div style="position:relative">
-        <select id="actorSelect" style="appearance:none;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2.5rem .55rem 1rem;cursor:pointer;outline:none;min-width:220px" onchange="renderActor()">
-          <option value="">— Choose Actor —</option>
-        </select>
-        <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(192,132,252,.6);font-size:.7rem">▼</div>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <button class="sort-btn" onclick="setSort('year',this)">Year</button>
-     <button class="sort-btn" onclick="setSort('openingweekend',this)">Opening Weekend</button>   <!-- ★ new -->
-     <button class="sort-btn" onclick="setSort('footfalls',this)">Footfalls</button>
-     <button class="sort-btn" onclick="setSort('boxoffice',this)">Box Office</button>
-     <button class="sort-btn" onclick="setSort('letterboxd',this)">Letterboxd</button>
-      </div>
-    </div>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
+  <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actor</div>
+  <div style="position:relative;min-width:220px">
+    <input id="actorSearch-input" type="text" placeholder="Search actor..." autocomplete="off"
+      oninput="filterActorSearch()" onfocus="filterActorSearch()"
+      onblur="setTimeout(function(){var d=document.getElementById('actorSearch-drop');if(d)d.style.display='none';},220)"
+      style="width:100%;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 1rem;outline:none;box-sizing:border-box">
+    <div id="actorSearch-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:4px;max-height:240px;overflow-y:auto;z-index:200"></div>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap">
+    <button class="sort-btn" onclick="setSort('year',this)">Year</button>
+    <button class="sort-btn" onclick="setSort('openingweekend',this)">Opening Weekend</button>
+    <button class="sort-btn" onclick="setSort('footfalls',this)">Footfalls</button>
+    <button class="sort-btn" onclick="setSort('boxoffice',this)">Box Office</button>
+    <button class="sort-btn" onclick="setSort('letterboxd',this)">Letterboxd</button>
+  </div>
+</div>
     <div id="actor-stats-wrap"></div>
     <div id="actor-chart-wrap"></div>
     <div id="actor-table-wrap"></div>
@@ -9608,12 +9609,33 @@ renderFF();
 // ACTORS PAGE
 // ═══════════════════════════════════════
 var curActorSort='year';
-// Populate dropdown from all actors in FILMS + ACTOR_SUPP
-var ALLOWED_ACTORS = ['Akshay Kumar','Amitabh Bachchan','Chiranjeevi','Dilip Kumar','Rajesh Khanna','Raj Kapoor','Dharmendra','Vinod Khanna','Sunny Deol','Shah Rukh Khan','Aamir Khan','Salman Khan','Shashi Kapoor','Rajinikanth','Ranbir Kapoor','Ranveer Singh','Kamal Haasan','Prabhas','Hrithik Roshan','Vijay', 'Ajay Devgn'];
-var sel=document.getElementById('actorSelect');
-ALLOWED_ACTORS.forEach(function(a){
-  var o=document.createElement('option');o.value=a;o.textContent=a;sel.appendChild(o);
-});
+var currentActor='';
+var ALLOWED_ACTORS = ['Akshay Kumar','Amitabh Bachchan','Chiranjeevi', ... ,'Ajay Devgn'];
+
+function filterActorSearch() {
+  var inp = document.getElementById('actorSearch-input');
+  var drop = document.getElementById('actorSearch-drop');
+  if (!inp || !drop) return;
+  var q = inp.value.trim().toLowerCase();
+  var matches = ALLOWED_ACTORS.filter(function(a){ return a.toLowerCase().indexOf(q) >= 0; });
+  if (!matches.length) { drop.style.display='none'; return; }
+  drop.innerHTML = matches.map(function(a){
+    return '<div onmousedown="selectActorSearch(\''+a.replace(/'/g,"\\'")+'\')" style="padding:.5rem .8rem;font-size:.8rem;color:rgba(255,255,255,.75);cursor:pointer" onmouseover="this.style.background=\'rgba(192,132,252,.12)\'" onmouseout="this.style.background=\'\'">'+a+'</div>';
+  }).join('');
+  drop.style.display = 'block';
+}
+
+function selectActorSearch(name) {
+  var inp = document.getElementById('actorSearch-input');
+  var drop = document.getElementById('actorSearch-drop');
+  if (inp) inp.value = name;
+  if (drop) drop.style.display = 'none';
+  currentActor = name;
+  renderActor();
+}
+
+function setSort(s,btn){
+  ...
 
 function setSort(s,btn){
   curActorSort=s;
@@ -9666,7 +9688,7 @@ function applyActorHero(actor) {
 }
 
 function renderActor(){
-  var actor=document.getElementById('actorSelect').value;
+  var actor=currentActor||''; 
   var empty=document.getElementById('actor-empty');
   var statsEl=document.getElementById('actor-stats-wrap');
   var chartEl=document.getElementById('actor-chart-wrap');
