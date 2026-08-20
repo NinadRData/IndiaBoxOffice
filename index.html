@@ -10060,7 +10060,21 @@ function renderBORecords(){
         '<span style="font-size:.7rem;color:rgba(255,255,255,.2);margin-left:8px;display:inline-block;transform:rotate('+(isOpen?90:0)+'deg);transition:transform .2s">▶</span>' +
       '</div>'+filmHtml+'</div>';
   }).join('');
-}   // ★ ADD THIS — closes renderBORecords()
+
+  // Strike rate
+  var strikeData=data.slice(0,10).map(function(d){
+    var total=d.count+d.sub;
+    return {name:d.name,hits:d.count,total:total,rate:total?Math.round(d.count/total*100):0};
+  }).sort(function(a,b){return b.rate-a.rate;});
+  document.getElementById('bo-strike').innerHTML=strikeData.map(function(d,i){
+    return '<div class="rec-row">' +
+      '<span class="rec-rank'+(i<3?' t3':'')+'">&#35;'+(i+1)+'</span>' +
+      '<span class="rec-name">'+d.name+'</span>' +
+      '<div class="rec-bar-wrap"><div class="rec-bar-bg"><div class="rec-bar-fill" style="width:'+d.rate+'%;background:linear-gradient(90deg,#0d4d00,var(--green))"><span class="rec-bar-lbl">'+d.rate+'%</span></div></div></div>' +
+      '<span class="rec-count" style="color:var(--green)">'+d.rate+'%</span>' +
+    '</div>';
+  }).join('');
+}
 
 var curOWTab='50cr';
 var openOWActor=null;
@@ -10101,20 +10115,6 @@ function renderOWRecords(){
         '<span class="rec-count">'+d.count+'</span>' +
         '<span style="font-size:.7rem;color:rgba(255,255,255,.2);margin-left:8px;display:inline-block;transform:rotate('+(isOpen?90:0)+'deg);transition:transform .2s">▶</span>' +
       '</div>'+filmHtml+'</div>';
-  }).join('');
-}
-  // Strike rate
-  var strikeData=data.slice(0,10).map(function(d){
-    var total=d.count+d.sub;
-    return {name:d.name,hits:d.count,total:total,rate:total?Math.round(d.count/total*100):0};
-  }).sort(function(a,b){return b.rate-a.rate;});
-  document.getElementById('bo-strike').innerHTML=strikeData.map(function(d,i){
-    return '<div class="rec-row">' +
-      '<span class="rec-rank'+(i<3?' t3':'')+'">&#35;'+(i+1)+'</span>' +
-      '<span class="rec-name">'+d.name+'</span>' +
-      '<div class="rec-bar-wrap"><div class="rec-bar-bg"><div class="rec-bar-fill" style="width:'+d.rate+'%;background:linear-gradient(90deg,#0d4d00,var(--green))"><span class="rec-bar-lbl">'+d.rate+'%</span></div></div></div>' +
-      '<span class="rec-count" style="color:var(--green)">'+d.rate+'%</span>' +
-    '</div>';
   }).join('');
 }
 var FRANCHISES = [
