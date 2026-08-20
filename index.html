@@ -1296,6 +1296,54 @@ function getBOMilestones(threshold) {
 
   return result;
 }
+  var OW_THRESHOLDS = {'50cr':50, '100cr':100, '200cr':200};
+
+function getOWMilestones(threshold) {
+  var minOW = OW_THRESHOLDS[threshold];
+  var actorMap = {};
+  var filmsByActor = {};
+  var seenByActor = {};
+
+  function creditActor(a, key, filmObj, qualifies) {
+    if (ACTRESS_LIST.indexOf(a) >= 0) return;
+    if (!seenByActor[a]) seenByActor[a] = {};
+    if (seenByActor[a][key]) return;
+    seenByActor[a][key] = true;
+    if (qualifies) {
+      if (!actorMap[a]) { actorMap[a] = 0; filmsByActor[a] = []; }
+      actorMap[a]++;
+      filmsByActor[a].push(filmObj);
+    }
+  }
+
+  FILMS.forEach(function(f) {
+    if (f.ow == null) return;
+    var key = f.n.toLowerCase().trim() + '|' + f.y;
+    (f.actors||[]).forEach(function(a) {
+      creditActor(a, key, {n:f.n, y:f.y, ow:f.ow}, f.ow >= minOW);
+    });
+  });
+
+  Object.keys(ACTOR_SUPP).forEach(function(actor) {
+    if (ACTRESS_LIST.indexOf(actor) >= 0) return;
+    ACTOR_SUPP[actor].forEach(function(f) {
+      if (f.ow == null) return;
+      var key = f.n.toLowerCase().trim() + '|' + f.y;
+      creditActor(actor, key, {n:f.n, y:f.y, ow:f.ow}, f.ow >= minOW);
+    });
+  });
+
+  Object.keys(filmsByActor).forEach(function(a) {
+    filmsByActor[a].sort(function(x,y){ return y.ow - x.ow; });
+  });
+
+  var result = Object.keys(actorMap).map(function(a) {
+    return {name:a, count:actorMap[a], films:filmsByActor[a]};
+  }).sort(function(a,b){ return b.count - a.count; });
+
+  return result;
+}
+  
 
 // Get all films for a given actor (master + supp merged, deduped)
 function getActorFilms(actor) {
@@ -1894,6 +1942,7 @@ var YR_DATA = {
 <button class="rec-tab" onclick="setRecSection('boxoffice',this)">Box Office Milestones</button>
 <button class="rec-tab" onclick="setRecSection('franchise',this)">Franchise Totals</button>
 <button class="rec-tab" onclick="setRecSection('profitable',this)">Most Profitable</button>
+<button class="rec-tab" onclick="setRecSection('opening',this)">Opening Weekend Milestones</button>
     </div>
 
     <!-- FOOTFALLS SECTION -->
@@ -1951,6 +2000,20 @@ var YR_DATA = {
   <div id="profit-chart"></div>
   <div class="ff-note" style="margin-top:1.5rem;border-left-color:rgba(34,197,94,.3);background:rgba(34,197,94,.04)">
     <strong style="color:rgba(255,255,255,.45)">Note:</strong> ROI = worldwide gross ÷ budget. Only includes films with a known budget on record. Multiplier does not account for print & advertising costs or revenue-sharing.
+  </div>
+</div>
+  <!-- OPENING WEEKEND SECTION -->
+<div id="rec-sec-opening" style="display:none">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap">
+    <span style="font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25)">Threshold</span>
+    <button class="rec-tab on" id="owt-50cr" onclick="setOWTab('50cr',this)">50 Cr+</button>
+    <button class="rec-tab" id="owt-100cr" onclick="setOWTab('100cr',this)">100 Cr+</button>
+    <button class="rec-tab" id="owt-200cr" onclick="setOWTab('200cr',this)">200 Cr+</button>
+  </div>
+  <div style="font-size:.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem" id="ow-chart-lbl"></div>
+  <div id="ow-chart"></div>
+  <div class="ff-note" style="margin-top:1.5rem;border-left-color:rgba(79,195,247,.3);background:rgba(79,195,247,.04)">
+    <strong style="color:rgba(255,255,255,.45)">Note:</strong> Calculated dynamically from films in the database with recorded opening weekend figures.
   </div>
 </div>
   </div>
@@ -9864,6 +9927,7 @@ function setRecSection(sec,btn){
   if(sec==='boxoffice') renderBORecords();
   if(sec==='franchise') renderFranchiseRecords();
   if(sec==='profitable') renderProfitableRecords();
+      if(sec==='opening') renderOWRecords();
 }
 
 function setFFTab(tab,btn){
@@ -9996,6 +10060,47 @@ function renderBORecords(){
         '<span style="font-size:.7rem;color:rgba(255,255,255,.2);margin-left:8px;display:inline-block;transform:rotate('+(isOpen?90:0)+'deg);transition:transform .2s">▶</span>' +
       '</div>'+filmHtml+'</div>';
   }).join('');
+      var curOWTab='50cr';
+var openOWActor=null;
+function toggleOWActor(name){openOWActor=openOWActor===name?null:name;renderOWRecords();}
+
+function setOWTab(tab,btn){
+  curOWTab=tab;
+  document.querySelectorAll('[id^="owt-"]').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  openOWActor=null;
+  renderOWRecords();
+}
+
+function renderOWRecords(){
+  var data=getOWMilestones(curOWTab);
+  document.getElementById('ow-chart-lbl').textContent='Films ₹'+curOWTab.replace('cr','')+' Cr+ Opening Weekend · By Actor ('+data.length+' actors)';
+  var maxCount=data.length?data[0].count:1;
+  document.getElementById('ow-chart').innerHTML=data.slice(0,10).map(function(d,i){
+    var pct=Math.round(d.count/maxCount*100);
+    var isTop=i<3;
+    var isOpen=openOWActor===d.name;
+    var filmHtml='';
+    if(isOpen&&d.films.length){
+      filmHtml='<div style="padding:.55rem .55rem .55rem 2.8rem;background:rgba(79,195,247,.04);border-top:0.5px solid rgba(79,195,247,.1);display:flex;flex-wrap:wrap;gap:5px 10px">'+
+        d.films.map(function(f,fi){
+          return '<span style="font-size:.65rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:3px">' +
+            '<span style="color:rgba(79,195,247,.4);font-size:.6rem">'+(fi+1)+'.</span>'+
+            f.n+'<span style="color:rgba(255,255,255,.22);font-size:.6rem">('+f.y+')</span>'+
+            '<span style="color:var(--blue);font-size:.62rem;margin-left:2px">₹'+f.ow+' Cr</span>'+
+          '</span>';
+        }).join('')+'</div>';
+    }
+    return '<div style="border-bottom:0.5px solid rgba(255,255,255,.04)">' +
+      '<div class="rec-row" onclick="toggleOWActor(\''+d.name.replace(/'/g,"\\'")+'\');" style="cursor:pointer;border-bottom:none;padding-right:8px">' +
+        '<span class="rec-rank'+(isTop?' t3':'')+'">&#35;'+(i+1)+'</span>' +
+        '<span class="rec-name">'+d.name+'</span>' +
+        '<div class="rec-bar-wrap"><div class="rec-bar-bg"><div class="rec-bar-fill" style="width:'+pct+'%;background:'+(isTop?'linear-gradient(90deg,#0277bd,var(--blue))':'linear-gradient(90deg,#013a52,#025b82)')+'"><span class="rec-bar-lbl">'+d.count+' films</span></div></div></div>' +
+        '<span class="rec-count">'+d.count+'</span>' +
+        '<span style="font-size:.7rem;color:rgba(255,255,255,.2);margin-left:8px;display:inline-block;transform:rotate('+(isOpen?90:0)+'deg);transition:transform .2s">▶</span>' +
+      '</div>'+filmHtml+'</div>';
+  }).join('');
+}
 
   // Strike rate
   var strikeData=data.slice(0,10).map(function(d){
