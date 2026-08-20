@@ -391,8 +391,9 @@ var FILMS = [
 {n:'KGF: Chapter 1', y:2018, l:'Kannada', actors:['Yash'], studio:'Hombale Films', india:185.25, ww:238, ow:57.7, ff:null, lb:null},
  
   {n:'Teri Baaton Mein Aisa Uljha Jiya',y:2024,l:'Hindi',  actors:['Shahid Kapoor','Kriti Sanon'],                            studio:'Maddock',              india:81,  ww:134, ow:27,  ff:null, lb:3.1},
-  {n:'Awarapan 2',y:2026,l:'Hindi', actors:['Emraan Hashmi','Disha Patani'], studio:'Vishesh Films', india:81.75, ww:110.10, ow:81.75, ff:null, lb:null},
-  {n:'Viswanath and Sons',y:2026,l:'Tamil', actors:['Suriya'], studio:'TBA', india:58.15, ww:110.22, ow:58.15, ff:null, lb:null},
+ {n:'Awarapan 2',y:2026,l:'Hindi', actors:['Emraan Hashmi','Disha Patani'], studio:'Vishesh Films', india:107.50, ww:153.59, ow:81.75, ff:null, lb:null},
+{n:'Viswanath and Sons',y:2026,l:'Tamil', actors:['Suriya'], studio:'TBA', india:77.40, ww:135, ow:58.15, ff:null, lb:null},
+  {n:'Batwara 1947', y:2026, l:'Hindi', actors:['Sunny Deol'], studio:'Aamir Khan Studios', india:32.15, ww:45.42, ow:26.50, ff:null, lb:null},
   {n:'Crew',   y:2024, l:'Hindi', actors:['Kriti Sanon','Kareena Kapoor'], studio:'Balaji Motion Pictures', india:89.92,  ww:157.08, ow:32.60, ff:null, lb:null},
 {n:'Munjya', y:2024, l:'Hindi', actors:[], studio:'Maddock Films',   india:107.48, ww:132.12, ow:20.00, ff:null, lb:null},
   {n:'Guntur Karaam', y:2024, l:'Telugu', actors:[], studio:'Haarika Creations', india:127.42, ww:181.38, ow:69, ff:null, lb:null},
@@ -1831,21 +1832,15 @@ var YR_DATA = {
       <div id="actor-hero-sub" style="font-size:.82rem;color:rgba(255,255,255,.38);max-width:540px;line-height:1.65">Complete filmographies with box office and footfall data.</div>
     </div>
   </div>
-  <div style="max-width:960px;margin:0 auto;padding:2rem">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
-  <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actor</div>
-  <div style="position:relative;min-width:220px">
-    <input id="actorSearch-input" type="text" placeholder="Search actor..." autocomplete="off"
-      oninput="filterActorSearch()" onfocus="filterActorSearch()"
-      onblur="setTimeout(function(){var d=document.getElementById('actorSearch-drop');if(d)d.style.display='none';},220)"
-      style="width:100%;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 1rem;outline:none;box-sizing:border-box">
-    <div id="actorSearch-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:4px;max-height:240px;overflow-y:auto;z-index:200"></div>
-  </div>
-     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
+    <div style="max-width:960px;margin:0 auto;padding:2rem">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
       <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actor</div>
       <div style="position:relative;min-width:220px">
-        <input id="actorSearch-input" ... >
-        <div id="actorSearch-drop" ...></div>
+        <input id="actorSearch-input" type="text" placeholder="Search actor..." autocomplete="off"
+          oninput="filterActorSearch()" onfocus="filterActorSearch()"
+          onblur="setTimeout(function(){var d=document.getElementById('actorSearch-drop');if(d)d.style.display='none';},220)"
+          style="width:100%;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 1rem;outline:none;box-sizing:border-box">
+        <div id="actorSearch-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:4px;max-height:240px;overflow-y:auto;z-index:200"></div>
       </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="sort-btn" onclick="setSort('year',this)">Year</button>
