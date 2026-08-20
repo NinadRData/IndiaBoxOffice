@@ -1853,23 +1853,23 @@ var YR_DATA = {
         <button class="sort-btn" onclick="setSort('letterboxd',this)">Letterboxd</button>
       </div>
     </div>
-    <div id="actor-range-wrap" style="display:none;margin-bottom:1rem">
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:.6rem">
-        <span style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)">Range</span>
-        <button class="lf on" onclick="setActorRange('all',this)">All Films</button>
-        <button class="lf" onclick="setActorRange(5,this)">Last 5</button>
-        <button class="lf" onclick="setActorRange(10,this)">Last 10</button>
-        <button class="lf" onclick="setActorRange(15,this)">Last 15</button>
-        <button class="lf" onclick="setActorRange('custom',this)">Custom Years</button>
-      </div>
-      <div id="actor-range-custom" style="display:none;align-items:center;gap:8px;margin-bottom:.75rem">
-        <input id="actor-range-from" type="number" placeholder="From year" style="width:100px;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:3px;color:#fff;font-size:.75rem;padding:.35rem .5rem">
-        <span style="color:rgba(255,255,255,.3);font-size:.75rem">to</span>
-        <input id="actor-range-to" type="number" placeholder="To year" style="width:100px;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:3px;color:#fff;font-size:.75rem;padding:.35rem .5rem">
-        <button onclick="applyActorCustomRange()" style="font-size:.7rem;font-weight:700;padding:5px 12px;border-radius:3px;border:none;background:var(--purple);color:#000;cursor:pointer">Apply</button>
-      </div>
-      <div id="actor-range-result"></div>
-    </div>
+   <div id="actor-range-wrap" style="display:none;margin-bottom:1.5rem;background:var(--bg3);border:0.5px solid rgba(192,132,252,.15);border-radius:6px;padding:1rem 1.1rem">
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:.6rem">
+    <span style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)">Range</span>
+    <button class="lf on" onclick="setActorRange('all',this)">All Films</button>
+    <button class="lf" onclick="setActorRange(5,this)">Last 5</button>
+    <button class="lf" onclick="setActorRange(10,this)">Last 10</button>
+    <button class="lf" onclick="setActorRange(15,this)">Last 15</button>
+    <button class="lf" onclick="setActorRange('custom',this)">Custom Years</button>
+  </div>
+  <div id="actor-range-custom" style="display:none;align-items:center;gap:8px;margin-bottom:.75rem">
+    <input id="actor-range-from" type="number" placeholder="From year" style="width:100px;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:3px;color:#fff;font-size:.75rem;padding:.35rem .5rem">
+    <span style="color:rgba(255,255,255,.3);font-size:.75rem">to</span>
+    <input id="actor-range-to" type="number" placeholder="To year" style="width:100px;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:3px;color:#fff;font-size:.75rem;padding:.35rem .5rem">
+    <button onclick="applyActorCustomRange()" style="font-size:.7rem;font-weight:700;padding:5px 12px;border-radius:3px;border:none;background:var(--purple);color:#000;cursor:pointer">Apply</button>
+  </div>
+  <div id="actor-range-result"></div>
+</div>
     <div id="actor-stats-wrap"></div>
     <div id="actor-chart-wrap"></div>
     <div id="actor-table-wrap"></div>
