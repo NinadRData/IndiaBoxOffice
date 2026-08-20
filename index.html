@@ -1835,13 +1835,16 @@ var YR_DATA = {
     <div style="max-width:960px;margin:0 auto;padding:2rem">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
       <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actor</div>
-      <div style="position:relative;min-width:220px">
-        <input id="actorSearch-input" type="text" placeholder="Search actor..." autocomplete="off"
-          oninput="filterActorSearch()" onfocus="filterActorSearch()"
-          onblur="setTimeout(function(){var d=document.getElementById('actorSearch-drop');if(d)d.style.display='none';},220)"
-          style="width:100%;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 1rem;outline:none;box-sizing:border-box">
-        <div id="actorSearch-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:4px;max-height:240px;overflow-y:auto;z-index:200"></div>
-      </div>
+     <div style="position:relative;min-width:220px;display:flex;align-items:center;gap:6px">
+  <div style="position:relative;flex:1">
+    <input id="actorSearch-input" type="text" placeholder="Search actor..." autocomplete="off"
+      oninput="filterActorSearch()" onfocus="filterActorSearch()"
+      onblur="setTimeout(function(){var d=document.getElementById('actorSearch-drop');if(d)d.style.display='none';},220)"
+      style="width:100%;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 1rem;outline:none;box-sizing:border-box">
+    <div id="actorSearch-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:4px;max-height:240px;overflow-y:auto;z-index:200"></div>
+  </div>
+  <button onclick="clearActorSearch()" title="Clear" style="flex-shrink:0;width:28px;height:28px;border-radius:50%;border:0.5px solid rgba(192,132,252,.35);background:rgba(192,132,252,.08);color:rgba(192,132,252,.7);font-size:.85rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.background='rgba(192,132,252,.22)';this.style.color='#c084fc'" onmouseout="this.style.background='rgba(192,132,252,.08)';this.style.color='rgba(192,132,252,.7)'">✕</button>
+</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="sort-btn" onclick="setSort('year',this)">Year</button>
         <button class="sort-btn" onclick="setSort('openingweekend',this)">Opening Weekend</button>
@@ -9648,6 +9651,14 @@ function selectActorSearch(name) {
   if (inp) inp.value = name;
   if (drop) drop.style.display = 'none';
   currentActor = name;
+  renderActor();
+}
+  function clearActorSearch() {
+  var inp = document.getElementById('actorSearch-input');
+  var drop = document.getElementById('actorSearch-drop');
+  if (inp) inp.value = '';
+  if (drop) drop.style.display = 'none';
+  currentActor = '';
   renderActor();
 }
 function setSort(s,btn){
