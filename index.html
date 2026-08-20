@@ -1841,14 +1841,37 @@ var YR_DATA = {
       style="width:100%;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 1rem;outline:none;box-sizing:border-box">
     <div id="actorSearch-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:4px;max-height:240px;overflow-y:auto;z-index:200"></div>
   </div>
-  <div style="display:flex;gap:6px;flex-wrap:wrap">
-    <button class="sort-btn" onclick="setSort('year',this)">Year</button>
-    <button class="sort-btn" onclick="setSort('openingweekend',this)">Opening Weekend</button>
-    <button class="sort-btn" onclick="setSort('footfalls',this)">Footfalls</button>
-    <button class="sort-btn" onclick="setSort('boxoffice',this)">Box Office</button>
-    <button class="sort-btn" onclick="setSort('letterboxd',this)">Letterboxd</button>
-  </div>
-</div>
+     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
+      <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actor</div>
+      <div style="position:relative;min-width:220px">
+        <input id="actorSearch-input" ... >
+        <div id="actorSearch-drop" ...></div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="sort-btn" onclick="setSort('year',this)">Year</button>
+        <button class="sort-btn" onclick="setSort('openingweekend',this)">Opening Weekend</button>
+        <button class="sort-btn" onclick="setSort('footfalls',this)">Footfalls</button>
+        <button class="sort-btn" onclick="setSort('boxoffice',this)">Box Office</button>
+        <button class="sort-btn" onclick="setSort('letterboxd',this)">Letterboxd</button>
+      </div>
+    </div>
+    <div id="actor-range-wrap" style="display:none;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:.6rem">
+        <span style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)">Range</span>
+        <button class="lf on" onclick="setActorRange('all',this)">All Films</button>
+        <button class="lf" onclick="setActorRange(5,this)">Last 5</button>
+        <button class="lf" onclick="setActorRange(10,this)">Last 10</button>
+        <button class="lf" onclick="setActorRange(15,this)">Last 15</button>
+        <button class="lf" onclick="setActorRange('custom',this)">Custom Years</button>
+      </div>
+      <div id="actor-range-custom" style="display:none;align-items:center;gap:8px;margin-bottom:.75rem">
+        <input id="actor-range-from" type="number" placeholder="From year" style="width:100px;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:3px;color:#fff;font-size:.75rem;padding:.35rem .5rem">
+        <span style="color:rgba(255,255,255,.3);font-size:.75rem">to</span>
+        <input id="actor-range-to" type="number" placeholder="To year" style="width:100px;background:#1a1a2e;border:0.5px solid rgba(192,132,252,.3);border-radius:3px;color:#fff;font-size:.75rem;padding:.35rem .5rem">
+        <button onclick="applyActorCustomRange()" style="font-size:.7rem;font-weight:700;padding:5px 12px;border-radius:3px;border:none;background:var(--purple);color:#000;cursor:pointer">Apply</button>
+      </div>
+      <div id="actor-range-result"></div>
+    </div>
     <div id="actor-stats-wrap"></div>
     <div id="actor-chart-wrap"></div>
     <div id="actor-table-wrap"></div>
@@ -9681,6 +9704,58 @@ function applyActorHero(actor) {
     }
   });
 }
+  var actorRangeMode = 'all';
+
+function setActorRange(mode, btn){
+  actorRangeMode = mode;
+  document.querySelectorAll('#actor-range-wrap .lf').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  var customEl = document.getElementById('actor-range-custom');
+  customEl.style.display = (mode === 'custom') ? 'flex' : 'none';
+  if (mode !== 'custom') computeActorRange();
+}
+
+function applyActorCustomRange(){
+  computeActorRange();
+}
+
+function computeActorRange(){
+  if (!currentActor) return;
+  var fms = getActorFilms(currentActor); // already sorted by year ascending
+  var subset;
+
+  if (actorRangeMode === 'all') {
+    subset = fms;
+  } else if (actorRangeMode === 'custom') {
+    var from = parseInt(document.getElementById('actor-range-from').value);
+    var to   = parseInt(document.getElementById('actor-range-to').value);
+    if (isNaN(from) || isNaN(to)) { document.getElementById('actor-range-result').innerHTML=''; return; }
+    subset = fms.filter(function(f){ return f.y >= from && f.y <= to; });
+  } else {
+    // "Last N" = most recent N by year
+    subset = fms.slice(-actorRangeMode);
+  }
+
+  var withOW = subset.filter(function(f){ return f.ow>0; });
+  var withIndia = subset.filter(function(f){ return f.india>0; });
+  var totalOW = withOW.reduce(function(s,f){ return s+f.ow; },0);
+  var totalIndia = withIndia.reduce(function(s,f){ return s+f.india; },0);
+  var avgOW = withOW.length ? (totalOW/withOW.length).toFixed(1) : null;
+  var avgIndia = withIndia.length ? (totalIndia/withIndia.length).toFixed(1) : null;
+
+  var label = actorRangeMode==='all' ? 'All '+subset.length+' films'
+    : actorRangeMode==='custom' ? subset.length+' films ('+document.getElementById('actor-range-from').value+'–'+document.getElementById('actor-range-to').value+')'
+    : 'Last '+subset.length+' films';
+
+  document.getElementById('actor-range-result').innerHTML =
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px">' +
+      '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">'+label+'</div><div class="stat-val" style="color:var(--purple);font-size:1rem">Range Summary</div></div>' +
+      '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">Avg Opening Wknd</div><div class="stat-val" style="color:var(--purple)">'+(avgOW?'₹'+avgOW+' Cr':'—')+'</div></div>' +
+      '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">Total Opening Wknd</div><div class="stat-val" style="color:var(--purple)">'+(totalOW?'₹'+totalOW.toFixed(1)+' Cr':'—')+'</div></div>' +
+      '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">Avg India Net</div><div class="stat-val" style="color:var(--purple)">'+(avgIndia?'₹'+avgIndia+' Cr':'—')+'</div></div>' +
+      '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">Total India Net</div><div class="stat-val" style="color:var(--purple)">'+(totalIndia?'₹'+totalIndia.toFixed(1)+' Cr':'—')+'</div></div>' +
+    '</div>';
+}
 
 function renderActor(){
   var actor=currentActor||''; 
@@ -9688,8 +9763,10 @@ function renderActor(){
   var statsEl=document.getElementById('actor-stats-wrap');
   var chartEl=document.getElementById('actor-chart-wrap');
   var tableEl=document.getElementById('actor-table-wrap');
-  if(!actor){empty.style.display='block';statsEl.innerHTML='';chartEl.innerHTML='';tableEl.innerHTML='';return;}
+  var rangeWrap=document.getElementById('actor-range-wrap');   // ★ new
+  if(!actor){empty.style.display='block';statsEl.innerHTML='';chartEl.innerHTML='';tableEl.innerHTML='';rangeWrap.style.display='none';return;}   // ★ added rangeWrap.style.display='none';
   empty.style.display='none';
+  rangeWrap.style.display='block';   // ★ new
   applyActorHero(actor);
   var fms=getActorFilms(actor);
   if(!fms.length){empty.style.display='block';empty.textContent='No films found for '+actor;return;}
@@ -9757,6 +9834,14 @@ tableEl.innerHTML='<div class="table-hdr"><div class="table-hdr-cell">Film</div>
   +'<div class="table-cell-r">'+starsHtml+'</div>'
 +'</div>';
     }).join('');
+
+  // ★ new — reset range selector to "All Films" whenever a new actor is rendered
+  actorRangeMode='all';
+  document.querySelectorAll('#actor-range-wrap .lf').forEach(function(b){b.classList.remove('on');});
+  var firstRangeBtn = document.querySelector('#actor-range-wrap .lf');
+  if (firstRangeBtn) firstRangeBtn.classList.add('on');
+  document.getElementById('actor-range-custom').style.display='none';
+  computeActorRange();
 }
 
 // ═══════════════════════════════════════
