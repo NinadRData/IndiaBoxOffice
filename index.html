@@ -10060,7 +10060,9 @@ function renderBORecords(){
         '<span style="font-size:.7rem;color:rgba(255,255,255,.2);margin-left:8px;display:inline-block;transform:rotate('+(isOpen?90:0)+'deg);transition:transform .2s">▶</span>' +
       '</div>'+filmHtml+'</div>';
   }).join('');
-      var curOWTab='50cr';
+}   // ★ ADD THIS — closes renderBORecords()
+
+var curOWTab='50cr';
 var openOWActor=null;
 function toggleOWActor(name){openOWActor=openOWActor===name?null:name;renderOWRecords();}
 
@@ -10101,7 +10103,6 @@ function renderOWRecords(){
       '</div>'+filmHtml+'</div>';
   }).join('');
 }
-
   // Strike rate
   var strikeData=data.slice(0,10).map(function(d){
     var total=d.count+d.sub;
