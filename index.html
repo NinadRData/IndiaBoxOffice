@@ -9812,10 +9812,13 @@ function computeActorRange(){
 
   var withOW = subset.filter(function(f){ return f.ow>0; });
   var withIndia = subset.filter(function(f){ return f.india>0; });
+  var withFF = subset.filter(function(f){ return f.ff>0; });   // ★ new
   var totalOW = withOW.reduce(function(s,f){ return s+f.ow; },0);
   var totalIndia = withIndia.reduce(function(s,f){ return s+f.india; },0);
+  var totalFF = withFF.reduce(function(s,f){ return s+f.ff; },0);   // ★ new
   var avgOW = withOW.length ? (totalOW/withOW.length).toFixed(1) : null;
   var avgIndia = withIndia.length ? (totalIndia/withIndia.length).toFixed(1) : null;
+  var avgFF = withFF.length ? (totalFF/withFF.length).toFixed(1) : null;   // ★ new
 
   var label = actorRangeMode==='all' ? 'All '+subset.length+' films'
     : actorRangeMode==='custom' ? subset.length+' films ('+document.getElementById('actor-range-from').value+'–'+document.getElementById('actor-range-to').value+')'
@@ -9828,6 +9831,7 @@ function computeActorRange(){
       '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">Total Opening Wknd</div><div class="stat-val" style="color:var(--purple)">'+(totalOW?'₹'+totalOW.toFixed(1)+' Cr':'—')+'</div></div>' +
       '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">Avg India Net</div><div class="stat-val" style="color:var(--purple)">'+(avgIndia?'₹'+avgIndia+' Cr':'—')+'</div></div>' +
       '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">Total India Net</div><div class="stat-val" style="color:var(--purple)">'+(totalIndia?'₹'+totalIndia.toFixed(1)+' Cr':'—')+'</div></div>' +
+      '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(192,132,252,.18)"><div class="stat-lbl">Avg Footfalls/Film</div><div class="stat-val" style="color:var(--purple)">'+(avgFF?avgFF+'M':'—')+'</div></div>' +
     '</div>';
 }
 
