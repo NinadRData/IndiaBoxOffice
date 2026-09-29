@@ -412,7 +412,7 @@ var FILMS = [
 {n:'Vikram Vedha',y:2022,l:'Hindi',actors:['Hrithik Roshan'],studio:'T-Series',india:78.66,ww:135.03,ow:36.94,ff:null,lb:null,budget:100},
 {n:'Thug Life',y:2025,l:'Tamil',actors:['Kamal Haasan'],studio:'Raaj Kamal Films International',india:48.16,ww:97.44,ow:21,ff:null,lb:null,budget:150},
 {n:'Indian 2',y:2024,l:'Tamil',actors:['Kamal Haasan'],studio:'Lyca Productions',india:81.39,ww:148.90,ow:59.15,ff:null,lb:null,budget:250},
-{n:'Haiwaan',y:2026,l:'Hindi',actors:['Akshay Kumar','Saif Ali Khan'],studio:'KVN Productions',india:5.5,ww:8.6,ow:5.5,ff:null,lb:null,budget:110},
+{n:'Haiwaan',y:2026,l:'Hindi',actors:['Akshay Kumar','Saif Ali Khan'],studio:'KVN Productions',india:9.92,ww:15.08,ow:5.5,ff:null,lb:null,budget:110},
   
 {n:'Sarvam Maya',y:2025,l:'Malayalam',actors:[],studio:'TBA',india:76.84,ww:151.25,ow:13.50,ff:null,lb:null,budget:30},
 {n:'Dude',y:2025,l:'Tamil',actors:[],studio:'TBA',india:73.13,ww:114.30,ow:22.00,ff:null,lb:null,budget:35},
@@ -423,11 +423,12 @@ var FILMS = [
 {n:'Thaai Kizhavi',y:2026,l:'Tamil',actors:[],studio:'TBA',india:62.62,ww:82.02,ow:14.10,ff:null,lb:null,budget:10},
 {n:'Aadu 3',y:2026,l:'Malayalam',actors:[],studio:'TBA',india:51.12,ww:120.11,ow:20.00,ff:null,lb:null,budget:60},
 {n:'Patriot',y:2026,l:'Malayalam',actors:['Mohanlal'],studio:'TBA',india:31.66,ww:79.98,ow:21.70,ff:null,lb:null,budget:140},
-{n:'Bethlehem Kudumba Unit',y:2026,l:'Malayalam',actors:[],studio:'TBA',india:123.40,ww:265.10,ow:21.80,ff:null,lb:null,budget:30},
+{n:'Bethlehem Kudumba Unit',y:2026,l:'Malayalam',actors:[],studio:'TBA',india:163.58,ww:328.77,ow:21.80,ff:null,lb:null,budget:30},
 {n:'Toxic',y:2026,l:'Kannada',actors:['Yash'],studio:'TBA',india:249.01,ww:340.04,ow:75.35,ff:null,lb:null,budget:700},
-{n:'Irumudi',y:2026,l:'Telugu',actors:['Ravi Teja'],studio:'TBA',india:166.30,ww:215.40,ow:50.50,ff:12.5,lb:null,budget:50},
+{n:'Irumudi',y:2026,l:'Telugu',actors:['Ravi Teja'],studio:'TBA',india:192.35,ww:244.97,ow:50.50,ff:12.5,lb:null,budget:50},
 {n:'Mirzapur: The Movie',y:2026,l:'Hindi',actors:['Pankaj Tripathi','Ravi Kishan'],studio:'Excel Entertainment',india:225.35,ww:328.22,ow:93.75,ff:null,lb:null,budget:150},
 {n:'Hanuman Ansh',y:2026,l:'Hindi',actors:['Shobhinaw Satyaa'],studio:'Swambhu Media Network',india:298.03,ww:389.85,ow:0.60,ff:null,lb:null,budget:2},
+{n:'The Paradise',y:2026,l:'Telugu',actors:['Nani'],studio:'SLV Cinemas',india:97.1,ww:144.85,ow:45.85,ff:null,lb:null,budget:150},
   
  {n:'Yeh Jawaani Hai Deewani',y:2013,l:'Hindi',actors:['Ranbir Kapoor','Deepika Padukone'],studio:'Dharma',india:188,ww:344,ow:62,ff:20.26,lb:3.8,budget:40},
 {n:'Kaabil',y:2017,l:'Hindi',actors:['Hrithik Roshan'],studio:null,india:103.84,ww:208.14,ow:38,ff:null,lb:null,budget:50},
@@ -1559,15 +1560,13 @@ var TOP3 = getTopGrossers().slice(0,3);
 
 // Upcoming films (static — no data yet)
 var UPCOMING = [
-  {n:'Toxic',          y:2026, l:'Kannada', note:'Yash · dir. Geetu Krishna · Jun 2026'},
   {n:'Ramayana',       y:2026, l:'Hindi',   note:'Ranbir Kapoor · dir. Nitesh Tiwari · Nov 2026'},
   {n:'King',           y:2026, l:'Hindi',   note:'Shah Rukh Khan · dir. Siddharth Anand · Dec 2026'},
   {n:'Varanasi',       y:2027, l:'Hindi',   note:'Mahesh Babu · dir. S.S. Rajamouli · Dec 2026'},
-  {n:'Paradise',       y:2026, l:'Telugu',  note:'Nani · Aug 2026'},
   {n:'Love and War',   y:2027, l:'Hindi',   note:'Ranbir Kapoor · dir. S.L. Bhansali · Jan 2027'},
   {n:'Spirit',         y:2027, l:'Telugu',  note:'Prabhas · dir. Sandeep Reddy Vanga'},
-  {n:'Animal Park',    y:2027, l:'Hindi',   note:'Ranbir Kapoor · dir. Sandeep Reddy Vanga'},
-  {n:'Kalki 2',        y:2027, l:'Telugu',  note:'Prabhas · dir. Nag Ashwin'},
+  {n:'Animal Park',    y:2028, l:'Hindi',   note:'Ranbir Kapoor · dir. Sandeep Reddy Vanga'},
+  {n:'Kalki 2',        y:2028, l:'Telugu',  note:'Prabhas · dir. Nag Ashwin'},
   {n:'Dragon',         y:2027, l:'Telugu',  note:'Jr. NTR · dir. Prashanth Neel'},
   {n:'Jailer 2',       y:2026, l:'Tamil',   note:'Rajinikanth · dir. Nelson Dilipkumar'},
 ];
@@ -10403,14 +10402,6 @@ renderFFRecords();
 // PREDICTIONS PAGE — static hardcoded list
 // ═══════════════════════════════════════
 var PREDS = [
-  {title:'Toxic',          lang:'Kannada', actor:'Yash',            director:'Geetu Krishna',     date:'2026-08-26', bo:{low:300,mid:500,high:750},  ow:{low:80,mid:130,high:200},  ff:{low:10,mid:16,high:24},  notes:'Yash\'s first pan-India solo since KGF 2. High expectations after two blockbusters.'},
-  {title:'Mirzapur: The Movie', lang:'Hindi', actor:'Pankaj Tripathi', director:'Gurmeet Singh', date:'2026-09-04',
-    bo:{low:150,mid:250,high:350}, ow:{low:35,mid:60,high:90}, ff:{low:6,mid:10,high:15},
-    notes:'Character-actor-led film, but backed by one of the biggest streaming franchises in India with a massive built-in fanbase — theatrical crossover success for web-to-film adaptations remains unproven at scale.'},
-  {title:'Paradise',       lang:'Telugu',  actor:'Nani',             director:'TBA',               date:'2026-09-09', bo:{low:80,mid:150,high:250},   ow:{low:20,mid:40,high:70},    ff:{low:3,mid:6,high:10},    notes:'Nani\'s natural charisma has built a loyal fanbase. Positioned as a mid-budget prestige film.'},
-  {title:'Haiwaan', lang:'Hindi', actor:'Akshay Kumar, Saif Ali Khan', director:'Priyadarshan', date:'2026-09-11',
-    bo:{low:80,mid:150,high:250}, ow:{low:20,mid:35,high:60}, ff:{low:3,mid:6,high:10},
-    notes:'Akshay\'s recent output has been inconsistent (OMG 2 ₹221 Cr WW vs Bade Miyan Chote Miyan ₹102 Cr WW). Priyadarshan\'s comeback adds unpredictability — estimate leans conservative pending trailer/buzz.'},
   {title:'Ramayana',       lang:'Hindi',   actor:'Ranbir Kapoor',    director:'Nitesh Tiwari',     date:'2026-11-01', bo:{low:500,mid:900,high:1500}, ow:{low:150,mid:270,high:450}, ff:{low:18,mid:30,high:50},  notes:'Most anticipated Hindi film in years. Mythological epic with massive VFX budget. Diwali release.'},
   {title:'Drishyam 3', lang:'Hindi', actor:'Ajay Devgn', director:'TBA', date:'2026-10-02',
     bo:{low:200,mid:350,high:550}, ow:{low:55,mid:95,high:150}, ff:{low:8,mid:14,high:22},
