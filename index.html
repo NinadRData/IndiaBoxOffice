@@ -1376,21 +1376,22 @@ function getOWMilestones(threshold) {
 // Get all films for a given actor (master + supp merged, deduped)
 function getActorFilms(actor) {
   var masterFilms = FILMS.filter(function(f){ return (f.actors||[]).indexOf(actor) >= 0; })
-    .map(function(f){ return {n:f.n, y:f.y, bo:f.ww, ow:f.ow, india:f.india, ff:f.ff, lb:f.lb}; });
-  var suppFilms = (ACTOR_SUPP[actor]||[]).map(function(f){ return {n:f.n, y:f.y, bo:f.bo||null, ow:f.ow||null, india:f.india||null, ff:f.ff||null, lb:f.lb||null}; });
+    .map(function(f){ return {n:f.n, y:f.y, bo:f.ww, ow:f.ow, ow4:f.ow4, india:f.india, ff:f.ff, lb:f.lb}; });
+  var suppFilms = (ACTOR_SUPP[actor]||[]).map(function(f){ return {n:f.n, y:f.y, bo:f.bo||null, ow:f.ow||null, ow4:f.ow4||null, india:f.india||null, ff:f.ff||null, lb:f.lb||null}; });
   var filmMap = {};
   masterFilms.forEach(function(f){
     var key = f.n.toLowerCase().trim()+'|'+f.y;
-    filmMap[key] = {n:f.n, y:f.y, bo:f.bo, ow:f.ow, india:f.india, ff:f.ff, lb:f.lb};
+    filmMap[key] = {n:f.n, y:f.y, bo:f.bo, ow:f.ow, ow4:f.ow4, india:f.india, ff:f.ff, lb:f.lb};
   });
   suppFilms.forEach(function(f){
     var key = f.n.toLowerCase().trim()+'|'+f.y;
     if (!filmMap[key]) {
-      filmMap[key] = {n:f.n, y:f.y, bo:f.bo, ow:f.ow, india:f.india, ff:f.ff, lb:f.lb};
+      filmMap[key] = {n:f.n, y:f.y, bo:f.bo, ow:f.ow, ow4:f.ow4, india:f.india, ff:f.ff, lb:f.lb};
     } else {
       if (f.ff && (!filmMap[key].ff || f.ff > filmMap[key].ff)) filmMap[key].ff = f.ff;
       if (f.bo && (!filmMap[key].bo || f.bo > filmMap[key].bo)) filmMap[key].bo = f.bo;
       if (f.ow && (!filmMap[key].ow || f.ow > filmMap[key].ow)) filmMap[key].ow = f.ow;
+      if (f.ow4 && !filmMap[key].ow4) filmMap[key].ow4 = f.ow4;
       if (f.india && (!filmMap[key].india || f.india > filmMap[key].india)) filmMap[key].india = f.india;
       if (f.lb && !filmMap[key].lb) filmMap[key].lb = f.lb;
     }
@@ -10301,7 +10302,7 @@ tableEl.innerHTML='<div class="table-hdr"><div class="table-hdr-cell">Film</div>
       return '<div class="table-row" style="cursor:'+(hasPg?'pointer':'default')+'" onclick="maybeOpenFilm(\''+f.n.replace(/'/g,"\\'")+'\')">'
   +'<div><div class="table-title">'+f.n+(hasPg?' <span style="font-size:.5rem;color:var(--gold);vertical-align:middle">●</span>':'')+'</div>'+(barPct?'<div class="table-bar"><div class="table-bar-fill" style="width:'+barPct+'%"></div></div>':'')+'</div>'
   +'<div class="table-cell-r"><span class="table-yr">'+f.y+'</span></div>'
-  +'<div class="table-cell-r">'+(f.ow?'<span class="table-bo">₹'+f.ow+' Cr</span>':'<span class="table-dim">—</span>')+'</div>'
+  +'<div class="table-cell-r">'+(f.ow?'<span class="table-bo">₹'+f.ow+' Cr</span>':'<span class="table-dim">—</span>')+(f.ow4?'<div style="font-size:.6rem;color:rgba(255,255,255,.35);margin-top:2px">4-day ₹'+f.ow4+' Cr</div>':'')+'</div>'
   +'<div class="table-cell-r">'+(f.india?'<span class="table-bo">₹'+f.india+' Cr</span>':'<span class="table-dim">—</span>')+'</div>'
   +'<div class="table-cell-r">'+(f.bo?'<span class="table-bo">₹'+f.bo+' Cr</span>':'<span class="table-dim">—</span>')+'</div>'
   +'<div class="table-cell-r">'+(f.ff?'<span class="table-ff">'+f.ff+'M</span>':'<span class="table-dim">—</span>')+'</div>'
@@ -11701,6 +11702,7 @@ populateClashSelect();
 
   var barsHtml =
     bar('Opening Weekend (₹ Cr)', fA.ow, fB.ow, function(v){return v?'₹'+v+' Cr':'—';})+
+    bar('Extended 4-Day Weekend (₹ Cr)', fA.ow4, fB.ow4, function(v){return v?'₹'+v+' Cr':'—';})+
     bar('India Nett (₹ Cr)', fA.india, fB.india, function(v){return v?'₹'+v+' Cr':'—';})+
     bar('Worldwide Gross (₹ Cr)', fA.ww, fB.ww, function(v){return v?'₹'+v+' Cr':'—';})+
     bar('Footfalls', fA.ff, fB.ff, function(v){return v?v+'M':'—';})+
