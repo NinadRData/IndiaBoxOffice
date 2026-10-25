@@ -7745,7 +7745,6 @@ timeline: [
     {name:'Ramya Krishnan', role:'Viji Pandian'},
     {name:'Mohanlal', role:'Supporting'},
     {name:'Yogi Babu', role:'Supporting'},
-    {name:'Vinayakan', role:'Supporting'},
     {name:'Shivarajkumar', role:'Narasimha'},
     {name:'Vijay Sethupathi', role:'Supporting'},
     {name:'Jackie Shroff', role:'Supporting'},
@@ -7756,20 +7755,20 @@ timeline: [
   synopsis: 'Tiger Muthuvel Pandian returns in the sequel to Jailer as a new threat emerges, putting his family and his world at risk.',
   release: '2026-10-15',
   runtime: null,
-  budget: null,
-  india: 242.25,
+  budget: 300,
+  india: 373,
   ow: 140.20,
-  ww: 477.75,
-  ff: 15.9,
-  lb: null,
+  ww: 666.30,
+  ff: 24.7,
   multiplier: null,
+  lb: null,
   ott: 'TBA',
   music: 'Anirudh Ravichander',
   awards: [],
   timeline: [
     {label:'Opening Day', val:59.70},
     {label:'Opening Weekend', val:140.20},
-    {label:'Day 1–5', val:242.25},
+    {label:'Opening 4 Days', val:199.90},
   ],
   overseas: [
     {market:'Gulf', val:null},
@@ -7778,68 +7777,25 @@ timeline: [
     {market:'Australia', val:null},
     {market:'Other', val:null},
   ],
-  comparable: [],
+  comparable: [
+    {n:'Leo (2023)', ww:605, col:'#22c55e'},
+    {n:'Jailer (2023)', ww:650, col:'#4fc3f7'},
+    {n:'Jailer 2 (2026)', ww:666.30, col:'#34d399', highlight:true},
+    {n:'Ponniyin Selvan: I (2022)', ww:488, col:'#f97316'},
+    {n:'Vikram (2022)', ww:414, col:'#a78bfa'},
+  ],
   trivia: [
     'Jailer 2 is the sequel to the 2023 film Jailer.',
     'Nelson Dilipkumar returns as director.',
     'Anirudh Ravichander returns as music composer.',
   ],
   daily: [
-    {
-      date:'15 Oct',
-      day:'Thu',
-      gross:59.70,
-      indiaGross:70.25,
-      chgDay:null,
-      chgWeek:null,
-      total:59.70,
-      shows:16599,
-      occupancy:55.4,
-    },
-    {
-      date:'16 Oct',
-      day:'Fri',
-      gross:37.10,
-      indiaGross:43.40,
-      chgDay:-37.86,
-      chgWeek:null,
-      total:96.80,
-      shows:13157,
-      occupancy:48.2,
-    },
-    {
-      date:'17 Oct',
-      day:'Sat',
-      gross:47.25,
-      indiaGross:55.35,
-      chgDay:27.36,
-      chgWeek:null,
-      total:144.05,
-      shows:14604,
-      occupancy:53.9,
-    },
-    {
-      date:'18 Oct',
-      day:'Sun',
-      gross:55.85,
-      indiaGross:65.25,
-      chgDay:18.20,
-      chgWeek:null,
-      total:199.90,
-      shows:15473,
-      occupancy:62.0,
-    },
-    {
-      date:'19 Oct',
-      day:'Mon',
-      gross:42.35,
-      indiaGross:49.50,
-      chgDay:-24.17,
-      chgWeek:null,
-      total:242.25,
-      shows:15215,
-      occupancy:49.9,
-    },
+    // Week 1
+    {date:'15 Oct', day:'Thu', gross:59.70, chgDay:null,    chgWeek:null, total:59.70,  ff:null},
+    {date:'16 Oct', day:'Fri', gross:37.10, chgDay:-37.86,  chgWeek:null, total:96.80,  ff:null},
+    {date:'17 Oct', day:'Sat', gross:47.25, chgDay:+27.36,  chgWeek:null, total:144.05, ff:null},
+    {date:'18 Oct', day:'Sun', gross:55.85, chgDay:+18.20,  chgWeek:null, total:199.90, ff:null},
+    {date:'19 Oct', day:'Mon', gross:42.35, chgDay:-24.17,  chgWeek:null, total:242.25, ff:null},
   ],
 },
 
@@ -8897,6 +8853,8 @@ function showFilmPage(key) {
       (page.daily && page.daily.length ? (function(){
         var uid = 'boTab_' + page.key.replace(/-/g,'_');
         var maxDaily = Math.max.apply(null, page.daily.map(function(d){return d.gross;}));
+        var hasFF = page.daily.some(function(d){ return d.ff != null; });   // ★ new
+        var dCols = hasFF ? '110px 50px 1fr 75px 70px 80px 80px 75px' : '110px 50px 1fr 75px 70px 80px 80px';   // ★ new
 
         // Build weekend data from daily
         var weekends = [];
@@ -8926,7 +8884,8 @@ function showFilmPage(key) {
           var pct = Math.round(d.gross/maxDaily*100);
           var chgDayHtml = d.chgDay!=null ? '<span style="font-size:.72rem;font-weight:600;color:'+(d.chgDay>=0?'#4ade80':'#f87171')+'">'+(d.chgDay>=0?'+':'')+d.chgDay+'%</span>' : '<span style="color:rgba(255,255,255,.18);font-size:.72rem">—</span>';
           var chgWkHtml  = d.chgWeek!=null ? '<span style="font-size:.72rem;font-weight:600;color:'+(d.chgWeek>=0?'#4ade80':'#f87171')+'">'+(d.chgWeek>=0?'+':'')+d.chgWeek+'%</span>' : '<span style="color:rgba(255,255,255,.18);font-size:.72rem">—</span>';
-          return '<div style="display:grid;grid-template-columns:110px 50px 1fr 75px 70px 80px 80px;align-items:center;padding:.42rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.04);background:'+(isWeekend?'rgba(255,255,255,.02)':'transparent')+'" onmouseover="this.style.background=\'rgba(192,132,252,.05)\'" onmouseout="this.style.background=\''+(isWeekend?'rgba(255,255,255,.02)':'transparent')+'\'">'
+          // ★ grid below now uses dCols
+          return '<div style="display:grid;grid-template-columns:'+dCols+';align-items:center;padding:.42rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.04);background:'+(isWeekend?'rgba(255,255,255,.02)':'transparent')+'" onmouseover="this.style.background=\'rgba(192,132,252,.05)\'" onmouseout="this.style.background=\''+(isWeekend?'rgba(255,255,255,.02)':'transparent')+'\'">'
             +'<div style="font-size:.75rem;color:rgba(255,255,255,.6)">'+d.date+'</div>'
             +'<div style="font-size:.68rem;color:rgba(255,255,255,.28)">'+d.day+'</div>'
             +'<div style="padding-right:1rem"><div style="height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden"><div style="height:5px;width:'+pct+'%;background:'+(isWeekend?'linear-gradient(90deg,#7c3aed,#c084fc)':'linear-gradient(90deg,#1e3a5f,#4fc3f7)')+';border-radius:3px"></div></div></div>'
@@ -8934,6 +8893,7 @@ function showFilmPage(key) {
             +'<div style="text-align:right">'+chgDayHtml+'</div>'
             +'<div style="text-align:right">'+chgWkHtml+'</div>'
             +'<div style="text-align:right;font-size:.72rem;color:rgba(255,255,255,.35)">₹'+d.total+' Cr</div>'
+            +(hasFF ? '<div style="text-align:right;font-size:.72rem;font-weight:600;color:#4fc3f7">'+(d.ff!=null ? d.ff+'M' : '—')+'</div>' : '')   // ★ new
           +'</div>';
         }).join('');
 
@@ -8965,7 +8925,8 @@ function showFilmPage(key) {
 
           // Daily view (hidden by default)
           '<div id="viewDaily_'+uid+'" style="display:none">' +
-            '<div style="display:grid;grid-template-columns:110px 50px 1fr 75px 70px 80px 80px;padding:.35rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07)">' +
+            // ★ header grid below now uses dCols
+            '<div style="display:grid;grid-template-columns:'+dCols+';padding:.35rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07)">' +
               '<div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Date</div>' +
               '<div style="font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Day</div>' +
               '<div></div>' +
@@ -8973,10 +8934,11 @@ function showFilmPage(key) {
               '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Daily Chg</div>' +
               '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Weekly Chg</div>' +
               '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Total</div>' +
+              (hasFF ? '<div style="text-align:right;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Footfalls</div>' : '') +   // ★ new
             '</div>' +
             dailyRows +
           '</div>' +
-
+          
           // Weekend view (shown by default)
           '<div id="viewWeekend_'+uid+'">' +
             '<div style="display:grid;grid-template-columns:120px 1fr 85px 80px 80px 50px;padding:.35rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.07)">' +
