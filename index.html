@@ -2662,10 +2662,17 @@ function openLookupResult(f) {
   var breakeven = f.budget ? f.budget*2.5 : null;
   var profitable = roi && parseFloat(roi) >= 2.5;
 
+  // ★ new: look up sourced gross/overseas on FILMS, estimate if missing
+  var src = FILMS.find(function(x){ return x.n.toLowerCase().trim()===f.n.toLowerCase().trim() && x.y===f.y; }) || f;
+  var go = getGrossOS({ww:f.ww, india:f.india, y:f.y, gross:src.gross, os:src.os});
+  var estTag = go.est ? ' (est.)' : '';
+
   // Stats tiles
   var tiles = [
     {l:'Worldwide',   v: f.ww    ? '₹'+f.ww+' Cr'    : null,  c:'#f5c518'},
     {l:'India Nett',  v: f.india ? '₹'+f.india+' Cr' : null,  c:'#4fc3f7'},
+    {l:'India Gross'+estTag, v: go.gross ? '₹'+go.gross+' Cr' : null, c:'rgba(255,255,255,.7)'},   // ★ new
+    {l:'Overseas'+estTag,    v: go.os    ? '₹'+go.os+' Cr'    : null, c:'#34d399'},                // ★ new
     {l:'Opening Wknd',v: f.ow    ? '₹'+f.ow+' Cr'    : null,  c:'#f97316'},
     {l:'Legs',        v: legs    ? legs+'×'            : null,  c:'#22c55e'},
     {l:'Footfalls',   v: f.ff    ? f.ff+'M'            : null,  c:'#c084fc'},
