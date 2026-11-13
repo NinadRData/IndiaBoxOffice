@@ -11836,285 +11836,543 @@ populateClashSelect();
         '</div>'+
       '</div></div>';
   }
-    var TRAJ_COLORS = ['#d9b44a','#7ca4d4','#d27f5c','#62b394','#ab8fd6'];
+  var TRAJ_COLORS = ['#d9b44a', '#7ca4d4', '#d27f5c', '#62b394', '#ab8fd6'];
 var trajMetric = 'india';
 var trajSel = [];
 
-function trajR1(n){ return Math.round(n*10)/10; }
-function trajTrunc(s, n){ return s.length > n ? s.slice(0, n-1) + '…' : s; }
+function setCmpMode(tab, btn) {
+  document.querySelectorAll('#cmp-mode-tabs .rec-tab').forEach(function (b) {
+    b.classList.remove('on');
+  });
 
-function trajNiceStep(max){
+  if (btn) btn.classList.add('on');
+
+  var panels = {
+    actor: document.getElementById('cmp-panel-actor'),
+    film: document.getElementById('cmp-panel-film'),
+    clash: document.getElementById('cmp-panel-clash'),
+    traj: document.getElementById('cmp-panel-traj')
+  };
+
+  Object.keys(panels).forEach(function (mode) {
+    if (panels[mode]) {
+      panels[mode].style.display = mode === tab ? 'block' : 'none';
+    }
+  });
+
+  if (tab === 'traj') renderTraj();
+}
+
+function trajR1(n) {
+  return Math.round(n * 10) / 10;
+}
+
+function trajTrunc(s, n) {
+  return s.length > n ? s.slice(0, n - 1) + '…' : s;
+}
+
+function trajNiceStep(max) {
   if (!(max > 0)) return 1;
+
   var mag = Math.pow(10, Math.floor(Math.log(max / 7) / Math.LN10));
-  var c = [1, 2, 2.5, 5, 10];
-  for (var i = 0; i < c.length; i++) if (max / (c[i] * mag) <= 7) return c[i] * mag;
+  var choices = [1, 2, 2.5, 5, 10];
+
+  for (var i = 0; i < choices.length; i++) {
+    if (max / (choices[i] * mag) <= 7) return choices[i] * mag;
+  }
+
   return 10 * mag;
 }
 
-// Films that have India Net (daily) or Worldwide (wwCum) trajectory data
-function trajPool(){
-  var seen = {}, out = [];
-  Object.keys(FILM_PAGES).forEach(function(k){
-    var p = FILM_PAGES[k];
-    if (!p || !p.key || !p.title || seen[p.key]) return;
-    if ((p.daily && p.daily.length) || (p.wwCum && p.wwCum.length)) { seen[p.key] = true; out.push(p); }
+function trajPool() {
+  var seen = {};
+  var films = [];
+
+  Object.keys(FILM_PAGES).forEach(function (key) {
+    var film = FILM_PAGES[key];
+
+    if (!film || !film.key || !film.title || seen[film.key]) return;
+
+    var hasIndia = film.daily && film.daily.some(function (row) {
+      return !row.bucket && row.total != null;
+    });
+
+    var hasWorldwide = film.wwCum && film.wwCum.length;
+
+    if (hasIndia || hasWorldwide) {
+      seen[film.key] = true;
+      films.push(film);
+    }
   });
-  return out.sort(function(a,b){ return (b.year||0) - (a.year||0); });
+
+  return films.sort(function (a, b) {
+    return (b.year || 0) - (a.year || 0);
+  });
 }
 
-// Cumulative series as [{d: day number, v: cumulative ₹ Cr}]
-function trajSeries(p, metric){
-  var pts;
+function trajSeries(film, metric) {
+  var points;
+
   if (metric === 'india') {
-    if (!p.daily || !p.daily.length) return null;
-    pts = p.daily.map(function(r,i){ return {d:i+1, v:r.total}; });
+    if (!film.daily || !film.daily.length) return null;
+
+    points = film.daily
+      .filter(function (row) {
+        return !row.bucket && row.total != null && !isNaN(Number(row.total));
+      })
+      .map(function (row, index) {
+        return { d: index + 1, v: Number(row.total) };
+      });
   } else {
-    if (!p.wwCum || !p.wwCum.length) return null;
-    pts = p.wwCum.map(function(r){ return {d:r.d, v:r.v}; }).sort(function(a,b){ return a.d - b.d; });
+    if (!film.wwCum || !film.wwCum.length) return null;
+
+    points = film.wwCum
+      .map(function (row) {
+        return { d: Number(row.d), v: Number(row.v) };
+      })
+      .filter(function (point) {
+        return point.d > 0 && !isNaN(point.d) && !isNaN(point.v);
+      })
+      .sort(function (a, b) {
+        return a.d - b.d;
+      });
   }
-  return pts.filter(function(q){ return q.v != null && !isNaN(q.v); });
+
+  return points;
 }
 
-// Straight-line interpolation between the points you entered; null outside the data range
-function trajValueAt(pts, d){
-  if (!pts.length || d < pts[0].d || d > pts[pts.length-1].d) return null;
-  for (var i = 1; i < pts.length; i++){
-    if (d <= pts[i].d){
-      var a = pts[i-1], b = pts[i];
+function trajValueAt(points, day) {
+  if (!points.length || day < points[0].d || day > points[points.length - 1].d) {
+    return null;
+  }
+
+  for (var i = 1; i < points.length; i++) {
+    if (day <= points[i].d) {
+      var a = points[i - 1];
+      var b = points[i];
+
       if (b.d === a.d) return b.v;
-      return a.v + (b.v - a.v) * (d - a.d) / (b.d - a.d);
+
+      return a.v + (b.v - a.v) * (day - a.d) / (b.d - a.d);
     }
   }
-  return pts[pts.length-1].v;
+
+  return points[points.length - 1].v;
 }
 
-function toggleTraj(key){
-  var i = trajSel.indexOf(key);
-  if (i >= 0) trajSel.splice(i, 1);
-  else if (trajSel.length < TRAJ_COLORS.length) trajSel.push(key);
+function toggleTraj(key) {
+  var index = trajSel.indexOf(key);
+
+  if (index >= 0) {
+    trajSel.splice(index, 1);
+  } else if (trajSel.length < TRAJ_COLORS.length) {
+    trajSel.push(key);
+  }
+
   renderTraj();
 }
 
-function setTrajMetric(m, btn){
-  trajMetric = m;
-  document.querySelectorAll('#traj-metric .lf').forEach(function(b){ b.classList.remove('on'); });
-  btn.classList.add('on');
-  renderTraj();
-}
-    function renderTraj(){
-  var r1 = trajR1;
-  var pool = trajPool();
+function setTrajMetric(metric, btn) {
+  trajMetric = metric;
 
-  // Film chips
-  document.getElementById('traj-chips').innerHTML = pool.length ? pool.map(function(p){
-    var idx = trajSel.indexOf(p.key), on = idx >= 0;
-    var st = on ? 'background:'+TRAJ_COLORS[idx]+';border-color:'+TRAJ_COLORS[idx]+';color:#000' : '';
-    return '<button class="lf'+(on?' on':'')+'" style="'+st+'" onclick="toggleTraj(\''+p.key+'\')">'+p.title+'</button>';
-  }).join('') : '<span style="font-size:.75rem;color:rgba(255,255,255,.3)">No films have day-by-day or weekly cumulative data yet.</span>';
-
-  // Selected films that have data for the current metric
-  var items = [], missing = [];
-  trajSel.forEach(function(k, i){
-    var p = pool.find(function(x){ return x.key === k; });
-    if (!p) return;
-    var pts = trajSeries(p, trajMetric);
-    if (pts && pts.length) items.push({p:p, pts:pts, col:TRAJ_COLORS[i], name:p.title});
-    else missing.push(p.title);
+  document.querySelectorAll('#traj-metric .lf').forEach(function (button) {
+    button.classList.remove('on');
   });
 
-  var wrap = document.getElementById('traj-wrap'), empty = document.getElementById('traj-empty');
-  var mName = trajMetric === 'india' ? 'India Net' : 'Worldwide';
+  if (btn) btn.classList.add('on');
+
+  renderTraj();
+}
+
+function renderTraj() {
+  var chipHost = document.getElementById('traj-chips');
+  var empty = document.getElementById('traj-empty');
+  var wrap = document.getElementById('traj-wrap');
+
+  if (!chipHost || !empty || !wrap) return;
+
+  var films = trajPool();
+  chipHost.innerHTML = '';
+
+  if (!films.length) {
+    chipHost.textContent = 'No films with trajectory data yet.';
+  } else {
+    films.forEach(function (film) {
+      var index = trajSel.indexOf(film.key);
+      var button = document.createElement('button');
+
+      button.className = 'lf' + (index >= 0 ? ' on' : '');
+      button.textContent = film.title;
+      button.style.cursor = 'pointer';
+
+      if (index >= 0) {
+        button.style.background = TRAJ_COLORS[index];
+        button.style.borderColor = TRAJ_COLORS[index];
+        button.style.color = '#000';
+      }
+
+      button.addEventListener('click', function () {
+        toggleTraj(film.key);
+      });
+
+      chipHost.appendChild(button);
+    });
+  }
+
+  var items = [];
+  var missing = [];
+
+  trajSel.forEach(function (key, index) {
+    var film = films.find(function (item) {
+      return item.key === key;
+    });
+
+    if (!film) return;
+
+    var points = trajSeries(film, trajMetric);
+
+    if (points && points.length) {
+      items.push({
+        film: film,
+        points: points,
+        color: TRAJ_COLORS[index],
+        name: film.title
+      });
+    } else {
+      missing.push(film.title);
+    }
+  });
+
+  var metricName = trajMetric === 'india' ? 'India Net' : 'Worldwide';
+
   if (!items.length) {
-    wrap.style.display = 'none'; empty.style.display = 'block';
-    empty.textContent = trajSel.length ? 'None of the selected films has '+mName+' trajectory data.' : 'Pick films above to compare their trajectories';
+    wrap.style.display = 'none';
+    empty.style.display = 'block';
+    empty.textContent = trajSel.length
+      ? 'None of the selected films has ' + metricName + ' data.'
+      : 'Pick films above to compare their trajectories';
     return;
   }
-  empty.style.display = 'none'; wrap.style.display = 'block';
-  document.getElementById('traj-title').textContent = 'Cumulative '+mName+' · ₹ Cr · by day since release';
-  document.getElementById('traj-wtitle').textContent = 'Weekly '+mName+' · ₹ Cr · each week = 7 days from release';
 
-  // Scales
+  empty.style.display = 'none';
+  wrap.style.display = 'block';
+
+  document.getElementById('traj-title').textContent =
+    'Cumulative ' + metricName + ' · ₹ Cr · by day since release';
+
+  document.getElementById('traj-wtitle').textContent =
+    'Weekly ' + metricName + ' · ₹ Cr · each week = 7 days from release';
+
   var W = 900, H = 340, L = 58, R = 130, T = 14, B = 32;
-  var xMax = 7, yTop = 0;
-  items.forEach(function(it){
-    it.pts.forEach(function(q){ if (q.d > xMax) xMax = q.d; if (q.v > yTop) yTop = q.v; });
-  });
-  var step = trajNiceStep(yTop), yMax = Math.ceil(yTop / step) * step;
-  function X(d){ return L + (d-1) / (xMax-1) * (W-L-R); }
-  function Y(v){ return T + (1 - v/yMax) * (H-T-B); }
+  var maxDay = 7, maxValue = 0;
 
-  var svg = '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block;overflow:visible" xmlns="http://www.w3.org/2000/svg">';
-  for (var v = 0; v <= yMax + 1e-9; v += step){
-    svg += '<line x1="'+L+'" x2="'+(W-R)+'" y1="'+r1(Y(v))+'" y2="'+r1(Y(v))+'" style="stroke:var(--border)" stroke-width="1"/>';
-    svg += '<text x="'+(L-8)+'" y="'+(r1(Y(v))+4)+'" text-anchor="end" font-size="11" style="fill:var(--text-dim)">₹'+r1(v)+'</text>';
-  }
-  for (var w = 1; (w-1)*7 + 1 <= xMax; w++){
-    svg += '<text x="'+r1(X((w-1)*7+1))+'" y="'+(H-10)+'" text-anchor="middle" font-size="11" style="fill:var(--text-dim)">Wk '+w+'</text>';
-  }
-
-  // Lines, markers for sparse data, faint extension after the last data point
-  items.forEach(function(it){
-    var pts = it.pts, last = pts[pts.length-1];
-    var path = pts.map(function(q,i){ return (i?'L':'M')+r1(X(q.d))+','+r1(Y(q.v)); }).join(' ');
-    svg += '<path d="'+path+'" fill="none" stroke="'+it.col+'" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
-    if (last.d < xMax) svg += '<line x1="'+r1(X(last.d))+'" x2="'+(W-R)+'" y1="'+r1(Y(last.v))+'" y2="'+r1(Y(last.v))+'" stroke="'+it.col+'" stroke-width="1.2" opacity=".35"/>';
-    svg += '<line x1="'+(W-R)+'" x2="'+(W-R+6)+'" y1="'+r1(Y(last.v))+'" y2="'+r1(Y(last.v))+'" stroke="'+it.col+'" stroke-width="2"/>';
-    var sparse = pts.some(function(q,i){ return i > 0 && q.d - pts[i-1].d > 1; });
-    if (sparse) pts.forEach(function(q){
-      var x = r1(X(q.d)), y = r1(Y(q.v));
-      svg += '<polygon points="'+x+','+(y-4.5)+' '+(x+4.5)+','+y+' '+x+','+(y+4.5)+' '+(x-4.5)+','+y+'" fill="'+it.col+'"/>';
+  items.forEach(function (item) {
+    item.points.forEach(function (point) {
+      if (point.d > maxDay) maxDay = point.d;
+      if (point.v > maxValue) maxValue = point.v;
     });
   });
 
-  // End labels, nudged apart so they don't overlap
-  var labs = items.map(function(it){ return {it:it, y:Y(it.pts[it.pts.length-1].v)}; }).sort(function(a,b){ return a.y - b.y; });
-  for (var li = 1; li < labs.length; li++) if (labs[li].y - labs[li-1].y < 14) labs[li].y = labs[li-1].y + 14;
-  labs.forEach(function(l){
-    svg += '<text x="'+(W-R+10)+'" y="'+r1(l.y+4)+'" font-size="12" font-weight="600" style="fill:var(--text)">'+trajTrunc(l.it.name, 17)+'</text>';
+  var step = trajNiceStep(maxValue);
+  var maxY = Math.max(step, Math.ceil(maxValue / step) * step);
+
+  function X(day) {
+    return L + (day - 1) / (maxDay - 1) * (W - L - R);
+  }
+
+  function Y(value) {
+    return T + (1 - value / maxY) * (H - T - B);
+  }
+
+  var svg = '<svg viewBox="0 0 ' + W + ' ' + H +
+    '" style="width:100%;height:auto;display:block;overflow:visible" xmlns="http://www.w3.org/2000/svg">';
+
+  for (var value = 0; value <= maxY + 1e-9; value += step) {
+    svg += '<line x1="' + L + '" x2="' + (W - R) +
+      '" y1="' + trajR1(Y(value)) + '" y2="' + trajR1(Y(value)) +
+      '" style="stroke:var(--border)" stroke-width="1"/>';
+
+    svg += '<text x="' + (L - 8) + '" y="' + (trajR1(Y(value)) + 4) +
+      '" text-anchor="end" font-size="11" style="fill:var(--text-dim)">₹' +
+      trajR1(value) + '</text>';
+  }
+
+  for (var week = 1; (week - 1) * 7 + 1 <= maxDay; week++) {
+    svg += '<text x="' + trajR1(X((week - 1) * 7 + 1)) +
+      '" y="' + (H - 10) +
+      '" text-anchor="middle" font-size="11" style="fill:var(--text-dim)">Wk ' +
+      week + '</text>';
+  }
+
+  items.forEach(function (item) {
+    var points = item.points;
+    var last = points[points.length - 1];
+    var path = points.map(function (point, index) {
+      return (index ? 'L' : 'M') +
+        trajR1(X(point.d)) + ',' + trajR1(Y(point.v));
+    }).join(' ');
+
+    svg += '<path d="' + path + '" fill="none" stroke="' + item.color +
+      '" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
+
+    if (last.d < maxDay) {
+      svg += '<line x1="' + trajR1(X(last.d)) + '" x2="' + (W - R) +
+        '" y1="' + trajR1(Y(last.v)) + '" y2="' + trajR1(Y(last.v)) +
+        '" stroke="' + item.color + '" stroke-width="1.2" opacity=".35"/>';
+    }
+
+    svg += '<line x1="' + (W - R) + '" x2="' + (W - R + 6) +
+      '" y1="' + trajR1(Y(last.v)) + '" y2="' + trajR1(Y(last.v)) +
+      '" stroke="' + item.color + '" stroke-width="2"/>';
+
+    if (points.length === 1) {
+      svg += '<circle cx="' + trajR1(X(points[0].d)) +
+        '" cy="' + trajR1(Y(points[0].v)) +
+        '" r="3.5" fill="' + item.color + '"/>';
+    }
   });
 
-  // Hover layer
-  svg += '<line id="traj-cross" x1="0" x2="0" y1="'+T+'" y2="'+(H-B)+'" style="stroke:var(--text-dim);display:none" stroke-width="1" stroke-dasharray="3 3"/>';
+  var labels = items.map(function (item) {
+    return {
+      item: item,
+      y: Y(item.points[item.points.length - 1].v)
+    };
+  }).sort(function (a, b) {
+    return a.y - b.y;
+  });
+
+  for (var labelIndex = 1; labelIndex < labels.length; labelIndex++) {
+    if (labels[labelIndex].y - labels[labelIndex - 1].y < 14) {
+      labels[labelIndex].y = labels[labelIndex - 1].y + 14;
+    }
+  }
+
+  labels.forEach(function (label) {
+    svg += '<text x="' + (W - R + 10) + '" y="' +
+      trajR1(label.y + 4) +
+      '" font-size="12" font-weight="600" style="fill:var(--text)">' +
+      label.item.name + '</text>';
+  });
+
+  svg += '<line id="traj-cross" x1="0" x2="0" y1="' + T + '" y2="' +
+    (H - B) +
+    '" style="stroke:var(--text-dim);display:none" stroke-width="1" stroke-dasharray="3 3"/>';
   svg += '<g id="traj-dots"></g>';
-  svg += '<rect id="traj-hit" x="'+L+'" y="'+T+'" width="'+(W-L-R)+'" height="'+(H-B-T)+'" fill="transparent"/>';
+  svg += '<rect id="traj-hit" x="' + L + '" y="' + T +
+    '" width="' + (W - L - R) + '" height="' + (H - B - T) +
+    '" fill="transparent"/>';
   svg += '</svg>';
 
-  document.getElementById('traj-legend').innerHTML = items.map(function(it){
-    return '<span style="display:inline-flex;align-items:center;gap:6px;margin-right:14px;font-size:.78rem;color:var(--text-dim)"><span style="width:9px;height:9px;border-radius:50%;background:'+it.col+';display:inline-block"></span>'+it.name+'</span>';
+  document.getElementById('traj-legend').innerHTML = items.map(function (item) {
+    return '<span style="display:inline-flex;align-items:center;gap:6px;margin-right:14px;font-size:.78rem;color:var(--text-dim)">' +
+      '<span style="width:9px;height:9px;border-radius:50%;background:' +
+      item.color + ';display:inline-block"></span>' + item.name + '</span>';
   }).join('');
 
-  var chartEl = document.getElementById('traj-chart');
-  chartEl.innerHTML = svg + '<div id="traj-tip" style="display:none;position:absolute;top:18px;pointer-events:none;min-width:190px;background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:.7rem .9rem;z-index:5"></div>';
+  var chart = document.getElementById('traj-chart');
+  chart.innerHTML = svg +
+    '<div id="traj-tip" style="display:none;position:absolute;top:18px;pointer-events:none;min-width:190px;background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:.7rem .9rem;z-index:5"></div>';
 
-  var svgEl = chartEl.querySelector('svg');
-  var hit = svgEl.querySelector('#traj-hit'), cross = svgEl.querySelector('#traj-cross'), dots = svgEl.querySelector('#traj-dots');
-  var tip = chartEl.querySelector('#traj-tip');
-  hit.addEventListener('mousemove', function(e){
-    var rc = svgEl.getBoundingClientRect();
-    var mx = (e.clientX - rc.left) * (W / rc.width);
-    var d = Math.round(1 + (mx - L) / (W - L - R) * (xMax - 1));
-    d = Math.max(1, Math.min(xMax, d));
-    var x = X(d);
-    cross.setAttribute('x1', x); cross.setAttribute('x2', x); cross.style.display = '';
-    var rows = [], dotsHtml = '';
-    items.forEach(function(it){
-      var val = trajValueAt(it.pts, d);
-      rows.push({name:it.name, col:it.col, val:val});
-      if (val != null) dotsHtml += '<circle cx="'+r1(x)+'" cy="'+r1(Y(val))+'" r="4.5" fill="'+it.col+'" stroke="#000" stroke-opacity=".4"/>';
+  var svgElement = chart.querySelector('svg');
+  var hit = svgElement.querySelector('#traj-hit');
+  var cross = svgElement.querySelector('#traj-cross');
+  var dots = svgElement.querySelector('#traj-dots');
+  var tip = chart.querySelector('#traj-tip');
+
+  hit.addEventListener('mousemove', function (event) {
+    var rect = svgElement.getBoundingClientRect();
+    var mouseX = (event.clientX - rect.left) * (W / rect.width);
+    var day = Math.round(1 + (mouseX - L) / (W - L - R) * (maxDay - 1));
+
+    day = Math.max(1, Math.min(maxDay, day));
+
+    var x = X(day);
+    cross.setAttribute('x1', x);
+    cross.setAttribute('x2', x);
+    cross.style.display = '';
+
+    var rows = [];
+    var dotsHtml = '';
+
+    items.forEach(function (item) {
+      var amount = trajValueAt(item.points, day);
+
+      rows.push({
+        name: item.name,
+        color: item.color,
+        amount: amount
+      });
+
+      if (amount != null) {
+        dotsHtml += '<circle cx="' + trajR1(x) + '" cy="' +
+          trajR1(Y(amount)) + '" r="4.5" fill="' + item.color +
+          '" stroke="#000" stroke-opacity=".4"/>';
+      }
     });
+
     dots.innerHTML = dotsHtml;
-    rows.sort(function(a,b){ return (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val); });
-    tip.innerHTML = '<div style="font-size:.62rem;font-weight:700;letter-spacing:1.5px;color:var(--text-dim);padding-bottom:.45rem;margin-bottom:.45rem;border-bottom:0.5px solid var(--border)">DAY '+d+' · WK '+Math.ceil(d/7)+'</div>' +
-      rows.map(function(r){
-        return '<div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:2px 0;font-size:.82rem"><span style="display:flex;align-items:center;gap:8px;color:var(--text-dim)"><span style="width:8px;height:8px;border-radius:50%;background:'+r.col+'"></span>'+r.name+'</span><span style="font-weight:700;color:var(--text)">'+(r.val == null ? '—' : '₹'+r1(r.val)+' Cr')+'</span></div>';
+
+    rows.sort(function (a, b) {
+      return (b.amount == null ? -1 : b.amount) -
+        (a.amount == null ? -1 : a.amount);
+    });
+
+    tip.innerHTML =
+      '<div style="font-size:.62rem;font-weight:700;letter-spacing:1.5px;color:var(--text-dim);padding-bottom:.45rem;margin-bottom:.45rem;border-bottom:0.5px solid var(--border)">DAY ' +
+      day + ' · WK ' + Math.ceil(day / 7) + '</div>' +
+      rows.map(function (row) {
+        return '<div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:2px 0;font-size:.82rem">' +
+          '<span style="display:flex;align-items:center;gap:8px;color:var(--text-dim)">' +
+          '<span style="width:8px;height:8px;border-radius:50%;background:' +
+          row.color + '"></span>' + row.name + '</span>' +
+          '<span style="font-weight:700;color:var(--text)">' +
+          (row.amount == null ? '—' : '₹' + trajR1(row.amount) + ' Cr') +
+          '</span></div>';
       }).join('');
+
     tip.style.display = 'block';
-    var px = x / W * rc.width;
-    tip.style.left = (px + 16 + tip.offsetWidth > rc.width ? Math.max(0, px - 16 - tip.offsetWidth) : px + 16) + 'px';
+
+    var px = x / W * rect.width;
+    tip.style.left =
+      (px + 16 + tip.offsetWidth > rect.width
+        ? Math.max(0, px - 16 - tip.offsetWidth)
+        : px + 16) + 'px';
   });
-  hit.addEventListener('mouseleave', function(){ cross.style.display = 'none'; dots.innerHTML = ''; tip.style.display = 'none'; });
 
-  // Notes: mixed opening weekdays, films missing data for this metric
-  var days = {};
-  items.forEach(function(it){ var r0 = it.p.daily && it.p.daily[0]; if (r0 && r0.day) days[r0.day] = true; });
-  var dl = Object.keys(days), notes = [];
-  if (dl.length > 1) notes.push('Opening days differ ('+dl.join(', ')+'). Curves are aligned by day since release, not by weekend.');
-  if (missing.length) notes.push('No '+mName+' data for: '+missing.join(', ')+'.');
-  document.getElementById('traj-note').innerHTML = notes.map(function(n){ return '<div>'+n+'</div>'; }).join('');
+  hit.addEventListener('mouseleave', function () {
+    cross.style.display = 'none';
+    dots.innerHTML = '';
+    tip.style.display = 'none';
+  });
 
-  // ★ STEP 4: remove the two slashes below after adding trajWeekly()
-// Inside renderTraj():
-document.getElementById('traj-weekly').innerHTML = trajWeekly(items, xMax);
-} // end renderTraj
+  var weekdays = {};
+  items.forEach(function (item) {
+    var firstRow = item.film.daily && item.film.daily[0];
+    if (firstRow && firstRow.day) weekdays[firstRow.day] = true;
+  });
 
-function trajWeekly(items, xMax) {
-  var r1 = trajR1;
+  var notes = [];
+  if (Object.keys(weekdays).length > 1) {
+    notes.push('Opening days differ. Curves are aligned by day since release.');
+  }
+  if (missing.length) {
+    notes.push('No ' + metricName + ' data for: ' + missing.join(', ') + '.');
+  }
+
+  document.getElementById('traj-note').innerHTML = notes.map(function (note) {
+    return '<div>' + note + '</div>';
+  }).join('');
+
+  document.getElementById('traj-weekly').innerHTML =
+    trajWeekly(items, maxDay);
+}
+
+function trajWeekly(items, maxDay) {
   var W = 900, H = 260, L = 58, R = 20, T = 14, B = 30;
-  var weeks = Math.ceil(xMax / 7);
+  var weeks = Math.ceil(maxDay / 7);
 
-  var data = items.map(function (it) {
-    var arr = [], lastD = it.pts[it.pts.length - 1].d;
+  var data = items.map(function (item) {
+    var bars = [];
+    var lastDay = item.points[item.points.length - 1].d;
 
-    for (var k = 1; k <= weeks; k++) {
-      if (lastD <= 7 * (k - 1)) {
-        arr.push(null);
+    for (var week = 1; week <= weeks; week++) {
+      if (lastDay <= 7 * (week - 1)) {
+        bars.push(null);
         continue;
       }
 
-      var startV = k === 1 ? 0 : trajValueAt(it.pts, 7 * (k - 1));
-      var endV = trajValueAt(it.pts, Math.min(7 * k, lastD));
+      var startValue = week === 1
+        ? 0
+        : trajValueAt(item.points, 7 * (week - 1));
 
-      arr.push(
-        startV == null || endV == null
+      var endValue = trajValueAt(item.points, Math.min(7 * week, lastDay));
+
+      bars.push(
+        startValue == null || endValue == null
           ? null
-          : { g: Math.max(0, endV - startV), partial: lastD < 7 * k }
+          : {
+              amount: Math.max(0, endValue - startValue),
+              partial: lastDay < 7 * week
+            }
       );
     }
 
-    return arr;
+    return bars;
   });
 
-  var mx = 0;
-  data.forEach(function (a) {
-    a.forEach(function (c) {
-      if (c && c.g > mx) mx = c.g;
+  var maxValue = 0;
+  data.forEach(function (bars) {
+    bars.forEach(function (bar) {
+      if (bar && bar.amount > maxValue) maxValue = bar.amount;
     });
   });
 
-  var step = trajNiceStep(mx);
-  var yMax = Math.ceil(mx / step) * step || 1;
+  var step = trajNiceStep(maxValue);
+  var maxY = Math.max(step, Math.ceil(maxValue / step) * step);
 
-  function Y(v) {
-    return T + (1 - v / yMax) * (H - T - B);
+  function Y(value) {
+    return T + (1 - value / maxY) * (H - T - B);
   }
 
-  var n = items.length, gap = 3, slot = (W - L - R) / weeks;
-  var bw = Math.min(28, (slot * 0.78 - gap * (n - 1)) / n);
+  var count = items.length;
+  var gap = 3;
+  var slot = (W - L - R) / weeks;
+  var barWidth = Math.max(
+    2,
+    Math.min(28, (slot * 0.78 - gap * (count - 1)) / count)
+  );
 
-  var s = '<svg viewBox="0 0 ' + W + ' ' + H +
+  var svg = '<svg viewBox="0 0 ' + W + ' ' + H +
     '" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg"><defs>';
 
-  items.forEach(function (it, j) {
-    s += '<pattern id="traj-h' + j +
+  items.forEach(function (item, index) {
+    svg += '<pattern id="traj-h' + index +
       '" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">' +
       '<rect width="6" height="6" style="fill:var(--bg3)"/>' +
-      '<rect width="3" height="6" fill="' + it.col + '"/></pattern>';
+      '<rect width="3" height="6" fill="' + item.color + '"/></pattern>';
   });
 
-  s += '</defs>';
+  svg += '</defs>';
 
-  for (var v = 0; v <= yMax + 1e-9; v += step) {
-    s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + r1(Y(v)) +
-      '" y2="' + r1(Y(v)) + '" style="stroke:var(--border)" stroke-width="1"/>';
-    s += '<text x="' + (L - 8) + '" y="' + (r1(Y(v)) + 4) +
+  for (var value = 0; value <= maxY + 1e-9; value += step) {
+    svg += '<line x1="' + L + '" x2="' + (W - R) +
+      '" y1="' + trajR1(Y(value)) + '" y2="' + trajR1(Y(value)) +
+      '" style="stroke:var(--border)" stroke-width="1"/>';
+
+    svg += '<text x="' + (L - 8) + '" y="' + (trajR1(Y(value)) + 4) +
       '" text-anchor="end" font-size="11" style="fill:var(--text-dim)">₹' +
-      r1(v) + '</text>';
+      trajR1(value) + '</text>';
   }
 
-  for (var k = 0; k < weeks; k++) {
-    var gx = L + k * slot + (slot - (n * bw + gap * (n - 1))) / 2;
+  for (var weekIndex = 0; weekIndex < weeks; weekIndex++) {
+    var groupX = L + weekIndex * slot +
+      (slot - (count * barWidth + gap * (count - 1))) / 2;
 
-    items.forEach(function (it, j) {
-      var c = data[j][k];
-      if (!c) return;
+    items.forEach(function (item, itemIndex) {
+      var bar = data[itemIndex][weekIndex];
+      if (!bar) return;
 
-      var y = Y(c.g), h = (H - B) - y;
-      s += '<rect x="' + r1(gx + j * (bw + gap)) +
-        '" y="' + r1(y) + '" width="' + r1(bw) +
-        '" height="' + r1(Math.max(h, 0)) +
-        '" rx="2" fill="' + (c.partial ? 'url(#traj-h' + j + ')' : it.col) +
-        '"><title>' + it.name + ' · Wk ' + (k + 1) +
-        (c.partial ? ' (partial)' : '') + ': ₹' + r1(c.g) +
-        ' Cr</title></rect>';
+      var y = Y(bar.amount);
+      var height = (H - B) - y;
+
+      svg += '<rect x="' + trajR1(groupX + itemIndex * (barWidth + gap)) +
+        '" y="' + trajR1(y) + '" width="' + trajR1(barWidth) +
+        '" height="' + trajR1(Math.max(height, 0)) +
+        '" rx="2" fill="' +
+        (bar.partial ? 'url(#traj-h' + itemIndex + ')' : item.color) +
+        '"><title>' + item.name + ' · Wk ' + (weekIndex + 1) +
+        (bar.partial ? ' (partial)' : '') + ': ₹' +
+        trajR1(bar.amount) + ' Cr</title></rect>';
     });
 
-    s += '<text x="' + r1(L + k * slot + slot / 2) +
+    svg += '<text x="' +
+      trajR1(L + weekIndex * slot + slot / 2) +
       '" y="' + (H - 10) +
       '" text-anchor="middle" font-size="11" style="fill:var(--text-dim)">Wk ' +
-      (k + 1) + '</text>';
+      (weekIndex + 1) + '</text>';
   }
 
-  return s + '</svg>';
+  return svg + '</svg>';
 }
   var barsHtml =
     bar('Opening Weekend (₹ Cr)', fA.ow, fB.ow, function(v){return v?'₹'+v+' Cr':'—';})+
