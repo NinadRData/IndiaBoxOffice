@@ -11741,7 +11741,7 @@ function renderActress() {
 // ═══════════════════════════════════════
 // COMPARE PAGE — mode toggle + film compare
 // ═══════════════════════════════════════
-// Replace the existing setCmpMode function with this:
+
 function setCmpMode(tab, btn) {
   document.querySelectorAll('#cmp-mode-tabs .rec-tab').forEach(function (b) {
     b.classList.remove('on');
@@ -11766,9 +11766,6 @@ function setCmpMode(tab, btn) {
     renderTraj();
   }
 }
-
-// Delete this stray top-level line if it appears below the function:
-// if (tab === 'traj') renderTraj();
 
 var filmCmpSelA = null, filmCmpSelB = null;
 
