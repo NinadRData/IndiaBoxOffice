@@ -2359,7 +2359,8 @@ var YR_DATA = {
   <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
   <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
   <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
-  <button class="rec-tab" onclick="setCmpMode('clash',this)">Box Office Clashes</button>
+ <button class="rec-tab" onclick="setCmpMode('clash',this)">Box Office Clashes</button>
+<button class="rec-tab" onclick="setCmpMode('traj',this)">Trajectory</button>
 </div>
 
     <div id="cmp-panel-actor">
@@ -2434,22 +2435,42 @@ var YR_DATA = {
       <div id="fcmp-content" style="display:none"></div>
   </div><!-- /cmp-panel-film -->
 
-    <!-- BOX OFFICE CLASHES PANEL -->
-    <div id="cmp-panel-clash" style="display:none">
-      <div style="margin-bottom:2rem">
-        <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.6rem">Select a Clash</div>
-        <div style="position:relative;max-width:420px">
-<select id="clashSelect" onchange="renderClashCompare()" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(255,255,255,.2);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.6rem 2.2rem .6rem .9rem;cursor:pointer;outline:none">            <option value="">— Choose a Clash —</option>
-          </select>
-          <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(255,255,255,.4);font-size:.7rem">▼</div>
-        </div>
+       </div><!-- /cmp-panel-clash -->
+
+    <!-- TRAJECTORY PANEL -->
+    <div id="cmp-panel-traj" style="display:none">
+      <div id="traj-metric" style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap">
+        <span style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)">Metric</span>
+        <button class="lf on" onclick="setTrajMetric('india',this)">India Net</button>
+        <button class="lf" onclick="setTrajMetric('ww',this)">Worldwide</button>
       </div>
-      <div id="clash-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">← Choose a clash above</div>
-      <div id="clash-content" style="display:none"></div>
-    </div><!-- /cmp-panel-clash -->
+
+      <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.5rem">Films · pick up to 5</div>
+      <div id="traj-chips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem"></div>
+
+      <div id="traj-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">Pick films above to compare their trajectories</div>
+
+      <div id="traj-wrap" style="display:none">
+        <div class="chart-box">
+          <div class="chart-lbl" id="traj-title"></div>
+          <div id="traj-legend" style="margin-bottom:.75rem"></div>
+          <div id="traj-chart" style="position:relative"></div>
+        </div>
+
+        <div class="chart-box">
+          <div class="chart-lbl" id="traj-wtitle"></div>
+          <div id="traj-weekly"></div>
+          <div style="font-size:.62rem;color:rgba(255,255,255,.3);margin-top:.4rem">Hatched bars are partial weeks.</div>
+        </div>
+
+        <div id="traj-note" style="font-size:.7rem;color:rgba(255,255,255,.4);line-height:1.7"></div>
+      </div>
+    </div><!-- /cmp-panel-traj -->
+
   </div>
   <footer>Box Office India · All comparisons based on master database · Data through April 2026</footer>
 </div>
+  
 
 <!-- ═══════════ PAGE: LOOKUP ═══════════ -->
 <div id="page-lookup" class="page">
@@ -11726,6 +11747,7 @@ function setCmpMode(tab, btn) {
   document.getElementById('cmp-panel-actor').style.display = tab === 'actor' ? 'block' : 'none';
   document.getElementById('cmp-panel-film').style.display  = tab === 'film'  ? 'block' : 'none';
   document.getElementById('cmp-panel-clash').style.display = tab === 'clash' ? 'block' : 'none';
+  document.getElementById('cmp-panel-traj').style.display  = tab === 'traj'  ? 'block' : 'none';
 }
 
 var filmCmpSelA = null, filmCmpSelB = null;
