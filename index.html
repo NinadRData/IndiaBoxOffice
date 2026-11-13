@@ -11741,15 +11741,34 @@ function renderActress() {
 // ═══════════════════════════════════════
 // COMPARE PAGE — mode toggle + film compare
 // ═══════════════════════════════════════
+// Replace the existing setCmpMode function with this:
 function setCmpMode(tab, btn) {
-  document.querySelectorAll('#cmp-mode-tabs .rec-tab').forEach(function(b){ b.classList.remove('on'); });
-  btn.classList.add('on');
-  document.getElementById('cmp-panel-actor').style.display = tab === 'actor' ? 'block' : 'none';
-  document.getElementById('cmp-panel-film').style.display  = tab === 'film'  ? 'block' : 'none';
-  document.getElementById('cmp-panel-clash').style.display = tab === 'clash' ? 'block' : 'none';
-  document.getElementById('cmp-panel-traj').style.display  = tab === 'traj'  ? 'block' : 'none';
+  document.querySelectorAll('#cmp-mode-tabs .rec-tab').forEach(function (b) {
+    b.classList.remove('on');
+  });
+
+  if (btn) btn.classList.add('on');
+
+  var panels = {
+    actor: document.getElementById('cmp-panel-actor'),
+    film: document.getElementById('cmp-panel-film'),
+    clash: document.getElementById('cmp-panel-clash'),
+    traj: document.getElementById('cmp-panel-traj')
+  };
+
+  Object.keys(panels).forEach(function (mode) {
+    if (panels[mode]) {
+      panels[mode].style.display = mode === tab ? 'block' : 'none';
+    }
+  });
+
+  if (tab === 'traj' && typeof renderTraj === 'function') {
+    renderTraj();
+  }
 }
-    if (tab === 'traj') renderTraj();
+
+// Delete this stray top-level line if it appears below the function:
+// if (tab === 'traj') renderTraj();
 
 var filmCmpSelA = null, filmCmpSelB = null;
 
