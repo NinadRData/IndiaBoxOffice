@@ -1420,8 +1420,8 @@ function getActorFilms(actor) {
   var merged = Object.values(filmMap);
   return merged.sort(function(a,b){ return a.y - b.y; });
 }
-// Canonical top 75 footfall list
-var FF_SORTED = [
+// Older footfall list (fallback only: films not in FILMS yet; FILMS wins when a film is in both)
+var FF_BASE = [
   {n:'Sholay',                  y:1975, l:'Hindi',   ff:127,  actors:['Amitabh Bachchan','Dharmendra','Hema Malini','Sanjeev Kumar']},
   {n:'Baahubali 2',             y:2017, l:'Telugu',  ff:107.7,actors:['Prabhas','Rana Daggubati','Anushka Shetty']},
   {n:'Mughal-E-Azam',          y:1960, l:'Hindi',   ff:91.7, actors:['Dilip Kumar','Madhubala']},
@@ -1572,8 +1572,23 @@ var FF_SORTED = [
   {n:'Bees Saal Baad',         y:1962, l:'Hindi',   ff:25,   actors:['Biswajit','Waheeda Rehman']},
 ];
 
-FF_SORTED.sort(function(a,b){ return b.ff - a.ff; });
-var MAX_FF = 127;
+var FF_MIN = 25;   // lowest footfall (M) shown on this page; lower it to include more films
+function ffKey(f){ return f.n.toLowerCase().trim()+'|'+f.y; }
+
+var FF_SORTED = (function(){
+  var map = {};
+  FF_BASE.forEach(function(f){ map[ffKey(f)] = {n:f.n, y:f.y, l:f.l, ff:f.ff, actors:f.actors||[]}; });
+  FILMS.forEach(function(f){
+    if (!f.ff) return;
+    var k = ffKey(f), old = map[k];
+    map[k] = {n:f.n, y:f.y, l:f.l, ff:f.ff, actors:(f.actors && f.actors.length) ? f.actors : (old ? old.actors : [])};
+  });
+  return Object.keys(map).map(function(k){ return map[k]; })
+    .filter(function(f){ return f.ff >= FF_MIN; })
+    .sort(function(a,b){ return b.ff - a.ff; });
+})();
+
+var MAX_FF = FF_SORTED.length ? FF_SORTED[0].ff : 1;
 var FF_PAGE_SIZE = 50;
 
 // Top 50 highest  — fixed canonical list
@@ -10128,10 +10143,13 @@ function setFF(type,val,btn){
   renderFF();
 }
 
+var ffTop = FF_SORTED[0];
+var ffMod = FF_SORTED.filter(function(f){ return f.y >= 2000; })[0];
+var ff20s = FF_SORTED.filter(function(f){ return f.y >= 2020; })[0];
 document.getElementById('ff-stats').innerHTML=[
-  {l:'#1 All-Time',v:'127M',s:'Sholay (1975)'},
-  {l:'Highest Modern',v:'107.7M',s:'Baahubali 2 (2017)'},
-  {l:'Highest 2020s',v:'63M',s:'Pushpa 2 (2024)'},
+  {l:'#1 All-Time',v:ffTop.ff+'M',s:ffTop.n+' ('+ffTop.y+')'},
+  {l:'Highest Modern',v:ffMod.ff+'M',s:ffMod.n+' ('+ffMod.y+')'},
+  {l:'Highest 2020s',v:ff20s.ff+'M',s:ff20s.n+' ('+ff20s.y+')'},
   {l:'Total in DB',v:FF_SORTED.length,s:'films with footfall data'},
 ].map(function(m){
   return '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(79,195,247,.15)"><div class="stat-lbl">'+m.l+'</div><div class="stat-val" style="color:var(--blue)">'+m.v+'</div><div class="stat-sub">'+m.s+'</div></div>';
