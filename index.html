@@ -11762,11 +11762,8 @@ function setCmpMode(tab, btn) {
     }
   });
 
-  if (tab === 'traj' && typeof renderTraj === 'function') {
-    renderTraj();
-  }
+  if (tab === 'traj') renderTraj();
 }
-
 var filmCmpSelA = null, filmCmpSelB = null;
 
 function allFilmsFlat() {
