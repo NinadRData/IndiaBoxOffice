@@ -2500,6 +2500,33 @@ var YR_DATA = {
   </div>
 
   <div style="max-width:1100px;margin:0 auto;padding:2rem">
+    <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1.25rem">
+  <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.6rem">
+    Compare past releases from a similar time of year
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+    <select id="traj-period-anchor"
+      style="background:#1e1e2e;border:0.5px solid rgba(255,255,255,.2);border-radius:4px;color:#fff;padding:.55rem .7rem;font:inherit;min-width:220px">
+      <option value="">Choose a reference film…</option>
+    </select>
+
+    <select id="traj-period-window"
+      style="background:#1e1e2e;border:0.5px solid rgba(255,255,255,.2);border-radius:4px;color:#fff;padding:.55rem .7rem;font:inherit">
+      <option value="7">Within ±7 days</option>
+      <option value="14" selected>Within ±14 days</option>
+      <option value="30">Within ±30 days</option>
+    </select>
+
+    <button class="lf" onclick="findTrajPeriodMatches(true)">Find past releases</button>
+  </div>
+
+  <div id="traj-period-note" style="font-size:.68rem;color:var(--text-dim);margin-top:.65rem">
+    Comparisons align films by day since release.
+  </div>
+
+  <div id="traj-period-results" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:.7rem"></div>
+</div>
     <div id="traj-metric" style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap">
       <span style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)">Metric</span>
       <button class="lf on" onclick="setTrajMetric('india',this)">India Net</button>
@@ -12460,6 +12487,137 @@ function trajPool() {
     return (b.year || 0) - (a.year || 0);
   });
 }
+  function initTrajPeriodSelect() {
+  var select = document.getElementById('traj-period-anchor');
+  if (!select) return;
+
+  var previousValue = select.value;
+  var films = trajPool().filter(function (film) {
+    return film.release && trajSeries(film, trajMetric);
+  });
+
+  select.innerHTML = '<option value="">Choose a reference film…</option>';
+
+  films.forEach(function (film) {
+    var option = document.createElement('option');
+    option.value = film.key;
+    option.textContent = film.title + ' (' + film.year + ')';
+    select.appendChild(option);
+  });
+
+  if (previousValue) select.value = previousValue;
+}
+
+function trajCalendarDay(isoDate) {
+  var date = new Date(isoDate + 'T00:00:00Z');
+  if (isNaN(date.getTime())) return null;
+
+  var canonical = Date.UTC(2000, date.getUTCMonth(), date.getUTCDate());
+  return Math.round((canonical - Date.UTC(2000, 0, 1)) / 86400000);
+}
+
+function findTrajPeriodMatches(resetSelection) {
+  var select = document.getElementById('traj-period-anchor');
+  var results = document.getElementById('traj-period-results');
+  var note = document.getElementById('traj-period-note');
+  var windowSelect = document.getElementById('traj-period-window');
+
+  if (!select || !results || !note) return;
+
+  var films = trajPool();
+  var anchor = films.find(function (film) {
+    return film.key === select.value;
+  });
+
+  results.innerHTML = '';
+
+  if (!anchor || !anchor.release) {
+    note.textContent = 'Choose a reference film with a release date.';
+    return;
+  }
+
+  var anchorDate = new Date(anchor.release + 'T00:00:00Z');
+  var anchorDay = trajCalendarDay(anchor.release);
+  var days = windowSelect ? Number(windowSelect.value) || 14 : 14;
+
+  if (isNaN(anchorDate.getTime()) || anchorDay == null) {
+    note.textContent = 'This film does not have a valid release date.';
+    return;
+  }
+
+  var matches = films.map(function (film) {
+    if (!film.release || film.key === anchor.key) return null;
+
+    var releaseDate = new Date(film.release + 'T00:00:00Z');
+    var calendarDay = trajCalendarDay(film.release);
+
+    if (
+      isNaN(releaseDate.getTime()) ||
+      calendarDay == null ||
+      releaseDate.getTime() >= anchorDate.getTime() ||
+      releaseDate.getUTCFullYear() >= anchorDate.getUTCFullYear() ||
+      !trajSeries(film, trajMetric)
+    ) {
+      return null;
+    }
+
+    var distance = Math.abs(calendarDay - anchorDay);
+    distance = Math.min(distance, 366 - distance);
+
+    return distance <= days
+      ? { film: film, distance: distance, releaseDate: releaseDate }
+      : null;
+  }).filter(Boolean);
+
+  matches.sort(function (a, b) {
+    return a.distance - b.distance ||
+      b.releaseDate.getTime() - a.releaseDate.getTime();
+  });
+
+  if (resetSelection !== false) {
+    trajSel = [anchor.key];
+    renderTraj();
+  }
+
+  note.textContent = matches.length
+    ? matches.length + ' earlier releases within ±' + days +
+      ' calendar days of ' + anchor.title +
+      '. Select films to add them to the chart; curves align by day since release.'
+    : 'No earlier releases with ' +
+      (trajMetric === 'india' ? 'India Net' : 'Worldwide') +
+      ' trajectory data found within ±' + days + ' days.';
+
+  matches.forEach(function (match) {
+    var film = match.film;
+    var button = document.createElement('button');
+    button.className = 'lf';
+
+    function updateButton() {
+      var index = trajSel.indexOf(film.key);
+      button.classList.toggle('on', index >= 0);
+
+      if (index >= 0) {
+        button.style.background = TRAJ_COLORS[index];
+        button.style.borderColor = TRAJ_COLORS[index];
+        button.style.color = '#000';
+      } else {
+        button.style.background = '';
+        button.style.borderColor = '';
+        button.style.color = '';
+      }
+    }
+
+    button.textContent = film.title + ' (' + film.year + ') · ' +
+      match.distance + 'd';
+    button.addEventListener('click', function () {
+      toggleTraj(film.key);
+      updateButton();
+    });
+
+    updateButton();
+    results.appendChild(button);
+  });
+}
 
 function trajSeries(film, metric) {
   var points;
@@ -12540,8 +12698,8 @@ function renderTraj() {
   var empty = document.getElementById('traj-empty');
   var wrap = document.getElementById('traj-wrap');
 
-  if (!chipHost || !empty || !wrap) return;
-
+if (!chipHost || !empty || !wrap) return;
+initTrajPeriodSelect();
   var films = trajPool();
   var searchInput = document.getElementById('traj-search');
   var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
