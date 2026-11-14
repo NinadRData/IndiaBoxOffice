@@ -2442,8 +2442,15 @@ var YR_DATA = {
       <div id="fcmp-content" style="display:none"></div>
   </div><!-- /cmp-panel-film -->
 
-       </div><!-- /cmp-panel-clash -->
-
+    <!-- BOX OFFICE CLASH PANEL -->
+    <div id="cmp-panel-clash" style="display:none">
+      <label for="clashSelect">Choose a clash</label>
+      <select id="clashSelect" onchange="renderClashCompare()">
+        <option value="">— Select a box office clash —</option>
+      </select>
+      <div id="clash-empty">Choose a clash above to compare the films.</div>
+      <div id="clash-content" style="display:none"></div>
+    </div><!-- /cmp-panel-clash -->
   </div>
   <footer>Box Office India · All comparisons based on master database · Data through April 2026</footer>
 </div>
