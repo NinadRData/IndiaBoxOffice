@@ -506,7 +506,7 @@ var FILMS = [
 {n:'Sitaare Zameen Par',      y:2025,l:'Hindi',  actors:['Aamir Khan','Genelia D\'Souza'],                                          studio:'Aamir Khan Prod.',          india:165.67, ww:266,    ow:57.3,  ff:8.64,   lb:3.3, budget:90},
 {n:'Raid 2',                  y:2025,l:'Hindi',  actors:['Ajay Devgn','Riteish Deshmukh'],                                          studio:'T-Series / Panorama',       india:178,    ww:243,    ow:54,    ff:null,  lb:null, budget:100},
 {n:'Jersey',                  y:2022,l:'Hindi',  actors:['Shahid Kapoor','Mrunal Thakur'],                                          studio:'Dil Raju Productions',      india:19,     ww:28,     ow:12,    ff:null,  lb:3.3, budget:95},
-{n:'Jana Nayagan',            y:2026,l:'Tamil',  actors:['Vijay','Pooja Hegde'],                                                    studio:'KVN Productions',           india:198.28, ww:324.35, ow:82,    ff:6.8,    lb:3.1, budget:300},
+{n:'Jana Nayagan',            y:2026,l:'Tamil',  actors:['Vijay','Pooja Hegde'],                                                    studio:'KVN Productions',           india:198.28, ww:324.35, ow:82,    ff:7.9,    lb:3.1, budget:300},
 {n:'Karuppu',                 y:2026,l:'Tamil',  actors:['Suriya','Trisha'],                                                        studio:'Dream Warrior Pictures',    india:198,    ww:310,    ow:68,    ff:11.5,   lb:3.1, budget:200},
 {n:'Tanhaji',   y:2020, l:'Hindi', actors:['Ajay Devgn'], studio:'T-Series',        india:279.55, ww:367.65, ow:61.75, ff:null, lb:null},
   {n:'The Kerala Story', y:2023, l:'Hindi', actors:[], studio:'Sunshine Pictures', india:242, ww:303, ow:35, ff:null, lb:null},
@@ -7615,10 +7615,10 @@ var FILM_PAGES = {
   release: '2026-07-23',
   runtime: null,
   budget: 300,
-  india: 143.40,
+  india: 198.28,
   ow: null,
-  ww: 171.84,
-  ff: 6.3,
+  ww: 324.35,
+  ff: 7.9,
   multiplier: null,
   lb: null,
   ott: 'Amazon Prime Video',
@@ -8626,8 +8626,8 @@ daily: [
     music: 'Pritam',
     daily: [
       // Week 1 — Release date Wed Mar 18 (Day 0 = preview)
-      {date:'Wed Mar 18', day:'Wed', gross:43.00,  chgDay:null,    chgWeek:null,   total:43.00},
-      {date:'Thu Mar 19', day:'Thu', gross:102.55, chgDay:+138.5,  chgWeek:null,   total:145.55},
+{date:'Wed Mar 18', day:'Wed', gross:43.00, chgDay:null, chgWeek:null, total:43.00, preview:true},
+  {date:'Thu Mar 19', day:'Thu', gross:102.55, chgDay:+138.5,  chgWeek:null,   total:145.55},
       {date:'Fri Mar 20', day:'Fri', gross:80.72,  chgDay:-21.29,  chgWeek:null,   total:226.27},
       {date:'Sat Mar 21', day:'Sat', gross:113.00, chgDay:+39.99,  chgWeek:null,   total:339.27},
       {date:'Sun Mar 22', day:'Sun', gross:114.85, chgDay:+1.64,   chgWeek:null,   total:308.57},
@@ -12764,52 +12764,79 @@ function findTrajPeriodMatches(resetSelection) {
 }
 
 function trajSeries(film, metric) {
-  if (metric === 'india') {
-    if (!film.daily || !film.daily.length) return null;
+  var dailyRows = film.daily || [];
 
-    return film.daily
-      .filter(function (row) {
-        return !row.bucket && row.total != null && !isNaN(Number(row.total));
-      })
-      .map(function (row, index) {
-        return { d: index + 1, v: Number(row.total) };
-      });
+  function isPreview(row) {
+    return row && (
+      row.preview === true ||
+      String(row.day || '').toLowerCase() === 'preview'
+    );
   }
 
-  var dailyRows = film.daily || [];
+  if (metric === 'india') {
+    var indiaPoints = [];
+    var indiaRunningTotal = 0;
+    var indiaDay = 0;
+
+    dailyRows.forEach(function (row) {
+      if (!row || row.bucket) return;
+
+      if (row.total != null && isFinite(Number(row.total))) {
+        indiaRunningTotal = Number(row.total);
+      } else if (row.gross != null && isFinite(Number(row.gross))) {
+        indiaRunningTotal += Number(row.gross);
+      } else {
+        return;
+      }
+
+      if (isPreview(row)) return;
+
+      indiaDay++;
+      indiaPoints.push({d:indiaDay, v:indiaRunningTotal});
+    });
+
+    return indiaPoints;
+  }
+
   var hasDailyWorldwide = dailyRows.some(function (row) {
     return row && !row.bucket &&
       (row.wwGross != null || row.wwTotal != null);
   });
 
   if (hasDailyWorldwide) {
-    var runningTotal = 0;
-    var points = [];
+    var worldwidePoints = [];
+    var worldwideRunningTotal = 0;
+    var releaseDay = 0;
 
-    dailyRows.forEach(function (row, index) {
+    dailyRows.forEach(function (row) {
       if (!row || row.bucket) return;
 
       if (row.wwTotal != null && isFinite(Number(row.wwTotal))) {
-        runningTotal = Number(row.wwTotal);
-        points.push({ d: index + 1, v: runningTotal });
+        worldwideRunningTotal = Number(row.wwTotal);
       } else if (row.wwGross != null && isFinite(Number(row.wwGross))) {
-        runningTotal += Number(row.wwGross);
-        points.push({ d: index + 1, v: runningTotal });
+        worldwideRunningTotal += Number(row.wwGross);
+      } else {
+        return;
       }
+
+      if (isPreview(row)) return;
+
+      releaseDay++;
+      worldwidePoints.push({d:releaseDay, v:worldwideRunningTotal});
     });
 
-    return points;
+    return worldwidePoints;
   }
 
-  // Keep existing wwCum data working until you move it into daily rows.
+  // Keep supporting films that still use the older wwCum format.
   if (!film.wwCum || !film.wwCum.length) return null;
 
   return film.wwCum
     .map(function (row) {
-      return { d: Number(row.d), v: Number(row.v) };
+      return {d:Number(row.d), v:Number(row.v)};
     })
     .filter(function (point) {
-      return point.d > 0 && !isNaN(point.d) && !isNaN(point.v);
+      return point.d > 0 && isFinite(point.d) && isFinite(point.v);
     })
     .sort(function (a, b) {
       return a.d - b.d;
