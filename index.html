@@ -11110,31 +11110,26 @@ function renderDailyRecords() {
     data.push({
       title: film.title || key,
       year: film.year || '',
-      value: result.value,
-      detail: result.detail
+      value: Number(result.value),
+      detail: result.detail || ''
     });
   });
 
-  var isDrop = dailyRecMetric === 'weekendDrop' || dailyRecMetric === 'mondayDrop';
+  var weekdayLabels = {
+    Mon: 'Monday',
+    Tue: 'Tuesday',
+    Wed: 'Wednesday',
+    Thu: 'Thursday',
+    Fri: 'Friday',
+    Sat: 'Saturday',
+    Sun: 'Sunday'
+  };
+  var weekdayMatch = /^weekday\|([1-5])\|(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/.exec(dailyRecMetric);
+  var ordinalLabels = ['1st', '2nd', '3rd', '4th', '5th'];
+  var label = weekdayMatch
+    ? ordinalLabels[Number(weekdayMatch[1]) - 1] + ' ' + weekdayLabels[weekdayMatch[2]] + ' India Net'
+    : (labels[dailyRecMetric] || 'Daily Records');
 
-  data.sort(function (a, b) {
-    return isDrop ? a.value - b.value : b.value - a.value;
-  });
-
-var weekdayLabels = {
-  Mon: 'Monday',
-  Tue: 'Tuesday',
-  Wed: 'Wednesday',
-  Thu: 'Thursday',
-  Fri: 'Friday',
-  Sat: 'Saturday',
-  Sun: 'Sunday'
-};
-var weekdayMatch = /^weekday\|([1-5])\|(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/.exec(dailyRecMetric);
-var ordinalLabels = ['1st', '2nd', '3rd', '4th', '5th'];
-var label = weekdayMatch
-  ? ordinalLabels[Number(weekdayMatch[1]) - 1] + ' ' + weekdayLabels[weekdayMatch[2]] + ' India Net'
-  : (labels[dailyRecMetric] || 'Daily Records');
   document.getElementById('daily-rec-label').textContent =
     label + ' · ' + data.length + ' films with data';
 
@@ -11144,10 +11139,15 @@ var label = weekdayMatch
     return;
   }
 
+  var isDrop = dailyRecMetric === 'weekendDrop' || dailyRecMetric === 'mondayDrop';
+
+  data.sort(function (a, b) {
+    return isDrop ? a.value - b.value : b.value - a.value;
+  });
+
   var maxValue = Math.max.apply(null, data.map(function (item) {
     return Math.abs(item.value);
   })) || 1;
-
   var color = isDrop ? '#f87171' : '#4fc3f7';
 
   document.getElementById('daily-rec-chart').innerHTML = data.map(function (item, index) {
@@ -11157,18 +11157,25 @@ var label = weekdayMatch
       : '₹' + item.value.toFixed(2) + ' Cr';
 
     return '<div style="display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;padding:.55rem 8px;border-bottom:0.5px solid rgba(255,255,255,.05)">' +
-      '<span style="font-size:.75rem;font-weight:800;color:' + (index < 3 ? 'var(--gold)' : 'rgba(255,255,255,.35)') + ';text-align:right">#' + (index + 1) + '</span>' +
+      '<span style="font-size:.75rem;font-weight:800;color:' +
+        (index < 3 ? 'var(--gold)' : 'rgba(255,255,255,.35)') +
+        ';text-align:right">#' + (index + 1) + '</span>' +
       '<div style="min-width:0">' +
         '<div style="font-size:.78rem;color:rgba(255,255,255,.88)">' +
           dailyRecEscape(item.title) +
-          '<span style="font-size:.62rem;color:rgba(255,255,255,.4);margin-left:6px">' + dailyRecEscape(item.year) + '</span>' +
+          '<span style="font-size:.62rem;color:rgba(255,255,255,.4);margin-left:6px">' +
+            dailyRecEscape(item.year) + '</span>' +
         '</div>' +
         '<div style="height:12px;background:rgba(255,255,255,.06);border-radius:3px;margin-top:5px;overflow:hidden">' +
-          '<div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,' + color + '88,' + color + ');border-radius:3px"></div>' +
+          '<div style="height:100%;width:' + pct +
+            '%;background:linear-gradient(90deg,' + color + '88,' + color +
+            ');border-radius:3px"></div>' +
         '</div>' +
-        '<div style="font-size:.6rem;color:rgba(255,255,255,.4);margin-top:3px">' + dailyRecEscape(item.detail) + '</div>' +
+        '<div style="font-size:.6rem;color:rgba(255,255,255,.4);margin-top:3px">' +
+          dailyRecEscape(item.detail) + '</div>' +
       '</div>' +
-      '<strong style="font-size:.78rem;color:' + color + ';white-space:nowrap">' + valueLabel + '</strong>' +
+      '<strong style="font-size:.78rem;color:' + color + ';white-space:nowrap">' +
+        valueLabel + '</strong>' +
     '</div>';
   }).join('');
 }
