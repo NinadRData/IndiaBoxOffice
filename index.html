@@ -238,6 +238,128 @@ textarea.fi{resize:vertical}
 .chart-bar-yr{font-size:.45rem;color:rgba(255,255,255,.2);writing-mode:vertical-rl;white-space:nowrap;max-height:48px;overflow:hidden}
 footer{font-size:.6rem;color:rgba(255,255,255,.15);text-align:center;padding:2rem;border-top:0.5px solid rgba(255,255,255,.05);margin-top:2rem}
 @keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
+  /* Global color and readability refresh */
+:root {
+  --bg: #11161b;
+  --bg2: #171e25;
+  --bg3: #1e2730;
+  --border: rgba(190, 205, 218, 0.14);
+  --text: #f4f6f8;
+  --text-dim: rgba(230, 236, 242, 0.74);
+  --text-muted: rgba(210, 220, 230, 0.56);
+  --nav-bg: rgba(17, 22, 27, 0.96);
+  color-scheme: dark;
+}
+
+body.light {
+  --bg: #f3f1ec;
+  --bg2: #fffdf8;
+  --bg3: #ebe7df;
+  --border: rgba(40, 48, 56, 0.15);
+  --text: #202832;
+  --text-dim: rgba(32, 40, 50, 0.74);
+  --text-muted: rgba(32, 40, 50, 0.56);
+  --nav-bg: rgba(243, 241, 236, 0.97);
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+nav {
+  background: var(--nav-bg) !important;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+.chart-box,
+.stat-card {
+  background-color: var(--bg2);
+  border-color: var(--border);
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+#page-topgrossers .chart-box,
+#page-topgrossers .stat-card {
+  border-top: 2px solid rgba(249, 115, 22, 0.48);
+}
+
+#page-footfalls .chart-box,
+#page-footfalls .stat-card {
+  border-top: 2px solid rgba(79, 195, 247, 0.45);
+}
+
+#page-records .chart-box,
+#page-records .stat-card {
+  border-top: 2px solid rgba(245, 197, 24, 0.45);
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  color: var(--text) !important;
+  background-color: var(--bg3) !important;
+  border-color: var(--border) !important;
+  transition: background-color 220ms ease, color 220ms ease,
+    border-color 220ms ease, box-shadow 220ms ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 1;
+}
+
+select option {
+  color: var(--text);
+  background-color: var(--bg3);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--blue) !important;
+  box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.14);
+}
+
+#page-records [style*="color:rgba(255,255,255"],
+#page-topgrossers [style*="color:rgba(255,255,255"],
+#page-footfalls [style*="color:rgba(255,255,255"] {
+  color: var(--text-dim) !important;
+}
+
+#page-records .chart-lbl,
+#page-topgrossers .chart-lbl,
+#page-footfalls .chart-lbl,
+#page-records .table-hdr-cell,
+#page-topgrossers .table-hdr-cell,
+#page-footfalls .table-hdr-cell {
+  color: var(--text-dim);
+}
+
+.rec-row,
+.ff-row,
+.table-row {
+  transition: background-color 180ms ease, color 220ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  nav,
+  .chart-box,
+  .stat-card,
+  input,
+  select,
+  textarea,
+  .rec-row,
+  .ff-row,
+  .table-row {
+    transition-duration: 0.01ms !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -13367,5 +13489,14 @@ function renderCompare() {
     verdictLines.map(function(l){return '<div style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.7;padding:.2rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+l+'</div>';}).join('');
 }
 </script>
+
+<script>
+window.addEventListener('load', function () {
+  if (typeof loadAllPosters === 'function') {
+    loadAllPosters();
+  }
+});
+</script>
+
 </body>
 </html>
