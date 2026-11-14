@@ -2513,10 +2513,10 @@ var YR_DATA = {
       </div>
     </div>
 
-  <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
-  <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
-  <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
- <button class="rec-tab" onclick="setCmpMode('clash',this)">Box Office Clashes</button>
+ <div id="cmp-mode-tabs" style="display:flex;gap:8px;margin-bottom:2rem">
+  <button class="rec-tab on" onclick="setCmpMode('actor',this);document.getElementById('cmp-actor-selectors').style.display='grid'">Actor Compare</button>
+  <button class="rec-tab" onclick="setCmpMode('film',this);document.getElementById('cmp-actor-selectors').style.display='none'">Film Compare</button>
+  <button class="rec-tab" onclick="setCmpMode('clash',this);document.getElementById('cmp-actor-selectors').style.display='none'">Box Office Clashes</button>
 </div>
 
     <div id="cmp-panel-actor">
