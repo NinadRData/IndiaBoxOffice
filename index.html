@@ -2483,15 +2483,14 @@ var YR_DATA = {
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(244,114,182,.08),transparent 65%)"></div>
     <div class="page-hero-inner">
       <div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:#f472b6;margin-bottom:.6rem;opacity:.8">Indian Cinema · Head to Head</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">Actor <span style="color:#f472b6">Compare</span></div>
-      <div style="font-size:.82rem;color:rgba(255,255,255,.38);max-width:540px;line-height:1.65">Compare two actors side-by-side across box office, footfalls, career arc, and Letterboxd ratings.</div>
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">Compare</div>      <div style="font-size:.82rem;color:rgba(255,255,255,.38);max-width:540px;line-height:1.65">Compare two actors side-by-side across box office, footfalls, career arc, and Letterboxd ratings.</div>
     </div>
   </div>
   <div style="max-width:980px;margin:0 auto;padding:2rem">
 
     <!-- Actor selectors -->
-    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-bottom:2rem">
-      <div style="background:var(--bg3);border:0.5px solid rgba(244,114,182,.3);border-radius:6px;padding:1.1rem 1.25rem">
+<div id="cmp-actor-selectors" style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-bottom:2rem">
+  <div style="background:var(--bg3);border:0.5px solid rgba(244,114,182,.3);border-radius:6px;padding:1.1rem 1.25rem">
         <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(244,114,182,.6);margin-bottom:.5rem">Actor A</div>
         <div style="position:relative">
           <select id="cmpA" style="appearance:none;width:100%;background:#1e1e2e;border:0.5px solid rgba(244,114,182,.4);border-radius:3px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.55rem 2.2rem .55rem .8rem;cursor:pointer;outline:none" onchange="renderCompare()">
@@ -12442,8 +12441,8 @@ function renderActress() {
 // ═══════════════════════════════════════
 
 function setCmpMode(tab, btn) {
-  document.querySelectorAll('#cmp-mode-tabs .rec-tab').forEach(function (b) {
-    b.classList.remove('on');
+  document.querySelectorAll('#cmp-mode-tabs .rec-tab').forEach(function (button) {
+    button.classList.remove('on');
   });
 
   if (btn) btn.classList.add('on');
@@ -12459,8 +12458,12 @@ function setCmpMode(tab, btn) {
       panels[mode].style.display = mode === tab ? 'block' : 'none';
     }
   });
-}
 
+  var actorSelectors = document.getElementById('cmp-actor-selectors');
+  if (actorSelectors) {
+    actorSelectors.style.display = tab === 'actor' ? 'grid' : 'none';
+  }
+}
 var filmCmpSelected = [];
 var FILM_CMP_COLORS = ['#f472b6', '#4fc3f7', '#f5c518', '#4ade80'];
 
@@ -13366,7 +13369,16 @@ function selectFilmCmpMulti(film) {
     selected.budget = fullPage.budget || selected.budget;
     selected.multiplier = fullPage.multiplier || selected.multiplier;
   }
+var indiaNet = Number(selected.india);
+var openingWeekend = Number(selected.ow);
 
+if (
+  (selected.multiplier == null || !isFinite(Number(selected.multiplier)) || Number(selected.multiplier) <= 0) &&
+  indiaNet > 0 &&
+  openingWeekend > 0
+) {
+  selected.multiplier = Number((indiaNet / openingWeekend).toFixed(2));
+}
   filmCmpSelected.push(selected);
 
   var input = document.getElementById('filmCmp-search');
