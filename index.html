@@ -249,9 +249,9 @@ footer{font-size:.6rem;color:rgba(255,255,255,.15);text-align:center;padding:2re
     <li><a onclick="showPage('topgrossers')" id="nav-topgrossers" style="color:var(--orange);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Top Grossers</a></li>
     <li><a onclick="showPage('footfalls')" id="nav-footfalls" style="color:var(--blue);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Footfalls</a></li>
     <li><a onclick="showPage('actors')" id="nav-actors" style="color:var(--purple);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Actors</a></li>
+    <li><a onclick="showPage('tracking')" id="nav-tracking" style="color:var(--gold);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Tracking (for now)</a></li>
     <li><a onclick="showPage('records')" id="nav-records" style="color:var(--gold);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Records</a></li>
     <li><a onclick="showPage('predictions')" id="nav-predictions" style="color:var(--green);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Schedule</a></li>
-    <li><a onclick="showPage('actresses')" id="nav-actresses" style="color:#fb7185;opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Celebrities</a></li>
     <li><a onclick="showPage('compare')" id="nav-compare" style="color:#f472b6;opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Compare</a></li>
     <li><a onclick="showPage('action')" id="nav-action" style="color:#fb923c;opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Analysis</a></li>
     <li><a onclick="showPage('lookup')" id="nav-lookup" style="color:#34d399;opacity:.75;font-weight:800" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Lookup</a></li>
@@ -1944,6 +1944,10 @@ var YR_DATA = {
     </div>
   </div>
     <div style="max-width:960px;margin:0 auto;padding:2rem">
+      <div style="display:flex;gap:8px;margin-bottom:1.5rem">
+  <button class="rec-tab on" onclick="showPage('actors')">Actors</button>
+  <button class="rec-tab" onclick="showPage('actresses')">Celebrities</button>
+</div>
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
       <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actor</div>
      <div style="position:relative;min-width:220px;display:flex;align-items:center;gap:6px">
@@ -2262,6 +2266,10 @@ var YR_DATA = {
     </div>
   </div>
   <div style="max-width:960px;margin:0 auto;padding:2rem">
+      <div style="display:flex;gap:8px;margin-bottom:1.5rem">
+    <button class="rec-tab" onclick="showPage('actors')">Actors</button>
+    <button class="rec-tab on" onclick="showPage('actresses')">Celebrities</button>
+  </div>
 
     <!-- Celebrity type tabs -->
     <div style="display:flex;gap:8px;margin-bottom:1.5rem">
@@ -2360,7 +2368,6 @@ var YR_DATA = {
   <button class="rec-tab on" onclick="setCmpMode('actor',this)">Actor Compare</button>
   <button class="rec-tab" onclick="setCmpMode('film',this)">Film Compare</button>
  <button class="rec-tab" onclick="setCmpMode('clash',this)">Box Office Clashes</button>
-<button class="rec-tab" onclick="setCmpMode('traj',this)">Trajectory</button>
 </div>
 
     <div id="cmp-panel-actor">
@@ -2437,41 +2444,71 @@ var YR_DATA = {
 
        </div><!-- /cmp-panel-clash -->
 
-    <!-- TRAJECTORY PANEL -->
-    <div id="cmp-panel-traj" style="display:none">
-      <div id="traj-metric" style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap">
-        <span style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)">Metric</span>
-        <button class="lf on" onclick="setTrajMetric('india',this)">India Net</button>
-        <button class="lf" onclick="setTrajMetric('ww',this)">Worldwide</button>
-      </div>
-
-      <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.5rem">Films · pick up to 5</div>
-      <div id="traj-chips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem"></div>
-
-      <div id="traj-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">Pick films above to compare their trajectories</div>
-
-      <div id="traj-wrap" style="display:none">
-        <div class="chart-box">
-          <div class="chart-lbl" id="traj-title"></div>
-          <div id="traj-legend" style="margin-bottom:.75rem"></div>
-          <div id="traj-chart" style="position:relative"></div>
-        </div>
-
-        <div class="chart-box">
-          <div class="chart-lbl" id="traj-wtitle"></div>
-          <div id="traj-weekly"></div>
-          <div style="font-size:.62rem;color:rgba(255,255,255,.3);margin-top:.4rem">Hatched bars are partial weeks.</div>
-        </div>
-
-        <div id="traj-note" style="font-size:.7rem;color:rgba(255,255,255,.4);line-height:1.7"></div>
-      </div>
-    </div><!-- /cmp-panel-traj -->
-
   </div>
   <footer>Box Office India · All comparisons based on master database · Data through April 2026</footer>
 </div>
   
+//Page: Tracking
+  <div id="page-tracking" class="page">
+  <div class="page-hero" style="background:linear-gradient(135deg,#100d00,#1a1600)">
+    <div class="page-hero-inner">
+      <div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;opacity:.8">
+        Indian Cinema · Box Office
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">
+        Film <span style="color:var(--gold)">Tracking</span>
+      </div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.38);max-width:540px;line-height:1.65">
+        Compare cumulative box-office trajectories by day since release.
+      </div>
+    </div>
+  </div>
 
+  <div style="max-width:1100px;margin:0 auto;padding:2rem">
+    <div id="traj-metric" style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap">
+      <span style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)">Metric</span>
+      <button class="lf on" onclick="setTrajMetric('india',this)">India Net</button>
+      <button class="lf" onclick="setTrajMetric('ww',this)">Worldwide</button>
+    </div>
+
+    <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.5rem">
+      Search films · pick up to 5
+    </div>
+    <input
+      id="traj-search"
+      type="search"
+      placeholder="Search films…"
+      oninput="renderTraj()"
+      style="width:100%;max-width:420px;background:#1e1e2e;border:0.5px solid rgba(255,255,255,.18);border-radius:4px;color:#fff;font-family:'Barlow',sans-serif;font-size:.85rem;padding:.65rem .8rem;margin-bottom:.75rem;outline:none"
+    >
+    <div id="traj-chips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem"></div>
+
+    <div id="traj-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.3);font-size:.85rem">
+      Pick films above to compare their trajectories
+    </div>
+
+    <div id="traj-wrap" style="display:none">
+      <div class="chart-box">
+        <div class="chart-lbl" id="traj-title"></div>
+        <div id="traj-legend" style="margin-bottom:.75rem"></div>
+        <div id="traj-chart" style="position:relative"></div>
+      </div>
+
+      <div class="chart-box">
+        <div class="chart-lbl" id="traj-wtitle"></div>
+        <div id="traj-weekly"></div>
+        <div style="font-size:.62rem;color:rgba(255,255,255,.3);margin-top:.4rem">
+          Hatched bars are partial weeks.
+        </div>
+      </div>
+
+      <div id="traj-note" style="font-size:.7rem;color:rgba(255,255,255,.4);line-height:1.7"></div>
+    </div>
+  </div>
+
+  <footer>Box Office India · Trajectories aligned by day since release</footer>
+</div>
+  
 <!-- ═══════════ PAGE: LOOKUP ═══════════ -->
 <div id="page-lookup" class="page">
   <div style="min-height:100vh;background:var(--bg);padding:5.5rem 1.5rem 4rem;display:flex;flex-direction:column;align-items:center">
@@ -9395,13 +9432,26 @@ function handleGlobalSearch(q) {
 // NAVIGATION
 // ═══════════════════════════════════════
 function showPage(p) {
-  document.querySelectorAll('.page').forEach(function(el){el.classList.remove('active');});
-  document.getElementById('page-'+p).classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active');});
-  var el = document.getElementById('nav-'+p);
-  if (el) el.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+  var page = document.getElementById('page-' + p);
+  if (!page) return;
+
+  document.querySelectorAll('.page').forEach(function (element) {
+    element.classList.remove('active');
+  });
+  page.classList.add('active');
+
+  document.querySelectorAll('.nav-links a').forEach(function (link) {
+    link.classList.remove('active');
+  });
+
+  var navId = p === 'actresses' ? 'nav-actors' : 'nav-' + p;
+  var navLink = document.getElementById(navId);
+  if (navLink) navLink.classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   setTimeout(loadAllPosters, 100);
+
+  if (p === 'tracking') renderTraj();
 }
 
 // ═══════════════════════════════════════
@@ -11752,8 +11802,7 @@ function setCmpMode(tab, btn) {
   var panels = {
     actor: document.getElementById('cmp-panel-actor'),
     film: document.getElementById('cmp-panel-film'),
-    clash: document.getElementById('cmp-panel-clash'),
-    traj: document.getElementById('cmp-panel-traj')
+    clash: document.getElementById('cmp-panel-clash')
   };
 
   Object.keys(panels).forEach(function (mode) {
@@ -11761,9 +11810,8 @@ function setCmpMode(tab, btn) {
       panels[mode].style.display = mode === tab ? 'block' : 'none';
     }
   });
-
-  if (tab === 'traj') renderTraj();
 }
+
 var filmCmpSelA = null, filmCmpSelB = null;
 
 function allFilmsFlat() {
@@ -12010,12 +12058,20 @@ function renderTraj() {
   if (!chipHost || !empty || !wrap) return;
 
   var films = trajPool();
+  var searchInput = document.getElementById('traj-search');
+  var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  var visibleFilms = films.filter(function (film) {
+    return !query || film.title.toLowerCase().indexOf(query) !== -1;
+  });
+
   chipHost.innerHTML = '';
 
-  if (!films.length) {
-    chipHost.textContent = 'No films with trajectory data yet.';
+  if (!visibleFilms.length) {
+    chipHost.textContent = query
+      ? 'No matching films.'
+      : 'No films with trajectory data yet.';
   } else {
-    films.forEach(function (film) {
+    visibleFilms.forEach(function (film) {
       var index = trajSel.indexOf(film.key);
       var button = document.createElement('button');
 
@@ -12036,7 +12092,6 @@ function renderTraj() {
       chipHost.appendChild(button);
     });
   }
-
   var items = [];
   var missing = [];
 
