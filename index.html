@@ -2161,7 +2161,7 @@ var YR_DATA = {
 
     <!-- Legs scatter / ranked table -->
     <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
-      <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem">Legs Multiplier Ranking (India Net ÷ Opening Weekend)</div>
+<div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem">Legs Multiplier Ranking (India Net ÷ Opening Weekend · Square-Root Bar Scale)</div>
       <div id="act-legs-chart"></div>
       <div class="ff-note" style="margin-top:1rem">A legs multiplier of 3× means the film earned 3× its opening weekend over its total run. Films with weaker OW but strong word-of-mouth (e.g. Kantara, HanuMan) show the highest legs.</div>
     </div>
@@ -11193,7 +11193,7 @@ function renderAction(){
   var legsRanked = list.filter(function(f){return f.legs && f.india>=150;}).slice().sort(function(a,b){return b.legs-a.legs;}).slice(0,100);
   var maxLegsVal = legsRanked.length?legsRanked[0].legs:1;
   document.getElementById('act-legs-chart').innerHTML = legsRanked.map(function(f,i){
-    var pct = Math.round(f.legs/maxLegsVal*100);
+var pct = Math.round(Math.sqrt(f.legs/maxLegsVal)*100);
     var col = f.legs>=10?'#4ade80':f.legs>=4?'#86efac':f.legs>=2.5?'#facc15':'#f87171';
     var lc  = LC[f.l]||'#888';
     var hasPg=!!getFilmPage(f.n);
