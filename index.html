@@ -2085,18 +2085,20 @@ var YR_DATA = {
   <div class="ff-note" style="margin-top:1.5rem;border-left-color:rgba(79,195,247,.3);background:rgba(79,195,247,.04)">
     <strong style="color:rgba(255,255,255,.45)">Note:</strong> Calculated dynamically from films in the database with recorded opening weekend figures.
   </div>
-</div>
-  <div id="rec-sec-daily" style="display:none">
+<div id="rec-sec-daily" style="display:none">
   <div id="daily-rec-controls" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem">
     <button class="lf on" onclick="setDailyRecMetric('openingDay',this)">Opening Day</button>
     <button class="lf" onclick="setDailyRecMetric('weekend1',this)">1st Weekend</button>
     <button class="lf" onclick="setDailyRecMetric('weekend2',this)">2nd Weekend</button>
     <button class="lf" onclick="setDailyRecMetric('weekend3',this)">3rd Weekend</button>
     <button class="lf" onclick="setDailyRecMetric('weekend4',this)">4th Weekend</button>
-    <button class="lf" onclick="setDailyRecMetric('monday1',this)">1st Monday</button>
-    <button class="lf" onclick="setDailyRecMetric('monday2',this)">2nd Monday</button>
-    <button class="lf" onclick="setDailyRecMetric('monday3',this)">3rd Monday</button>
-    <button class="lf" onclick="setDailyRecMetric('monday4',this)">4th Monday</button>
+
+    <select id="daily-rec-weekday"
+      onchange="setDailyRecWeekday(this.value)"
+      style="background:#1e1e2e;border:0.5px solid rgba(255,255,255,.2);border-radius:4px;color:#fff;padding:.45rem .6rem;font:inherit">
+      <option value="">Choose a weekday…</option>
+    </select>
+
     <button class="lf" onclick="setDailyRecMetric('weekendDrop',this)">Worst Weekend Drop</button>
     <button class="lf" onclick="setDailyRecMetric('mondayDrop',this)">Worst Monday Drop</button>
   </div>
@@ -10895,16 +10897,58 @@ function renderOWRecords(){
       '</div>'+filmHtml+'</div>';
   }).join('');
 }
-  var dailyRecMetric = 'openingDay';
+var dailyRecMetric = 'openingDay';
+
+function initDailyRecWeekdaySelect() {
+  var select = document.getElementById('daily-rec-weekday');
+  if (!select || select.dataset.ready) return;
+
+  var days = [
+    ['Mon', 'Monday'],
+    ['Tue', 'Tuesday'],
+    ['Wed', 'Wednesday'],
+    ['Thu', 'Thursday'],
+    ['Fri', 'Friday'],
+    ['Sat', 'Saturday'],
+    ['Sun', 'Sunday']
+  ];
+  var ordinals = ['1st', '2nd', '3rd', '4th', '5th'];
+
+  ordinals.forEach(function (ordinal, index) {
+    days.forEach(function (day) {
+      var option = document.createElement('option');
+      option.value = 'weekday|' + (index + 1) + '|' + day[0];
+      option.textContent = ordinal + ' ' + day[1];
+      select.appendChild(option);
+    });
+  });
+
+  select.dataset.ready = 'true';
+}
 
 function setDailyRecMetric(metric, btn) {
   dailyRecMetric = metric;
+
+  var select = document.getElementById('daily-rec-weekday');
+  if (select) select.value = '';
 
   document.querySelectorAll('#daily-rec-controls .lf').forEach(function (b) {
     b.classList.remove('on');
   });
 
   if (btn) btn.classList.add('on');
+  renderDailyRecords();
+}
+
+function setDailyRecWeekday(value) {
+  if (!value) return;
+
+  dailyRecMetric = value;
+
+  document.querySelectorAll('#daily-rec-controls .lf').forEach(function (b) {
+    b.classList.remove('on');
+  });
+
   renderDailyRecords();
 }
 
@@ -10974,17 +11018,23 @@ function getDailyRecValue(film, metric) {
       : null;
   }
 
-  if (/^monday[1-4]$/.test(metric)) {
-    var mondayNumber = Number(metric.replace('monday', ''));
-    var monday = mondays[mondayNumber - 1];
+ var weekdayMatch = /^weekday\|([1-5])\|(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/.exec(metric);
 
-    return monday
-      ? {
-          value: Number(monday.row.gross),
-          detail: monday.row.date || (mondayNumber + ' Monday')
-        }
-      : null;
-  }
+if (weekdayMatch) {
+  var weekdayNumber = Number(weekdayMatch[1]);
+  var weekdayCode = weekdayMatch[2];
+  var matchingDays = rows.filter(function (row) {
+    return row.day === weekdayCode;
+  });
+  var weekdayRow = matchingDays[weekdayNumber - 1];
+
+  return weekdayRow
+    ? {
+        value: Number(weekdayRow.gross),
+        detail: weekdayRow.date || (weekdayNumber + ' ' + weekdayCode)
+      }
+    : null;
+}
 
   if (metric === 'weekendDrop') {
     var worstWeekend = null;
@@ -11037,16 +11087,14 @@ function getDailyRecValue(film, metric) {
 }
 
 function renderDailyRecords() {
+  initDailyRecWeekdaySelect();
+
   var labels = {
     openingDay: 'Opening Day India Net',
     weekend1: '1st Weekend India Net · Friday–Sunday',
     weekend2: '2nd Weekend India Net · Friday–Sunday',
     weekend3: '3rd Weekend India Net · Friday–Sunday',
     weekend4: '4th Weekend India Net · Friday–Sunday',
-    monday1: '1st Monday India Net',
-    monday2: '2nd Monday India Net',
-    monday3: '3rd Monday India Net',
-    monday4: '4th Monday India Net',
     weekendDrop: 'Worst Weekend-to-Weekend Drop',
     mondayDrop: 'Worst Monday Drop vs Sunday'
   };
@@ -11073,7 +11121,20 @@ function renderDailyRecords() {
     return isDrop ? a.value - b.value : b.value - a.value;
   });
 
-  var label = labels[dailyRecMetric] || 'Daily Records';
+var weekdayLabels = {
+  Mon: 'Monday',
+  Tue: 'Tuesday',
+  Wed: 'Wednesday',
+  Thu: 'Thursday',
+  Fri: 'Friday',
+  Sat: 'Saturday',
+  Sun: 'Sunday'
+};
+var weekdayMatch = /^weekday\|([1-5])\|(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/.exec(dailyRecMetric);
+var ordinalLabels = ['1st', '2nd', '3rd', '4th', '5th'];
+var label = weekdayMatch
+  ? ordinalLabels[Number(weekdayMatch[1]) - 1] + ' ' + weekdayLabels[weekdayMatch[2]] + ' India Net'
+  : (labels[dailyRecMetric] || 'Daily Records');
   document.getElementById('daily-rec-label').textContent =
     label + ' · ' + data.length + ' films with data';
 
