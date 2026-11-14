@@ -2559,38 +2559,38 @@ var YR_DATA = {
     </div>
     </div><!-- /cmp-panel-actor -->
 
-    <!-- FILM COMPARE PANEL -->
-    <div id="cmp-panel-film" style="display:none">
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-bottom:2rem">
-        <div style="background:var(--bg3);border:0.5px solid rgba(244,114,182,.3);border-radius:6px;padding:1.1rem 1.25rem">
-          <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(244,114,182,.6);margin-bottom:.5rem">Film A</div>
-          <div style="position:relative;display:flex;align-items:center;gap:6px">
-            <div style="position:relative;flex:1">
-              <input id="filmCmpA-search" type="text" placeholder="Search film..." oninput="filterFilmCmp('A')" onfocus="filterFilmCmp('A')" onblur="setTimeout(function(){var d=document.getElementById('filmCmpA-drop');if(d)d.style.display='none';},220)"
-                style="width:100%;background:#1e1e2e;border:0.5px solid rgba(244,114,182,.4);border-radius:3px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2rem .55rem .8rem;outline:none;box-sizing:border-box">
-              <div id="filmCmpA-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(244,114,182,.3);border-radius:4px;max-height:220px;overflow-y:auto;z-index:200"></div>
-            </div>
-            <button onclick="clearFilmCmp('A')" title="Clear" style="flex-shrink:0;width:28px;height:28px;border-radius:50%;border:0.5px solid rgba(244,114,182,.35);background:rgba(244,114,182,.08);color:rgba(244,114,182,.7);font-size:.85rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.background='rgba(244,114,182,.22)';this.style.color='#f472b6'" onmouseout="this.style.background='rgba(244,114,182,.08)';this.style.color='rgba(244,114,182,.7)'">✕</button>
-          </div>
-          <div id="filmCmpA-badge" style="margin-top:.75rem;min-height:18px"></div>
-        </div>
-        <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:rgba(255,255,255,.15)">VS</div>
-        <div style="background:var(--bg3);border:0.5px solid rgba(79,195,247,.3);border-radius:6px;padding:1.1rem 1.25rem">
-          <div style="font-size:.57rem;letter-spacing:2px;text-transform:uppercase;color:rgba(79,195,247,.6);margin-bottom:.5rem">Film B</div>
-          <div style="position:relative;display:flex;align-items:center;gap:6px">
-            <div style="position:relative;flex:1">
-              <input id="filmCmpB-search" type="text" placeholder="Search film..." oninput="filterFilmCmp('B')" onfocus="filterFilmCmp('B')" onblur="setTimeout(function(){var d=document.getElementById('filmCmpB-drop');if(d)d.style.display='none';},220)"
-                style="width:100%;background:#1e1e2e;border:0.5px solid rgba(79,195,247,.4);border-radius:3px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2rem .55rem .8rem;outline:none;box-sizing:border-box">
-              <div id="filmCmpB-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(79,195,247,.3);border-radius:4px;max-height:220px;overflow-y:auto;z-index:200"></div>
-            </div>
-            <button onclick="clearFilmCmp('B')" title="Clear" style="flex-shrink:0;width:28px;height:28px;border-radius:50%;border:0.5px solid rgba(79,195,247,.35);background:rgba(79,195,247,.08);color:rgba(79,195,247,.7);font-size:.85rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.background='rgba(79,195,247,.22)';this.style.color='#4fc3f7'" onmouseout="this.style.background='rgba(79,195,247,.08)';this.style.color='rgba(79,195,247,.7)'">✕</button>
-          </div>
-          <div id="filmCmpB-badge" style="margin-top:.75rem;min-height:18px"></div>
-        </div>
-      </div>
-      <div id="fcmp-empty" style="padding:3rem;text-align:center;color:rgba(255,255,255,.18);font-size:.85rem">Search and select two films above to compare</div>
-      <div id="fcmp-content" style="display:none"></div>
-  </div><!-- /cmp-panel-film -->
+   <!-- FILM COMPARE PANEL -->
+<div id="cmp-panel-film" style="display:none">
+  <div style="max-width:620px;margin-bottom:1.25rem">
+    <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.5rem">
+      Search and select 2–4 films
+    </div>
+
+    <div style="position:relative">
+      <input
+        id="filmCmp-search"
+        type="search"
+        placeholder="Search films…"
+        oninput="filterFilmCmpMulti()"
+        onfocus="filterFilmCmpMulti()"
+        onblur="setTimeout(function(){var d=document.getElementById('filmCmp-drop');if(d)d.style.display='none';},220)"
+        style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Barlow',sans-serif;font-size:.85rem;padding:.7rem .85rem;outline:none"
+      >
+      <div
+        id="filmCmp-drop"
+        style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--border);border-radius:4px;max-height:260px;overflow-y:auto;z-index:200"
+      ></div>
+    </div>
+
+    <div id="filmCmp-selected" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:.8rem"></div>
+  </div>
+
+  <div id="fcmp-empty" style="padding:3rem;text-align:center;color:var(--text-dim);font-size:.85rem">
+    Search and select 2–4 films to compare
+  </div>
+
+  <div id="fcmp-content" style="display:none"></div>
+</div><!-- /cmp-panel-film -->
 
     <!-- BOX OFFICE CLASH PANEL -->
     <div id="cmp-panel-clash" style="display:none">
@@ -10573,8 +10573,13 @@ document.getElementById('ff-note').innerHTML='<strong style="color:rgba(255,255,
 function renderFF(){
   var q=(document.getElementById('ff-search').value||'').trim().toLowerCase();
   var list=FF_SORTED.slice();
-  if(q) list=list.filter(function(f){return f.n.toLowerCase().indexOf(q)>=0;});
-  if(ffLang!=='all') list=list.filter(function(f){return f.l===ffLang;});
+if (q) {
+  list = list.filter(function (f) {
+    var filmName = (f.n || '').toLowerCase();
+    var actorNames = (f.actors || []).join(' ').toLowerCase();
+    return filmName.indexOf(q) !== -1 || actorNames.indexOf(q) !== -1;
+  });
+}  if(ffLang!=='all') list=list.filter(function(f){return f.l===ffLang;});
   if(ffDecade!=='all') list=list.filter(function(f){return era(f.y)===ffDecade;});
   if(ffActor!=='all') list=list.filter(function(f){return (f.actors||[]).indexOf(ffActor)>=0;});
   if(ffYear!=='all') list=list.filter(function(f){return f.y===parseInt(ffYear,10);});   // ★ new
@@ -12446,7 +12451,8 @@ function setCmpMode(tab, btn) {
   });
 }
 
-var filmCmpSelA = null, filmCmpSelB = null;
+var filmCmpSelected = [];
+var FILM_CMP_COLORS = ['#f472b6', '#4fc3f7', '#f5c518', '#4ade80'];
 
 function allFilmsFlat() {
   var seen = {}, out = [];
@@ -13218,135 +13224,335 @@ function findClash(f) {
   });
 }
 
-function clearFilmCmp(side) {
-  var inp   = document.getElementById('filmCmp'+side+'-search');
-  var drop  = document.getElementById('filmCmp'+side+'-drop');
-  var badge = document.getElementById('filmCmp'+side+'-badge');
-  if (inp)   inp.value = '';
-  if (drop)  drop.style.display = 'none';
-  if (badge) badge.innerHTML = '';
-  if (side==='A') filmCmpSelA = null; else filmCmpSelB = null;
-  renderFilmCompare();
+function escapeFilmCmpText(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char];
+  });
 }
 
-function filterFilmCmp(side) {
-  var inp  = document.getElementById('filmCmp'+side+'-search');
-  var drop = document.getElementById('filmCmp'+side+'-drop');
-  if (!inp || !drop) return;
-  var q = inp.value.trim().toLowerCase();
-  var matches = allFilmsFlat().filter(function(f){ return !q || f.n.toLowerCase().indexOf(q) >= 0; }).slice(0,28);
-  if (!matches.length) { drop.innerHTML='<div style="padding:.5rem .75rem;font-size:.75rem;color:rgba(255,255,255,.3)">No results</div>'; drop.style.display='block'; return; }
-  drop.innerHTML = matches.map(function(f){
-    var lc = LC[f.l]||'#888';
-    return '<div onmousedown="selectFilmCmp(\''+side+'\',\''+f.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\','+f.y+')" '+
-      'style="padding:.45rem .75rem;cursor:pointer;border-bottom:0.5px solid rgba(255,255,255,.04)" '+
-      'onmouseover="this.style.background=\'rgba(255,255,255,.05)\'" onmouseout="this.style.background=\'\'">'+
-      '<div style="font-size:.78rem;color:rgba(255,255,255,.85)">'+f.n+'</div>'+
-      '<div style="font-size:.6rem;color:rgba(255,255,255,.3);display:flex;gap:6px;margin-top:1px">'+
-        '<span style="color:'+lc+'">'+f.l+'</span><span>'+f.y+'</span>'+
-        (f.ww?'<span>₹'+f.ww+' Cr WW</span>':'')+(f.ff?'<span style="color:#4fc3f7">'+f.ff+'M</span>':'')+
-      '</div></div>';
-  }).join('');
+function filmCmpKey(film) {
+  return film.n.toLowerCase().trim() + '|' + film.y;
+}
+
+function filterFilmCmpMulti() {
+  var input = document.getElementById('filmCmp-search');
+  var drop = document.getElementById('filmCmp-drop');
+  if (!input || !drop) return;
+
+  var query = input.value.trim().toLowerCase();
+  drop.innerHTML = '';
+
+  if (filmCmpSelected.length >= 4) {
+    drop.innerHTML =
+      '<div style="padding:.65rem .8rem;font-size:.75rem;color:var(--text-dim)">You can compare up to 4 films.</div>';
+    drop.style.display = 'block';
+    return;
+  }
+
+  var selectedKeys = filmCmpSelected.map(filmCmpKey);
+  var matches = allFilmsFlat().filter(function (film) {
+    var matchesQuery = !query || film.n.toLowerCase().indexOf(query) !== -1;
+    return matchesQuery && selectedKeys.indexOf(filmCmpKey(film)) === -1;
+  }).slice(0, 25);
+
+  if (!matches.length) {
+    drop.innerHTML =
+      '<div style="padding:.65rem .8rem;font-size:.75rem;color:var(--text-dim)">No matching films.</div>';
+    drop.style.display = 'block';
+    return;
+  }
+
+  matches.forEach(function (film) {
+    var option = document.createElement('button');
+    option.type = 'button';
+    option.style.cssText =
+      'display:block;width:100%;text-align:left;padding:.55rem .8rem;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;font-family:inherit';
+
+    var title = document.createElement('div');
+    title.textContent = film.n + ' (' + film.y + ')';
+    title.style.cssText = 'font-size:.8rem;font-weight:600';
+
+    var details = document.createElement('div');
+    details.textContent =
+      [film.l, film.ww ? '₹' + film.ww + ' Cr WW' : '', film.ff ? film.ff + 'M footfalls' : '']
+        .filter(Boolean)
+        .join(' · ');
+    details.style.cssText = 'font-size:.65rem;color:var(--text-dim);margin-top:3px';
+
+    option.appendChild(title);
+    option.appendChild(details);
+    option.addEventListener('click', function () {
+      selectFilmCmpMulti(film);
+    });
+
+    drop.appendChild(option);
+  });
+
   drop.style.display = 'block';
 }
 
-function selectFilmCmp(side, title, year) {
-  var inp   = document.getElementById('filmCmp'+side+'-search');
-  var drop  = document.getElementById('filmCmp'+side+'-drop');
-  var badge = document.getElementById('filmCmp'+side+'-badge');
-  if (inp)  inp.value = title + ' (' + year + ')';
-  if (drop) drop.style.display = 'none';
-  var f = allFilmsFlat().find(function(x){ return x.n.toLowerCase().trim()===title.toLowerCase().trim() && x.y===year; }) || {n:title,y:year};
-  var fp = getFilmPage(title);
-  if (fp) {
-    f.n=fp.title||f.n; f.y=fp.year||f.y; f.l=fp.lang||f.l;
-    f.ww=fp.ww||f.ww; f.india=fp.india||f.india; f.ff=fp.ff||f.ff;
-    f.lb=fp.lb||f.lb; f.ow=fp.ow||f.ow; f.budget=fp.budget||f.budget; f.multiplier=fp.multiplier||f.multiplier;
+function selectFilmCmpMulti(film) {
+  if (filmCmpSelected.length >= 4) return;
+
+  var key = filmCmpKey(film);
+  if (filmCmpSelected.some(function (item) {
+    return filmCmpKey(item) === key;
+  })) return;
+
+  var selected = {
+    n: film.n,
+    y: film.y,
+    l: film.l,
+    ww: film.ww,
+    india: film.india,
+    ff: film.ff,
+    lb: film.lb,
+    ow: film.ow,
+    budget: film.budget,
+    multiplier: film.multiplier
+  };
+
+  var fullPage = getFilmPage(film.n);
+  if (fullPage) {
+    selected.n = fullPage.title || selected.n;
+    selected.y = fullPage.year || selected.y;
+    selected.l = fullPage.lang || selected.l;
+    selected.ww = fullPage.ww || selected.ww;
+    selected.india = fullPage.india || selected.india;
+    selected.ff = fullPage.ff || selected.ff;
+    selected.lb = fullPage.lb || selected.lb;
+    selected.ow = fullPage.ow || selected.ow;
+    selected.budget = fullPage.budget || selected.budget;
+    selected.multiplier = fullPage.multiplier || selected.multiplier;
   }
-  if (side==='A') filmCmpSelA=f; else filmCmpSelB=f;
-  var col = side==='A'?'#f472b6':'#4fc3f7';
-  if (badge) badge.innerHTML='<div style="font-size:.65rem;color:'+col+';font-weight:600">'+f.n+' ('+f.y+')'+(f.l?' · '+f.l:'')+'</div>';
+
+  filmCmpSelected.push(selected);
+
+  var input = document.getElementById('filmCmp-search');
+  var drop = document.getElementById('filmCmp-drop');
+  if (input) input.value = '';
+  if (drop) drop.style.display = 'none';
+
+  renderFilmCmpSelected();
   renderFilmCompare();
 }
 
+function removeFilmCmpMulti(key) {
+  filmCmpSelected = filmCmpSelected.filter(function (film) {
+    return filmCmpKey(film) !== key;
+  });
+
+  renderFilmCmpSelected();
+  renderFilmCompare();
+}
+
+function renderFilmCmpSelected() {
+  var host = document.getElementById('filmCmp-selected');
+  if (!host) return;
+
+  host.innerHTML = '';
+
+  filmCmpSelected.forEach(function (film, index) {
+    var chip = document.createElement('div');
+    chip.style.cssText =
+      'display:inline-flex;align-items:center;gap:8px;padding:6px 9px;border:1px solid ' +
+      FILM_CMP_COLORS[index] +
+      ';border-radius:4px;background:' +
+      FILM_CMP_COLORS[index] +
+      '18;color:' +
+      FILM_CMP_COLORS[index] +
+      ';font-size:.72rem;font-weight:600';
+
+    var name = document.createElement('span');
+    name.textContent = film.n + ' (' + film.y + ')';
+
+    var remove = document.createElement('button');
+    remove.type = 'button';
+    remove.textContent = '×';
+    remove.title = 'Remove ' + film.n;
+    remove.style.cssText =
+      'border:0;background:transparent;color:inherit;font-size:1rem;line-height:1;cursor:pointer;padding:0 2px';
+    remove.addEventListener('click', function () {
+      removeFilmCmpMulti(filmCmpKey(film));
+    });
+
+    chip.appendChild(name);
+    chip.appendChild(remove);
+    host.appendChild(chip);
+  });
+}
+
 function renderFilmCompare() {
-  var empty   = document.getElementById('fcmp-empty');
+  var empty = document.getElementById('fcmp-empty');
   var content = document.getElementById('fcmp-content');
-  if (!filmCmpSelA || !filmCmpSelB) { empty.style.display='block'; content.style.display='none'; return; }
-  empty.style.display='none'; content.style.display='block';
-  var a=filmCmpSelA, b=filmCmpSelB, colA='#f472b6', colB='#4fc3f7';
+  if (!empty || !content) return;
 
-  function bar(label, aV, bV, fmtFn, hiIsGood) {
-    if (!aV && !bV) return '';
-    var mx=Math.max(aV||0,bV||0)||1, pA=Math.round((aV||0)/mx*100), pB=Math.round((bV||0)/mx*100);
-    var wA=hiIsGood?(aV||0)>=(bV||0):(aV&&(!bV||aV<=bV)), wB=hiIsGood?(bV||0)>=(aV||0):(bV&&(!aV||bV<=aV));
-    return '<div style="margin-bottom:.9rem">'+
-      '<div style="font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,#f472b6,#a78bfa,#4fc3f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.45rem">'+label+'</div>'+
-      '<div style="display:grid;grid-template-columns:1fr 28px 1fr;gap:.4rem;align-items:center">'+
-        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">'+
-          '<span style="font-size:.85rem;font-weight:700;color:'+(wA?colA:'rgba(255,255,255,.3)')+'">'+fmtFn(aV)+'</span>'+
-          '<div style="height:5px;width:'+pA+'%;max-width:100%;background:'+colA+(wA?'':'44')+';border-radius:3px 0 0 3px;margin-left:auto"></div>'+
-        '</div>'+
-        '<div style="text-align:center;font-size:.5rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.15)">vs</div>'+
-        '<div style="display:flex;flex-direction:column;gap:3px">'+
-          '<span style="font-size:.85rem;font-weight:700;color:'+(wB?colB:'rgba(255,255,255,.3)')+'">'+fmtFn(bV)+'</span>'+
-          '<div style="height:5px;width:'+pB+'%;max-width:100%;background:'+colB+(wB?'':'44')+';border-radius:0 3px 3px 0"></div>'+
-        '</div>'+
-      '</div></div>';
+  if (filmCmpSelected.length < 2) {
+    empty.style.display = 'block';
+    content.style.display = 'none';
+    return;
   }
 
-  var barsHtml =
-    bar('Worldwide Gross (₹ Cr)', a.ww, b.ww, function(v){return v?'₹'+v+' Cr':'—';}, true)+
-    bar('India Nett (₹ Cr)', a.india, b.india, function(v){return v?'₹'+v+' Cr':'—';}, true)+
-    bar('Opening Weekend (₹ Cr)', a.ow, b.ow, function(v){return v?'₹'+v+' Cr':'—';}, true)+
-    bar('Footfalls', a.ff, b.ff, function(v){return v?v+'M':'—';}, true)+
-    bar('Legs Multiplier', a.multiplier, b.multiplier, function(v){return v?v+'×':'—';}, true)+
-    bar('Letterboxd Rating', a.lb, b.lb, function(v){return v?v+'/5':'—';}, true)+
-    bar('Budget (₹ Cr)', a.budget, b.budget, function(v){return v?'₹'+v+' Cr':'—';}, false);
+  empty.style.display = 'none';
+  content.style.display = 'block';
 
-  // ★ NEW — clash lookup helper
-  function clashHtml(f, col) {
-    var clash = findClash(f);
-    if (!clash) return '<div style="font-size:.72rem;color:rgba(255,255,255,.25)">No known clash on record for '+f.n+'.</div>';
-    var rivals = clash.films.filter(function(x){ return !(x.n.toLowerCase().trim()===f.n.toLowerCase().trim() && x.y===f.y); });
-    return '<div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:.4rem">'+clash.occasion+'</div>'+
-      rivals.map(function(r){
-        var rf = FILMS.find(function(x){ return x.n.toLowerCase().trim()===r.n.toLowerCase().trim() && x.y===r.y; });
-        return '<div style="display:flex;justify-content:space-between;font-size:.75rem;padding:.35rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+
-          '<span style="color:rgba(255,255,255,.65)">'+r.n+'</span>'+
-          '<span style="color:'+col+';font-weight:600">'+(rf&&rf.ww?'₹'+rf.ww+' Cr':'—')+'</span>'+
-        '</div>';
-      }).join('');
-  }
+  var metrics = [
+    {
+      label: 'Worldwide Gross',
+      field: 'ww',
+      format: function (value) { return '₹' + value + ' Cr'; },
+      higherIsBetter: true
+    },
+    {
+      label: 'India Nett',
+      field: 'india',
+      format: function (value) { return '₹' + value + ' Cr'; },
+      higherIsBetter: true
+    },
+    {
+      label: 'Opening Weekend',
+      field: 'ow',
+      format: function (value) { return '₹' + value + ' Cr'; },
+      higherIsBetter: true
+    },
+    {
+      label: 'Footfalls',
+      field: 'ff',
+      format: function (value) { return value + 'M'; },
+      higherIsBetter: true
+    },
+    {
+      label: 'Legs Multiplier',
+      field: 'multiplier',
+      format: function (value) { return value + '×'; },
+      higherIsBetter: true
+    },
+    {
+      label: 'Letterboxd Rating',
+      field: 'lb',
+      format: function (value) { return value + '/5'; },
+      higherIsBetter: true
+    },
+    {
+      label: 'Budget',
+      field: 'budget',
+      format: function (value) { return '₹' + value + ' Cr'; },
+      higherIsBetter: false
+    }
+  ];
 
-  // ★ NEW — clash section
-  var clashSection =
-    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.1rem 1.4rem;margin-bottom:1rem">'+
-      '<div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.75rem">Box Office Clash</div>'+
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">'+
-        '<div><div style="font-size:.65rem;font-weight:600;color:'+colA+';margin-bottom:.5rem">'+a.n+' ('+a.y+')</div>'+clashHtml(a,colA)+'</div>'+
-        '<div><div style="font-size:.65rem;font-weight:600;color:'+colB+';margin-bottom:.5rem">'+b.n+' ('+b.y+')</div>'+clashHtml(b,colB)+'</div>'+
-      '</div>'+
+  var metricHtml = metrics.map(function (metric) {
+    var values = filmCmpSelected.map(function (film) {
+      var value = film[metric.field];
+      return value == null || value === '' || !isFinite(Number(value))
+        ? null
+        : Number(value);
+    });
+
+    var available = values.filter(function (value) {
+      return value != null;
+    });
+
+    if (!available.length) return '';
+
+    var bestValue = metric.higherIsBetter
+      ? Math.max.apply(null, available)
+      : Math.min.apply(null, available);
+    var scaleMax = Math.max.apply(null, available) || 1;
+
+    var rows = filmCmpSelected.map(function (film, index) {
+      var value = values[index];
+      var isBest = value != null && value === bestValue;
+      var width = value == null ? 0 : Math.round(value / scaleMax * 100);
+      var color = FILM_CMP_COLORS[index];
+
+      return '<div style="min-width:0">' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:5px">' +
+          '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.72rem;color:' +
+            color + '">' + escapeFilmCmpText(film.n) + '</span>' +
+          '<strong style="white-space:nowrap;font-size:.72rem;color:' +
+            (isBest ? color : 'var(--text-dim)') + '">' +
+            (value == null ? '—' : metric.format(value)) +
+          '</strong>' +
+        '</div>' +
+        '<div style="height:7px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden">' +
+          '<div style="height:100%;width:' + width + '%;background:' + color + ';border-radius:4px"></div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    return '<section style="padding:1rem 0;border-bottom:1px solid var(--border)">' +
+      '<div style="font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.8rem">' +
+        metric.label +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">' +
+        rows +
+      '</div>' +
+    '</section>';
+  }).join('');
+
+  var leaders = ['ww', 'india'].map(function (field) {
+    var available = filmCmpSelected.filter(function (film) {
+      return film[field] != null && isFinite(Number(film[field]));
+    });
+    if (!available.length) return '';
+
+    var best = available.reduce(function (current, film) {
+      return Number(film[field]) > Number(current[field]) ? film : current;
+    });
+
+    var label = field === 'ww' ? 'Worldwide gross' : 'India nett';
+    return '<div style="font-size:.78rem;color:var(--text-dim);line-height:1.6;margin:.25rem 0">' +
+      '<strong style="color:var(--text)">' + escapeFilmCmpText(best.n) +
+      '</strong> leads on ' + label + ' at ₹' + Number(best[field]) + ' Cr.' +
     '</div>';
+  }).join('');
 
-  var vlines=[];
-  if(a.ww&&b.ww) vlines.push((a.ww>b.ww?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' earned more worldwide (₹'+Math.max(a.ww,b.ww)+' Cr vs ₹'+Math.min(a.ww,b.ww)+' Cr).');
-  if(a.ff&&b.ff)  vlines.push((a.ff>b.ff?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' sold more tickets ('+Math.max(a.ff,b.ff)+'M vs '+Math.min(a.ff,b.ff)+'M).');
-  if(a.lb&&b.lb)  vlines.push((a.lb>b.lb?'<strong style="color:'+colA+'">'+a.n+'</strong>':'<strong style="color:'+colB+'">'+b.n+'</strong>')+' rates higher on Letterboxd ('+Math.max(a.lb,b.lb)+' vs '+Math.min(a.lb,b.lb)+').');
-  if(!vlines.length) vlines.push('Not enough overlapping data — try films with more complete records.');
+  var knownClashes = [];
+  filmCmpSelected.forEach(function (film) {
+    var clash = findClash(film);
+    if (clash && !knownClashes.some(function (item) {
+      return item.occasion === clash.occasion;
+    })) {
+      knownClashes.push(clash);
+    }
+  });
 
-  content.innerHTML=
-    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.08);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1rem">'+
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">'+
-        '<div style="font-size:.88rem;font-weight:700;color:'+colA+'">'+a.n+' ('+a.y+')</div>'+
-        '<div style="font-size:.88rem;font-weight:700;color:'+colB+';text-align:right">'+b.n+' ('+b.y+')</div>'+
-      '</div>'+barsHtml+
-    '</div>'+
-    clashSection+   // ★ NEW — inserted here
-    '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-radius:6px;padding:1.1rem 1.4rem">'+
-      '<div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.65rem">Verdict</div>'+
-      vlines.map(function(l){return '<div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.7;padding:.2rem 0;border-bottom:0.5px solid rgba(255,255,255,.04)">'+l+'</div>';}).join('')+
-    '</div>';
+  var clashHtml = knownClashes.length
+    ? '<section style="margin-top:1rem;padding:1rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px">' +
+        '<div style="font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.6rem">Known box office clashes</div>' +
+        knownClashes.map(function (clash) {
+          return '<div style="font-size:.75rem;line-height:1.7;margin:.25rem 0">' +
+            '<strong>' + escapeFilmCmpText(clash.occasion) + ':</strong> ' +
+            clash.films.map(function (film) {
+              return escapeFilmCmpText(film.n) + ' (' + film.y + ')';
+            }).join(' · ') +
+          '</div>';
+        }).join('') +
+      '</section>'
+    : '';
+
+  content.innerHTML =
+    '<div style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem;margin-bottom:1rem">' +
+      '<div style="font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.35rem">Film comparison</div>' +
+      '<div style="font-size:.72rem;color:var(--text-dim)">' +
+        filmCmpSelected.length + ' films selected' +
+      '</div>' +
+      metricHtml +
+    '</div>' +
+    (leaders
+      ? '<div style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem">' +
+          '<div style="font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.55rem">Leaders</div>' +
+          leaders +
+        '</div>'
+      : '') +
+    clashHtml;
 }
 
 var CMP_ACTORS = ALLOWED_ACTORS;
