@@ -429,7 +429,7 @@ var FILMS = [
 {n:'Jaat',y:2025,l:'Hindi',actors:['Sunny Deol','Randeep Hooda'],studio:'Mythri',india:119,ww:140,ow:30,ff:5.27,lb:2.4,budget:100},
 {n:'HanuMan',y:2024,l:'Telugu',actors:['Teja Sajja','Amritha Aiyer'],studio:'Primeshow',india:201.91,ww:295,ow:46,ff:16.5,lb:3.6,budget:40},
 {n:'Fighter',y:2024,l:'Hindi',actors:['Hrithik Roshan','Deepika Padukone'],studio:'Excel',india:248,ww:344,ow:75,ff:11.7,lb:2.6,budget:250},
-{n:'Stree',y:2018,l:'Hindi',actors:['Rajkummar Rao','Shraddha Kapoor'],studio:'Maddock',india:129.9,ww:250,ow:31.26,ff:32,lb:3.8,budget:25},
+{n:'Stree',y:2018,l:'Hindi',actors:['Rajkummar Rao','Shraddha Kapoor'],studio:'Maddock',india:129.9,ww:250,ow:31.26,ff:null,lb:3.8,budget:25},
 {n:'Kabir Singh',y:2019,l:'Hindi',actors:['Shahid Kapoor','Kiara Advani'],studio:'Cine1 Studios',india:278,ww:379,ow:71,ff:26,lb:3.2,budget:60},
 {n:'Rocky Aur Rani Kii Prem Kahaani',y:2023,l:'Hindi',actors:['Ranveer Singh','Alia Bhatt'],studio:'Dharma',india:153.6,ww:355,ow:45.9,ff:7.07,lb:3.6,budget:160},
 {n:'Jugjugg Jeeyo',y:2022,l:'Hindi',actors:['Varun Dhawan'],studio:'T-Series',india:85.03,ww:136.13,ow:36.90,ff:null,lb:null,budget:85},
@@ -456,8 +456,10 @@ var FILMS = [
 {n:'The Paradise',y:2026,l:'Telugu',actors:['Nani'],studio:'SLV Cinemas',india:121.04,ww:173.43,ow:45.85,ff:null,lb:null,budget:150,os:31.15},
 {n:'Drishyam: The Conclusion',y:2026,l:'Hindi',actors:['Ajay Devgn','Tabu'],studio:'Panorama Studios',india:379.20,ww:580.22,ow:176.50,ff:16.5,lb:null,budget:120,os:126.12},
 {n:'Jailer 2',y:2026,l:'Tamil',actors:['Rajinikanth','Ramya Krishnan','Yogi Babu','Mithun Chakraborty','S. J. Suryah','Vidya Balan'],studio:'Sun Pictures',india:473.40,ww:830.75,ow:140.20,ff:32.3,lb:null,budget:300,os:277.10},
+{n:'Scene',y:2026,l:'Tamil',actors:['Suriya'],studio:'2D Entertainment',india:117.70,ww:211.20,ow:63.15,ff:8.358,lb:null,budget:30,os:74.50},
+{n:'Ramayana: Part 1',y:2026,l:'Hindi',actors:['Ranbir Kapoor','Sai Pallavi','Yash','Ravi Dubey','Arun Govil','Lara Dutta','Rakul Preet Singh',''Anupam Kher','Vivek Oberoi'],studio:'Prime Focus Studios',india:612.45,ww:1110.70,ow:174.00,ff:23.849,lb:null,budget:1500,os:378.50},
+  
   {n:'Yeh Jawaani Hai Deewani',y:2013,l:'Hindi',actors:['Ranbir Kapoor','Deepika Padukone'],studio:'Dharma',india:188,ww:344,ow:62,ff:20.26,lb:3.8,budget:40},
-
   {n:'Kaabil',y:2017,l:'Hindi',actors:['Hrithik Roshan'],studio:null,india:103.84,ww:208.14,ow:38,ff:null,lb:null,budget:50},
 {n:'Cocktail 2',y:2026,l:'Hindi',actors:['Rashmika Mandanna'],studio:'Maddock Studios',india:95.20,ww:147.42,ow:47.50,ff:null,lb:null,budget:100},
 {n:'Alpha',y:2026,l:'Hindi',actors:['Alia Bhatt'],studio:'YRF',india:57.88,ww:98.80,ow:34.00,ff:null,lb:null,budget:150},
@@ -7178,6 +7180,75 @@ var FILM_PAGES = {
       'The film is tracking as one of the biggest Tamil releases of 2026, with predictions ranging from ₹150–255 Cr India nett.',
     ],
   },
+  {
+  key: 'scene-2026',
+  title: 'Scene',
+  year: 2026,
+  language: 'Tamil / Telugu',
+  l: 'Tamil',
+  director: 'Jithu Madhavan',
+  studio: '2D Entertainment',
+  cast: [
+    {name:'Suriya', role:'Lead'},
+  ],
+  synopsis: 'TBA',
+  release: '2026-11-06',
+  runtime: null,
+  budget: 30,
+  ott: 'TBA',
+  music: 'TBA',
+
+  india: 117.70,
+  indiaGross: 136.70,
+  ww: 211.20,
+  overseasGross: 74.50,
+  ow: 63.15,
+  multiplier: 1.86,
+  ff: 8.358,
+
+  languageCollections: [
+    {language:'Tamil', collection:95.60},
+    {language:'Telugu', collection:22.10},
+  ],
+
+  overseasMarkets: [
+    {market:'Gulf', collection:null},
+    {market:'USA / Canada', collection:null},
+    {market:'UK', collection:null},
+    {market:'Australia', collection:null},
+    {market:'Other', collection:null},
+  ],
+
+  timeline: [
+    {label:'Opening Day', val:19.15},
+    {label:'Opening Weekend', val:63.15},
+    {label:'Week 1', val:111.70},
+    {label:'Week 2 (so far)', val:6.00},
+  ],
+
+  comparable: [
+    'Karuppu',
+    'Viswanath and Sons',
+    'Lokah',
+    'Betheleme Kudumba',
+  ],
+
+  trivia: [],
+
+  daily: [
+    // Week 1
+    {date:'6 Nov', day:'Fri', gross:19.15, indiaGross:22.25, chgDay:null,   chgWeek:null, total:19.15,  occupancy:55.0, ff:1.431},
+    {date:'7 Nov', day:'Sat', gross:20.35, indiaGross:23.65, chgDay:+6.27, chgWeek:null, total:39.50,  occupancy:62.5, ff:1.499},
+    {date:'8 Nov', day:'Sun', gross:23.65, indiaGross:27.45, chgDay:+16.22, chgWeek:null, total:63.15,  occupancy:70.7, ff:6.278},
+    {date:'9 Nov', day:'Mon', gross:21.40, indiaGross:24.85, chgDay:-9.51, chgWeek:null, total:84.55, occupancy:65.9, ff:1.578},
+    {date:'10 Nov',day:'Tue', gross:12.85, indiaGross:14.95, chgDay:-39.95, chgWeek:null, total:97.40, occupancy:45.0, ff:null},
+    {date:'11 Nov',day:'Wed', gross:8.05, indiaGross:9.35, chgDay:-37.35, chgWeek:null, total:105.45, occupancy:30.9, ff:null},
+    {date:'12 Nov',day:'Thu', gross:6.25, indiaGross:7.25, chgDay:-22.36, chgWeek:null, total:111.70, occupancy:25.7, ff:0.492},
+
+    // Week 2
+    {date:'13 Nov',day:'Fri', gross:6.00, indiaGross:6.95, chgDay:-4.00, chgWeek:-68.67, total:117.70, occupancy:30.7, ff:null},
+  ],
+}
   'dhamaal-4': {
   key: 'dhamaal-4',
   title: 'Dhamaal 4',
@@ -7970,6 +8041,95 @@ timeline: [
     {date:'6 Nov', day:'Fri', gross:0.60, indiaGross:0.70, chgDay:-62.50, chgWeek:-89.09, total:468.25, shows:619, occupancy:27.7, ff:null},
   ],
 },
+    {
+  key: 'ramayana-part-1-2026',
+  title: 'Ramayana: Part 1',
+  year: 2026,
+  language: 'Hindi',
+  l: 'Hindi',
+  dubbedLanguages: ['Tamil', 'Telugu', 'Kannada', 'Malayalam', 'English'],
+
+  director: 'Nitesh Tiwari',
+  studio: 'Prime Focus Studios',
+  productionCompanies: [
+    'Prime Focus Studios',
+    'Monster Mind Creations',
+    'DNEG',
+  ],
+  producers: ['Namit Malhotra', 'Yash'],
+
+  cast: [
+    {name:'Ranbir Kapoor', role:'Rama'},
+    {name:'Sai Pallavi', role:'Sita'},
+    {name:'Yash', role:'Ravana'},
+    {name:'Ravi Dubey', role:'Lakshman'},
+    {name:'Sunny Deol', role:'Hanuman'},
+    {name:'Arun Govil', role:'Dasharatha'},
+    {name:'Lara Dutta', role:'Kaikeyi'},
+    {name:'Rakul Preet Singh', role:'Shurpanakha'},
+    {name:'Kunal Kapoor', role:'Indra'},
+    {name:'Anupam Kher', role:'Jatayu'},
+    {name:'Kajal Aggarwal', role:'Mandodari'},
+    {name:'Vivek Oberoi', role:'Vidyutjiva'},
+    {name:'Adinath Kothare', role:'Bharata'},
+  ],
+
+  synopsis: 'An adaptation of the Hindu epic Ramayana, following Prince Rama, his journey, and his battle against Ravana.',
+  release: '2026-11-05',
+  runtime: null,
+  budget: 1500,
+  ott: 'TBA',
+  music: 'Hans Zimmer & A. R. Rahman',
+
+  india: 612.45,
+  indiaGross: 732.20,
+  ww: 1110.70,
+  overseasGross: 378.50,
+  ow: 174.00,
+  multiplier: 3.52,
+  ff: 23.849,
+
+  languageCollections: [
+    {language:'Hindi', collection:473.25},
+    {language:'Kannada', collection:51.95},
+    {language:'Telugu', collection:40.65},
+    {language:'Tamil', collection:24.90},
+    {language:'Malayalam', collection:21.70},
+  ],
+
+  overseasMarkets: [
+    {market:'Gulf', collection:null},
+    {market:'USA / Canada', collection:null},
+    {market:'UK', collection:null},
+    {market:'Australia', collection:null},
+    {market:'Other', collection:null},
+  ],
+
+  timeline: [
+    {label:'Opening Day', val:64.85},
+    {label:'Opening Weekend', val:174.00},
+    {label:'Week 1', val:564.60},
+    {label:'Week 2 (so far)', val:47.85},
+  ],
+
+  comparable: [],
+  trivia: [],
+
+  daily: [
+    // Week 1
+    {date:'5 Nov', day:'Thu', gross:64.85, indiaGross:77.50, chgDay:null,    chgWeek:null, total:64.85,  occupancy:36.0, ff:2.526},
+    {date:'6 Nov', day:'Fri', gross:48.05, indiaGross:57.30, chgDay:-25.90, chgWeek:null, total:112.90, occupancy:28.9, ff:1.839},
+    {date:'7 Nov', day:'Sat', gross:69.80, indiaGross:83.45, chgDay:+45.30, chgWeek:null, total:182.70, occupancy:41.3, ff:2.624},
+    {date:'8 Nov', day:'Sun', gross:56.15, indiaGross:66.95, chgDay:-19.60, chgWeek:null, total:238.85, occupancy:38.0, ff:2.354},
+    {date:'9 Nov', day:'Mon', gross:107.50,indiaGross:128.70,chgDay:+91.50, chgWeek:null, total:346.35, occupancy:64.9, ff:4.104},
+    {date:'10 Nov',day:'Tue', gross:94.10, indiaGross:112.60,chgDay:-12.50, chgWeek:null, total:440.45, occupancy:55.3, ff:3.549},
+    {date:'11 Nov',day:'Wed', gross:70.65, indiaGross:84.55, chgDay:-24.90, chgWeek:null, total:511.10, occupancy:43.4, ff:2.722},
+    {date:'12 Nov',day:'Thu', gross:53.50, indiaGross:64.00, chgDay:-24.30, chgWeek:null, total:564.60, occupancy:33.9, ff:2.141},
+
+    // Week 2
+    {date:'13 Nov',day:'Fri', gross:47.85, indiaGross:57.15, chgDay:-10.60, chgWeek:-0.42, total:612.45, occupancy:32.1, ff:1.990},
+  ],
+}
 
   'mirzapur-the-movie': {
   key: 'mirzapur-the-movie',
