@@ -1057,6 +1057,74 @@ textarea:focus {
     font-size: 1.35rem;
   }
 }
+  /* Tracking comparison controls */
+#page-tracking #traj-period-anchor,
+#page-tracking #traj-period-window {
+  background: #202a31 !important;
+  color: #f4f6f8 !important;
+  border-color: #52616b !important;
+}
+
+#page-tracking #traj-period-anchor option,
+#page-tracking #traj-period-window option {
+  background: #202a31;
+  color: #f4f6f8;
+}
+
+#page-tracking [style*="color:var(--text-dim)"] {
+  color: #c5d0d7 !important;
+}
+
+#page-tracking #traj-period-results,
+#page-tracking #traj-period-results * {
+  color: #e4ebef;
+}
+
+/* Top Grossers text on its dark background */
+#page-topgrossers .stat-lbl,
+#page-topgrossers .stat-sub {
+  color: #bac5cc !important;
+}
+
+#page-topgrossers .stat-val {
+  color: #ff914d !important;
+}
+
+#page-topgrossers .lf,
+#page-topgrossers #tg-list-tabs .rec-tab {
+  color: #e2e8ec !important;
+}
+
+#page-topgrossers #tg-list-tabs .rec-tab.on {
+  color: #17191b !important;
+}
+
+#page-topgrossers #tg-lang-filters .lf[style*="color:var(--orange)"],
+#page-topgrossers #tg-era-filters .lf[style*="color:var(--orange)"] {
+  color: #ff914d !important;
+}
+
+#page-topgrossers .table-hdr-cell {
+  color: #b9c5cc !important;
+}
+
+#page-topgrossers #tg-list > div > div:first-child,
+#page-topgrossers #tg-india-list > div > div:first-child,
+#page-topgrossers #tg-ow-list > div > div:first-child {
+  color: #ffd54a !important;
+}
+
+#page-topgrossers #tg-list > div > div:nth-child(2) > div:first-child,
+#page-topgrossers #tg-india-list > div > div:nth-child(2) > div:first-child,
+#page-topgrossers #tg-ow-list > div > div:nth-child(2) > div:first-child {
+  color: #f2f5f7 !important;
+}
+
+#page-topgrossers #tg-list > div > div:nth-child(n+3),
+#page-topgrossers #tg-india-list > div > div:nth-child(n+3),
+#page-topgrossers #tg-ow-list > div > div:nth-child(n+3) {
+  color: #d2dbe0 !important;
+}
 </style>
 </head>
 <body>
@@ -11671,20 +11739,13 @@ function updatePeopleProfileHero(type, name, films) {
   var profileKey = type + '|' + name;
   hero.dataset.peopleProfileKey = profileKey;
 
-  var grossFilm = films.slice().sort(function (a, b) {
-    return (peopleProfileValue(b, ['bo', 'ww', 'worldwide']) || 0) -
-           (peopleProfileValue(a, ['bo', 'ww', 'worldwide']) || 0);
+  var topFootfallFilm = films.slice().sort(function (a, b) {
+    return (peopleProfileValue(b, ['ff']) || 0) -
+           (peopleProfileValue(a, ['ff']) || 0);
   })[0];
 
-  if (!grossFilm || !peopleProfileValue(grossFilm, ['bo', 'ww', 'worldwide'])) {
-    grossFilm = films.slice().sort(function (a, b) {
-      return (peopleProfileValue(b, ['ff']) || 0) -
-             (peopleProfileValue(a, ['ff']) || 0);
-    })[0];
-  }
-
-  if (grossFilm && grossFilm.n) {
-    tmdbSearch(grossFilm.n, grossFilm.y, function (result) {
+  if (topFootfallFilm && peopleProfileValue(topFootfallFilm, ['ff']) != null && topFootfallFilm.n) {
+    tmdbSearch(topFootfallFilm.n, topFootfallFilm.y, function (result) {
       if (hero.dataset.peopleProfileKey !== profileKey || !result) return;
 
       var image = result.backdrop || result.poster;
