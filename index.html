@@ -2215,6 +2215,8 @@ var YR_DATA = {
     <button class="lf" onclick="setDailyRecMetric('weekend2',this)">2nd Weekend</button>
     <button class="lf" onclick="setDailyRecMetric('weekend3',this)">3rd Weekend</button>
     <button class="lf" onclick="setDailyRecMetric('weekend4',this)">4th Weekend</button>
+    <button class="lf" onclick="setDailyRecMetric('bestSecondWeekendDrop',this)">Best 2nd Weekend Drop</button>
+<button class="lf" onclick="setDailyRecMetric('bestThirdWeekendDrop',this)">Best 3rd Weekend Drop</button>
 
     <select id="daily-rec-weekday"
       onchange="setDailyRecWeekday(this.value)"
@@ -11181,6 +11183,29 @@ function getDailyRecValue(film, metric) {
       ? { value: weekend.total, detail: 'Friday–Sunday' }
       : null;
   }
+  if (
+  metric === 'bestSecondWeekendDrop' ||
+  metric === 'bestThirdWeekendDrop'
+) {
+  var currentWeekendNumber =
+    metric === 'bestSecondWeekendDrop' ? 2 : 3;
+
+  if (weekends.length < currentWeekendNumber) return null;
+
+  var previousWeekend = weekends[currentWeekendNumber - 2].total;
+  var currentWeekend = weekends[currentWeekendNumber - 1].total;
+
+  if (previousWeekend <= 0) return null;
+
+  var weekendChange =
+    ((currentWeekend - previousWeekend) / previousWeekend) * 100;
+
+  return {
+    value: weekendChange,
+    detail: 'Weekend ' + (currentWeekendNumber - 1) +
+      ' → Weekend ' + currentWeekendNumber
+  };
+}
 
  var weekdayMatch = /^weekday\|([1-5])\|(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/.exec(metric);
 
@@ -11261,6 +11286,8 @@ function renderDailyRecords() {
     weekend4: '4th Weekend India Net · Friday–Sunday',
     weekendDrop: 'Worst Weekend-to-Weekend Drop',
     mondayDrop: 'Worst Monday Drop vs Sunday'
+    bestSecondWeekendDrop: 'Best 2nd Weekend Drop vs 1st',
+bestThirdWeekendDrop: 'Best 3rd Weekend Drop vs 2nd',
   };
 
   var data = [];
@@ -11303,17 +11330,25 @@ function renderDailyRecords() {
     return;
   }
 
-  var isDrop = dailyRecMetric === 'weekendDrop' || dailyRecMetric === 'mondayDrop';
+ var isBestHold =
+  dailyRecMetric === 'bestSecondWeekendDrop' ||
+  dailyRecMetric === 'bestThirdWeekendDrop';
 
-  data.sort(function (a, b) {
-    return isDrop ? a.value - b.value : b.value - a.value;
-  });
+var isDrop =
+  isBestHold ||
+  dailyRecMetric === 'weekendDrop' ||
+  dailyRecMetric === 'mondayDrop';
+
+data.sort(function (a, b) {
+  if (isBestHold) return b.value - a.value;
+  return isDrop ? a.value - b.value : b.value - a.value;
+});
 
   var maxValue = Math.max.apply(null, data.map(function (item) {
     return Math.abs(item.value);
   })) || 1;
-  var color = isDrop ? '#f87171' : '#4fc3f7';
-
+var color = isBestHold ? '#4ade80' : isDrop ? '#f87171' : '#4fc3f7';
+  
   document.getElementById('daily-rec-chart').innerHTML = data.map(function (item, index) {
     var pct = Math.round(Math.sqrt(Math.abs(item.value) / maxValue) * 100);
     var valueLabel = isDrop
