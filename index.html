@@ -795,6 +795,118 @@ textarea:focus {
     grid-template-columns: 1fr !important;
   }
 }
+  /* People navigation dropdown */
+.people-nav {
+  position: relative;
+}
+
+.people-nav-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 180px;
+  padding: 6px;
+  background: #202a31;
+  border: 1px solid #39454d;
+  border-radius: 7px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  z-index: 10000;
+}
+
+.people-nav-menu.open {
+  display: grid;
+}
+
+.people-nav-menu button {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #e8edf0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.people-nav-menu button:hover,
+.people-nav-menu button:focus {
+  background: rgba(192,132,252,.15);
+  color: #d8b4fe;
+}
+
+/* Hide the old page-switch tabs; People is now in the top navigation */
+#page-actors > div:nth-of-type(2) > div:first-child,
+#page-actresses > div:nth-of-type(2) > div:nth-child(-n+2) {
+  display: none !important;
+}
+
+/* Poster thumbnails in actor, actress, and director filmographies */
+#page-actors .table-hdr,
+#page-actors .table-row {
+  grid-template-columns: minmax(250px, 1.8fr) repeat(6, minmax(72px, .65fr));
+}
+
+#page-actresses .table-hdr,
+#page-actresses .table-row {
+  grid-template-columns: minmax(260px, 2fr) repeat(4, minmax(72px, .7fr));
+}
+
+#actor-table-wrap,
+#actress-table-wrap,
+#director-table-wrap {
+  overflow-x: auto;
+}
+
+#page-actors .table-row > div:first-child,
+#page-actresses .table-row > div:first-child {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  column-gap: 10px;
+  align-items: center;
+}
+
+.people-film-poster {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 46px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #26323a;
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+#page-actors .table-title,
+#page-actresses .table-title {
+  grid-column: 2;
+  grid-row: 1;
+  white-space: normal;
+}
+
+#page-actors .table-bar,
+#page-actresses .table-bar {
+  grid-column: 2;
+  grid-row: 2;
+  width: 100%;
+}
+
+#page-actors .table-row,
+#page-actresses .table-row {
+  min-height: 82px;
+}
+
+@media (max-width: 760px) {
+  #page-actors .table-hdr,
+  #page-actors .table-row {
+    min-width: 820px;
+  }
+
+  #page-actresses .table-hdr,
+  #page-actresses .table-row {
+    min-width: 620px;
+  }
+}
 </style>
 </head>
 <body>
@@ -805,7 +917,21 @@ textarea:focus {
     <li><a onclick="showPage('main')" id="nav-main" class="active">Home</a></li>
     <li><a onclick="showPage('topgrossers')" id="nav-topgrossers" style="color:var(--orange);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Top Grossers</a></li>
     <li><a onclick="showPage('footfalls')" id="nav-footfalls" style="color:var(--blue);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Footfalls</a></li>
-    <li><a onclick="showPage('actors')" id="nav-actors" style="color:var(--purple);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Actors</a></li>
+<li class="people-nav">
+  <a href="#" id="nav-people" aria-haspopup="true" aria-expanded="false"
+     onclick="togglePeopleMenu(event)"
+     style="color:var(--purple);opacity:.85"
+     onmouseover="this.style.opacity=1"
+     onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">
+    People <span aria-hidden="true">⌄</span>
+  </a>
+
+  <div id="people-nav-menu" class="people-nav-menu">
+    <button type="button" onclick="openPeopleType('actor')">Actors</button>
+    <button type="button" onclick="openPeopleType('actress')">Actresses</button>
+    <button type="button" onclick="openPeopleType('director')">Directors</button>
+  </div>
+</li>
     <li><a onclick="showPage('tracking')" id="nav-tracking" style="color:var(--gold);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Tracking </a></li>
     <li><a onclick="showPage('records')" id="nav-records" style="color:var(--gold);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Records</a></li>
     <li><a onclick="showPage('predictions')" id="nav-predictions" style="color:var(--green);opacity:.75" onmouseover="this.style.opacity=1" onmouseout="if(!this.classList.contains('active'))this.style.opacity=.75">Schedule</a></li>
@@ -2866,12 +2992,25 @@ var YR_DATA = {
     <div id="celeb-panel-actress">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
         <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Actress</div>
-        <div style="position:relative">
-          <select id="actressSelect" style="appearance:none;background:#1a0020;border:0.5px solid rgba(251,113,133,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2.5rem .55rem 1rem;cursor:pointer;outline:none;min-width:220px" onchange="renderActress()">
-            <option value="">— Choose Actress —</option>
-          </select>
-          <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(251,113,133,.6);font-size:.7rem">▼</div>
-        </div>
+      <div style="position:relative;min-width:220px">
+  <input
+    id="actressSearch-input"
+    type="search"
+    placeholder="Search actress..."
+    autocomplete="off"
+    oninput="filterPeopleSelect('actress')"
+    onfocus="filterPeopleSelect('actress')"
+    onblur="setTimeout(function(){var d=document.getElementById('actressSearch-drop');if(d)d.style.display='none';},220)"
+    style="width:100%;background:#1a0020;border:0.5px solid rgba(251,113,133,.4);border-radius:4px;color:rgba(255,255,255,.9);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem .8rem;outline:none;box-sizing:border-box"
+  >
+  <div
+    id="actressSearch-drop"
+    style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(251,113,133,.3);border-radius:4px;max-height:240px;overflow-y:auto;z-index:200"
+  ></div>
+  <select id="actressSelect" onchange="renderActress()" style="display:none">
+    <option value="">— Choose Actress —</option>
+  </select>
+</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           <button class="sort-btn active" id="actress-sort-year" onclick="setActressSort('year',this)">Year</button>
           <button class="sort-btn" id="actress-sort-footfalls" onclick="setActressSort('footfalls',this)">Footfalls</button>
@@ -2889,12 +3028,25 @@ var YR_DATA = {
     <div id="celeb-panel-director" style="display:none">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap">
         <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0">Select Director</div>
-        <div style="position:relative">
-          <select id="directorSelect" style="appearance:none;background:#0a1a10;border:0.5px solid rgba(34,197,94,.4);border-radius:4px;color:rgba(255,255,255,.85);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem 2.5rem .55rem 1rem;cursor:pointer;outline:none;min-width:220px" onchange="renderDirector()">
-            <option value="">— Choose Director —</option>
-          </select>
-          <div style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(34,197,94,.6);font-size:.7rem">▼</div>
-        </div>
+      <div style="position:relative;min-width:220px">
+  <input
+    id="directorSearch-input"
+    type="search"
+    placeholder="Search director..."
+    autocomplete="off"
+    oninput="filterPeopleSelect('director')"
+    onfocus="filterPeopleSelect('director')"
+    onblur="setTimeout(function(){var d=document.getElementById('directorSearch-drop');if(d)d.style.display='none';},220)"
+    style="width:100%;background:#0a1a10;border:0.5px solid rgba(34,197,94,.4);border-radius:4px;color:rgba(255,255,255,.9);font-family:'Barlow',sans-serif;font-size:.82rem;padding:.55rem .8rem;outline:none;box-sizing:border-box"
+  >
+  <div
+    id="directorSearch-drop"
+    style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a1a2e;border:0.5px solid rgba(34,197,94,.3);border-radius:4px;max-height:240px;overflow-y:auto;z-index:200"
+  ></div>
+  <select id="directorSelect" onchange="renderDirector()" style="display:none">
+    <option value="">— Choose Director —</option>
+  </select>
+</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           <button class="sort-btn active" id="dir-sort-year" onclick="setDirSort('year',this)">Year</button>
           <button class="sort-btn" id="dir-sort-boxoffice" onclick="setDirSort('boxoffice',this)">Box Office</button>
@@ -3550,6 +3702,88 @@ function tmdbSearch(title, year, cb) {
     })
     .catch(function(e) { console.warn('TMDB error:', title, e); tmdbCache[cacheKey] = null; cb(null); });
 }
+  var peoplePosterObserver = window.IntersectionObserver
+  ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+
+        var row = entry.target;
+        peoplePosterObserver.unobserve(row);
+
+        var poster = row.querySelector('.people-film-poster');
+        var titleEl = row.querySelector('.table-title');
+        var yearEl = row.querySelector('.table-yr');
+
+        if (!poster || !titleEl) return;
+
+        var title = titleEl.textContent.replace('●', '').trim();
+        var year = yearEl ? parseInt(yearEl.textContent, 10) : null;
+
+        tmdbSearch(title, year, function (result) {
+          if (result && result.poster) {
+            poster.src = result.poster;
+          } else {
+            poster.style.display = 'none';
+          }
+        });
+      });
+    }, { rootMargin: '120px' })
+  : null;
+
+function loadPeopleFilmPosters(root) {
+  if (!root) return;
+
+  root.querySelectorAll('.table-row').forEach(function (row) {
+    if (row.dataset.peoplePosterReady) return;
+
+    var cell = row.firstElementChild;
+    var titleEl = row.querySelector('.table-title');
+
+    if (!cell || !titleEl) return;
+
+    var poster = document.createElement('img');
+    poster.className = 'people-film-poster';
+    poster.alt = '';
+    poster.decoding = 'async';
+    poster.onerror = function () {
+      poster.style.display = 'none';
+    };
+
+    cell.insertBefore(poster, titleEl);
+    row.dataset.peoplePosterReady = 'true';
+
+    if (peoplePosterObserver) {
+      peoplePosterObserver.observe(row);
+    } else {
+      var title = titleEl.textContent.replace('●', '').trim();
+      var yearEl = row.querySelector('.table-yr');
+      var year = yearEl ? parseInt(yearEl.textContent, 10) : null;
+
+      tmdbSearch(title, year, function (result) {
+        if (result && result.poster) poster.src = result.poster;
+        else poster.style.display = 'none';
+      });
+    }
+  });
+}
+
+var peoplePosterMutationObserver = new MutationObserver(function (records) {
+  records.forEach(function (record) {
+    loadPeopleFilmPosters(record.target);
+  });
+});
+
+['actor-table-wrap', 'actress-table-wrap', 'director-table-wrap'].forEach(function (id) {
+  var table = document.getElementById(id);
+  if (!table) return;
+
+  peoplePosterMutationObserver.observe(table, {
+    childList: true,
+    subtree: true
+  });
+
+  loadPeopleFilmPosters(table);
+});
 
 function loadAllPosters() {
   document.querySelectorAll('.pcard').forEach(function(card) {
@@ -10230,7 +10464,7 @@ function showPage(p) {
     link.classList.remove('active');
   });
 
-  var navId = p === 'actresses' ? 'nav-actors' : 'nav-' + p;
+var navId = (p === 'actors' || p === 'actresses') ? 'nav-people' : 'nav-' + p;
   var navLink = document.getElementById(navId);
   if (navLink) navLink.classList.add('active');
 
@@ -12726,6 +12960,102 @@ function setCelebTab(tab, btn) {
   document.getElementById('celeb-panel-actress').style.display  = tab === 'actress'  ? 'block' : 'none';
   document.getElementById('celeb-panel-director').style.display = tab === 'director' ? 'block' : 'none';
 }
+  function togglePeopleMenu(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  var menu = document.getElementById('people-nav-menu');
+  var link = document.getElementById('nav-people');
+  var opening = !menu.classList.contains('open');
+
+  menu.classList.toggle('open', opening);
+  link.setAttribute('aria-expanded', opening ? 'true' : 'false');
+}
+
+function openPeopleType(type) {
+  var menu = document.getElementById('people-nav-menu');
+  var link = document.getElementById('nav-people');
+
+  menu.classList.remove('open');
+  link.setAttribute('aria-expanded', 'false');
+
+  if (type === 'actor') {
+    showPage('actors');
+    var actorInput = document.getElementById('actorSearch-input');
+    if (actorInput) actorInput.focus();
+    return;
+  }
+
+  showPage('actresses');
+
+  var tab = document.getElementById('celeb-tab-' + type);
+  if (tab) setCelebTab(type, tab);
+
+  var searchInput = document.getElementById(type + 'Search-input');
+  if (searchInput) searchInput.focus();
+}
+
+document.addEventListener('click', function (event) {
+  if (event.target.closest && event.target.closest('.people-nav')) return;
+
+  var menu = document.getElementById('people-nav-menu');
+  var link = document.getElementById('nav-people');
+
+  if (menu) menu.classList.remove('open');
+  if (link) link.setAttribute('aria-expanded', 'false');
+});
+  function filterPeopleSelect(type) {
+  var isActress = type === 'actress';
+  var input = document.getElementById(type + 'Search-input');
+  var drop = document.getElementById(type + 'Search-drop');
+  var select = document.getElementById(isActress ? 'actressSelect' : 'directorSelect');
+
+  if (!input || !drop || !select) return;
+
+  var query = input.value.trim().toLowerCase();
+  var names = Array.prototype.slice.call(select.options, 1)
+    .map(function (option) { return option.value; })
+    .filter(function (name) {
+      return !query || name.toLowerCase().indexOf(query) !== -1;
+    })
+    .slice(0, 20);
+
+  drop.innerHTML = '';
+
+  if (!names.length) {
+    drop.style.display = 'none';
+    return;
+  }
+
+  names.forEach(function (name) {
+    var option = document.createElement('button');
+    option.type = 'button';
+    option.textContent = name;
+    option.style.cssText =
+      'display:block;width:100%;padding:.55rem .8rem;border:0;background:transparent;color:rgba(255,255,255,.85);font:inherit;text-align:left;cursor:pointer';
+
+    option.onmouseenter = function () {
+      option.style.background = 'rgba(255,255,255,.08)';
+    };
+    option.onmouseleave = function () {
+      option.style.background = 'transparent';
+    };
+    option.onmousedown = function (event) {
+      event.preventDefault();
+    };
+    option.onclick = function () {
+      select.value = name;
+      input.value = name;
+      drop.style.display = 'none';
+      if (isActress) renderActress();
+      else renderDirector();
+    };
+
+    drop.appendChild(option);
+  });
+
+  drop.style.display = 'block';
+}
 
 ACTRESS_DATA['Katrina Kaif'] = ACTRESS_DATA_OVERRIDE_KATRINA;
 ACTRESS_DATA['Kareena Kapoor'] = ACTRESS_DATA_OVERRIDE_KAREENA;
@@ -12739,6 +13069,7 @@ var dirSel = document.getElementById('directorSelect');
 Object.keys(DIRECTOR_DATA).sort().forEach(function(d){
   var o = document.createElement('option'); o.value = d; o.textContent = d; dirSel.appendChild(o);
 });
+  
 
 function setDirSort(s, btn) {
   curDirSort = s;
