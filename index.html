@@ -360,6 +360,66 @@ textarea:focus {
     transition-duration: 0.01ms !important;
   }
 }
+  /* Records, Top Grossers, and Footfalls visual polish */
+#page-topgrossers,
+#page-records,
+#page-footfalls {
+  color: var(--text);
+}
+
+#page-topgrossers .stat-card,
+#page-topgrossers .chart-box {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.09), var(--bg2));
+  border-color: rgba(249, 115, 22, 0.22);
+}
+
+#page-records .stat-card,
+#page-records .chart-box {
+  background: linear-gradient(135deg, rgba(245, 197, 24, 0.08), var(--bg2));
+  border-color: rgba(245, 197, 24, 0.2);
+}
+
+#page-footfalls .stat-card,
+#page-footfalls .chart-box {
+  background: linear-gradient(135deg, rgba(79, 195, 247, 0.08), var(--bg2));
+  border-color: rgba(79, 195, 247, 0.2);
+}
+
+#page-topgrossers .rec-row:hover {
+  background: rgba(249, 115, 22, 0.07);
+}
+
+#page-records .rec-row:hover {
+  background: rgba(245, 197, 24, 0.07);
+}
+
+#page-footfalls .ff-row:hover {
+  background: rgba(79, 195, 247, 0.07);
+}
+
+#page-topgrossers .rec-name,
+#page-records .rec-name,
+#page-footfalls .ff-title,
+#page-topgrossers .table-title {
+  color: var(--text) !important;
+}
+
+#page-topgrossers .table-yr,
+#page-footfalls .ff-meta,
+#page-records .stat-sub {
+  color: var(--text-dim) !important;
+}
+
+#daily-rec-weekday {
+  background: var(--bg3) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+
+#daily-rec-weekday option {
+  background: var(--bg3);
+  color: var(--text);
+}
 </style>
 </head>
 <body>
