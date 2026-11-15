@@ -942,6 +942,121 @@ textarea:focus {
 #director-chart-wrap {
   display: none !important;
 }
+  /* People profile hero */
+#page-actors .page-hero.people-profile-hero,
+#page-actresses .page-hero.people-profile-hero {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 130px;
+  background-size: cover !important;
+  background-position: center 35% !important;
+}
+
+.people-profile-hero .page-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.people-profile-hero .people-profile-portrait {
+  position: relative !important;
+  inset: auto !important;
+  width: 132px !important;
+  height: 132px !important;
+  margin: 0 auto 1rem;
+  border-radius: 50% !important;
+  border: 4px solid rgba(255,255,255,.85);
+  background-color: #26323a;
+  background-size: cover !important;
+  background-position: center 20% !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,.45);
+  opacity: 1 !important;
+  z-index: 3;
+}
+
+.people-profile-role {
+  color: rgba(255,255,255,.78) !important;
+}
+
+.people-profile-name {
+  color: #fff !important;
+  text-shadow: 0 2px 16px rgba(0,0,0,.65);
+}
+
+.people-profile-subtitle {
+  color: rgba(255,255,255,.8) !important;
+}
+
+.people-profile-stats {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(1000px, calc(100% - 40px));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  color: #fff;
+  text-align: center;
+}
+
+.people-profile-stat {
+  padding: .5rem 1rem;
+}
+
+.people-profile-stat + .people-profile-stat {
+  border-left: 1px solid rgba(255,255,255,.2);
+}
+
+.people-profile-stat-label {
+  color: rgba(255,255,255,.75);
+  font-size: .75rem;
+  margin-bottom: .35rem;
+}
+
+.people-profile-stat-value {
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 900;
+}
+
+#actor-stats-wrap,
+#actress-stats-wrap,
+#director-stats-wrap,
+#actor-chart-wrap,
+#actress-chart-wrap,
+#director-chart-wrap {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  #page-actors .page-hero.people-profile-hero,
+  #page-actresses .page-hero.people-profile-hero {
+    min-height: 500px;
+    padding-bottom: 150px;
+  }
+
+  .people-profile-stat {
+    padding: .4rem .35rem;
+  }
+
+  .people-profile-stat-label {
+    font-size: .62rem;
+  }
+
+  .people-profile-stat-value {
+    font-size: 1.35rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -11443,6 +11558,150 @@ function computeActorRange(){
     '</div>';
 }
 
+  function peopleProfileValue(film, keys) {
+  for (var i = 0; i < keys.length; i++) {
+    var value = film[keys[i]];
+    if (value != null && isFinite(Number(value))) return Number(value);
+  }
+  return null;
+}
+
+function peopleProfileTotal(films, keys) {
+  var total = 0;
+  var found = false;
+
+  films.forEach(function (film) {
+    var value = peopleProfileValue(film, keys);
+    if (value == null) return;
+    total += value;
+    found = true;
+  });
+
+  return found ? total : null;
+}
+
+function peopleProfileFormat(value, unit) {
+  if (value == null) return '—';
+
+  var formatted = Number(value).toLocaleString('en-IN', {
+    maximumFractionDigits: 1
+  });
+
+  return unit === 'Cr' ? '₹' + formatted + ' Cr' : formatted + 'M';
+}
+
+function updatePeopleProfileHero(type, name, films) {
+  var isActor = type === 'actor';
+  var page = document.getElementById(isActor ? 'page-actors' : 'page-actresses');
+  var hero = isActor
+    ? document.getElementById('actor-hero-bg')
+    : page.querySelector('.page-hero');
+
+  if (!page || !hero) return;
+
+  hero.classList.add('people-profile-hero');
+
+  var inner = hero.querySelector('.page-hero-inner');
+  if (!inner) return;
+
+  var roleEl = inner.querySelector('.people-profile-role') || inner.children[0];
+  var nameEl = inner.querySelector('.people-profile-name') || inner.children[1];
+  var subtitleEl = inner.querySelector('.people-profile-subtitle') || inner.children[2];
+
+  if (roleEl) roleEl.classList.add('people-profile-role');
+  if (nameEl) nameEl.classList.add('people-profile-name');
+  if (subtitleEl) subtitleEl.classList.add('people-profile-subtitle');
+
+  var portrait = isActor
+    ? document.getElementById('actor-hero-img')
+    : hero.querySelector('.people-profile-portrait');
+
+  if (!portrait) {
+    portrait = document.createElement('div');
+    portrait.className = 'people-profile-portrait';
+  } else {
+    portrait.classList.add('people-profile-portrait');
+  }
+
+  if (roleEl && portrait.parentNode !== inner) {
+    inner.insertBefore(portrait, roleEl);
+  }
+
+  if (roleEl) roleEl.textContent = 'Indian Cinema · ' + type;
+  if (nameEl) nameEl.textContent = name;
+
+  var years = films.map(function (film) {
+    return Number(film.y);
+  }).filter(function (year) {
+    return isFinite(year);
+  }).sort(function (a, b) {
+    return a - b;
+  });
+
+  if (subtitleEl) {
+    subtitleEl.textContent = films.length + ' films' +
+      (years.length ? ' · ' + years[0] + '–' + years[years.length - 1] : '');
+  }
+
+  var domestic = peopleProfileTotal(films, ['india', 'indiaNet', 'domestic']);
+  var worldwide = peopleProfileTotal(films, ['bo', 'ww', 'worldwide']);
+  var footfalls = peopleProfileTotal(films, ['ff']);
+
+  var stats = hero.querySelector('.people-profile-stats');
+  if (!stats) {
+    stats = document.createElement('div');
+    stats.className = 'people-profile-stats';
+    hero.appendChild(stats);
+  }
+
+  stats.innerHTML =
+    '<div class="people-profile-stat">' +
+      '<div class="people-profile-stat-label">Cumulative Domestic</div>' +
+      '<div class="people-profile-stat-value">' + peopleProfileFormat(domestic, 'Cr') + '</div>' +
+    '</div>' +
+    '<div class="people-profile-stat">' +
+      '<div class="people-profile-stat-label">Cumulative Worldwide</div>' +
+      '<div class="people-profile-stat-value">' + peopleProfileFormat(worldwide, 'Cr') + '</div>' +
+    '</div>' +
+    '<div class="people-profile-stat">' +
+      '<div class="people-profile-stat-label">Cumulative Footfalls</div>' +
+      '<div class="people-profile-stat-value">' + peopleProfileFormat(footfalls, 'M') + '</div>' +
+    '</div>';
+
+  var profileKey = type + '|' + name;
+  hero.dataset.peopleProfileKey = profileKey;
+
+  var grossFilm = films.slice().sort(function (a, b) {
+    return (peopleProfileValue(b, ['bo', 'ww', 'worldwide']) || 0) -
+           (peopleProfileValue(a, ['bo', 'ww', 'worldwide']) || 0);
+  })[0];
+
+  if (!grossFilm || !peopleProfileValue(grossFilm, ['bo', 'ww', 'worldwide'])) {
+    grossFilm = films.slice().sort(function (a, b) {
+      return (peopleProfileValue(b, ['ff']) || 0) -
+             (peopleProfileValue(a, ['ff']) || 0);
+    })[0];
+  }
+
+  if (grossFilm && grossFilm.n) {
+    tmdbSearch(grossFilm.n, grossFilm.y, function (result) {
+      if (hero.dataset.peopleProfileKey !== profileKey || !result) return;
+
+      var image = result.backdrop || result.poster;
+      if (image) {
+        hero.style.backgroundImage =
+          'linear-gradient(rgba(5,10,16,.38),rgba(5,10,16,.78)),url("' + image + '")';
+      }
+    });
+  }
+
+  if (name && typeof fetchWikiHeadshot === 'function') {
+    fetchWikiHeadshot(name, function (imageUrl) {
+      if (hero.dataset.peopleProfileKey !== profileKey) return;
+      if (imageUrl) portrait.style.backgroundImage = 'url("' + imageUrl + '")';
+    });
+  }
+}
 function renderActor(){
   var actor=currentActor||''; 
   var empty=document.getElementById('actor-empty');
@@ -11453,7 +11712,7 @@ function renderActor(){
   if(!actor){empty.style.display='block';statsEl.innerHTML='';chartEl.innerHTML='';tableEl.innerHTML='';rangeWrap.style.display='none';return;}   // ★ added rangeWrap.style.display='none';
   empty.style.display='none';
   rangeWrap.style.display='block';   // ★ new
-  applyActorHero(actor);
+updatePeopleProfileHero('actor', actor, fms);
   var fms=getActorFilms(actor);
   if(!fms.length){empty.style.display='block';empty.textContent='No films found for '+actor;return;}
 
@@ -13112,7 +13371,7 @@ function renderDirector() {
   emptyEl.style.display = 'none';
   var fms = DIRECTOR_DATA[dir] || [];
   if (!fms.length) { emptyEl.style.display='block'; emptyEl.textContent='No data for '+dir; return; }
-
+updatePeopleProfileHero('director', dir, fms);
   var withFF  = fms.filter(function(f){ return f.ff > 0; });
   var withBO  = fms.filter(function(f){ return f.bo > 0; });
   var withLB  = fms.filter(function(f){ return f.lb > 0; });
@@ -13198,6 +13457,7 @@ function renderActress() {
   emptyEl.style.display = 'none';
   var fms = ACTRESS_DATA[actress] || [];
   if (!fms.length) { emptyEl.style.display='block'; emptyEl.textContent='No data for '+actress; return; }
+  updatePeopleProfileHero('actress', actress, fms);
 
   var withFF = fms.filter(function(f){ return f.ff > 0; });
   var withBO = fms.filter(function(f){ return f.bo > 0; });
