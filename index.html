@@ -420,6 +420,125 @@ textarea:focus {
   background: var(--bg3);
   color: var(--text);
 }
+  /* TOP GROSSERS — page-specific layout */
+#page-topgrossers {
+  background: #11171b;
+}
+
+#page-topgrossers > .page-hero {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(ellipse at 78% 20%, rgba(249,115,22,.16), transparent 40%),
+    linear-gradient(120deg, #211307, #15191c 75%) !important;
+  border-bottom: 1px solid rgba(249,115,22,.15);
+}
+
+#page-topgrossers .page-hero-inner {
+  width: min(1440px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+#page-topgrossers .page-hero-inner > div:last-child {
+  color: rgba(238,243,246,.72) !important;
+}
+
+#page-topgrossers > div:nth-of-type(2) {
+  width: min(1440px, 100%) !important;
+  max-width: 1440px !important;
+  padding: 2rem clamp(20px, 4vw, 56px) 3rem !important;
+}
+
+#tg-search {
+  min-height: 54px;
+  border-radius: 8px !important;
+  background: #202a31 !important;
+  border-color: #39454d !important;
+  color: #f3f5f6 !important;
+  font-size: 1rem !important;
+}
+
+#tg-search::placeholder {
+  color: #aeb8be;
+}
+
+#page-topgrossers #tg-lang-filters,
+#page-topgrossers #tg-era-filters {
+  gap: 8px !important;
+}
+
+#page-topgrossers #tg-list-tabs {
+  margin-top: 1.75rem;
+  padding-bottom: .8rem;
+  border-bottom: 1px solid rgba(255,255,255,.09);
+}
+
+#page-topgrossers .stat-card {
+  min-height: 112px;
+  padding: 1.1rem 1.25rem !important;
+  border-radius: 8px !important;
+  background: #202a31 !important;
+  border-color: rgba(249,115,22,.2) !important;
+}
+
+#page-topgrossers .stat-lbl,
+#page-topgrossers .stat-sub {
+  color: #aeb8be !important;
+}
+
+#page-topgrossers #tg-sublist-ww > div:first-child,
+#page-topgrossers #tg-sublist-india > div:first-child,
+#page-topgrossers #tg-sublist-ow > div:first-child {
+  background: #171e23 !important;
+  border-bottom-color: rgba(249,115,22,.28) !important;
+}
+
+#page-topgrossers #tg-sublist-ww > div:first-child > div,
+#page-topgrossers #tg-sublist-india > div:first-child > div,
+#page-topgrossers #tg-sublist-ow > div:first-child > div {
+  color: #aeb8be !important;
+}
+
+#tg-list > div,
+#tg-india-list > div,
+#tg-ow-list > div {
+  min-height: 74px;
+  padding: .8rem 12px !important;
+  border-bottom-color: rgba(255,255,255,.08) !important;
+  transition: background .18s ease, transform .18s ease;
+}
+
+#tg-list > div:hover,
+#tg-india-list > div:hover,
+#tg-ow-list > div:hover {
+  background: #202a31 !important;
+}
+
+@media (max-width: 700px) {
+  #page-topgrossers .page-hero-inner {
+    width: calc(100% - 36px);
+  }
+
+  #page-topgrossers > div:nth-of-type(2) {
+    padding: 1.25rem 16px 2rem !important;
+  }
+
+  #tg-sublist-ww > div:first-child,
+  #tg-sublist-india > div:first-child,
+  #tg-sublist-ow > div:first-child,
+  #tg-list > div,
+  #tg-india-list > div,
+  #tg-ow-list > div {
+    min-width: 680px;
+  }
+
+  #tg-sublist-ww,
+  #tg-sublist-india,
+  #tg-sublist-ow {
+    overflow-x: auto;
+  }
+}
 </style>
 </head>
 <body>
