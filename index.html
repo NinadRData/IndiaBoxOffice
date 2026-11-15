@@ -11712,9 +11712,9 @@ function renderActor(){
   if(!actor){empty.style.display='block';statsEl.innerHTML='';chartEl.innerHTML='';tableEl.innerHTML='';rangeWrap.style.display='none';return;}   // ★ added rangeWrap.style.display='none';
   empty.style.display='none';
   rangeWrap.style.display='block';   // ★ new
-updatePeopleProfileHero('actor', actor, fms);
   var fms=getActorFilms(actor);
   if(!fms.length){empty.style.display='block';empty.textContent='No films found for '+actor;return;}
+updatePeopleProfileHero('actor', actor, fms);
 
    var withFF=fms.filter(function(f){return f.ff>0;});
   var withBO=fms.filter(function(f){return f.bo>0;});
