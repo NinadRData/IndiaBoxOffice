@@ -2736,6 +2736,7 @@ var YR_DATA = {
       <button class="rec-tab on" id="tgtab-ww" onclick="setTGListTab('ww',this)">Worldwide Gross</button>
       <button class="rec-tab" id="tgtab-india" onclick="setTGListTab('india',this)">India Nett</button>
       <button class="rec-tab" id="tgtab-ow" onclick="setTGListTab('ow',this)">Opening Weekend</button>
+      <button class="rec-tab" id="tgtab-os" onclick="setTGListTab('os',this)">Overseas Gross</button>
     </div>
 
     <!-- WW LIST -->
@@ -2775,6 +2776,21 @@ var YR_DATA = {
       </div>
       <div id="tg-ow-list"></div>
     </div>
+    <!-- OVERSEAS GROSS LIST -->
+<div id="tg-sublist-os" style="display:none">
+  <div style="position:sticky;top:44px;z-index:10;display:grid;grid-template-columns:40px 1fr 70px 90px 90px 70px;gap:0;padding:.4rem 8px;background:#0a0a0a;border-bottom:1px solid rgba(249,115,22,.18);backdrop-filter:blur(8px)">
+    <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">#</div>
+    <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Film</div>
+    <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Year</div>
+    <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">India Net</div>
+    <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Worldwide</div>
+    <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Overseas</div>
+  </div>
+  <div id="tg-os-list"></div>
+  <div style="font-size:.65rem;color:rgba(255,255,255,.4);padding:.6rem 8px">
+    Values marked ≈ are estimates based on the site’s existing gross split.
+  </div>
+</div>
   </div>
   <footer>Box Office India · All figures approximate worldwide gross in ₹ Crore</footer>
 </div>
@@ -11277,12 +11293,18 @@ function setTGFilter(type, val, btn){
   renderTG();
 }
 
-function setTGListTab(tab, btn){
+function setTGListTab(tab, btn) {
   tgListTab = tab;
-  document.querySelectorAll('#tg-list-tabs .rec-tab').forEach(function(b){b.classList.remove('on');});
-  btn.classList.add('on');
-  ['ww','india','ow'].forEach(function(t){
-    document.getElementById('tg-sublist-'+t).style.display = t===tab?'block':'none';
+
+  document.querySelectorAll('#tg-list-tabs .rec-tab').forEach(function (button) {
+    button.classList.remove('on');
+  });
+
+  if (btn) btn.classList.add('on');
+
+  ['ww', 'india', 'ow', 'os'].forEach(function (type) {
+    var panel = document.getElementById('tg-sublist-' + type);
+    if (panel) panel.style.display = type === tab ? 'block' : 'none';
   });
 }
 
@@ -11307,15 +11329,50 @@ function tgRow(f, rank, valKey, valCol, secKey, secLabel, maxVal){
     '<div style="text-align:right;font-size:.78rem;font-weight:700;color:'+legsCol+'">'+(legsVal?legsVal+'×':'—')+'</div>'+
   '</div>';
 }
+  function getTGOverseasValue(film) {
+  if (film.os != null && isFinite(Number(film.os))) {
+    return { value: Number(film.os), estimated: false };
+  }
+
+  var page = typeof getFilmPage === 'function' ? getFilmPage(film.n) : null;
+
+  if (page && page.overseasGross != null && isFinite(Number(page.overseasGross))) {
+    return { value: Number(page.overseasGross), estimated: false };
+  }
+
+  var split = getGrossOS(film);
+
+  return {
+    value: split.os != null && isFinite(Number(split.os)) ? Number(split.os) : null,
+    estimated: !!split.est
+  };
+}
 
 function renderTG(){
   var emptyHtml = '<div style="padding:3rem;text-align:center;color:rgba(255,255,255,.2)">No films match this filter.</div>';
   var q = (document.getElementById('tg-search') ? document.getElementById('tg-search').value.trim().toLowerCase() : '');
 
   // Build extended dataset: TOP50 + FILMS with ww data, deduped
-var extendedPool = FILMS.filter(function(f){ return f.ww!=null; })
-  .map(function(f){ return {n:f.n, y:f.y, l:f.l, ww:f.ww, india:f.india||null, ow:f.ow||null}; });
-extendedPool.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
+var extendedPool = FILMS.filter(function (film) {
+  return film.ww != null;
+}).map(function (film) {
+  var overseas = getTGOverseasValue(film);
+
+  return {
+    n: film.n,
+    y: film.y,
+    l: film.l,
+    ww: film.ww,
+    india: film.india || null,
+    ow: film.ow || null,
+    os: overseas.value,
+    osEstimated: overseas.estimated
+  };
+});
+
+extendedPool.sort(function (a, b) {
+  return (b.ww || 0) - (a.ww || 0);
+});
 
   // ★ applyFilters now assigns true rank BEFORE the search text narrows the list,
   // so searching a film shows its real rank instead of resetting to #1.
@@ -11381,6 +11438,44 @@ var sortedOW = owPool.sort(function(a,b){ return b.ow-a.ow; });  var listOW = ap
   document.getElementById('tg-ow-list').innerHTML = !listOW.length ? emptyHtml :
     listOW.map(function(f){ return tgRow(f, f._rank, 'ow','#22c55e','india','India Net',maxOW); }).join('');   // ★ f._rank, not i+1
 }
+  var osPool = extendedPool.filter(function (film) {
+  return film.os != null && isFinite(Number(film.os));
+}).slice().sort(function (a, b) {
+  return b.os - a.os;
+});
+
+var listOS = applyFilters(osPool, 75);
+var maxOS = listOS.length ? listOS[0].os : 1;
+
+document.getElementById('tg-os-list').innerHTML = !listOS.length
+  ? emptyHtml
+  : listOS.map(function (film) {
+      var rank = film._rank;
+      var pct = Math.round((film.os / maxOS) * 100);
+      var color = LC[film.l] || '#888';
+      var hasPage = typeof getFilmPage === 'function' && !!getFilmPage(film.n);
+      var safeName = film.n.replace(/'/g, "\\'");
+
+      return '<div style="display:grid;grid-template-columns:40px 1fr 70px 90px 90px 70px;padding:.55rem 8px;border-bottom:0.5px solid rgba(255,255,255,.04);align-items:center;cursor:' +
+        (hasPage ? 'pointer' : 'default') +
+        '" onclick="' + (hasPage ? 'maybeOpenFilm(\'' + safeName + '\')' : '') +
+        '" onmouseover="this.style.background=\'rgba(255,255,255,.03)\'" onmouseout="this.style.background=\'\'">' +
+        '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:.9rem;font-weight:800;color:' +
+          (rank <= 3 ? 'var(--gold)' : 'rgba(255,255,255,.2)') + '">#' + rank + '</div>' +
+        '<div><div style="font-size:.82rem;font-weight:500;color:rgba(255,255,255,.85)">' +
+          film.n + (hasPage ? ' <span style="font-size:.5rem;color:var(--gold)">●</span>' : '') +
+        '</div><div style="margin-top:4px;height:3px;background:rgba(255,255,255,.05);border-radius:2px;max-width:260px">' +
+          '<div style="width:' + pct + '%;height:3px;border-radius:2px;background:' + color + '88"></div>' +
+        '</div><div style="font-size:.62rem;color:' + color + ';margin-top:3px">' + film.l + '</div></div>' +
+        '<div style="text-align:right;font-size:.78rem;color:rgba(255,255,255,.35)">' + film.y + '</div>' +
+        '<div style="text-align:right;font-size:.78rem;color:rgba(255,255,255,.4)">' +
+          (film.india != null ? '₹' + film.india + ' Cr' : '—') + '</div>' +
+        '<div style="text-align:right;font-size:.78rem;color:rgba(255,255,255,.4)">₹' +
+          film.ww + ' Cr</div>' +
+        '<div style="text-align:right;font-size:.85rem;font-weight:600;color:var(--orange)">' +
+          (film.osEstimated ? '≈' : '') + '₹' + film.os + ' Cr</div>' +
+      '</div>';
+    }).join('');
 renderTG();
 
 // ═══════════════════════════════════════
