@@ -1357,8 +1357,8 @@ var FILMS = [
 {n:'The Paradise',y:2026,l:'Telugu',actors:['Nani'],studio:'SLV Cinemas',india:121.04,ww:173.43,ow:45.85,ff:null,lb:null,budget:150,os:31.15},
 {n:'Drishyam: The Conclusion',y:2026,l:'Hindi',actors:['Ajay Devgn','Tabu'],studio:'Panorama Studios',india:379.20,ww:580.22,ow:176.50,ff:16.5,lb:null,budget:120,os:126.12},
 {n:'Jailer 2',y:2026,l:'Tamil',actors:['Rajinikanth','Ramya Krishnan','Yogi Babu','Mithun Chakraborty','S. J. Suryah','Vidya Balan'],studio:'Sun Pictures',india:473.40,ww:830.75,ow:140.20,ff:32.3,lb:null,budget:300,os:277.10},
-{n:'Scene',y:2026,l:'Tamil',actors:['Suriya'],studio:'2D Entertainment',india:117.70,ww:211.20,ow:63.15,ff:8.358,lb:null,budget:30,os:74.50},
-{n:'Ramayana: Part 1',y:2026,l:'Hindi',actors:['Ranbir Kapoor','Sai Pallavi','Yash','Ravi Dubey','Arun Govil','Lara Dutta','Rakul Preet Singh','Anupam Kher','Vivek Oberoi'],studio:'Prime Focus Studios',india:612.45,ww:1110.70,ow:174.00,ff:23.849,lb:null,budget:1500,os:378.50},
+{n:'Scene',y:2026,l:'Tamil',actors:['Suriya'],studio:'2D Entertainment',india:139.35,ww:247.85,ow:63.15,ff:10.492831,lb:null,budget:30,os:86.00},
+{n:'Ramayana: Part 1',y:2026,l:'Hindi',actors:['Ranbir Kapoor','Sai Pallavi','Yash','Ravi Dubey','Arun Govil','Lara Dutta','Rakul Preet Singh','Anupam Kher','Vivek Oberoi'],studio:'Prime Focus Studios',india:792.60,ww:1437.25,ow:182.70,ff:31.454,lb:null,budget:1500,os:490.00},
   
   {n:'Yeh Jawaani Hai Deewani',y:2013,l:'Hindi',actors:['Ranbir Kapoor','Deepika Padukone'],studio:'Dharma',india:188,ww:344,ow:62,ff:20.26,lb:3.8,budget:40},
   {n:'Kaabil',y:2017,l:'Hindi',actors:['Hrithik Roshan'],studio:null,india:103.84,ww:208.14,ow:38,ff:null,lb:null,budget:50},
@@ -8729,13 +8729,9 @@ var FILM_PAGES = {
       {n:'Vettaiyan (2024)',ww:253,  col:'#f5c518'},
     ],
     trivia: [
-      'Karuppu\'s opening weekend of ₹68 Cr is the biggest ever for a Suriya solo film, surpassing his previous best.',
-      'RJ Balaji makes his big-budget directorial debut with Karuppu after establishing himself as an actor-director with smaller Tamil hits.',
-      'The title "Karuppu" (meaning "Black" in Tamil) reflects both the protagonist\'s name and the film\'s dark, grounded tonality.',
-      'Suriya\'s Day 5 collection of ₹12.75 Cr — a drop of only 10.9% from Day 4 — signals strong word-of-mouth driven legs.',
-      'The film is tracking as one of the biggest Tamil releases of 2026, with predictions ranging from ₹150–255 Cr India nett.',
     ],
 },
+
 'scene': {
   key: 'scene-2026',
   title: 'Scene',
@@ -8754,17 +8750,18 @@ var FILM_PAGES = {
   ott: 'TBA',
   music: 'TBA',
 
-  india: 117.70,
-  indiaGross: 136.70,
-  ww: 211.20,
-  overseasGross: 74.50,
+  india: 139.35,
+  indiaGross: 161.85,
+  ww: 247.85,
+  overseasGross: 86.00,
   ow: 63.15,
-  multiplier: 1.86,
-  ff: 8.358,
+  multiplier: +(139.35 / 63.15).toFixed(2),
+  ff: 10.492831,
+  shows: 56023,
 
   languageCollections: [
-    {language:'Tamil', collection:95.60},
-    {language:'Telugu', collection:22.10},
+    {language:'Tamil', collection:112.00},
+    {language:'Telugu', collection:27.35},
   ],
 
   overseas: [
@@ -8779,7 +8776,7 @@ var FILM_PAGES = {
     {label:'Opening Day', val:19.15},
     {label:'Opening Weekend', val:63.15},
     {label:'Week 1', val:111.70},
-    {label:'Week 2 (so far)', val:6.00},
+    {label:'Week 2 (so far)', val:27.65},
   ],
 
   comparable: [
@@ -8789,22 +8786,24 @@ var FILM_PAGES = {
     'Betheleme Kudumba',
   ],
 
-  trivia: [],
-
   daily: [
     // Week 1
-    {date:'6 Nov', day:'Fri', gross:19.15, indiaGross:22.25, chgDay:null,   chgWeek:null, total:19.15,  occupancy:55.0, ff:1.431},
-    {date:'7 Nov', day:'Sat', gross:20.35, indiaGross:23.65, chgDay:+6.27, chgWeek:null, total:39.50,  occupancy:62.5, ff:1.499},
-    {date:'8 Nov', day:'Sun', gross:23.65, indiaGross:27.45, chgDay:+16.22, chgWeek:null, total:63.15,  occupancy:70.7, ff:6.278},
-    {date:'9 Nov', day:'Mon', gross:21.40, indiaGross:24.85, chgDay:-9.51, chgWeek:null, total:84.55, occupancy:65.9, ff:1.578},
-    {date:'10 Nov',day:'Tue', gross:12.85, indiaGross:14.95, chgDay:-39.95, chgWeek:null, total:97.40, occupancy:45.0, ff:null},
-    {date:'11 Nov',day:'Wed', gross:8.05, indiaGross:9.35, chgDay:-37.35, chgWeek:null, total:105.45, occupancy:30.9, ff:null},
-    {date:'12 Nov',day:'Thu', gross:6.25, indiaGross:7.25, chgDay:-22.36, chgWeek:null, total:111.70, occupancy:25.7, ff:0.492},
+    {date:'6 Nov', day:'Fri', gross:19.15, indiaGross:22.25, chgDay:null, chgWeek:null, total:19.15, occupancy:55.0, ff:1.431, shows:6167},
+    {date:'7 Nov', day:'Sat', gross:20.35, indiaGross:23.65, chgDay:6.27, chgWeek:null, total:39.50, occupancy:62.5, ff:1.499, shows:5687},
+    {date:'8 Nov', day:'Sun', gross:23.65, indiaGross:27.45, chgDay:16.22, chgWeek:null, total:63.15, occupancy:70.7, ff:6.278, shows:6001},
+    {date:'9 Nov', day:'Mon', gross:21.40, indiaGross:24.85, chgDay:-9.51, chgWeek:null, total:84.55, occupancy:65.9, ff:1.578, shows:5801},
+    {date:'10 Nov', day:'Tue', gross:12.85, indiaGross:14.95, chgDay:-39.95, chgWeek:null, total:97.40, occupancy:45.0, ff:null, shows:5324},
+    {date:'11 Nov', day:'Wed', gross:8.05, indiaGross:9.35, chgDay:-37.35, chgWeek:null, total:105.45, occupancy:30.9, ff:null, shows:5294},
+    {date:'12 Nov', day:'Thu', gross:6.25, indiaGross:7.25, chgDay:-22.36, chgWeek:null, total:111.70, occupancy:25.7, ff:0.492, shows:5062},
 
     // Week 2
-    {date:'13 Nov',day:'Fri', gross:6.00, indiaGross:6.95, chgDay:-4.00, chgWeek:-68.67, total:117.70, occupancy:30.7, ff:null},
+    {date:'13 Nov', day:'Fri', gross:6.00, indiaGross:6.95, chgDay:-4.00, chgWeek:-68.67, total:117.70, occupancy:30.7, ff:null, shows:4056},
+    {date:'14 Nov', day:'Sat', gross:9.50, indiaGross:11.05, chgDay:58.30, chgWeek:null, total:127.20, occupancy:43.2, ff:null, shows:4309},
+    {date:'15 Nov', day:'Sun', gross:9.30, indiaGross:10.80, chgDay:-2.10, chgWeek:null, total:136.50, occupancy:41.2, ff:null, shows:4376},
+    {date:'16 Nov', day:'Mon', gross:2.85, indiaGross:3.30, chgDay:null, chgWeek:null, total:139.35, occupancy:18.7, ff:0.245512, shows:3946},
   ],
 },
+
   'dhamaal-4': {
   key: 'dhamaal-4',
   title: 'Dhamaal 4',
@@ -9650,7 +9649,8 @@ var FILM_PAGES = {
   {date:'6 Nov', day:'Fri', gross:0.60, indiaGross:0.70, chgDay:-62.50, chgWeek:-89.09, total:468.25, shows:619, occupancy:27.7, ff:null},
 ],
 },
-  'ramayana-part-1': {
+ 
+'ramayana-part-1': {
   key: 'ramayana-part-1-2026',
   title: 'Ramayana: Part 1',
   year: 2026,
@@ -9690,20 +9690,21 @@ var FILM_PAGES = {
   ott: 'TBA',
   music: 'Hans Zimmer & A. R. Rahman',
 
-  india: 612.45,
-  indiaGross: 732.20,
-  ww: 1110.70,
-  overseasGross: 378.50,
-  ow: 174.00,
-  multiplier: 3.52,
-  ff: 23.849,
+  india: 792.60,
+  indiaGross: 947.25,
+  ww: 1437.25,
+  overseasGross: 490.00,
+  ow: 182.70,
+  multiplier: +(792.60 / 182.70).toFixed(2),
+  ff: 31.454,
+  shows: 282932,
 
   languageCollections: [
-    {language:'Hindi', collection:473.25},
-    {language:'Kannada', collection:51.95},
-    {language:'Telugu', collection:40.65},
-    {language:'Tamil', collection:24.90},
-    {language:'Malayalam', collection:21.70},
+    {language:'Hindi', collection:606.00},
+    {language:'Kannada', collection:65.10},
+    {language:'Telugu', collection:50.90},
+    {language:'Tamil', collection:36.30},
+    {language:'Malayalam', collection:34.30},
   ],
 
   overseas: [
@@ -9716,25 +9717,45 @@ var FILM_PAGES = {
 
   timeline: [
     {label:'Opening Day', val:64.85},
-    {label:'Opening Weekend', val:174.00},
+    {label:'Opening Weekend', val:182.70},
     {label:'Week 1', val:564.60},
-    {label:'Week 2 (so far)', val:47.85},
+    {label:'Week 2 (so far)', val:228.00},
+  ],
+
+  wwCum: [
+    {day:1, total:128.75},
+    {day:2, total:232.05},
+    {day:3, total:387.25},
+    {day:4, total:510.20},
+    {day:5, total:675.90},
+    {day:6, total:825.00},
+    {day:7, total:944.55},
+    {day:8, total:1028.55},
+    {day:9, total:1110.70},
+    {day:10, total:1255.00},
+    {day:11, total:1389.00},
+    {day:12, total:1437.25},
   ],
 
   comparable: [],
-  trivia: [],
-daily: [
-  // Week 1
-  {date:'5 Nov', day:'Thu', gross:64.85, indiaGross:77.50, chgDay:null, chgWeek:null, total:64.85, occupancy:36.0, ff:2.526, wwGross:128.75, wwTotal:128.75},
-  {date:'6 Nov', day:'Fri', gross:48.05, indiaGross:57.30, chgDay:-25.90, chgWeek:null, total:112.90, occupancy:28.9, ff:1.839, wwGross:103.30, wwTotal:232.05},
-  {date:'7 Nov', day:'Sat', gross:69.80, indiaGross:83.45, chgDay:+45.30, chgWeek:null, total:182.70, occupancy:41.3, ff:2.624, wwGross:155.20, wwTotal:387.25},
-  {date:'8 Nov', day:'Sun', gross:56.15, indiaGross:66.95, chgDay:-19.60, chgWeek:null, total:238.85, occupancy:38.0, ff:2.354, wwGross:122.95, wwTotal:510.20},
-  {date:'9 Nov', day:'Mon', gross:107.50, indiaGross:128.70, chgDay:+91.50, chgWeek:null, total:346.35, occupancy:64.9, ff:4.104, wwGross:165.70, wwTotal:675.90},
-  {date:'10 Nov', day:'Tue', gross:94.10, indiaGross:112.60, chgDay:-12.50, chgWeek:null, total:440.45, occupancy:55.3, ff:3.549, wwGross:149.10, wwTotal:825.00},
-  {date:'11 Nov', day:'Wed', gross:70.65, indiaGross:84.55, chgDay:-24.90, chgWeek:null, total:511.10, occupancy:43.4, ff:2.722, wwGross:119.55, wwTotal:944.55},
-  {date:'12 Nov', day:'Thu', gross:53.50, indiaGross:64.00, chgDay:-24.30, chgWeek:null, total:564.60, occupancy:33.9, ff:2.141, wwGross:84.00, wwTotal:1028.55},
-  {date:'13 Nov', day:'Fri', gross:47.85, indiaGross:57.15, chgDay:-10.60, chgWeek:-0.42, total:612.45, occupancy:32.1, ff:1.990, wwGross:82.45, wwTotal:1110.70},
-],
+
+  daily: [
+    // Week 1
+    {date:'5 Nov', day:'Thu', gross:64.85, indiaGross:77.50, chgDay:null, chgWeek:null, total:64.85, occupancy:36.0, ff:2.526, shows:25200, wwGross:128.75, wwTotal:128.75},
+    {date:'6 Nov', day:'Fri', gross:48.05, indiaGross:57.30, chgDay:-25.90, chgWeek:null, total:112.90, occupancy:28.9, ff:1.839, shows:23316, wwGross:103.30, wwTotal:232.05},
+    {date:'7 Nov', day:'Sat', gross:69.80, indiaGross:83.45, chgDay:45.30, chgWeek:null, total:182.70, occupancy:41.3, ff:2.624, shows:23696, wwGross:155.20, wwTotal:387.25},
+    {date:'8 Nov', day:'Sun', gross:56.15, indiaGross:66.95, chgDay:-19.60, chgWeek:null, total:238.85, occupancy:38.0, ff:2.354, shows:21770, wwGross:122.95, wwTotal:510.20},
+    {date:'9 Nov', day:'Mon', gross:107.50, indiaGross:128.70, chgDay:91.50, chgWeek:null, total:346.35, occupancy:64.9, ff:4.104, shows:23911, wwGross:165.70, wwTotal:675.90},
+    {date:'10 Nov', day:'Tue', gross:94.10, indiaGross:112.60, chgDay:-12.50, chgWeek:null, total:440.45, occupancy:55.3, ff:3.549, shows:24344, wwGross:149.10, wwTotal:825.00},
+    {date:'11 Nov', day:'Wed', gross:70.65, indiaGross:84.55, chgDay:-24.90, chgWeek:null, total:511.10, occupancy:43.4, ff:2.722, shows:24239, wwGross:119.55, wwTotal:944.55},
+    {date:'12 Nov', day:'Thu', gross:53.50, indiaGross:64.00, chgDay:-24.30, chgWeek:null, total:564.60, occupancy:33.9, ff:2.141, shows:24042, wwGross:84.00, wwTotal:1028.55},
+
+    // Week 2
+    {date:'13 Nov', day:'Fri', gross:48.10, indiaGross:57.45, chgDay:-10.10, chgWeek:-0.42, total:612.70, occupancy:32.1, ff:1.990, shows:23025, wwGross:82.15, wwTotal:1110.70},
+    {date:'14 Nov', day:'Sat', gross:72.90, indiaGross:87.00, chgDay:51.60, chgWeek:null, total:685.60, occupancy:45.5, ff:2.965, shows:23451, wwGross:144.30, wwTotal:1255.00},
+    {date:'15 Nov', day:'Sun', gross:75.00, indiaGross:89.50, chgDay:2.90, chgWeek:null, total:760.60, occupancy:47.9, ff:3.117, shows:23573, wwGross:134.00, wwTotal:1389.00},
+    {date:'16 Nov', day:'Mon', gross:32.00, indiaGross:38.25, chgDay:null, chgWeek:null, total:792.60, occupancy:24.4, ff:1.523, shows:22365, wwGross:48.25, wwTotal:1437.25},
+  ],
 },
 
   'mirzapur-the-movie': {
