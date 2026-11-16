@@ -1125,6 +1125,205 @@ body.light #page-topgrossers #tg-india-list > div > div:nth-child(n+3),
 body.light #page-topgrossers #tg-ow-list > div > div:nth-child(n+3) {
   color: #d2dbe0 !important;
 }
+  /* Schedule page */
+#page-predictions {
+  background: #0d1115;
+  color: #f4f5f6;
+}
+
+.schedule-feature {
+  min-height: 390px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4rem 1.5rem 2rem;
+  overflow: hidden;
+  background: #15191d center 38% / cover no-repeat;
+}
+
+.schedule-feature::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 8, 11, .28) 0%,
+    rgba(5, 8, 11, .55) 46%,
+    #0d1115 100%
+  );
+}
+
+.schedule-feature-inner {
+  width: min(100%, 1100px);
+  position: relative;
+  text-align: center;
+}
+
+.schedule-kicker {
+  color: rgba(255,255,255,.72);
+  font-size: .68rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: .6rem;
+}
+
+.schedule-feature-title {
+  color: #fff;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.05;
+  font-weight: 800;
+  margin-bottom: .65rem;
+}
+
+.schedule-feature-meta {
+  color: rgba(255,255,255,.82);
+  font-size: .95rem;
+}
+
+.schedule-actions {
+  display: flex;
+  justify-content: center;
+  gap: .65rem;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+}
+
+.schedule-action {
+  padding: .55rem .9rem;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(10,13,16,.45);
+  border: 1px solid rgba(255,255,255,.35);
+  cursor: pointer;
+  font: inherit;
+  font-size: .78rem;
+}
+
+.schedule-action:hover {
+  background: rgba(255,255,255,.13);
+}
+
+.schedule-shell {
+  width: min(100% - 2rem, 1100px);
+  margin: 0 auto;
+  padding: 1rem 0 3rem;
+}
+
+.schedule-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+}
+
+.schedule-toolbar h2,
+.schedule-date-heading {
+  color: #f4f5f6;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+#schedule-month {
+  min-width: 150px;
+  padding: .55rem .75rem;
+  color: #f4f5f6;
+  background: #171d22;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 5px;
+  font: inherit;
+}
+
+#schedule-month option {
+  color: #f4f5f6;
+  background: #171d22;
+}
+
+.schedule-date-group {
+  margin-bottom: 2rem;
+}
+
+.schedule-date-heading {
+  padding: .65rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.16);
+}
+
+.schedule-row {
+  min-height: 112px;
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .85rem;
+  padding: .8rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.schedule-poster {
+  width: 78px;
+  height: 100px;
+  border-radius: 6px;
+  background: #20272d center / cover no-repeat;
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,.5);
+  font-size: .65rem;
+  overflow: hidden;
+}
+
+.schedule-film-title {
+  color: #f4f5f6;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: .25rem;
+}
+
+.schedule-film-meta {
+  color: rgba(232,237,241,.7);
+  font-size: .82rem;
+  line-height: 1.5;
+}
+
+.schedule-forecast {
+  color: rgba(232,237,241,.7);
+  text-align: right;
+  white-space: nowrap;
+  font-size: .75rem;
+}
+
+.schedule-forecast strong {
+  display: block;
+  color: #fff;
+  font-size: .86rem;
+  margin-top: .15rem;
+}
+
+.schedule-empty {
+  padding: 2rem 0;
+  color: rgba(232,237,241,.6);
+}
+
+@media (max-width: 600px) {
+  .schedule-feature {
+    min-height: 330px;
+    padding-top: 3rem;
+  }
+
+  .schedule-row {
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: .7rem;
+  }
+
+  .schedule-poster {
+    width: 62px;
+    height: 84px;
+  }
+
+  .schedule-forecast {
+    grid-column: 2;
+    text-align: left;
+  }
+}
 </style>
 </head>
 <body>
@@ -3027,98 +3226,31 @@ var YR_DATA = {
 
 <!-- ═══════════ PAGE: PREDICTIONS ═══════════ -->
 <div id="page-predictions" class="page">
-  <div class="page-hero" style="background:linear-gradient(135deg,#000a0d,#001a10)">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(34,197,94,.07),transparent 65%)"></div>
-    <div class="page-hero-inner">
-      <div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:.6rem;opacity:.8">Indian Cinema · Upcoming Releases</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">Release <span style="color:var(--green)">Schedule</span></div>
-      <div style="font-size:.82rem;color:rgba(255,255,255,.38);max-width:540px;line-height:1.65">Confirmed upcoming releases with box office range forecasts.</div>
-    </div>
-  </div>
-  <div style="max-width:980px;margin:0 auto;padding:2rem">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap" id="pred-lang-filters">
-      <button class="lf" style="background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:var(--green)" onclick="setPredLang('all',this)">All</button>
-      <button class="lf" onclick="setPredLang('Hindi',this)">Hindi</button>
-      <button class="lf" onclick="setPredLang('Tamil',this)">Tamil</button>
-      <button class="lf" onclick="setPredLang('Telugu',this)">Telugu</button>
-      <button class="lf" onclick="setPredLang('Kannada',this)">Kannada</button>
-    </div>
-    <div id="pred-stats" class="stat-grid"></div>
-    <div id="pred-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px"></div>
-  </div>
-  <footer>Box Office India · All predictions are estimates only · Updated April 2026</footer>
-</div>
-
-<!-- ═══════════ PAGE: ACTION OW ═══════════ -->
-<div id="page-action" class="page">
-  <div class="page-hero" style="background:linear-gradient(135deg,#0d0500,#1a0a00)">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(251,146,60,.09),transparent 65%)"></div>
-    <div class="page-hero-inner">
-      <div style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:#fb923c;margin-bottom:.6rem;opacity:.8">Indian Cinema · Action Films</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.05;margin-bottom:.5rem">Opening Weekend <span style="color:#fb923c">&amp; Legs</span></div>
-
-    </div>
-  </div>
-  <div style="max-width:980px;margin:0 auto;padding:2rem">
-
-    <!-- Filters -->
-    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem">
-      <div style="display:flex;gap:6px;flex-wrap:wrap" id="act-lang-filters">
-        <button class="lf" style="background:rgba(251,146,60,.15);border-color:rgba(251,146,60,.4);color:#fb923c" onclick="setActFilter('lang','all',this)">All</button>
-        <button class="lf" onclick="setActFilter('lang','Hindi',this)">Hindi</button>
-        <button class="lf" onclick="setActFilter('lang','Telugu',this)">Telugu</button>
-        <button class="lf" onclick="setActFilter('lang','Tamil',this)">Tamil</button>
-        <button class="lf" onclick="setActFilter('lang','Kannada',this)">Kannada</button>
+  <section class="schedule-feature" id="schedule-feature">
+    <div class="schedule-feature-inner">
+      <div class="schedule-kicker">Indian Cinema · Release Calendar</div>
+      <h1 class="schedule-feature-title" id="schedule-feature-title">Upcoming Releases</h1>
+      <div class="schedule-feature-meta" id="schedule-feature-meta">
+        Release dates and tracking information
       </div>
-
-      <div style="display:flex;gap:6px" id="act-sort-btns">
-        <span style="font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);align-self:center">Sort:</span>
-        <button class="lf on" onclick="setActSort('ow',this)">OW</button>
-        <button class="lf" onclick="setActSort('legs',this)">Legs</button>
-        <button class="lf" onclick="setActSort('india',this)">India Net</button>
-        <button class="lf" onclick="setActSort('ww',this)">Worldwide</button>
+      <div class="schedule-actions">
+        <button class="schedule-action" onclick="showPage('tracking')">Tracking &amp; forecast →</button>
+        <button class="schedule-action" onclick="document.getElementById('schedule-list').scrollIntoView({behavior:'smooth'})">Full schedule ↓</button>
       </div>
     </div>
+  </section>
 
-    <!-- Summary stats -->
-    <div id="act-stats" class="stat-grid" style="margin-bottom:1.75rem"></div>
-
-    <!-- Dual chart: OW vs Lifetime bar chart -->
-    <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
-      <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap">
-        <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25)">Opening Weekend vs India Net (₹ Cr)</div>
-        <div style="display:flex;gap:1rem">
-          <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:2px;background:#fb923c"></div><span style="font-size:.62rem;color:rgba(255,255,255,.4)">Opening Weekend</span></div>
-          <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:2px;background:#c084fc"></div><span style="font-size:.62rem;color:rgba(255,255,255,.4)">India Net Total</span></div>
-        </div>
-      </div>
-      <div id="act-ow-chart" style="display:flex;flex-direction:column;gap:4px"></div>
+  <main class="schedule-shell" id="schedule-list">
+    <div class="schedule-toolbar">
+      <h2>Schedule</h2>
+      <select id="schedule-month" onchange="renderPreds()">
+        <option value="all">All months</option>
+      </select>
     </div>
+    <div id="pred-grid"></div>
+  </main>
 
-    <!-- Legs scatter / ranked table -->
-    <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
-<div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem">Legs Multiplier Ranking (India Net ÷ Opening Weekend · Square-Root Bar Scale)</div>
-      <div id="act-legs-chart"></div>
-      <div class="ff-note" style="margin-top:1rem">A legs multiplier of 3× means the film earned 3× its opening weekend over its total run. Films with weaker OW but strong word-of-mouth (e.g. Kantara, HanuMan) show the highest legs.</div>
-    </div>
-
-    <!-- Full data table -->
-    <div>
-      <div style="display:grid;grid-template-columns:28px 1fr 55px 80px 80px 80px 65px 65px;gap:0;padding:.4rem 8px;margin-bottom:4px;border-bottom:0.5px solid rgba(255,255,255,.08)">
-        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">#</div>
-        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Film</div>
-        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Year</div>
-        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">OW ₹Cr</div>
-        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">India ₹Cr</div>
-        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">WW ₹Cr</div>
-        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">Legs</div>
-        <div style="font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:right">FF(M)</div>
-      </div>
-      <div id="act-table"></div>
-    </div>
-
-  </div>
-  <footer>Box Office India · Opening weekend = 3-day India nett · Legs = India net ÷ Opening weekend · Data through April 2026</footer>
+  <footer>Box Office India · Release dates are subject to change</footer>
 </div>
 
 <!-- ═══════════ PAGE: ACTION OW ═══════════ -->
@@ -13187,131 +13319,240 @@ function fmtRange(obj,pre,suf){
     obj.high?'<span style="color:var(--green)">'+pre+obj.high+suf+'</span>':null]
     .filter(Boolean).join('<span style="color:rgba(255,255,255,.15)"> – </span>');
 }
-function renderPreds(){
-  var list=predLangFilter==='all'?PREDS:PREDS.filter(function(p){return p.lang===predLangFilter;});
-  var midBOs=PREDS.map(function(p){return p.bo.mid;}).filter(Boolean);
-  var avgBO=midBOs.length?Math.round(midBOs.reduce(function(a,b){return a+b;},0)/midBOs.length):null;
-  var biggest=Math.max.apply(null,midBOs);
-  var biggestFilm=PREDS.find(function(p){return p.bo.mid===biggest;});
-  var langs={};PREDS.forEach(function(p){langs[p.lang]=(langs[p.lang]||0)+1;});
-  var topLang=Object.keys(langs).sort(function(a,b){return langs[b]-langs[a];})[0];
-  document.getElementById('pred-stats').innerHTML=[
-    {l:'Films tracked',v:PREDS.length,s:'confirmed releases'},
-    {l:'Avg prediction',v:avgBO?'₹'+avgBO+' Cr':'—',s:'mid-range estimate'},
-    {l:'Biggest call',v:biggest?'₹'+biggest+' Cr':'—',s:biggestFilm?biggestFilm.title:''},
-    {l:'Most entries',v:topLang||'—',s:topLang?langs[topLang]+' films':''},
-  ].map(function(m){
-    return '<div class="stat-card" style="background:var(--bg3);border:0.5px solid rgba(34,197,94,.15)"><div class="stat-lbl">'+m.l+'</div><div class="stat-val" style="color:var(--green)">'+m.v+'</div><div class="stat-sub">'+m.s+'</div></div>';
-  }).join('');
-  var grid=document.getElementById('pred-grid');
-  if(!list.length){grid.innerHTML='<div style="padding:3rem;text-align:center;color:rgba(255,255,255,.2);grid-column:1/-1">No films in this language.</div>';return;}
-  var sorted=list.slice().sort(function(a,b){return (a.date||'9999')<(b.date||'9999')?-1:1;});
-  grid.innerHTML=sorted.map(function(p){
-    var lc=LC[p.lang]||'#888';
-    var boH=fmtRange(p.bo,'₹',' Cr'),owH=fmtRange(p.ow,'₹',' Cr'),ffH=fmtRange(p.ff,'',' M');
-    var dateStr=p.date?(function(){var parts=p.date.split('-');if(parts.length===3){var d=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));return d.toLocaleString('default',{day:'numeric',month:'short',year:'numeric'});}var d=new Date(p.date+'-01');return d.toLocaleString('default',{month:'short',year:'numeric'});})():'TBA';
+function renderPreds() {
+  var grid = document.getElementById('pred-grid');
+  var monthSelect = document.getElementById('schedule-month');
+  var feature = document.getElementById('schedule-feature');
+  if (!grid || !monthSelect || !feature) return;
 
-    // ── Confidence score (0–100) ──
-    // Based on: how far out the release is, director/actor track record richness, range spread
-    var conf = p.confidence || (function(){
-      var now = new Date('2026-04-29');
-      var rel = p.date ? new Date(p.date+'-01') : null;
-      var monthsOut = rel ? Math.max(0,(rel - now)/(1000*60*60*24*30)) : 18;
-      // Base: tighter range spread = higher confidence
-      var spread = p.bo ? (p.bo.high - p.bo.low) / p.bo.mid : 1;
-      var spreadScore = Math.max(0, 100 - spread * 55);
-      // Time penalty: each 3 months out costs ~8 points
-      var timePenalty = Math.min(55, monthsOut * 2.6);
-      return Math.round(Math.max(10, Math.min(88, spreadScore - timePenalty)));
-    })();
+  var months = {
+    jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2,
+    apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6,
+    aug: 7, august: 7, sep: 8, sept: 8, september: 8,
+    oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11
+  };
 
-    var confCol  = conf >= 70 ? '#4ade80' : conf >= 45 ? '#f5c518' : '#f87171';
-    var confLbl  = conf >= 70 ? 'High'    : conf >= 45 ? 'Medium'  : 'Low';
-    var confDesc = conf >= 70
-      ? 'Strong comparable base, near-term release'
-      : conf >= 45
-      ? 'Decent comps, some uncertainty remains'
-      : 'Early-stage estimate — wide range expected';
-
-    // ── Probability bars for each range tier ──
-    // Low = 20%, Mid = 55%, High = 25% by default; adjust by confidence
-    var probLow  = Math.round(Math.max(10, 30 - conf * 0.18));
-    var probMid  = Math.round(Math.min(70, 35 + conf * 0.32));
-    var probHigh = 100 - probLow - probMid;
-
-    function probBar(label, val, pct, col, note) {
-      return '<div style="margin-bottom:.55rem">' +
-        '<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px">' +
-          '<div style="display:flex;align-items:center;gap:6px">' +
-            '<span style="font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+col+'">'+label+'</span>' +
-            '<span style="font-size:.72rem;color:rgba(255,255,255,.6)">'+val+'</span>' +
-          '</div>' +
-          '<span style="font-size:.72rem;font-weight:700;color:'+col+'">'+pct+'%</span>' +
-        '</div>' +
-        '<div style="position:relative;height:18px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden">' +
-          '<div style="height:18px;width:'+pct+'%;background:linear-gradient(90deg,'+col+'44,'+col+');border-radius:3px;transition:width .5s ease"></div>' +
-          '<div style="position:absolute;inset:0;display:flex;align-items:center;padding-left:8px"><span style="font-size:.56rem;color:rgba(255,255,255,.4)">'+note+'</span></div>' +
-        '</div>' +
-      '</div>';
+  function dateInfo(film) {
+    if (film.date && /^\d{4}-\d{2}-\d{2}$/.test(film.date)) {
+      var parts = film.date.split('-').map(Number);
+      var date = new Date(parts[0], parts[1] - 1, parts[2]);
+      return {
+        date: date,
+        hasDay: true,
+        monthKey: parts[0] + '-' + String(parts[1]).padStart(2, '0'),
+        groupKey: film.date,
+        groupLabel: date.toLocaleDateString('en-US', {
+          month: 'long', day: 'numeric'
+        }),
+        monthLabel: date.toLocaleDateString('en-US', {
+          month: 'long', year: 'numeric'
+        })
+      };
     }
 
-    return '<div style="background:var(--bg3);border:0.5px solid rgba(255,255,255,.07);border-top:2px solid '+lc+';border-radius:4px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.65rem">' +
+    var note = film.note || '';
+    var exact = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2})(?:st|nd|rd|th)?[,]?\s+(20\d{2})\b/i.exec(note);
 
-      // Title + date row
-      '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem">' +
-        '<div>' +
-          '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.2rem;font-weight:800;color:'+lc+'">'+p.title+'</div>' +
-          '<div style="font-size:.65rem;color:rgba(255,255,255,.32);margin-top:3px;display:flex;gap:6px;flex-wrap:wrap;align-items:center">' +
-            '<span style="color:'+lc+';font-weight:600">'+p.actor+'</span>' +
-            '<span style="color:rgba(255,255,255,.15)">·</span>' +
-            '<span>dir. '+p.director+'</span>' +
+    if (exact) {
+      var monthIndex = months[exact[1].toLowerCase()];
+      var year = Number(exact[3]);
+      var day = Number(exact[2]);
+      var date = new Date(year, monthIndex, day);
+      return {
+        date: date,
+        hasDay: true,
+        monthKey: year + '-' + String(monthIndex + 1).padStart(2, '0'),
+        groupKey: year + '-' + String(monthIndex + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0'),
+        groupLabel: date.toLocaleDateString('en-US', {
+          month: 'long', day: 'numeric'
+        }),
+        monthLabel: date.toLocaleDateString('en-US', {
+          month: 'long', year: 'numeric'
+        })
+      };
+    }
+
+    var monthYear = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)(?:\s+or\s+(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?))?\s+(20\d{2})\b/i.exec(note);
+
+    if (!monthYear) return null;
+
+    var firstMonth = months[monthYear[1].toLowerCase()];
+    var secondMonth = monthYear[2] ? months[monthYear[2].toLowerCase()] : null;
+    var monthYearNum = Number(monthYear[3]);
+    var monthDate = new Date(monthYearNum, firstMonth, 1);
+    var label = monthDate.toLocaleDateString('en-US', {
+      month: 'long', year: 'numeric'
+    });
+
+    if (secondMonth != null) {
+      label = monthDate.toLocaleDateString('en-US', {month:'long'}) +
+        '–' + new Date(monthYearNum, secondMonth, 1).toLocaleDateString('en-US', {month:'long'}) +
+        ' ' + monthYearNum;
+    }
+
+    return {
+      date: monthDate,
+      hasDay: false,
+      monthKey: monthYearNum + '-' + String(firstMonth + 1).padStart(2, '0'),
+      groupKey: monthYearNum + '-' + String(firstMonth + 1).padStart(2, '0'),
+      groupLabel: label,
+      monthLabel: label
+    };
+  }
+
+  function escapeScheduleText(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+      return {
+        '&': '&amp;', '<': '&lt;', '>': '&gt;',
+        '"': '&quot;', "'": '&#39;'
+      }[char];
+    });
+  }
+
+  function normalizeTitle(value) {
+    return String(value || '').toLowerCase()
+      .replace(/&/g, 'and')
+      .replace(/[^a-z0-9]/g, '');
+  }
+
+  var now = new Date();
+  now.setHours(0, 0, 0, 0);
+  var currentMonthKey = now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0');
+
+  var films = (UPCOMING || []).map(function (film) {
+    return {film: film, dateInfo: dateInfo(film)};
+  }).filter(function (item) {
+    var info = item.dateInfo;
+    if (!info) return true;
+    if (info.monthKey < currentMonthKey) return false;
+    if (info.hasDay && info.date < now) return false;
+    return true;
+  }).sort(function (a, b) {
+    if (!a.dateInfo) return 1;
+    if (!b.dateInfo) return -1;
+    return a.dateInfo.date - b.dateInfo.date;
+  });
+
+  var monthOptions = {};
+  films.forEach(function (item) {
+    if (item.dateInfo) {
+      monthOptions[item.dateInfo.monthKey] = item.dateInfo.monthLabel;
+    }
+  });
+
+  var selectedMonth = monthSelect.value || 'all';
+  monthSelect.innerHTML = '<option value="all">All months</option>' +
+    Object.keys(monthOptions).sort().map(function (key) {
+      return '<option value="' + key + '">' +
+        escapeScheduleText(monthOptions[key]) + '</option>';
+    }).join('');
+
+  if (selectedMonth !== 'all' && monthOptions[selectedMonth]) {
+    monthSelect.value = selectedMonth;
+  } else {
+    monthSelect.value = 'all';
+    selectedMonth = 'all';
+  }
+
+  var visible = selectedMonth === 'all' ? films : films.filter(function (item) {
+    return item.dateInfo && item.dateInfo.monthKey === selectedMonth;
+  });
+
+  var featured = films.find(function (item) {
+    return item.dateInfo;
+  }) || films[0];
+
+  var featureTitle = document.getElementById('schedule-feature-title');
+  var featureMeta = document.getElementById('schedule-feature-meta');
+
+  if (featured) {
+    var featuredFilm = featured.film;
+    var featuredKey = normalizeTitle(featuredFilm.n);
+
+    featureTitle.textContent = featuredFilm.n;
+    featureMeta.textContent =
+      (featured.dateInfo ? featured.dateInfo.groupLabel : 'Release date to be announced') +
+      ' · ' + (featuredFilm.l || 'Language TBA');
+
+    feature.dataset.filmKey = featuredKey;
+
+    tmdbSearch(featuredFilm.n, featuredFilm.y, function (result) {
+      if (feature.dataset.filmKey !== featuredKey || !result) return;
+      var backdrop = result.backdrop || result.poster;
+      if (backdrop) feature.style.backgroundImage = 'url("' + backdrop + '")';
+    });
+  }
+
+  if (!visible.length) {
+    grid.innerHTML = '<div class="schedule-empty">No upcoming releases listed for this month.</div>';
+    return;
+  }
+
+  var groups = {};
+  visible.forEach(function (item) {
+    var key = item.dateInfo ? item.dateInfo.groupKey : 'tba';
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(item);
+  });
+
+  var groupKeys = Object.keys(groups).sort(function (a, b) {
+    if (a === 'tba') return 1;
+    if (b === 'tba') return -1;
+    return a.localeCompare(b);
+  });
+
+  grid.innerHTML = groupKeys.map(function (groupKey) {
+    var group = groups[groupKey];
+    var heading = groupKey === 'tba'
+      ? 'Date to be announced'
+      : group[0].dateInfo.groupLabel;
+
+    return '<section class="schedule-date-group">' +
+      '<h3 class="schedule-date-heading">' + escapeScheduleText(heading) + '</h3>' +
+      group.map(function (item, index) {
+        var film = item.film;
+        var posterId = 'schedule-poster-' + groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
+        var prediction = (PREDS || []).find(function (entry) {
+          return normalizeTitle(entry.title) === normalizeTitle(film.n);
+        });
+        var forecast = prediction && prediction.bo
+          ? '₹' + prediction.bo.low + '–₹' + prediction.bo.high + ' Cr'
+          : '';
+
+        var row = '<div class="schedule-row">' +
+          '<div class="schedule-poster" id="' + posterId + '">' +
+            escapeScheduleText(film.n.slice(0, 1)) +
           '</div>' +
-        '</div>' +
-        '<div style="text-align:right;flex-shrink:0">' +
-          '<div style="font-size:.6rem;font-weight:700;padding:3px 9px;border-radius:2px;background:rgba(34,197,94,.1);border:0.5px solid rgba(34,197,94,.2);color:var(--green)">'+dateStr+'</div>' +
-          '<div style="font-size:.58rem;color:rgba(255,255,255,.25);margin-top:4px;text-align:right">'+p.lang+'</div>' +
-        '</div>' +
-      '</div>' +
-
-      // ── Confidence meter ──
-      '<div style="background:rgba(0,0,0,.25);border:0.5px solid rgba(255,255,255,.07);border-radius:4px;padding:.7rem .85rem">' +
-        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">' +
-          '<div style="display:flex;align-items:center;gap:6px">' +
-            '<span style="font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25)">Prediction Confidence</span>' +
-            '<span style="font-size:.62rem;font-weight:700;padding:1px 7px;border-radius:10px;background:'+confCol+'18;border:0.5px solid '+confCol+'44;color:'+confCol+'">'+confLbl+'</span>' +
+          '<div>' +
+            '<div class="schedule-film-title">' + escapeScheduleText(film.n) + '</div>' +
+            '<div class="schedule-film-meta">' +
+              escapeScheduleText(film.note || film.l || 'Release details to be announced') +
+            '</div>' +
           '</div>' +
-          '<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.4rem;font-weight:900;color:'+confCol+'">'+conf+'<span style="font-size:.7rem;font-weight:600;opacity:.6">%</span></span>' +
-        '</div>' +
-        // Segmented meter
-        '<div style="display:flex;gap:2px;height:8px;border-radius:4px;overflow:hidden">' +
-          Array.from({length:20},function(_,i){
-            var filled = i < Math.round(conf/5);
-            var seg_col = i < 8 ? '#f87171' : i < 14 ? '#f5c518' : '#4ade80';
-            return '<div style="flex:1;background:'+(filled?seg_col:'rgba(255,255,255,.06)')+';transition:background .3s '+(i*20)+'ms"></div>';
-          }).join('') +
-        '</div>' +
-        '<div style="font-size:.6rem;color:rgba(255,255,255,.28);margin-top:.4rem">'+confDesc+'</div>' +
-      '</div>' +
+          '<div class="schedule-forecast">' +
+            (forecast ? 'Forecast<strong>' + escapeScheduleText(forecast) + '</strong>' :
+              escapeScheduleText(film.l || 'Release date announced')) +
+          '</div>' +
+        '</div>';
 
-      // ── Probability bars ──
-      '<div style="background:rgba(0,0,0,.2);border:0.5px solid rgba(255,255,255,.06);border-radius:4px;padding:.75rem .85rem">' +
-        '<div style="font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.65rem">WW Box Office · Outcome Probability</div>' +
-        (p.bo ? (
-          probBar('Low',  '₹'+p.bo.low+' Cr',  probLow,  '#f87171', 'conservative case') +
-          probBar('Mid',  '₹'+p.bo.mid+' Cr',  probMid,  '#f5c518', 'base case') +
-          probBar('High', '₹'+p.bo.high+' Cr', probHigh, '#4ade80', 'bull case')
-        ) : '<div style="font-size:.7rem;color:rgba(255,255,255,.25)">No data</div>') +
-        '<div style="margin-top:.4rem;font-size:.58rem;color:rgba(255,255,255,.2);text-align:right">probabilities sum to 100%</div>' +
-      '</div>' +
+        setTimeout(function () {
+          var posterEl = document.getElementById(posterId);
+          if (!posterEl) return;
 
-      // Raw ranges
-      '<div style="display:flex;flex-direction:column;gap:5px;padding:.6rem .75rem;background:rgba(0,0,0,.2);border-radius:3px">' +
-        (boH?'<div style="display:flex;align-items:baseline;justify-content:space-between;gap:.5rem"><span style="font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);flex-shrink:0">Opening Wknd</span><span style="font-size:.74rem;text-align:right">'+owH+'</span></div>':'')+
-        (ffH?'<div style="display:flex;align-items:baseline;justify-content:space-between;gap:.5rem"><span style="font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);flex-shrink:0">Footfalls</span><span style="font-size:.74rem;text-align:right">'+ffH+'</span></div>':'')+
-      '</div>'+
+          tmdbSearch(film.n, film.y, function (result) {
+            if (!result || !posterEl.isConnected) return;
+            var poster = result.poster || result.backdrop;
+            if (poster) {
+              posterEl.textContent = '';
+              posterEl.style.backgroundImage = 'url("' + poster + '")';
+            }
+          });
+        }, 0);
 
-      (p.notes?'<div style="font-size:.68rem;color:rgba(255,255,255,.3);line-height:1.6;border-left:2px solid rgba(34,197,94,.18);padding-left:.65rem;font-style:italic">'+p.notes+'</div>':'')+
-    '</div>';
+        return row;
+      }).join('') +
+    '</section>';
   }).join('');
 }
 renderPreds();
