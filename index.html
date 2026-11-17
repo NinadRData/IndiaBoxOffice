@@ -1324,6 +1324,89 @@ body.light #page-topgrossers #tg-ow-list > div > div:nth-child(n+3) {
     text-align: left;
   }
 }
+  .traj-day-tabs {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  margin: .7rem 0 1rem;
+  padding-bottom: .35rem;
+}
+
+.traj-day-tab {
+  flex: 0 0 auto;
+  padding: .42rem .8rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg2);
+  color: var(--text-dim);
+  font: inherit;
+  font-size: .75rem;
+  cursor: pointer;
+}
+
+.traj-day-tab.on {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #111;
+}
+
+.traj-day-scroll {
+  overflow-x: auto;
+}
+
+.traj-day-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: separate;
+  border-spacing: 3px 4px;
+  font-size: .74rem;
+}
+
+.traj-day-table th,
+.traj-day-table td {
+  padding: .55rem .45rem;
+  text-align: center;
+  background: var(--bg2);
+}
+
+.traj-day-table thead th {
+  background: transparent;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.traj-day-table th:first-child,
+.traj-day-table td:first-child {
+  width: 175px;
+  text-align: left;
+}
+
+.traj-day-table tbody th {
+  color: var(--text);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.traj-day-table tbody td {
+  color: var(--text);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.traj-day-table tbody td.traj-day-best {
+  background: rgba(245,197,24,.15);
+  font-weight: 700;
+}
+
+.traj-day-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 7px;
+  border-radius: 50%;
+}
 </style>
 </head>
 <body>
@@ -3651,6 +3734,21 @@ var YR_DATA = {
           Hatched bars are partial weeks.
         </div>
       </div>
+      <div class="chart-box">
+  <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.25rem">
+    By week
+  </div>
+  <div style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.4rem">
+    Daily comparison
+  </div>
+  <div id="traj-day-tabs" class="traj-day-tabs"></div>
+  <div class="traj-day-scroll">
+    <div id="traj-day-table"></div>
+  </div>
+  <div style="font-size:.65rem;color:var(--text-dim);margin-top:.6rem">
+    Films align by day since release. Preview earnings are combined with Day 1.
+  </div>
+</div>
 
       <div id="traj-note" style="font-size:.7rem;color:rgba(255,255,255,.4);line-height:1.7"></div>
     </div>
@@ -14837,6 +14935,7 @@ populateClashSelect();
     var TRAJ_COLORS = ['#d9b44a', '#7ca4d4', '#d27f5c', '#62b394', '#ab8fd6'];
 var trajMetric = 'india';
 var trajSel = [];
+  var trajDailyWeek = 1;
 
 function setCmpMode(tab, btn) {
   document.querySelectorAll('#cmp-mode-tabs .rec-tab').forEach(function (b) {
@@ -15161,6 +15260,177 @@ function setTrajMetric(metric, btn) {
 
   renderTraj();
 }
+  function trajDailySeries(film, metric) {
+  var rows = film.daily || [];
+  var data = [];
+  var dayNumber = 0;
+  var previewCarry = 0;
+  var previewAmountMissing = false;
+  var previousCumulative = 0;
+
+  var directKey = metric === 'india' ? 'gross' : 'wwGross';
+  var totalKey = metric === 'india' ? 'total' : 'wwTotal';
+
+  rows.forEach(function (row) {
+    if (!row || row.bucket) return;
+
+    var direct = row[directKey];
+    var cumulative = row[totalKey];
+    var amount = null;
+
+    if (direct != null && isFinite(Number(direct))) {
+      amount = Number(direct);
+
+      if (cumulative != null && isFinite(Number(cumulative))) {
+        previousCumulative = Number(cumulative);
+      } else {
+        previousCumulative += amount;
+      }
+    } else if (cumulative != null && isFinite(Number(cumulative))) {
+      amount = Number(cumulative) - previousCumulative;
+      previousCumulative = Number(cumulative);
+    }
+
+    if (isFilmPreviewRow(row, film)) {
+      if (amount == null) {
+        previewAmountMissing = true;
+      } else {
+        previewCarry += amount;
+      }
+      return;
+    }
+
+    dayNumber++;
+
+    data[dayNumber] = {
+      amount: amount == null || previewAmountMissing
+        ? null
+        : amount + previewCarry,
+      weekday: row.day || '',
+      date: row.date || ''
+    };
+
+    previewCarry = 0;
+    previewAmountMissing = false;
+  });
+
+  // Older worldwide series can provide exact daily differences when
+  // consecutive cumulative days are present.
+  if (metric === 'ww' && !data.length && film.wwCum && film.wwCum.length) {
+    var totalsByDay = {};
+
+    film.wwCum.forEach(function (point) {
+      if (point && isFinite(Number(point.d)) && isFinite(Number(point.v))) {
+        totalsByDay[Number(point.d)] = Number(point.v);
+      }
+    });
+
+    Object.keys(totalsByDay).forEach(function (day) {
+      day = Number(day);
+      if (day === 1 || totalsByDay[day - 1] != null) {
+        data[day] = {
+          amount: day === 1
+            ? totalsByDay[day]
+            : totalsByDay[day] - totalsByDay[day - 1],
+          weekday: '',
+          date: ''
+        };
+      }
+    });
+  }
+
+  return data;
+}
+
+function renderTrajDaily(items, maxDay) {
+  var tabs = document.getElementById('traj-day-tabs');
+  var tableHost = document.getElementById('traj-day-table');
+  if (!tabs || !tableHost) return;
+
+  var weekCount = Math.max(1, Math.ceil(maxDay / 7));
+  trajDailyWeek = Math.max(1, Math.min(trajDailyWeek, weekCount));
+
+  tabs.innerHTML = '';
+  for (var week = 1; week <= weekCount; week++) {
+    (function (weekNumber) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'traj-day-tab' +
+        (weekNumber === trajDailyWeek ? ' on' : '');
+      button.textContent = 'Wk ' + weekNumber;
+      button.addEventListener('click', function () {
+        trajDailyWeek = weekNumber;
+        renderTrajDaily(items, maxDay);
+      });
+      tabs.appendChild(button);
+    })(week);
+  }
+
+  var series = items.map(function (item) {
+    return {
+      item: item,
+      days: trajDailySeries(item.film, trajMetric)
+    };
+  });
+
+  var firstDay = (trajDailyWeek - 1) * 7 + 1;
+  var lastDay = Math.min(trajDailyWeek * 7, maxDay);
+  var dayNumbers = [];
+
+  for (var day = firstDay; day <= lastDay; day++) {
+    dayNumbers.push(day);
+  }
+
+  var dayMax = {};
+  dayNumbers.forEach(function (day) {
+    dayMax[day] = null;
+
+    series.forEach(function (row) {
+      var value = row.days[day] && row.days[day].amount;
+      if (value != null && (dayMax[day] == null || value > dayMax[day])) {
+        dayMax[day] = value;
+      }
+    });
+  });
+
+  var html = '<table class="traj-day-table"><thead><tr>' +
+    '<th>Film</th>';
+
+  dayNumbers.forEach(function (day) {
+    var weekday = '';
+    for (var i = 0; i < series.length; i++) {
+      if (series[i].days[day] && series[i].days[day].weekday) {
+        weekday = series[i].days[day].weekday;
+        break;
+      }
+    }
+
+    html += '<th>' + (weekday ? weekday + '<br>' : '') +
+      'Day ' + day + '</th>';
+  });
+
+  html += '</tr></thead><tbody>';
+
+  series.forEach(function (row) {
+    html += '<tr><th><span class="traj-day-dot" style="background:' +
+      row.item.color + '"></span>' + row.item.name + '</th>';
+
+    dayNumbers.forEach(function (day) {
+      var value = row.days[day] ? row.days[day].amount : null;
+      var isBest = value != null && dayMax[day] != null &&
+        Math.abs(value - dayMax[day]) < 0.000001;
+
+      html += '<td' + (isBest ? ' class="traj-day-best"' : '') + '>' +
+        (value == null ? '—' : '₹' + Number(value).toFixed(2) + ' Cr') +
+        '</td>';
+    });
+
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  tableHost.innerHTML = html;
+}
 
 function renderTraj() {
   var chipHost = document.getElementById('traj-chips');
@@ -15450,6 +15720,7 @@ initTrajPeriodSelect();
 
   document.getElementById('traj-weekly').innerHTML =
     trajWeekly(items, maxDay);
+  renderTrajDaily(items, maxDay);
 }
 
 function trajWeekly(items, maxDay) {
