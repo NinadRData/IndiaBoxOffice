@@ -1407,6 +1407,87 @@ body.light #page-topgrossers #tg-ow-list > div > div:nth-child(n+3) {
   margin-right: 7px;
   border-radius: 50%;
 }
+  .similar-movies-section {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg3);
+  border: 0.5px solid rgba(255,255,255,.09);
+  border-radius: 8px;
+}
+
+.similar-movies-title {
+  margin: 0 0 1rem;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.similar-movies-row {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+
+.similar-movie-card {
+  flex: 0 0 150px;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.similar-movie-poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: 7px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+}
+
+.similar-movie-poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .2s ease;
+}
+
+.similar-movie-card:hover .similar-movie-poster img {
+  transform: scale(1.04);
+}
+
+.similar-movie-poster-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  color: var(--text-dim);
+  text-align: center;
+  font-size: .75rem;
+}
+
+.similar-movie-name {
+  margin-top: 8px;
+  color: var(--text);
+  font-size: .82rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.similar-movie-meta {
+  margin-top: 3px;
+  color: var(--text-dim);
+  font-size: .72rem;
+}
+
+@media (max-width: 600px) {
+  .similar-movie-card {
+    flex-basis: 125px;
+  }
+}
 </style>
 </head>
 <body>
@@ -5059,6 +5140,14 @@ var FILM_PAGES = {
   ow: 353,
   ww: 1742.10,
   wwCum: [
+   {d:1,v:275},
+  {d:2,v:419},
+  {d:3,v:595},
+  {d:4,v:795},
+  {d:5,v:881},
+  {d:6,v:951},
+  {d:7,v:1011.7},
+  {d:8,v:1059},
     {d:9, v:1109.43},
     {d:10, v:1194.91},
     {d:11, v:1301.23},
@@ -10727,6 +10816,173 @@ function maybeOpenFilm(title, e) {
   if(p.prediction) showFilmPageWithPredictions(p.key);
   else showFilmPage(p.key);
 }
+    function similarMovieCastNames(film) {
+  return (Array.isArray(film.cast) ? film.cast : [])
+    .map(function (person) {
+      var name = typeof person === 'string' ? person : person && person.name;
+      return name ? String(name).toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+    })
+    .filter(Boolean);
+}
+
+function similarMovieEscape(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getAutoSimilarMovies(currentFilm, limit) {
+  var uniqueFilms = Object.create(null);
+
+  Object.keys(FILM_PAGES).forEach(function (entryKey) {
+    var film = FILM_PAGES[entryKey];
+    if (!film || !film.key || !film.title) return;
+
+    var completeness =
+      (Array.isArray(film.cast) ? film.cast.length : 0) * 3 +
+      (film.director ? 2 : 0) +
+      (film.lang ? 1 : 0) +
+      (film.year ? 1 : 0) +
+      (film.ww != null ? 1 : 0);
+
+    var saved = uniqueFilms[film.key];
+    if (!saved || completeness > saved.completeness) {
+      uniqueFilms[film.key] = {
+        film: film,
+        completeness: completeness
+      };
+    }
+  });
+
+  var currentCast = similarMovieCastNames(currentFilm);
+  var currentDirector = String(currentFilm.director || '').toLowerCase().trim();
+  var currentLang = String(currentFilm.lang || '').toLowerCase().trim();
+  var currentYear = Number(currentFilm.year);
+  var currentWW = Number(currentFilm.ww);
+
+  return Object.keys(uniqueFilms).map(function (key) {
+    var candidate = uniqueFilms[key].film;
+
+    if (candidate.key === currentFilm.key) return null;
+    if (String(candidate.title).toLowerCase() === String(currentFilm.title).toLowerCase()) return null;
+
+    var score = 0;
+    var sharedCast = similarMovieCastNames(candidate).filter(function (name) {
+      return currentCast.indexOf(name) !== -1;
+    }).length;
+
+    score += Math.min(sharedCast, 3) * 4;
+
+    if (
+      currentDirector &&
+      String(candidate.director || '').toLowerCase().trim() === currentDirector
+    ) {
+      score += 4;
+    }
+
+    if (
+      currentLang &&
+      String(candidate.lang || '').toLowerCase().trim() === currentLang
+    ) {
+      score += 2;
+    }
+
+    var candidateYear = Number(candidate.year);
+    if (isFinite(currentYear) && isFinite(candidateYear)) {
+      var yearGap = Math.abs(currentYear - candidateYear);
+      if (yearGap <= 3) score += 2;
+      else if (yearGap <= 7) score += 1;
+    }
+
+    var candidateWW = Number(candidate.ww);
+    if (
+      isFinite(currentWW) && currentWW > 0 &&
+      isFinite(candidateWW) && candidateWW > 0
+    ) {
+      score += Math.max(
+        0,
+        3 - Math.abs(Math.log(currentWW / candidateWW)) * 2
+      );
+    }
+
+    return {
+      film: candidate,
+      score: score,
+      sharedCast: sharedCast
+    };
+  }).filter(function (match) {
+    return match && match.score > 0;
+  }).sort(function (a, b) {
+    if (b.score !== a.score) return b.score - a.score;
+    if (b.sharedCast !== a.sharedCast) return b.sharedCast - a.sharedCast;
+    return Number(b.film.ww || 0) - Number(a.film.ww || 0);
+  }).slice(0, limit || 6).map(function (match) {
+    return match.film;
+  });
+}
+
+function renderSimilarMoviesHTML(currentFilm) {
+  var films = getAutoSimilarMovies(currentFilm, 6);
+  if (!films.length) return '';
+
+  return '<section class="similar-movies-section">' +
+    '<h2 class="similar-movies-title">Similar movies</h2>' +
+    '<div class="similar-movies-row">' +
+      films.map(function (film) {
+        var title = similarMovieEscape(film.title);
+        var year = similarMovieEscape(film.year || '');
+        var key = similarMovieEscape(film.key);
+        var worldwide = Number(film.ww);
+        var grossLabel = isFinite(worldwide)
+          ? '₹' + worldwide.toLocaleString('en-IN') + ' Cr worldwide'
+          : 'Worldwide gross unavailable';
+
+        return '<article class="similar-movie-card" data-similar-key="' + key +
+          '" data-similar-title="' + title +
+          '" data-similar-year="' + year + '">' +
+          '<div class="similar-movie-poster">' +
+            '<img alt="' + title + ' poster" loading="lazy">' +
+            '<span class="similar-movie-poster-fallback">' + title + '</span>' +
+          '</div>' +
+          '<div class="similar-movie-name">' + title + '</div>' +
+          '<div class="similar-movie-meta">' + grossLabel + '</div>' +
+        '</article>';
+      }).join('') +
+    '</div>' +
+  '</section>';
+}
+
+function loadSimilarMoviePosters(root) {
+  if (!root) return;
+
+  root.querySelectorAll('.similar-movie-card').forEach(function (card) {
+    var title = card.getAttribute('data-similar-title');
+    var year = Number(card.getAttribute('data-similar-year')) || null;
+    var filmKey = card.getAttribute('data-similar-key');
+    var image = card.querySelector('img');
+    var fallback = card.querySelector('.similar-movie-poster-fallback');
+
+    card.addEventListener('click', function () {
+      showFilmPage(filmKey);
+    });
+
+    image.onerror = function () {
+      image.style.display = 'none';
+    };
+
+    tmdbSearch(title, year, function (result) {
+      if (result && result.poster) {
+        image.onload = function () {
+          if (fallback) fallback.style.display = 'none';
+        };
+        image.src = result.poster;
+      }
+    });
+  });
+}  
 
 // ─── BHOOT BHANGLA PREDICTION PAGE ───
 function showBhootBhangla() {
@@ -11213,11 +11469,12 @@ function showFilmPageWithPredictions(key) {
         '<div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.6rem">About the Film</div>' +
         '<div style="font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.75">'+p.synopsis+'</div>' +
       '</div>' +
-
+renderSimilarMoviesHTML(p) +
     '</div>' +
     '<footer style="font-size:.6rem;color:rgba(255,255,255,.15);text-align:center;padding:2rem;border-top:0.5px solid rgba(255,255,255,.05);margin-top:1rem">Box Office India · Predictions are model estimates only · Data through April 2026</footer>';
 
   document.body.appendChild(div);
+   loadSimilarMoviePosters(div);         
   window._lastPage = document.querySelector('.page.active');
   history.pushState({filmKey: key}, '', '');
   document.querySelectorAll('.page').forEach(function(el){el.classList.remove('active');});
@@ -11505,7 +11762,7 @@ function showFilmPage(key) {
         }).join('') +
       '</div>' +
 
-
+renderSimilarMoviesHTML(page) +
 
 
 
@@ -11513,6 +11770,7 @@ function showFilmPage(key) {
     '<footer style="font-size:.6rem;color:rgba(255,255,255,.15);text-align:center;padding:2rem;border-top:0.5px solid rgba(255,255,255,.05);margin-top:2rem">Box Office India · All figures approximate · Data through April 2026</footer>';
 
   document.body.appendChild(div);
+     loadSimilarMoviePosters(div);
   window._lastPage = document.querySelector('.page.active');
   history.pushState({filmKey: key}, '', '');
   document.querySelectorAll('.page').forEach(function(el){el.classList.remove('active');});
