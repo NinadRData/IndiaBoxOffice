@@ -1488,6 +1488,117 @@ body.light #page-topgrossers #tg-ow-list > div > div:nth-child(n+3) {
     flex-basis: 125px;
   }
 }
+  .filmcmp-picker {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.filmcmp-picker-title {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.filmcmp-picker-prompt {
+  margin-top: .35rem;
+  color: var(--text-dim);
+  font-size: .9rem;
+}
+
+#page-compare #filmCmp-search {
+  border-radius: 24px !important;
+  padding-left: 1.2rem !important;
+}
+
+#page-compare #filmCmp-selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 1.2rem 4px .5rem;
+}
+
+.filmcmp-picked-card {
+  position: relative;
+  flex: 0 0 112px;
+  width: 112px;
+  text-align: left;
+}
+
+.filmcmp-picked-poster {
+  position: relative;
+  width: 112px;
+  height: 168px;
+  overflow: hidden;
+  border-radius: 9px;
+  background: var(--bg3);
+  box-shadow: 0 8px 20px rgba(0,0,0,.22);
+}
+
+.filmcmp-picked-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.filmcmp-picked-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  color: var(--text-dim);
+  text-align: center;
+  font-size: .75rem;
+}
+
+.filmcmp-picked-name {
+  margin-top: 7px;
+  color: var(--text);
+  font-size: .72rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.filmcmp-remove {
+  position: absolute;
+  z-index: 2;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0,0,0,.72);
+  color: white;
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.filmcmp-vs {
+  flex: 0 0 auto;
+  color: var(--text-dim);
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .filmcmp-picked-card {
+    flex-basis: 92px;
+    width: 92px;
+  }
+
+  .filmcmp-picked-poster {
+    width: 92px;
+    height: 138px;
+  }
+}
 </style>
 </head>
 <body>
@@ -3691,6 +3802,12 @@ var YR_DATA = {
 
    <!-- FILM COMPARE PANEL -->
 <div id="cmp-panel-film" style="display:none">
+    <div class="filmcmp-picker">
+    <h2 class="filmcmp-picker-title" id="filmCmp-title">Compare films</h2>
+    <div class="filmcmp-picker-prompt" id="filmCmp-prompt">
+      Select 2–4 movies to compare
+    </div>
+  </div>
   <div style="max-width:620px;margin-bottom:1.25rem">
     <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.5rem">
       Search and select 2–4 films
@@ -3712,7 +3829,7 @@ var YR_DATA = {
       ></div>
     </div>
 
-    <div id="filmCmp-selected" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:.8rem"></div>
+<div id="filmCmp-selected"></div>
   </div>
 
   <div id="fcmp-empty" style="padding:3rem;text-align:center;color:var(--text-dim);font-size:.85rem">
@@ -5528,136 +5645,301 @@ var FILM_PAGES = {
     return Math.round(this.india / this.ow * 100) / 100;
   }
 },
-  'rrr': {
-    key: 'rrr',
-    title: 'RRR',
-    year: 2022,
-    lang: 'Telugu',
-    director: 'S.S. Rajamouli',
-    studio: 'DVV Entertainment',
-    cast: [
-      {name:'Ram Charan',    role:'Alluri Sitarama Raju'},
-      {name:'N. T. Rama Rao Jr.',       role:'Komaram Bheem'},
-      {name:'Alia Bhatt',    role:'Sita'},
-      {name:'Ajay Devgn',    role:'Venkata Rama Raju (Cameo)'},
-      {name:'Olivia Morris', role:'Jennifer'},
-    ],
-    synopsis: 'A fictional tale imagining what would have happened if two legendary Indian freedom fighters — Alluri Sitarama Raju and Komaram Bheem — had met before embarking on their historic rebellions against British rule. S.S. Rajamouli, fresh off the Baahubali phenomenon, crafts an epic of breathtaking scale and emotion: two men from different worlds forge a bond of brotherhood, only to find themselves on opposing sides. RRR became a global phenomenon, winning the Academy Award for Best Original Song and introducing Indian cinema to a massive new international audience.',
-    release: '2022-03-25',
-    runtime: 187,
-    budget: 550,
-    india: 782.2,
-    ow: 323,
-    ww: 1230,
-    ff: 44,
-    multiplier: 2.42,
-    lb: 3.8,
-    ott: 'Netflix / ZEE5',
-    music: 'M.M. Keeravani',
-    awards: [
-      'Academy Award – Best Original Song ("Naatu Naatu")',
-      'Golden Globe – Best Non-English Language Film',
-      'Filmfare (South) – Best Film Telugu',
-      'Filmfare (South) – Best Director (S.S. Rajamouli)',
-      'National Award – Best Choreography',
-    ],
-    timeline: [
-      {label:'Week 1',   val:477},
-      {label:'Week 2',   val:195},
-      {label:'Week 3',   val:64},
-      {label:'Week 4',   val:21},
-      {label:'Week 5+',  val:25.2},
-    ],
-    overseas: [
-      {market:'USA/Canada', val:145},
-      {market:'Japan',      val:62},
-      {market:'Gulf',       val:58},
-      {market:'UK',         val:37},
-      {market:'Other',      val:219},
-    ],
-    comparable: [
-      {n:'Baahubali 2 (2017)', ww:1810, col:'#4fc3f7'},
-      {n:'Pushpa 2 (2024)',    ww:1742, col:'#22c55e'},
-      {n:'RRR (2022)',         ww:1230, col:'#f5c518', highlight:true},
-      {n:'KGF 2 (2022)',       ww:1215, col:'#f97316'},
-      {n:'Jawan (2023)',       ww:1148, col:'#a78bfa'},
-      {n:'Pathaan (2023)',     ww:1050, col:'#ef4444'},
-    ],
-    trivia: [
-      '"Naatu Naatu" became the first Indian song to win the Academy Award for Best Original Song, performed live at the Oscars ceremony to a standing ovation.',
-      'RRR grossed over $14 million in Japan alone — an extraordinary figure for an Indian film — driven by a grassroots fan campaign that led to multiple re-releases.',
-      'The film\'s "interval block" — a 10-minute action sequence set on a bridge — is widely regarded as one of the greatest action set pieces in cinema history.',
-      'Ram Charan and N. T. Rama Rao Jr. trained together for over a year, learning each other\'s dance styles and building the on-screen chemistry that made their friendship arc so convincing.',
-      'Director Rajamouli spent nearly 3 years in pre-production, personally researching both freedom fighters and constructing the fictional premise of their meeting.',
-      'RRR was selected as India\'s official entry for the Academy Awards in the Best International Feature Film category, though it did not receive a nomination in that category.',
-      'The film\'s worldwide gross of ₹1230 Cr made it the third-highest-grossing Indian film at the time, behind only Dangal and Baahubali 2.',
-    ],
+ 'kgf-2': {
+  key: 'kgf-2',
+  title: 'KGF: Chapter 2',
+  year: 2022,
+  lang: 'Kannada',
+  director: 'Prashanth Neel',
+  studio: 'Hombale Films',
+  cast: [
+    'Yash (Rocky)',
+    'Sanjay Dutt (Adheera)',
+    'Raveena Tandon (Ramika Sen)',
+    'Srinidhi Shetty (Reena)',
+    'Prakash Raj (Vijayendra Ingalagi)'
+  ],
+  synopsis: 'Rocky rises to power in the Kolar Gold Fields, facing new enemies and challenges as he attempts to maintain control of the gold empire.',
+  release: '2022-04-14',
+  runtime: 168,
+  budget: 300,
+  india: 859.70,
+  indiaGross: 1000.85,
+  ow: 262,
+  ww: 1215,
+  overseasGross: 214.15,
+  languageCollections: {
+    Hindi: 435.33,
+    Kannada: 154.69,
+    Telugu: 114.90,
+    Tamil: 105.04,
+    Malayalam: 49.74
   },
-  'kgf 2': {
-    key: 'kgf-2',
-    title: 'KGF: Chapter 2',
-    year: 2022,
-    lang: 'Kannada',
-    director: 'Prashanth Neel',
-    studio: 'Hombale Films',
-    cast: [
-      {name:'Yash',             role:'Rocky'},
-      {name:'Sanjay Dutt',      role:'Adheera'},
-      {name:'Raveena Tandon',   role:'Ramika Sen'},
-      {name:'Srinidhi Shetty',  role:'Reena'},
-      {name:'Prakash Raj',      role:'Vijayendra Ingalagi'},
-    ],
-    synopsis: 'Rocky has seized control of the Kolar Gold Fields and now stands as the most feared man in India. But empires invite enemies — and Rocky must simultaneously fend off a ruthless political adversary, a legendary warrior from his past, and the entire might of the Indian state. Prashanth Neel delivers an unrelenting, maximalist sequel that dwarfs the original in every dimension. KGF Chapter 2 shattered pan-India box office records, made Yash a genuine superstar beyond Kannada cinema, and proved that a film from any language could dominate all of India.',
-    release: '2022-04-14',
-    runtime: 168,
-    budget: 300,
-    india: 859,
-    ow: 262,
-    ww: 1215,
-    ff: 56.7,
-    multiplier: 3.28,
-    lb: 3.1,
-    ott: 'Amazon Prime Video',
-    music: 'Ravi Basrur',
-    awards: [
-      'Filmfare (South) – Best Film Kannada',
-      'Filmfare (South) – Best Actor Kannada (Yash)',
-      'SIIMA – Best Film Kannada',
-      'SIIMA – Best Director (Prashanth Neel)',
-      'National Award – Best Kannada Film',
-    ],
-    timeline: [
-      {label:'Week 1',   val:523},
-      {label:'Week 2',   val:158},
-      {label:'Week 3',   val:99},
-      {label:'Week 4',   val:46},
-      {label:'Week 5+',  val:33},
-    ],
-    overseas: [
-      {market:'USA/Canada', val:98},
-      {market:'Gulf',       val:62},
-      {market:'UK',         val:45},
-      {market:'Australia',  val:25},
-      {market:'Other',      val:125},
-    ],
-    comparable: [
-      {n:'Baahubali 2 (2017)', ww:1810, col:'#4fc3f7'},
-      {n:'Pushpa 2 (2024)',    ww:1742, col:'#22c55e'},
-      {n:'RRR (2022)',         ww:1230, col:'#f5c518'},
-      {n:'KGF 2 (2022)',       ww:1215, col:'#f97316', highlight:true},
-      {n:'Jawan (2023)',       ww:1148, col:'#a78bfa'},
-      {n:'Pathaan (2023)',     ww:1050, col:'#ef4444'},
-    ],
-    trivia: [
-      'KGF Chapter 2 is the highest-grossing Kannada film ever made, and the first Kannada film to cross ₹1000 Cr worldwide.',
-      'Sanjay Dutt\'s Adheera — styled after the Vikings — became one of the most visually iconic villains in recent Indian cinema despite limited screen time.',
-      'The film\'s Hindi version alone grossed over ₹430 Cr nett — making it one of the biggest Hindi releases of 2022 despite being a Kannada production.',
-      'Prashanth Neel directed KGF 2 and Salaar back to back, making him the only director to helm two separate ₹600 Cr+ worldwide grossers within three years.',
-      'Ravi Basrur\'s score was recorded across three countries and featured a 100-piece orchestra — the largest ever assembled for a Kannada film.',
-      'KGF Chapter 2 held the record for the biggest opening day in Indian box office history at the time of its release.',
-      'Yash turned down multiple big-budget offers during the KGF 2 shoot to remain exclusive to the franchise — a gamble that made him one of the highest-paid stars in India.',
-    ],
+  ff: 56.7,
+  get multiplier() { return Math.round(this.india / this.ow * 100) / 100; },
+  lb: 3.1,
+  ott: 'Amazon Prime Video',
+  music: 'Ravi Basrur',
+
+  daily: [
+    // Week 1
+    {date:'Thu Apr 14',day:'Thu',gross:116,total:116,chgDay:null,shows:null,occupancy:null},
+    {date:'Fri Apr 15',day:'Fri',gross:90.50,total:206.50,chgDay:-22.0,shows:null,occupancy:null},
+    {date:'Sat Apr 16',day:'Sat',gross:81.90,total:288.40,chgDay:-9.5,shows:null,occupancy:null},
+    {date:'Sun Apr 17',day:'Sun',gross:91.75,total:380.15,chgDay:12.0,shows:null,occupancy:null},
+    {date:'Mon Apr 18',day:'Mon',gross:50,total:430.15,chgDay:-45.5,shows:null,occupancy:null},
+    {date:'Tue Apr 19',day:'Tue',gross:37.80,total:467.95,chgDay:-24.4,shows:null,occupancy:null},
+    {date:'Wed Apr 20',day:'Wed',gross:30.90,total:498.85,chgDay:-18.3,shows:null,occupancy:null},
+    {date:'Thu Apr 21',day:'Thu',gross:24.90,total:523.75,chgDay:-19.4,shows:null,occupancy:null},
+
+    // Week 2
+    {date:'Fri Apr 22',day:'Fri',gross:23.35,total:547.10,chgDay:-6.2,shows:null,occupancy:null},
+    {date:'Sat Apr 23',day:'Sat',gross:36.45,total:583.55,chgDay:56.1,shows:null,occupancy:null},
+    {date:'Sun Apr 24',day:'Sun',gross:45.35,total:628.90,chgDay:24.4,shows:null,occupancy:null},
+    {date:'Mon Apr 25',day:'Mon',gross:17.10,total:646,chgDay:-62.3,shows:null,occupancy:null},
+    {date:'Tue Apr 26',day:'Tue',gross:14.90,total:660.90,chgDay:-12.9,shows:null,occupancy:null},
+    {date:'Wed Apr 27',day:'Wed',gross:11.90,total:672.80,chgDay:-20.1,shows:null,occupancy:null},
+    {date:'Thu Apr 28',day:'Thu',gross:9.90,total:682.70,chgDay:-16.8,shows:null,occupancy:null},
+
+    // Week 3
+    {date:'Fri Apr 29',day:'Fri',gross:9.70,total:692.40,chgDay:-2.0,shows:null,occupancy:null},
+    {date:'Sat Apr 30',day:'Sat',gross:17.10,total:709.50,chgDay:76.3,shows:null,occupancy:null},
+    {date:'Sun May 1',day:'Sun',gross:21.50,total:731,chgDay:25.7,shows:null,occupancy:null},
+    {date:'Mon May 2',day:'Mon',gross:7.47,total:738.47,chgDay:-65.3,shows:null,occupancy:null},
+    {date:'Tue May 3',day:'Tue',gross:18.34,total:756.81,chgDay:145.5,shows:null,occupancy:null},
+    {date:'Wed May 4',day:'Wed',gross:14.90,total:771.71,chgDay:-18.8,shows:null,occupancy:null},
+    {date:'Thu May 5',day:'Thu',gross:10.40,total:782.11,chgDay:-30.2,shows:null,occupancy:null},
+
+    // Week 4
+    {date:'Fri May 6',day:'Fri',gross:7.34,total:789.45,chgDay:-29.4,shows:null,occupancy:null},
+    {date:'Sat May 7',day:'Sat',gross:10.60,total:800.05,chgDay:44.4,shows:null,occupancy:null},
+    {date:'Sun May 8',day:'Sun',gross:13.80,total:813.85,chgDay:30.2,shows:null,occupancy:null},
+    {date:'Mon May 9',day:'Mon',gross:4.60,total:818.45,chgDay:-66.7,shows:null,occupancy:null},
+    {date:'Tue May 10',day:'Tue',gross:4.05,total:822.50,chgDay:-12.0,shows:null,occupancy:null},
+    {date:'Wed May 11',day:'Wed',gross:3.58,total:826.08,chgDay:-11.6,shows:null,occupancy:null},
+    {date:'Thu May 12',day:'Thu',gross:2.92,total:829,chgDay:-18.4,shows:null,occupancy:null},
+
+    // Week 5
+    {date:'Fri May 13',day:'Fri',gross:2.33,total:831.33,chgDay:-20.2,shows:null,occupancy:null},
+    {date:'Sat May 14',day:'Sat',gross:4.39,total:835.72,chgDay:88.4,shows:null,occupancy:null},
+    {date:'Sun May 15',day:'Sun',gross:5.73,total:841.45,chgDay:30.5,shows:null,occupancy:null},
+    {date:'Mon May 16',day:'Mon',gross:2.13,total:843.58,chgDay:-62.8,shows:null,occupancy:null},
+    {date:'Tue May 17',day:'Tue',gross:1.73,total:845.31,chgDay:-18.8,shows:null,occupancy:null},
+    {date:'Wed May 18',day:'Wed',gross:1.66,total:846.97,chgDay:-4.0,shows:null,occupancy:null},
+    {date:'Thu May 19',day:'Thu',gross:1.54,total:848.51,chgDay:-7.2,shows:null,occupancy:null},
+
+    // Week 6
+    {date:'Fri May 20',day:'Fri',gross:0.99,total:849.50,chgDay:-35.7,shows:null,occupancy:null},
+    {date:'Sat May 21',day:'Sat',gross:1.75,total:851.25,chgDay:76.8,shows:null,occupancy:null},
+    {date:'Sun May 22',day:'Sun',gross:2.50,total:853.75,chgDay:42.9,shows:null,occupancy:null},
+    {date:'Mon May 23',day:'Mon',gross:0.84,total:854.59,chgDay:-66.4,shows:null,occupancy:null},
+    {date:'Tue May 24',day:'Tue',gross:0.71,total:855.30,chgDay:-15.5,shows:null,occupancy:null},
+    {date:'Wed May 25',day:'Wed',gross:0.60,total:855.90,chgDay:-15.5,shows:null,occupancy:null},
+    {date:'Thu May 26',day:'Thu',gross:0.49,total:856.39,chgDay:-18.3,shows:null,occupancy:null},
+
+    // Week 7
+    {date:'Fri May 27',day:'Fri',gross:0.21,total:856.60,chgDay:-57.1,shows:null,occupancy:null},
+    {date:'Sat May 28',day:'Sat',gross:0.43,total:857.03,chgDay:104.8,shows:null,occupancy:null},
+    {date:'Sun May 29',day:'Sun',gross:0.58,total:857.61,chgDay:34.9,shows:null,occupancy:null},
+    {date:'Mon May 30',day:'Mon',gross:0.21,total:857.82,chgDay:-63.8,shows:null,occupancy:null},
+    {date:'Tue May 31',day:'Tue',gross:0.18,total:858.00,chgDay:-14.3,shows:null,occupancy:null},
+    {date:'Wed Jun 1',day:'Wed',gross:0.18,total:858.18,chgDay:0.0,shows:null,occupancy:null},
+    {date:'Thu Jun 2',day:'Thu',gross:0.15,total:858.33,chgDay:-16.7,shows:null,occupancy:null},
+
+    // Later weekly checkpoints
+    {date:'Thu Jun 9',day:'Thu',gross:0.88,total:859.21,chgDay:null,shows:null,occupancy:null},
+    {date:'Thu Jun 16',day:'Thu',gross:0.34,total:859.55,chgDay:null,shows:null,occupancy:null},
+    {date:'Thu Jun 23',day:'Thu',gross:0.15,total:859.70,chgDay:null,shows:null,occupancy:null}
+  ],
+
+  wwCum: [
+    {d:1,v:159},{d:2,v:286},{d:3,v:400},{d:4,v:546},
+    {d:5,v:609},{d:6,v:663},{d:7,v:702.20},{d:8,v:735.20},
+    {d:9,v:764.40},{d:10,v:810},{d:11,v:882.90},{d:12,v:912.30},
+    {d:13,v:931.70},{d:14,v:948.60},{d:15,v:962},{d:16,v:975},
+    {d:17,v:997.70},{d:18,v:1027.40},{d:19,v:1037.50},{d:20,v:1056.95},
+    {d:21,v:1080},{d:22,v:1092.90},{d:23,v:1102.20},{d:24,v:1117.40},
+    {d:25,v:1140.20},{d:26,v:1146.70}
+  ],
+
+  timeline: [
+    {label:'Week 1',value:523.75},
+    {label:'Week 2',value:158.95},
+    {label:'Week 3',value:99.41},
+    {label:'Week 4',value:46.89},
+    {label:'Week 5',value:19.51},
+    {label:'Week 6',value:7.88},
+    {label:'Week 7',value:1.94},
+    {label:'Week 8',value:0.88},
+    {label:'Week 9',value:0.34},
+    {label:'Week 10',value:0.15}
+  ],
+
+  overseas: {
+    'USA/Canada':98,
+    'Gulf':62,
+    'UK':45,
+    'Australia':25,
+    'Other':125
   },
+
+  comparable: [
+    {title:'Baahubali 2',value:1810,color:'#4fc3f7'},
+    {title:'Pushpa 2',value:1742,color:'#22c55e'},
+    {title:'RRR',value:1230,color:'#f5c518'},
+    {title:'KGF 2',value:1215,color:'#f97316',highlight:true},
+    {title:'Jawan',value:1148,color:'#a78bfa'},
+    {title:'Pathaan',value:1050,color:'#ef4444'}
+  ]
+},
+
+'rrr': {
+  key: 'rrr',
+  title: 'RRR',
+  year: 2022,
+  lang: 'Telugu',
+  director: 'S.S. Rajamouli',
+  studio: 'DVV Entertainment',
+  cast: [
+    'Ram Charan (Alluri Sitarama Raju)',
+    'N. T. Rama Rao Jr. (Komaram Bheem)',
+    'Alia Bhatt (Sita)',
+    'Ajay Devgn (Venkata Rama Raju)',
+    'Olivia Morris (Jennifer)'
+  ],
+  synopsis: 'A fictionalized story of two revolutionaries, Alluri Sitarama Raju and Komaram Bheem, who form an unlikely friendship while fighting British colonial rule in India.',
+  release: '2022-03-25',
+  runtime: 187,
+  budget: 550,
+  india: 782.20,
+  indiaGross: 915.85,
+  ow: 323,
+  ww: 1230,
+  overseasGross: 314.15,
+  languageCollections: {
+    Telugu:431.01,
+    Hindi:272.78,
+    Tamil:58.48,
+    Malayalam:18.41,
+    Kannada:1.52
+  },
+  ff: 44,
+  get multiplier() { return Math.round(this.india / this.ow * 100) / 100; },
+  lb: 3.8,
+  ott: 'Netflix / ZEE5',
+  music: 'M.M. Keeravani',
+
+  daily: [
+    // Week 1
+    {date:'Fri Mar 25',day:'Fri',gross:133,total:133,chgDay:null,shows:null,occupancy:null},
+    {date:'Sat Mar 26',day:'Sat',gross:88.70,total:221.70,chgDay:-33.3,shows:null,occupancy:null},
+    {date:'Sun Mar 27',day:'Sun',gross:102.30,total:324,chgDay:15.3,shows:null,occupancy:null},
+    {date:'Mon Mar 28',day:'Mon',gross:49.95,total:373.95,chgDay:-51.2,shows:null,occupancy:null},
+    {date:'Tue Mar 29',day:'Tue',gross:40.25,total:414.20,chgDay:-19.4,shows:null,occupancy:null},
+    {date:'Wed Mar 30',day:'Wed',gross:34.13,total:448.33,chgDay:-15.2,shows:null,occupancy:null},
+    {date:'Thu Mar 31',day:'Thu',gross:29.17,total:477.50,chgDay:-14.5,shows:null,occupancy:null},
+
+    // Week 2
+    {date:'Fri Apr 1',day:'Fri',gross:31.70,total:509.20,chgDay:8.7,shows:null,occupancy:null},
+    {date:'Sat Apr 2',day:'Sat',gross:56,total:565.20,chgDay:76.7,shows:null,occupancy:null},
+    {date:'Sun Apr 3',day:'Sun',gross:52.80,total:618,chgDay:-5.7,shows:null,occupancy:null},
+    {date:'Mon Apr 4',day:'Mon',gross:17.50,total:635.50,chgDay:-66.9,shows:null,occupancy:null},
+    {date:'Tue Apr 5',day:'Tue',gross:16.30,total:651.80,chgDay:-6.9,shows:null,occupancy:null},
+    {date:'Wed Apr 6',day:'Wed',gross:11.40,total:663.20,chgDay:-30.1,shows:null,occupancy:null},
+    {date:'Thu Apr 7',day:'Thu',gross:9.90,total:673.10,chgDay:-13.2,shows:null,occupancy:null},
+
+    // Week 3
+    {date:'Fri Apr 8',day:'Fri',gross:9.50,total:682.60,chgDay:-4.0,shows:null,occupancy:null},
+    {date:'Sat Apr 9',day:'Sat',gross:15.50,total:698.10,chgDay:63.2,shows:null,occupancy:null},
+    {date:'Sun Apr 10',day:'Sun',gross:20.50,total:718.60,chgDay:32.3,shows:null,occupancy:null},
+    {date:'Mon Apr 11',day:'Mon',gross:5.80,total:724.40,chgDay:-71.7,shows:null,occupancy:null},
+    {date:'Tue Apr 12',day:'Tue',gross:4.80,total:729.20,chgDay:-17.2,shows:null,occupancy:null},
+    {date:'Wed Apr 13',day:'Wed',gross:3.40,total:732.60,chgDay:-29.2,shows:null,occupancy:null},
+    {date:'Thu Apr 14',day:'Thu',gross:4.50,total:737.10,chgDay:32.4,shows:null,occupancy:null},
+
+    // Week 4
+    {date:'Fri Apr 15',day:'Fri',gross:4.50,total:741.60,chgDay:0.0,shows:null,occupancy:null},
+    {date:'Sat Apr 16',day:'Sat',gross:4.55,total:746.15,chgDay:1.1,shows:null,occupancy:null},
+    {date:'Sun Apr 17',day:'Sun',gross:5.95,total:752.10,chgDay:30.8,shows:null,occupancy:null},
+    {date:'Mon Apr 18',day:'Mon',gross:1.85,total:753.95,chgDay:-68.9,shows:null,occupancy:null},
+    {date:'Tue Apr 19',day:'Tue',gross:1.88,total:755.83,chgDay:1.6,shows:null,occupancy:null},
+    {date:'Wed Apr 20',day:'Wed',gross:1.55,total:757.38,chgDay:-17.6,shows:null,occupancy:null},
+    {date:'Thu Apr 21',day:'Thu',gross:1.39,total:758.77,chgDay:-10.3,shows:null,occupancy:null},
+
+    // Week 5
+    {date:'Fri Apr 22',day:'Fri',gross:1.43,total:760.20,chgDay:2.9,shows:null,occupancy:null},
+    {date:'Sat Apr 23',day:'Sat',gross:1.85,total:762.05,chgDay:29.4,shows:null,occupancy:null},
+    {date:'Sun Apr 24',day:'Sun',gross:2.69,total:764.74,chgDay:45.4,shows:null,occupancy:null},
+    {date:'Mon Apr 25',day:'Mon',gross:0.96,total:765.70,chgDay:-64.3,shows:null,occupancy:null},
+    {date:'Tue Apr 26',day:'Tue',gross:0.90,total:766.60,chgDay:-6.3,shows:null,occupancy:null},
+    {date:'Wed Apr 27',day:'Wed',gross:0.91,total:767.51,chgDay:1.1,shows:null,occupancy:null},
+    {date:'Thu Apr 28',day:'Thu',gross:0.74,total:768.25,chgDay:-18.7,shows:null,occupancy:null},
+
+    // Later weekly checkpoints
+    {date:'Thu May 5',day:'Thu',gross:8.01,total:776.26,chgDay:null,shows:null,occupancy:null},
+    {date:'Thu May 12',day:'Thu',gross:3.80,total:780.06,chgDay:null,shows:null,occupancy:null},
+    {date:'Thu May 19',day:'Thu',gross:1.50,total:781.56,chgDay:null,shows:null,occupancy:null},
+    {date:'Thu May 26',day:'Thu',gross:0.45,total:782.01,chgDay:null,shows:null,occupancy:null},
+    {date:'Thu Jun 2',day:'Thu',gross:0.19,total:782.20,chgDay:null,shows:null,occupancy:null}
+  ],
+
+  wwCum: [
+    {d:1,v:223},
+    {d:2,v:350},
+    {d:3,v:502},
+    {d:4,v:568.10},
+    {d:5,v:618},
+    {d:6,v:666},
+    {d:7,v:709.50},
+    {d:8,v:751.90},
+    {d:9,v:824},
+    {d:10,v:897},
+    {d:11,v:923},
+    {d:12,v:944},
+    {d:13,v:959.20},
+    {d:14,v:972.70},
+    {d:15,v:989}, // Estimated
+    {d:16,v:1007.70},
+    {d:17,v:1037.50},
+    {d:18,v:1043.50},
+    {d:19,v:1051.80},
+    {d:20,v:1056.80},
+    {d:21,v:1062.80},
+    {d:22,v:1069.20},
+    {d:23,v:1076.50},
+    {d:24,v:1084}
+  ],
+
+  timeline: [
+    {label:'Week 1',value:477.50},
+    {label:'Week 2',value:195.60},
+    {label:'Week 3',value:64.00},
+    {label:'Week 4',value:21.67},
+    {label:'Week 5',value:9.48},
+    {label:'Week 6',value:8.01},
+    {label:'Week 7',value:3.80},
+    {label:'Week 8',value:1.50},
+    {label:'Week 9',value:0.45},
+    {label:'Week 10',value:0.19}
+  ],
+
+  overseas: {
+    'USA/Canada':145,
+    'Japan':62,
+    'Gulf':58,
+    'UK':37,
+    'Other':219
+  },
+
+  comparable: [
+    {title:'Baahubali 2',value:1810,color:'#4fc3f7'},
+    {title:'Pushpa 2',value:1742,color:'#22c55e'},
+    {title:'RRR',value:1230,color:'#f5c518',highlight:true},
+    {title:'KGF 2',value:1215,color:'#f97316'},
+    {title:'Jawan',value:1148,color:'#a78bfa'},
+    {title:'Pathaan',value:1050,color:'#ef4444'}
+  ]
+},
   'jailer': {
     key: 'jailer',
     title: 'Jailer',
@@ -10572,53 +10854,98 @@ var FILM_PAGES = {
   ],
 },
   
-  'toxic': {
+'toxic': {
   key: 'toxic',
   title: 'Toxic',
   year: 2026,
-  l: 'Kannada',
   lang: 'Kannada',
   director: 'Geetu Mohandas',
   studio: 'KVN Productions',
   cast: [
-    {name:'Yash',          role:'Lead'},
-    {name:'Kiara Advani',  role:'Female Lead'},
-    {name:'Nayanthara',    role:'Supporting'},
+    'Yash (Lead)',
+    'Kiara Advani (Female Lead)',
+    'Nayanthara (Supporting)'
   ],
-  synopsis: 'A highly anticipated Kannada action drama centered on a powerful underworld figure whose rise through the criminal world brings him into conflict with dangerous rivals and powerful forces. The film marks another major-scale theatrical vehicle for Yash and has generated significant anticipation as one of Kannada cinema\'s biggest releases.',
+  synopsis: 'A highly anticipated Kannada action drama centered on a powerful underworld figure whose rise through the criminal world brings him into conflict with dangerous rivals and powerful forces. The film marks another major-scale theatrical vehicle for Yash and has generated significant anticipation as one of Kannada cinema’s biggest releases.',
   release: '2026-08-26',
   runtime: null,
   budget: 550,
-  india: 137.50,
-  ow: null,
-  ww: 190.75,
+  india: 250.13,
+  indiaGross: 298.51,
+  ow: 101.10,
+  ww: 342.26,
+  wwCum: [],
+  overseasGross: 43.75,
   ff: null,
-  multiplier: null,
   lb: null,
   ott: 'TBA',
   music: 'TBA',
+  languageCollections: [
+    {language:'Hindi',gross:149.28},
+    {language:'Kannada',gross:63.11},
+    {language:'Telugu',gross:25.42},
+    {language:'Tamil',gross:9.94},
+    {language:'Malayalam',gross:2.31}
+  ],
+  daily: [
+    // Week 1
+    {date:'Wed Aug 26',day:'Wed',gross:101.10,chgDay:null,chgWeek:null,total:101.10,ff:null,shows:24579,occupancy:56.2},
+    {date:'Thu Aug 27',day:'Thu',gross:37.65,chgDay:-62.8,chgWeek:null,total:138.75,ff:null,shows:22629,occupancy:26.6},
+
+    // Week 2
+    {date:'Fri Aug 28',day:'Fri',gross:27.20,chgDay:-27.8,chgWeek:-27.5,total:165.95,ff:null,shows:19390,occupancy:25.5},
+    {date:'Sat Aug 29',day:'Sat',gross:25.15,chgDay:-7.5,chgWeek:-27.5,total:191.10,ff:null,shows:17612,occupancy:24.3},
+    {date:'Sun Aug 30',day:'Sun',gross:23.00,chgDay:-8.5,chgWeek:-27.5,total:214.10,ff:null,shows:16241,occupancy:25.3},
+    {date:'Mon Aug 31',day:'Mon',gross:7.65,chgDay:-66.7,chgWeek:-27.5,total:221.75,ff:null,shows:13400,occupancy:17.2},
+    {date:'Tue Sep 1',day:'Tue',gross:7.85,chgDay:2.6,chgWeek:-27.5,total:229.60,ff:null,shows:12894,occupancy:20.6},
+    {date:'Wed Sep 2',day:'Wed',gross:5.45,chgDay:-30.6,chgWeek:-27.5,total:235.05,ff:null,shows:12432,occupancy:14.3},
+    {date:'Thu Sep 3',day:'Thu',gross:4.25,chgDay:-22.0,chgWeek:-27.5,total:239.30,ff:null,shows:10863,occupancy:13.9},
+
+    // Week 3
+    {date:'Fri Sep 4',day:'Fri',gross:1.75,chgDay:-58.8,chgWeek:-91.1,total:241.05,ff:null,shows:2253,occupancy:22.7},
+    {date:'Sat Sep 5',day:'Sat',gross:2.28,chgDay:30.3,chgWeek:-91.1,total:243.33,ff:null,shows:1829,occupancy:28.4},
+    {date:'Sun Sep 6',day:'Sun',gross:2.42,chgDay:6.1,chgWeek:-91.1,total:245.75,ff:null,shows:1765,occupancy:30.8},
+    {date:'Mon Sep 7',day:'Mon',gross:0.75,chgDay:-69.0,chgWeek:-91.1,total:246.50,ff:null,shows:1354,occupancy:17.4},
+    {date:'Tue Sep 8',day:'Tue',gross:0.75,chgDay:0.0,chgWeek:-91.1,total:247.25,ff:null,shows:1340,occupancy:19.1},
+    {date:'Wed Sep 9',day:'Wed',gross:0.60,chgDay:-20.0,chgWeek:-91.1,total:247.85,ff:null,shows:1322,occupancy:14.9},
+    {date:'Thu Sep 10',day:'Thu',gross:0.39,chgDay:-35.0,chgWeek:-91.1,total:248.24,ff:null,shows:934,occupancy:14.7},
+
+    // Week 4
+    {date:'Fri Sep 11',day:'Fri',gross:0.21,chgDay:-46.2,chgWeek:null,total:248.45,ff:null,shows:274,occupancy:22.9},
+    {date:'Sat Sep 12',day:'Sat',gross:0.33,chgDay:57.1,chgWeek:null,total:248.78,ff:null,shows:311,occupancy:29.0},
+    {date:'Sun Sep 13',day:'Sun',gross:0.24,chgDay:-27.3,chgWeek:null,total:249.02,ff:null,shows:292,occupancy:25.7},
+    {date:'Mon Sep 14',day:'Mon',gross:0.22,chgDay:-8.3,chgWeek:null,total:249.24,ff:null,shows:266,occupancy:20.0},
+    {date:'Tue Sep 15',day:'Tue',gross:0.13,chgDay:-40.9,chgWeek:null,total:249.37,ff:null,shows:248,occupancy:14.0},
+    {date:'Wed Sep 16',day:'Wed',gross:0.12,chgDay:-7.7,chgWeek:null,total:249.49,ff:null,shows:247,occupancy:15.3},
+    {date:'Thu Sep 17',day:'Thu',gross:0.14,chgDay:16.7,chgWeek:null,total:249.63,ff:null,shows:219,occupancy:15.5},
+
+    // Latest reported day
+    {date:'Thu Oct 1',day:'Thu',gross:0.02,chgDay:null,chgWeek:null,total:250.13,ff:null,shows:null,occupancy:null}
+  ],
   awards: [],
   timeline: [
-    {label:'Opening Day',  val:null},
-    {label:'Opening Wknd', val:null},
-    {label:'Week 1',       val:null},
-    {label:'Week 2',       val:null},
-    {label:'Week 3+',      val:null},
+    {week:'Week 1',net:138.75},
+    {week:'Week 2',net:100.55},
+    {week:'Week 3',net:8.94},
+    {week:'Week 4 (partial)',net:1.39}
   ],
   overseas: [
-    {market:'Gulf',       val:null},
-    {market:'USA/Canada', val:null},
-    {market:'UK',         val:null},
-    {market:'Australia',  val:null},
-    {market:'Other',      val:null},
+    {region:'Gulf',gross:null},
+    {region:'USA/Canada',gross:null},
+    {region:'UK',gross:null},
+    {region:'Australia',gross:null},
+    {region:'Other',gross:null}
   ],
   comparable: [
-    {n:'KGF 2 (2022)',       ww:1215,   col:'#22c55e'},
-    {n:'Kantara (2022)',     ww:407,    col:'#4fc3f7'},
-    {n:'Toxic (2026)',       ww:190.75, col:'#34d399', highlight:true},
-    {n:'Salaar (2023)',      ww:617,    col:'#f97316'},
-    {n:'Leo (2023)',         ww:605,    col:'#a78bfa'},
+    {title:'KGF 2 (2022)',ww:1215,color:'#22c55e'},
+    {title:'Kantara (2022)',ww:407,color:'#4fc3f7'},
+    {title:'Toxic (2026)',ww:342.26,color:'#34d399',highlight:true},
+    {title:'Salaar (2023)',ww:617,color:'#f97316'},
+    {title:'Leo (2023)',ww:605,color:'#a78bfa'}
   ],
+  get multiplier() {
+    return Math.round(this.india / this.ow * 100) / 100;
+  }
 },
 'dhurandhar-2': {
   key: 'dhurandhar-2',
@@ -16372,37 +16699,83 @@ function removeFilmCmpMulti(key) {
 
 function renderFilmCmpSelected() {
   var host = document.getElementById('filmCmp-selected');
+  var title = document.getElementById('filmCmp-title');
+  var prompt = document.getElementById('filmCmp-prompt');
+
   if (!host) return;
 
   host.innerHTML = '';
 
-  filmCmpSelected.forEach(function (film, index) {
-    var chip = document.createElement('div');
-    chip.style.cssText =
-      'display:inline-flex;align-items:center;gap:8px;padding:6px 9px;border:1px solid ' +
-      FILM_CMP_COLORS[index] +
-      ';border-radius:4px;background:' +
-      FILM_CMP_COLORS[index] +
-      '18;color:' +
-      FILM_CMP_COLORS[index] +
-      ';font-size:.72rem;font-weight:600';
+  if (title) {
+    title.textContent = filmCmpSelected.length
+      ? filmCmpSelected.map(function (film) { return film.n; }).join(' vs ')
+      : 'Compare films';
+  }
 
-    var name = document.createElement('span');
-    name.textContent = film.n + ' (' + film.y + ')';
+  if (prompt) {
+    var remaining = 4 - filmCmpSelected.length;
+    prompt.textContent = filmCmpSelected.length < 2
+      ? 'Select at least 2 movies'
+      : remaining > 0
+        ? 'Add 1, 2, or ' + remaining + ' more movies'
+        : '4 of 4 selected';
+  }
+
+  filmCmpSelected.forEach(function (film, index) {
+    if (index > 0) {
+      var vs = document.createElement('span');
+      vs.className = 'filmcmp-vs';
+      vs.textContent = 'VS';
+      host.appendChild(vs);
+    }
+
+    var card = document.createElement('div');
+    card.className = 'filmcmp-picked-card';
+
+    var poster = document.createElement('div');
+    poster.className = 'filmcmp-picked-poster';
+
+    var image = document.createElement('img');
+    image.alt = film.n + ' poster';
+    image.loading = 'lazy';
+
+    var fallback = document.createElement('span');
+    fallback.className = 'filmcmp-picked-fallback';
+    fallback.textContent = film.n;
 
     var remove = document.createElement('button');
     remove.type = 'button';
+    remove.className = 'filmcmp-remove';
     remove.textContent = '×';
     remove.title = 'Remove ' + film.n;
-    remove.style.cssText =
-      'border:0;background:transparent;color:inherit;font-size:1rem;line-height:1;cursor:pointer;padding:0 2px';
     remove.addEventListener('click', function () {
       removeFilmCmpMulti(filmCmpKey(film));
     });
 
-    chip.appendChild(name);
-    chip.appendChild(remove);
-    host.appendChild(chip);
+    poster.appendChild(image);
+    poster.appendChild(fallback);
+    poster.appendChild(remove);
+
+    var name = document.createElement('div');
+    name.className = 'filmcmp-picked-name';
+    name.textContent = film.n + ' (' + film.y + ')';
+
+    card.appendChild(poster);
+    card.appendChild(name);
+    host.appendChild(card);
+
+    image.onerror = function () {
+      image.style.display = 'none';
+    };
+
+    tmdbSearch(film.n, film.y, function (result) {
+      if (!result || !result.poster) return;
+
+      image.onload = function () {
+        fallback.style.display = 'none';
+      };
+      image.src = result.poster;
+    });
   });
 }
 
