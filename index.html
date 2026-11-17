@@ -13090,6 +13090,56 @@ function dailyRecWeekendGroups(rows) {
 
   return weekends;
 }
+  function isFilmPreviewRow(row, film) {
+  if (!row) return false;
+
+  var dayText = String(row.day == null ? '' : row.day).trim().toLowerCase();
+  var dateText = String(row.date || '');
+
+  if (
+    row.preview === true ||
+    dayText === 'preview' ||
+    dayText === '0' ||
+    /\bday\s*0\b/i.test(dayText) ||
+    /\bday\s*0\b/i.test(dateText)
+  ) {
+    return true;
+  }
+
+  // Also recognize a dated preview on the calendar day before release.
+  var releaseMatch = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(
+    String(film && film.release || '')
+  );
+  if (!releaseMatch) return false;
+
+  var releaseDate = new Date(
+    Number(releaseMatch[1]),
+    Number(releaseMatch[2]) - 1,
+    Number(releaseMatch[3])
+  );
+  var previousDate = new Date(
+    releaseDate.getFullYear(),
+    releaseDate.getMonth(),
+    releaseDate.getDate() - 1
+  );
+
+  var months = {
+    jan:0, feb:1, mar:2, apr:3, may:4, jun:5,
+    jul:6, aug:7, sep:8, oct:9, nov:10, dec:11
+  };
+  var rowDateMatch =
+    /\b(January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|July|Jul|August|Aug|September|Sept|Sep|October|Oct|November|Nov|December|Dec)\s+(\d{1,2})(?:,?\s+(20\d{2}))?\b/i.exec(dateText);
+
+  if (!rowDateMatch) return false;
+
+  var rowMonth = months[rowDateMatch[1].slice(0, 3).toLowerCase()];
+  var rowDay = Number(rowDateMatch[2]);
+  var rowYear = rowDateMatch[3] ? Number(rowDateMatch[3]) : previousDate.getFullYear();
+
+  return rowYear === previousDate.getFullYear() &&
+    rowMonth === previousDate.getMonth() &&
+    rowDay === previousDate.getDate();
+}
 
 function getDailyRecValue(film, metric) {
   var rows = (film.daily || []).filter(function (row) {
@@ -13111,12 +13161,30 @@ function getDailyRecValue(film, metric) {
     }
   });
 
-  if (metric === 'openingDay') {
-    return {
-      value: Number(rows[0].gross),
-      detail: rows[0].date || 'Day 1'
-    };
-  }
+ if (metric === 'openingDay') {
+  var previewRows = rows.filter(function (row) {
+    return isFilmPreviewRow(row, film);
+  });
+
+  var releaseDayRow = rows.find(function (row) {
+    return !isFilmPreviewRow(row, film);
+  });
+
+  if (!releaseDayRow) return null;
+
+  var openingDayTotal = Number(releaseDayRow.gross);
+
+  previewRows.forEach(function (row) {
+    openingDayTotal += Number(row.gross);
+  });
+
+  return {
+    value: openingDayTotal,
+    detail: previewRows.length
+      ? 'Previews + ' + (releaseDayRow.date || 'Day 1')
+      : (releaseDayRow.date || 'Day 1')
+  };
+}
 
   if (/^weekend[1-4]$/.test(metric)) {
     var weekendNumber = Number(metric.replace('weekend', ''));
@@ -14960,12 +15028,9 @@ function findTrajPeriodMatches(resetSelection) {
 function trajSeries(film, metric) {
   var dailyRows = film.daily || [];
 
-  function isPreview(row) {
-    return row && (
-      row.preview === true ||
-      String(row.day || '').toLowerCase() === 'preview'
-    );
-  }
+ function isPreview(row) {
+  return isFilmPreviewRow(row, film);
+}
 
   if (metric === 'india') {
     var indiaPoints = [];
