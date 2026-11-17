@@ -15342,16 +15342,19 @@ function trajSeries(film, metric) {
   // Keep supporting films that still use the older wwCum format.
   if (!film.wwCum || !film.wwCum.length) return null;
 
-  return film.wwCum
-    .map(function (row) {
-      return {d:Number(row.d), v:Number(row.v)};
-    })
-    .filter(function (point) {
-      return point.d > 0 && isFinite(point.d) && isFinite(point.v);
-    })
-    .sort(function (a, b) {
-      return a.d - b.d;
-    });
+ return film.wwCum
+  .filter(function (row) {
+    return row && row.d != null && row.v != null;
+  })
+  .map(function (row) {
+    return { d: Number(row.d), v: Number(row.v) };
+  })
+  .filter(function (point) {
+    return point.d > 0 && isFinite(point.d) && isFinite(point.v);
+  })
+  .sort(function (a, b) {
+    return a.d - b.d;
+  });
 }
 
 function trajValueAt(points, day) {
