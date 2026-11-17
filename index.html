@@ -18,8 +18,8 @@ body.light .stat-card,body.light .chart-box,body.light .rec-row,body.light .ff-r
 body.light .pcard-img{filter:brightness(0.92)}
 body.light footer{color:rgba(0,0,0,0.25);border-top-color:rgba(0,0,0,0.08)}
 body.light .fi{background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.18);color:#111}
-body.light .lf{color:rgba(0,0,0,0.4);bTGorder-color:rgba(0,0,0,0.15)}
-body.light .lf:hover{background:rgba(0,0,0,0.07)}
+body.light .lf{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.15)}
+  body.light .lf:hover{background:rgba(0,0,0,0.07)}
 body.light .rec-tab{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.15)}
 body.light .sort-btn{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.15)}
 body.light .sort-btn:hover{background:rgba(0,0,0,0.07)}
@@ -59,15 +59,18 @@ body.light #page-compare [style*="color:#f87171"]{color:#b91c1c!important}
 body.light #page-compare [style*="color:#f5c518"]{color:#b8920a!important}
 body.light #page-compare [style*="color:var(--blue)"]{color:#0277bd!important}
 body.light #page-compare [style*="color:var(--green)"]{color:#15803d!important}
-body.light #page-compare [style*="background:#0"],[style*="background:#1"]{background:var(--bg3)!important}
-body.light #page-compare select{color:#111!important;background:#e0e0e0!important}
+body.light #page-compare [style*="background:#0"],
+body.light #page-compare [style*="background:#1"]{background:var(--bg3)!important}
+  body.light #page-compare select{color:#111!important;background:#e0e0e0!important}
 body.light #cmp-empty{color:rgba(0,0,0,0.3)!important}
 
 /* Light mode: override all white inline text to black equivalents */
 body.light *{color:inherit}
 body.light{color:#111}
-body.light [style*="color:rgba(255,255,255"],[style*="color:#fff"],[style*="color:white"]{color:#111!important}
-body.light [style*="color:rgba(255,255,255,.8"]{color:rgba(0,0,0,0.82)!important}
+body.light [style*="color:rgba(255,255,255"],
+body.light [style*="color:#fff"],
+body.light [style*="color:white"]{color:#111!important}
+  body.light [style*="color:rgba(255,255,255,.8"]{color:rgba(0,0,0,0.82)!important}
 body.light [style*="color:rgba(255,255,255,.7"]{color:rgba(0,0,0,0.72)!important}
 body.light [style*="color:rgba(255,255,255,.6"]{color:rgba(0,0,0,0.62)!important}
 body.light [style*="color:rgba(255,255,255,.5"]{color:rgba(0,0,0,0.55)!important}
@@ -80,11 +83,21 @@ body.light [style*="color:white"]{color:#111!important}
 #page-film-bhoot-bhangla *{color:inherit}
 #page-film-bhoot-bhangla{color:#fff}
 /* Keep accent colors intact */
-body.light [style*="color:var(--gold)"],[style*="color:#F5C518"],[style*="color:#f5c518"]{color:#b8920a!important}
-body.light [style*="color:var(--blue)"],[style*="color:#4fc3f7"]{color:#0277bd!important}
-body.light [style*="color:var(--purple)"],[style*="color:#c084fc"]{color:#7c3aed!important}
-body.light [style*="color:var(--green)"],[style*="color:#22c55e"]{color:#15803d!important}
-body.light [style*="color:var(--orange)"],[style*="color:#f97316"]{color:#c2410c!important}
+body.light [style*="color:var(--gold)"],
+body.light [style*="color:#F5C518"],
+body.light [style*="color:#f5c518"] { color:#b8920a!important }
+
+body.light [style*="color:var(--blue)"],
+body.light [style*="color:#4fc3f7"] { color:#0277bd!important }
+
+body.light [style*="color:var(--purple)"],
+body.light [style*="color:#c084fc"] { color:#7c3aed!important }
+
+body.light [style*="color:var(--green)"],
+body.light [style*="color:#22c55e"] { color:#15803d!important }
+
+body.light [style*="color:var(--orange)"],
+body.light [style*="color:#f97316"] { color:#c2410c!important }
 body.light [style*="color:#fb7185"]{color:#be123c!important}
 body.light [style*="color:#f472b6"]{color:#be185d!important}
 body.light [style*="color:#4ade80"]{color:#166534!important}
@@ -92,7 +105,8 @@ body.light [style*="color:#facc15"]{color:#92400e!important}
 body.light [style*="color:#f87171"]{color:#b91c1c!important}
 body.light [style*="color:#2ec4b6"]{color:#0e7490!important}
 /* Backgrounds */
-body.light [style*="background:#0"],[style*="background:#1"]{background:var(--bg3)!important}
+body.light [style*="background:#0"],
+body.light [style*="background:#1"]{background:var(--bg3)!important}
 body.light [style*="background:var(--bg3)"]{background:#d8d8d8!important}
 body.light [style*="background:var(--bg2)"]{background:#e4e4e4!important}
 body.light [style*="background:rgba(255,255,255,.0"]{background:rgba(0,0,0,0.03)!important}
@@ -6250,132 +6264,243 @@ var FILM_PAGES = {
     {n:'2.0 (2018)',ww:691,col:'#2ec4b6'}
   ]
 },
-  'devara': {
-    key: 'devara',
-    title: 'Devara: Part 1',
-    year: 2024,
-    lang: 'Telugu',
-    director: 'Koratala Siva',
-    studio: 'Sithara Entertainments / Fortune Four Cinemas',
-    cast: [
-      {name:'N. T. Rama Rao Jr.',        role:'Devara / Vara'},
-      {name:'Janhvi Kapoor',  role:'Thangam'},
-      {name:'Saif Ali Khan',  role:'Bhaara'},
-      {name:'Prakash Raj',    role:'Saroja'},
-      {name:'Shine Tom Chacko',role:'Kantarao'},
-    ],
-    synopsis: 'A coastal crime saga set across two timelines. Devara — a feared, almost mythological sea-lord who commands loyalty through terror — is forced to question his violent ways. Years later, his mild-mannered son Vara must reckon with a legacy of blood when old enemies resurface. Koratala Siva crafts a grandly scaled character study that is both an action spectacle and a meditation on fear, power, and legacy. Jr. NTR plays both father and son in a dual role performance of towering ambition, delivering his most physically and emotionally demanding work since RRR.',
-    release: '2024-09-27',
-    runtime: 166,
-    budget: 300,
-    india: 292.47,
-    ow: 160,
-    ww: 428,
-    ff: 17.8,
-    multiplier: 1.83,
-    lb: 2.6,
-    ott: 'Netflix',
-    music: 'Anirudh Ravichander',
-    awards: [
-      'Filmfare (South) – Best Actor Telugu (Jr. NTR, Nominated)',
-      'SIIMA – Best Film Telugu (Nominated)',
-      'SIIMA – Best Director (Koratala Siva, Nominated)',
-    ],
-    timeline: [
-      {label:'Week 1',   val:220},
-      {label:'Week 2',   val:48},
-      {label:'Week 3',   val:17},
-      {label:'Week 4+',  val:7.47},
-    ],
-    overseas: [
-      {market:'USA/Canada', val:65},
-      {market:'Gulf',       val:52},
-      {market:'UK',         val:30},
-      {market:'Australia',  val:18},
-      {market:'Other',      val:28},
-    ],
-    comparable: [
-      {n:'RRR (2022)',          ww:1230, col:'#22c55e'},
-      {n:'Salaar (2023)',       ww:617,  col:'#4fc3f7'},
-      {n:'Devara (2024)',       ww:428,  col:'#f5c518', highlight:true},
-      {n:'Saaho (2019)',        ww:451,  col:'#f97316'},
-      {n:'Adipurush (2023)',    ww:393,  col:'#a78bfa'},
-      {n:'Kalki 2898 AD (2024)',ww:1042, col:'#2ec4b6'},
-    ],
-    trivia: [
-      'Jr. NTR plays a dual role as both Devara (father) and Vara (son) — requiring two completely different physicalities, voices, and emotional registers.',
-      'The film\'s title track "Fear Song" became one of the most-viewed Telugu film songs of 2024, with NTR\'s performance going viral globally.',
-      'Koratala Siva and Jr. NTR reunite after Janatha Garage (2016) — an 8-year gap between collaborations.',
-      'Janhvi Kapoor made her Telugu film debut with Devara, and her pairing with NTR generated significant pre-release buzz.',
-      'Saif Ali Khan\'s menacing, tattooed villain Bhaara was praised as one of his most committed physical transformations.',
-      'The coastal world of Devara — with its fishing villages, salt flats, and sea-going criminals — was built largely on location in coastal Andhra Pradesh over 180 shooting days.',
-      'Part 2 is confirmed and in development, with Koratala Siva and Jr. NTR set to continue the story.',
-    ],
-  },
-  '2.0': {
-    key: '2-0',
-    title: '2.0',
-    year: 2018,
-    lang: 'Tamil',
-    director: 'S. Shankar',
-    studio: 'Lyca Productions',
-    cast: [
-      {name:'Rajinikanth',   role:'Dr. Vaseegaran / Chitti'},
-      {name:'Akshay Kumar',  role:'Pakshi Rajan / The Villain'},
-      {name:'Amy Jackson',   role:'Nila (Robot 3.0)'},
-    ],
-    synopsis: 'The sequel to Shankar\'s landmark Enthiran (2010), set in a world where smartphone radiation is annihilating bird populations. A vengeful ornithologist, killed in protest against mobile towers, returns as a monstrous electromagnetic super-villain who can absorb and weaponise millions of phones simultaneously. Dr. Vaseegaran must resurrect his robot Chitti — now decommissioned — to battle this force of nature. Shot in 3D with over 3,000 VFX shots, 2.0 was India\'s most expensive film at the time of release and remains one of the most technically ambitious spectacles in the history of Indian cinema.',
-    release: '2018-11-29',
-    runtime: 148,
-    budget: 543,
-    india: 407,
-    ow: 155,
-    ww: 691,
-    ff: 42.5,
-    multiplier: 2.63,
-    lb: 3.1,
-    ott: 'Amazon Prime Video',
-    music: 'A.R. Rahman',
-    awards: [
-      'Filmfare (South) – Best Film Tamil',
-      'Filmfare (South) – Best Director (S. Shankar)',
-      'SIIMA – Best Visual Effects',
-      'National Award – Best Special Effects',
-      'Screen Awards – Best VFX',
-    ],
-    timeline: [
-      {label:'Week 1',   val:220},
-      {label:'Week 2',   val:76},
-      {label:'Week 3',   val:32},
-      {label:'Week 4+',  val:18},
-    ],
-    overseas: [
-      {market:'China',      val:185},
-      {market:'USA/Canada', val:45},
-      {market:'Gulf',       val:52},
-      {market:'UK',         val:30},
-      {market:'Australia',  val:15},
-      {market:'Other',      val:18},
-    ],
-    comparable: [
-      {n:'Enthiran (2010)',  ww:291,  col:'#22c55e'},
-      {n:'2.0 (2018)',       ww:691,  col:'#f5c518', highlight:true},
-      {n:'Jailer (2023)',    ww:604,  col:'#4fc3f7'},
-      {n:'Leo (2023)',       ww:605,  col:'#f97316'},
-      {n:'KGF 2 (2022)',     ww:1215, col:'#a78bfa'},
-      {n:'Coolie (2025)',    ww:518,  col:'#2ec4b6'},
-    ],
-    trivia: [
-      '2.0 was India\'s most expensive film at the time of its release, with a reported budget of ₹543 Cr — nearly double that of any previous Indian production.',
-      'The film contains over 3,000 VFX shots — more than any Indian film before it — handled by studios across India, the US, and South Korea over a period of three years.',
-      'Akshay Kumar was paid ₹65 Cr for his role as the villain Pakshi Rajan — at the time the highest fee paid to a Bollywood actor for a South Indian production.',
-      'The entire film was shot in 3D using specially imported cameras — the first Indian film to be natively shot in 3D rather than converted in post-production.',
-      'A.R. Rahman\'s score was recorded with a 100-piece live orchestra and features electronic textures designed to evoke the sound of electromagnetic interference — thematically mirroring the film\'s plot.',
-      '2.0\'s China release grossed approximately ₹185 Cr — the second-largest Chinese gross for an Indian film after Dangal — driven by the country\'s appetite for large-scale sci-fi spectacle.',
-      'Rajinikanth plays three distinct versions of Chitti in the film, each requiring different motion-capture rigs, prosthetics, and digital post-processing — a technical and physical feat for a then 67-year-old actor.',
-      'Despite its massive budget, 2.0 turned profitable largely because of its China run — without that market, the film would have fallen well short of breakeven domestically.',
-    ],
-  },
+ 'devara': {
+  key:'devara',
+  title:'Devara: Part 1',
+  year:2024,
+  lang:'Telugu',
+  director:'Koratala Siva',
+  studio:'Sithara Entertainments / Fortune Four Cinemas',
+  cast:[
+    {name:'N. T. Rama Rao Jr.',role:'Devara / Vara'},
+    {name:'Janhvi Kapoor',role:'Thangam'},
+    {name:'Saif Ali Khan',role:'Bhaara'},
+    {name:'Prakash Raj',role:'Saroja'},
+    {name:'Shine Tom Chacko',role:'Kantarao'}
+  ],
+  synopsis:'A coastal crime saga set across two timelines. Devara — a feared, almost mythological sea-lord who commands loyalty through terror — is forced to question his violent ways. Years later, his mild-mannered son Vara must reckon with a legacy of blood when old enemies resurface. Koratala Siva crafts a grandly scaled character study that is both an action spectacle and a meditation on fear, power, and legacy. Jr. NTR plays both father and son in a dual role performance of towering ambition, delivering his most physically and emotionally demanding work since RRR.',
+  release:'2024-09-27',
+  runtime:166,
+  budget:300,
+  india:292.47,
+  indiaGross:351,
+  ow:160,
+  ww:428,
+  overseasGross:77,
+  languageCollections:[
+    {language:'Telugu',val:220.99},
+    {language:'Hindi',val:62.12},
+    {language:'Tamil',val:5.97},
+    {language:'Kannada',val:2.04},
+    {language:'Malayalam',val:1.35}
+  ],
+  ff:17.8,
+  get multiplier() { return Math.round(this.india / this.ow * 100) / 100; },
+  lb:2.6,
+  ott:'Netflix',
+  music:'Anirudh Ravichander',
+  awards:[
+    'Filmfare (South) – Best Actor Telugu (Jr. NTR, Nominated)',
+    'SIIMA – Best Film Telugu (Nominated)',
+    'SIIMA – Best Director (Koratala Siva, Nominated)'
+  ],
+  daily:[
+    // Week 1
+    {date:'Fri Sep 27',day:'Fri',gross:82.50,chgDay:null,chgWeek:null,total:82.50,shows:19697,occupancy:46.6},
+    {date:'Sat Sep 28',day:'Sat',gross:38.20,chgDay:-53.7,chgWeek:null,total:120.70,shows:17279,occupancy:36.1},
+    {date:'Sun Sep 29',day:'Sun',gross:39.90,chgDay:4.5,chgWeek:null,total:160.60,shows:17558,occupancy:39.5},
+    {date:'Mon Sep 30',day:'Mon',gross:12.75,chgDay:-68.0,chgWeek:null,total:173.35,shows:15523,occupancy:19.9},
+    {date:'Tue Oct 1',day:'Tue',gross:14.00,chgDay:9.8,chgWeek:null,total:187.35,shows:15518,occupancy:19.9},
+    {date:'Wed Oct 2',day:'Wed',gross:21.00,chgDay:50.0,chgWeek:null,total:208.35,shows:14334,occupancy:28.1},
+    {date:'Thu Oct 3',day:'Thu',gross:7.25,chgDay:-65.5,chgWeek:null,total:215.60,shows:13986,occupancy:15.9},
+
+    // Week 2
+    {date:'Fri Oct 4',day:'Fri',gross:6.00,chgDay:-17.2,chgWeek:-79.0,total:221.60,shows:10038,occupancy:15.3},
+    {date:'Sat Oct 5',day:'Sat',gross:9.50,chgDay:58.3,chgWeek:-79.0,total:231.10,shows:10345,occupancy:19.4},
+    {date:'Sun Oct 6',day:'Sun',gross:12.65,chgDay:33.2,chgWeek:-79.0,total:243.75,shows:10720,occupancy:24.1},
+    {date:'Mon Oct 7',day:'Mon',gross:5.00,chgDay:-60.5,chgWeek:-79.0,total:248.75,shows:9805,occupancy:16.4},
+    {date:'Tue Oct 8',day:'Tue',gross:4.65,chgDay:-7.0,chgWeek:-79.0,total:253.40,shows:9892,occupancy:16.0},
+    {date:'Wed Oct 9',day:'Wed',gross:4.00,chgDay:-14.0,chgWeek:-79.0,total:257.40,shows:9792,occupancy:15.3},
+    {date:'Thu Oct 10',day:'Thu',gross:3.45,chgDay:-13.8,chgWeek:-79.0,total:260.85,shows:8439,occupancy:15.4},
+
+    // Week 3
+    {date:'Fri Oct 11',day:'Fri',gross:2.75,chgDay:-20.3,chgWeek:-56.4,total:263.60,shows:2256,occupancy:30.3},
+    {date:'Sat Oct 12',day:'Sat',gross:5.25,chgDay:90.9,chgWeek:-56.4,total:268.85,shows:2379,occupancy:45.3},
+    {date:'Sun Oct 13',day:'Sun',gross:5.30,chgDay:1.0,chgWeek:-56.4,total:274.15,shows:2418,occupancy:45.0},
+    {date:'Mon Oct 14',day:'Mon',gross:2.15,chgDay:-59.4,chgWeek:-56.4,total:276.30,shows:2323,occupancy:26.4},
+    {date:'Tue Oct 15',day:'Tue',gross:1.60,chgDay:-25.6,chgWeek:-56.4,total:277.90,shows:2331,occupancy:22.6},
+    {date:'Wed Oct 16',day:'Wed',gross:1.40,chgDay:-12.5,chgWeek:-56.4,total:279.30,shows:2344,occupancy:20.9},
+    {date:'Thu Oct 17',day:'Thu',gross:1.30,chgDay:-7.1,chgWeek:-56.4,total:280.60,shows:2296,occupancy:20.7},
+
+    // Week 4
+    {date:'Fri Oct 18',day:'Fri',gross:1.05,chgDay:-19.2,chgWeek:-63.0,total:281.65,shows:1830,occupancy:19.7},
+    {date:'Sat Oct 19',day:'Sat',gross:1.45,chgDay:38.1,chgWeek:-63.0,total:283.10,shows:1955,occupancy:21.8},
+    {date:'Sun Oct 20',day:'Sun',gross:1.90,chgDay:31.0,chgWeek:-63.0,total:285.00,shows:2007,occupancy:25.5},
+    {date:'Mon Oct 21',day:'Mon',gross:0.80,chgDay:-57.9,chgWeek:-63.0,total:285.80,shows:1917,occupancy:17.5},
+    {date:'Tue Oct 22',day:'Tue',gross:0.80,chgDay:0.0,chgWeek:-63.0,total:286.60,shows:1923,occupancy:18.2},
+    {date:'Wed Oct 23',day:'Wed',gross:0.65,chgDay:-18.8,chgWeek:-63.0,total:287.25,shows:1951,occupancy:18.4},
+    {date:'Thu Oct 24',day:'Thu',gross:0.65,chgDay:0.0,chgWeek:-63.0,total:287.90,shows:1837,occupancy:18.8}
+  ],
+  wwCum:[
+    {d:1,v:142.02},
+    {d:2,v:198.04},
+    {d:3,v:250.06},
+    {d:4,v:266.92},
+    {d:5,v:285.63},
+    {d:6,v:313.39},
+    {d:7,v:323.43},
+    {d:8,v:332.19},
+    {d:9,v:344.73},
+    {d:10,v:362.30},
+    {d:11,v:368.07},
+    {d:12,v:373.42},
+    {d:13,v:378.32},
+    {d:14,v:383.00}
+  ],
+  ffDaily:[
+    {d:1,v:4.270121},
+    {d:2,v:2.143314},
+    {d:3,v:2.277315},
+    {d:4,v:0.800980},
+    {d:5,v:0.871893},
+    {d:6,v:1.293764},
+    {d:7,v:0.467312},
+    {d:8,v:0.378036},
+    {d:9,v:0.588417},
+    {d:10,v:0.791055},
+    {d:11,v:0.384203},
+    {d:12,v:0.360557},
+    {d:13,v:0.310890},
+    {d:14,v:0.268242}
+  ],
+  timeline:[
+    {label:'Week 1',value:220},
+    {label:'Week 2',value:48},
+    {label:'Week 3',value:17},
+    {label:'Week 4+',value:7.47}
+  ],
+  overseas:[
+    {market:'USA/Canada',value:65},
+    {market:'Gulf',value:52},
+    {market:'UK',value:30},
+    {market:'Australia',value:18},
+    {market:'Other',value:28}
+  ],
+  comparable:[
+    {n:'RRR (2022)',ww:1230,col:'#22c55e'},
+    {n:'Salaar (2023)',ww:617,col:'#4fc3f7'},
+    {n:'Devara (2024)',ww:428,col:'#f5c518',highlight:true},
+    {n:'Saaho (2019)',ww:451,col:'#f97316'},
+    {n:'Adipurush (2023)',ww:393,col:'#a78bfa'},
+    {n:'Kalki 2898 AD (2024)',ww:1042,col:'#2ec4b6'}
+  ]
+},
+
+'2.0': {
+  key:'2-0',
+  title:'2.0',
+  year:2018,
+  lang:'Tamil',
+  director:'S. Shankar',
+  studio:'Lyca Productions',
+  cast:[
+    {name:'Rajinikanth',role:'Dr. Vaseegaran / Chitti'},
+    {name:'Akshay Kumar',role:'Pakshi Rajan / The Villain'},
+    {name:'Amy Jackson',role:'Nila (Robot 3.0)'}
+  ],
+  synopsis:'The sequel to Shankar\'s landmark Enthiran (2010), set in a world where smartphone radiation is annihilating bird populations. A vengeful ornithologist, killed in protest against mobile towers, returns as a monstrous electromagnetic super-villain who can absorb and weaponise millions of phones simultaneously. Dr. Vaseegaran must resurrect his robot Chitti — now decommissioned — to battle this force of nature. Shot in 3D with over 3,000 VFX shots, 2.0 was India\'s most expensive film at the time of release and remains one of the most technically ambitious spectacles in the history of Indian cinema.',
+  release:'2018-11-29',
+  runtime:148,
+  budget:543,
+  india:407.05,
+  indiaGross:519,
+  ow:155,
+  ww:691,
+  overseasGross:172,
+  ff:42.5,
+  get multiplier() { return Math.round(this.india / this.ow * 100) / 100; },
+  lb:3.1,
+  ott:'Amazon Prime Video',
+  music:'A.R. Rahman',
+  awards:[
+    'Filmfare (South) – Best Film Tamil',
+    'Filmfare (South) – Best Director (S. Shankar)',
+    'SIIMA – Best Visual Effects',
+    'National Award – Best Special Effects',
+    'Screen Awards – Best VFX'
+  ],
+  daily:[
+    // Week 1
+    {date:'Thu Nov 29',day:'Thu',gross:60.25,chgDay:null,chgWeek:null,total:60.25,shows:null,occupancy:null},
+    {date:'Fri Nov 30',day:'Fri',gross:38.00,chgDay:null,chgWeek:null,total:98.25,shows:null,occupancy:null},
+    {date:'Sat Dec 1',day:'Sat',gross:51.00,chgDay:null,chgWeek:null,total:149.25,shows:null,occupancy:null},
+    {date:'Sun Dec 2',day:'Sun',gross:66.00,chgDay:null,chgWeek:null,total:215.25,shows:null,occupancy:null},
+    {date:'Mon Dec 3',day:'Mon',gross:29.00,chgDay:null,chgWeek:null,total:244.25,shows:null,occupancy:null},
+    {date:'Tue Dec 4',day:'Tue',gross:25.00,chgDay:null,chgWeek:null,total:269.25,shows:null,occupancy:null},
+    {date:'Wed Dec 5',day:'Wed',gross:19.00,chgDay:null,chgWeek:null,total:288.25,shows:null,occupancy:null},
+    {date:'Thu Dec 6',day:'Thu',gross:15.00,chgDay:null,chgWeek:null,total:303.25,shows:null,occupancy:null},
+
+    // Week 2
+    {date:'Fri Dec 7',day:'Fri',gross:11.10,chgDay:null,chgWeek:null,total:314.35,shows:null,occupancy:null},
+    {date:'Sat Dec 8',day:'Sat',gross:18.00,chgDay:null,chgWeek:null,total:332.35,shows:null,occupancy:null},
+    {date:'Sun Dec 9',day:'Sun',gross:24.00,chgDay:null,chgWeek:null,total:356.35,shows:null,occupancy:null},
+    {date:'Mon Dec 10',day:'Mon',gross:7.25,chgDay:null,chgWeek:null,total:363.60,shows:null,occupancy:null},
+    {date:'Tue Dec 11',day:'Tue',gross:5.45,chgDay:null,chgWeek:null,total:369.05,shows:null,occupancy:null},
+    {date:'Wed Dec 12',day:'Wed',gross:4.65,chgDay:null,chgWeek:null,total:373.70,shows:null,occupancy:null},
+    {date:'Thu Dec 13',day:'Thu',gross:3.60,chgDay:null,chgWeek:null,total:377.30,shows:null,occupancy:null},
+
+    // Week 3
+    {date:'Fri Dec 14',day:'Fri',gross:2.80,chgDay:null,chgWeek:null,total:380.10,shows:null,occupancy:null},
+    {date:'Sat Dec 15',day:'Sat',gross:4.20,chgDay:null,chgWeek:null,total:384.30,shows:null,occupancy:null},
+    {date:'Sun Dec 16',day:'Sun',gross:5.50,chgDay:null,chgWeek:null,total:389.80,shows:null,occupancy:null},
+    {date:'Mon Dec 17',day:'Mon',gross:2.50,chgDay:null,chgWeek:null,total:392.30,shows:null,occupancy:null},
+    {date:'Tue Dec 18',day:'Tue',gross:2.40,chgDay:null,chgWeek:null,total:394.70,shows:null,occupancy:null},
+    {date:'Wed Dec 19',day:'Wed',gross:2.30,chgDay:null,chgWeek:null,total:397.00,shows:null,occupancy:null},
+    {date:'Thu Dec 20',day:'Thu',gross:2.20,chgDay:null,chgWeek:null,total:399.20,shows:null,occupancy:null}
+  ],
+  wwCum:[
+    {d:1,v:120},
+    {d:2,v:212},
+    {d:3,v:319},
+    {d:4,v:379},
+    {d:5,v:440},
+    {d:6,v:490},
+    {d:7,v:521},
+    {d:8,v:546},
+    {d:10,v:581},
+    {d:11,v:624},
+    {d:12,v:633},
+    {d:13,v:641},
+    {d:14,v:647}
+  ],
+  ffDaily:[],
+  timeline:[
+    {label:'Week 1',value:303.25},
+    {label:'Week 2',value:74.05},
+    {label:'Week 3',value:21.90},
+    {label:'Week 4',value:4.50},
+    {label:'Week 5',value:1.70},
+    {label:'Week 6',value:0.62},
+    {label:'Week 7',value:0.15},
+    {label:'Week 8',value:0.03}
+  ],
+  overseas:[
+    {market:'China',value:185},
+    {market:'USA/Canada',value:45},
+    {market:'Gulf',value:52},
+    {market:'UK',value:30},
+    {market:'Australia',value:15},
+    {market:'Other',value:18}
+  ],
+  comparable:[
+    {n:'Enthiran (2010)',ww:291,col:'#22c55e'},
+    {n:'2.0 (2018)',ww:691,col:'#f5c518',highlight:true},
+    {n:'Jailer (2023)',ww:604,col:'#4fc3f7'},
+    {n:'Leo (2023)',ww:605,col:'#f97316'},
+    {n:'KGF 2 (2022)',ww:1215,col:'#a78bfa'},
+    {n:'Coolie (2025)',ww:518,col:'#2ec4b6'}
+  ]
+},
   'the goat': {
     key: 'the-goat',
     title: 'The GOAT',
