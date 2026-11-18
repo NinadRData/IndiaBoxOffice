@@ -1613,6 +1613,251 @@ body.light #page-topgrossers #tg-ow-list > div > div:nth-child(n+3) {
     height: 138px;
   }
 }
+  /* Homepage hero refresh */
+#page-main > .home-hero {
+  height: auto;
+  min-height: min(790px, 100svh);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 105px clamp(20px, 5vw, 76px) 54px;
+  background: #10171b url('https://image.tmdb.org/t/p/original/jjsoczqMGkSZJANJEqhFUeZFwDX.jpg') center 28% / cover no-repeat;
+}
+
+#page-main > .home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(7,12,16,.38), rgba(7,12,16,.12) 28%, rgba(7,12,16,.65) 57%, #11171b),
+    linear-gradient(90deg, rgba(7,12,16,.5), transparent 55%, rgba(7,12,16,.18));
+}
+
+#page-main .home-hero .hero-panels {
+  flex: 0 0 auto;
+  width: min(100%, 680px);
+  height: 176px;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.7vw, 18px);
+  margin: 0 auto 27px;
+  perspective: 900px;
+}
+
+#page-main .home-hero .panel {
+  flex: 0 1 150px;
+  height: 168px;
+  min-width: 0;
+  border: 1px solid rgba(255,255,255,.23);
+  border-radius: 10px;
+  box-shadow: 0 18px 45px rgba(0,0,0,.38);
+  transform: rotate(var(--card-tilt, 0deg)) translateY(var(--card-lift, 0px));
+  transition: transform .3s ease, flex-basis .3s ease, box-shadow .3s ease;
+}
+
+#page-main .home-hero .panel:nth-child(1) { --card-tilt: -7deg; --card-lift: 9px; }
+#page-main .home-hero .panel:nth-child(2) { --card-tilt: 0deg; --card-lift: -4px; z-index: 1; }
+#page-main .home-hero .panel:nth-child(3) { --card-tilt: 7deg; --card-lift: 9px; }
+
+#page-main .home-hero .panel:hover {
+  flex: 0 1 166px;
+  transform: rotate(0) translateY(-8px) scale(1.03);
+  box-shadow: 0 22px 55px rgba(0,0,0,.5);
+  z-index: 3;
+}
+
+#page-main .home-hero .panel-overlay {
+  background: linear-gradient(180deg, rgba(0,0,0,.03) 20%, rgba(0,0,0,.12) 45%, rgba(0,0,0,.86));
+}
+
+#page-main .home-hero .home-film-rank {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  padding: 4px 7px;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 999px;
+  background: rgba(8,13,17,.6);
+  color: #fff;
+  font-size: .55rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+
+#page-main .home-hero .home-film-copy {
+  position: absolute;
+  inset: auto 12px 13px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,.8);
+}
+
+#page-main .home-hero .home-film-copy strong {
+  display: block;
+  color: #fff;
+  font: 900 1.2rem/1 'Barlow Condensed', sans-serif;
+}
+
+#page-main .home-hero .home-film-copy span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(255,255,255,.76);
+  font-size: .65rem;
+}
+
+#page-main .home-hero-content {
+  position: relative;
+  width: min(100%, 850px);
+  color: #fff;
+  text-align: center;
+}
+
+#page-main .home-hero-kicker {
+  margin-bottom: 12px;
+  color: #8fe2b1;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+#page-main .home-hero-content h1 {
+  color: #fff;
+  font: 900 clamp(2.8rem, 7vw, 5.7rem)/.92 'Barlow Condensed', sans-serif;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+#page-main .home-hero-content h1 span { color: #9be7b6; }
+
+#page-main .home-hero-content p {
+  max-width: 590px;
+  margin: 17px auto 0;
+  color: rgba(255,255,255,.76);
+  font-size: clamp(.9rem, 1.5vw, 1.05rem);
+  line-height: 1.55;
+}
+
+#page-main .home-hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 23px;
+}
+
+#page-main .home-hero-actions button {
+  min-height: 42px;
+  padding: 0 19px;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 999px;
+  background: rgba(12,19,23,.42);
+  color: #fff;
+  font: 700 .72rem 'Barlow', sans-serif;
+  letter-spacing: .7px;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease, border-color .2s ease;
+  backdrop-filter: blur(8px);
+}
+
+#page-main .home-hero-actions button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.65);
+  background: rgba(255,255,255,.12);
+}
+
+#page-main .home-hero-actions button.primary {
+  border-color: #31c66b;
+  background: #31c66b;
+  color: #062313;
+}
+
+#page-main .home-hero-actions button.primary:hover { background: #55d985; }
+
+#page-main .home-hero-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 24px;
+  color: rgba(255,255,255,.58);
+  font-size: .64rem;
+}
+
+#page-main .home-hero-meta span::before {
+  content: '•';
+  margin-right: 7px;
+  color: #7ee2a5;
+}
+
+#page-main .home-topten {
+  width: min(1440px, 100%);
+  margin: -4px auto 0;
+  padding: 0 clamp(16px, 4vw, 56px) 1.2rem;
+}
+
+#page-main .home-topten-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: .8rem;
+}
+
+#page-main .home-topten-head .sh { margin: 0; }
+
+#page-main .home-topten-head button {
+  padding: 7px 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: transparent;
+  color: #dbe3e7;
+  font: 600 .66rem 'Barlow', sans-serif;
+  cursor: pointer;
+}
+
+#page-main .home-topten .poster-scroll { gap: 10px; }
+#page-main .home-topten .pcard { flex-basis: 108px; }
+#page-main .home-topten .pcard-img { width: 108px; height: 154px; border-radius: 7px; }
+#page-main .home-topten .pcard-title { width: 108px; color: rgba(255,255,255,.84); }
+#page-main .home-topten .pcard-amt { color: rgba(255,255,255,.56); }
+
+body.light #page-main .home-hero-content,
+body.light #page-main .home-hero-content h1,
+body.light #page-main .home-hero-actions button { color: #fff !important; }
+
+body.light #page-main .home-hero-content h1 span { color: #9be7b6 !important; }
+body.light #page-main .home-topten .pcard-title { color: rgba(255,255,255,.84) !important; }
+body.light #page-main .home-topten .pcard-amt { color: rgba(255,255,255,.56) !important; }
+
+@media (max-width: 700px) {
+  #page-main > .home-hero {
+    min-height: 690px;
+    padding: 98px 18px 42px;
+    background-position: 55% 22%;
+  }
+
+  #page-main .home-hero .hero-panels { height: 145px; margin-bottom: 22px; }
+  #page-main .home-hero .panel { height: 138px; flex-basis: 29%; }
+  #page-main .home-hero .panel:hover { flex-basis: 33%; }
+  #page-main .home-hero .home-film-copy { inset: auto 5px 9px; }
+  #page-main .home-hero .home-film-copy strong { font-size: .95rem; }
+  #page-main .home-hero .home-film-copy span { font-size: .55rem; }
+  #page-main .home-hero .home-film-rank { top: 5px; left: 5px; font-size: .45rem; padding: 3px 5px; }
+  #page-main .home-hero-meta { gap: 7px 13px; font-size: .59rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #page-main .home-hero .panel,
+  #page-main .home-hero-actions button { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -3128,9 +3373,33 @@ var YR_DATA = {
 
 <!-- ═══════════ PAGE: MAIN ═══════════ -->
 <div id="page-main" class="page active">
-  <div class="hero">
-    <div class="hero-panels" id="heroPanels"></div>
+ <div class="hero home-hero">
+  <div class="hero-panels" id="heroPanels"></div>
+  <div class="home-hero-content">
+    <div class="home-hero-kicker">Indian cinema · box office</div>
+    <h1>Big stories.<br><span>Bigger numbers.</span></h1>
+    <p>Explore the films, stars, and box-office runs shaping Indian cinema. Follow daily collections, compare trajectories, and browse the all-time record books.</p>
+    <div class="home-hero-actions">
+      <button class="primary" onclick="showPage('topgrossers')">Explore top grossers <span aria-hidden="true">→</span></button>
+      <button onclick="showPage('tracking')">Compare film runs</button>
+    </div>
+    <div class="home-hero-meta">
+      <span>India net and worldwide</span>
+      <span>Daily film tracking</span>
+      <span>Records across languages</span>
+    </div>
   </div>
+</div>
+  <section class="home-topten" aria-label="All-time highest grossers">
+  <div class="home-topten-head">
+    <div class="sh">
+      <h2>All-time worldwide leaders</h2>
+      <span>Top 15 · ₹ Crore</span>
+    </div>
+    <button onclick="showPage('topgrossers')">Full rankings <span aria-hidden="true">→</span></button>
+  </div>
+  <div class="poster-scroll" id="posterRow"></div>
+</section>
 
   <!-- ═══ THIS WEEK AT THE BOX OFFICE ═══ -->
   <div style="padding:1.75rem 2rem 0">
@@ -4481,7 +4750,8 @@ function loadAllPosters() {
     var amtEl   = card.querySelector('.pcard-amt');
     if (!titleEl) return;
     var title = titleEl.textContent.trim();
-    var year  = amtEl ? parseInt(amtEl.textContent) : null;
+var year = Number(card.getAttribute('data-film-year')) ||
+  (amtEl ? parseInt(amtEl.textContent) : null);
     tmdbSearch(title, year, function(res) {
       if (!res || !res.poster) return;
       var imgDiv = card.querySelector('.pcard-img');
@@ -6565,9 +6835,6 @@ var FILM_PAGES = {
       'Director Venkat Prabhu is known for his high-energy action comedies and had previously worked with stars like Jiiva and Dhanush before landing the Vijay collaboration.',
     ],
   },
-  '2.0': {key:'2-0',title:'2.0',year:2018,lang:'Tamil',director:'S. Shankar',studio:'Lyca Productions',cast:[{name:'Rajinikanth',role:'Dr. Vaseegaran / Chitti'},{name:'Akshay Kumar',role:'Pakshi Rajan'},{name:'Amy Jackson',role:'Nila'}],synopsis:'See 2.0.',release:'2018-11-29',runtime:148,budget:543,india:407,ow:155,ww:691,ff:42.5,multiplier:2.63,lb:3.1,ott:'Amazon Prime Video',music:'A.R. Rahman',awards:['National Award – Best Special Effects'],timeline:[{label:'Week 1',val:220},{label:'Week 2',val:76},{label:'Week 3',val:32},{label:'Week 4+',val:18}],overseas:[{market:'China',val:185},{market:'USA/Canada',val:45},{market:'Gulf',val:52},{market:'UK',val:30},{market:'Australia',val:15},{market:'Other',val:18}],comparable:[{n:'2.0 (2018)',ww:691,col:'#f5c518',highlight:true},{n:'Enthiran (2010)',ww:291,col:'#22c55e'},{n:'Jailer (2023)',ww:604,col:'#4fc3f7'}],trivia:['India\'s most expensive film at the time at ₹543 Cr.','First Indian film natively shot in 3D.']},
-  'robot 2': {key:'2-0',title:'2.0',year:2018,lang:'Tamil',director:'S. Shankar',studio:'Lyca Productions',cast:[{name:'Rajinikanth',role:'Dr. Vaseegaran / Chitti'},{name:'Akshay Kumar',role:'Pakshi Rajan'}],synopsis:'See 2.0.',release:'2018-11-29',runtime:148,budget:543,india:407,ow:155,ww:691,ff:42.5,multiplier:2.63,lb:3.1,ott:'Amazon Prime Video',music:'A.R. Rahman',awards:[],timeline:[{label:'Week 1',val:220},{label:'Week 2',val:76},{label:'Week 3',val:32},{label:'Week 4+',val:18}],overseas:[{market:'China',val:185},{market:'USA/Canada',val:45},{market:'Gulf',val:52},{market:'UK',val:30},{market:'Australia',val:15},{market:'Other',val:18}],comparable:[{n:'2.0 (2018)',ww:691,col:'#f5c518',highlight:true},{n:'Enthiran (2010)',ww:291,col:'#22c55e'}],trivia:['Sequel to Enthiran (2010).','Over 3,000 VFX shots.']},
-  'goat': {key:'the-goat',title:'The GOAT',year:2024,lang:'Tamil',director:'Venkat Prabhu',studio:'Agni Studios / Sun Pictures',cast:[{name:'Vijay',role:'Gandhi / Jeevan'},{name:'Sneha',role:'Amudha'},{name:'Meenakshi Chaudhary',role:'Kavya'}],synopsis:'See The GOAT.',release:'2024-09-05',runtime:169,budget:260,india:252,ow:92,ww:457,ff:17.9,multiplier:2.74,lb:3.0,ott:'Netflix',music:'Yuvan Shankar Raja',awards:[],timeline:[{label:'Week 1',val:175},{label:'Week 2',val:30},{label:'Week 3',val:9},{label:'Week 4+',val:4}],overseas:[{market:'USA/Canada',val:82},{market:'Gulf',val:65},{market:'UK',val:42},{market:'Australia',val:25},{market:'Other',val:25}],comparable:[{n:'Leo (2023)',ww:605,col:'#22c55e'},{n:'The GOAT (2024)',ww:457,col:'#f5c518',highlight:true},{n:'Varisu (2023)',ww:297,col:'#f97316'}],trivia:['Vijay\'s penultimate film before retirement from acting.','Overseas gross of ₹239 Cr among highest ever for a Tamil film.']},
   'war 2': {
     key: 'war-2',
     title: 'War 2',
@@ -12912,27 +13179,22 @@ function renderLiveTracker() {
 // MAIN PAGE
 // ═══════════════════════════════════════
 // Hero panels from top 3 worldwide
+// Hero panels from top 3 worldwide
 var heroFilms = [
-  {n:'Dangal',        y:2016, ww:2070, key:'dangal',      backdrop:'https://image.tmdb.org/t/p/original/jjsoczqMGkSZJANJEqhFUeZFwDX.jpg'},
-  {n:'Baahubali 2',   y:2017, ww:1810, key:'baahubali-2', backdrop:'https://image.tmdb.org/t/p/original/4oFkcnOnv2xJVQVKJFuWCKgLvLn.jpg'},
-  {n:'Pushpa 2',      y:2024, ww:1742, key:'pushpa-2',    backdrop:'https://image.tmdb.org/t/p/original/4KLgcoAkAI2mTMdnCBJLDPmNKiZ.jpg'},
+  {n:'Dangal',      y:2016, ww:2070, key:'dangal',      backdrop:'https://image.tmdb.org/t/p/original/jjsoczqMGkSZJANJEqhFUeZFwDX.jpg'},
+  {n:'Baahubali 2', y:2017, ww:1810, key:'baahubali-2', backdrop:'https://image.tmdb.org/t/p/original/4oFkcnOnv2xJVQVKJFuWCKgLvLn.jpg'},
+  {n:'Pushpa 2',    y:2024, ww:1742, key:'pushpa-2',    backdrop:'https://image.tmdb.org/t/p/original/4KLgcoAkAI2mTMdnCBJLDPmNKiZ.jpg'}
 ];
-document.getElementById('heroPanels').innerHTML = heroFilms.map(function(f,i){
-  var rank = ['#1 All-Time','#2 All-Time','#3 All-Time'][i];
-  var col  = ['#f5c518','#c0c0c0','#cd7f32'][i];
-  return '<div class="panel" onclick="showFilmPage(\''+f.key+'\')" style="cursor:pointer">'
-    +'<div class="panel-bg" style="background:url(\''+f.backdrop+'\') center/cover no-repeat,'+bg(i)+'">'
-    +'</div>'
-    +'<div class="panel-overlay"></div>'
-    +'<div style="position:absolute;bottom:1.5rem;left:1.2rem;right:1.2rem">'
-      +'<div style="font-size:.6rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:'+col+';margin-bottom:.3rem">'+rank+'</div>'
-      +'<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:clamp(1.3rem,2.5vw,2rem);font-weight:900;color:#fff;line-height:1.1">'+f.n+'</div>'
-      +'<div style="font-size:.75rem;color:rgba(255,255,255,.55);margin-top:3px">₹'+f.ww+' Cr Worldwide · '+f.y+'</div>'
-      +'<div style="margin-top:.6rem;font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:5px">'
-        +'<span style="width:12px;height:1px;background:rgba(255,255,255,.25);display:inline-block"></span>View Full Page'
-      +'</div>'
-    +'</div>'
-  +'</div>';
+
+document.getElementById('heroPanels').innerHTML = heroFilms.map(function(f, i) {
+  var rank = ['#1 All-Time', '#2 All-Time', '#3 All-Time'][i];
+
+  return '<div class="panel" onclick="showFilmPage(\\'' + f.key + '\\')" role="button" tabindex="0" aria-label="Open ' + f.n + ' film page">' +
+    '<div class="panel-bg" style="background:url(\\'' + f.backdrop + '\\') center/cover no-repeat,' + bg(i) + '"></div>' +
+    '<div class="panel-overlay"></div>' +
+    '<span class="home-film-rank">' + rank + '</span>' +
+    '<div class="home-film-copy"><strong>' + f.n + '</strong><span>₹' + f.ww + ' Cr · ' + f.y + '</span></div>' +
+  '</div>';
 }).join('');
 
 // Live tracker
@@ -12945,6 +13207,7 @@ RECENT_FILMS.slice(0,15).forEach(function(f,i){
   var hasPg = !!getFilmPage(f.n);
   var el = document.createElement('div');
   el.className = 'pcard';
+  if (f.y) el.setAttribute('data-film-year', f.y);
   if(hasPg) el.style.cursor='pointer';
   el.innerHTML = '<div class="pcard-img" style="border-top:2px solid '+col+(hasPg?';box-shadow:0 0 0 1px '+col+'44':'')+'">'
     +'<div class="pcard-bg" style="background:'+bg(i)+'"><div class="pcard-bg-text">'+f.n.toUpperCase().slice(0,9)+'</div></div>'
