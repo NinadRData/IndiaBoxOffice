@@ -16423,7 +16423,8 @@ function buildDirectorFilmographiesFromEntries() {
 
     var year = Number(film.y);
     var existing = DIRECTOR_DATA[director].find(function (row) {
-      return row.n.toLowerCase() === String(film.n).toLowerCase() &&
+      return String(row.n || '').trim().toLowerCase() ===
+          String(film.n).trim().toLowerCase() &&
         Number(row.y) === year;
     });
 
@@ -16437,40 +16438,50 @@ function buildDirectorFilmographiesFromEntries() {
 
     if (!existing) {
       DIRECTOR_DATA[director].push(row);
-      return;
+    } else {
+      if (row.bo != null) existing.bo = row.bo;
+      if (row.ff != null) existing.ff = row.ff;
+      if (row.lb != null) existing.lb = row.lb;
     }
-
-    // Use the film entry's values when present; keep existing curated values otherwise.
-    if (row.bo != null) existing.bo = row.bo;
-    if (row.ff != null) existing.ff = row.ff;
-    if (row.lb != null) existing.lb = row.lb;
   });
 
   Object.keys(DIRECTOR_DATA).forEach(function (director) {
-  var seenFilms = {};
-  var uniqueFilms = [];
+    var seenFilms = {};
+    var uniqueFilms = [];
 
-  (DIRECTOR_DATA[director] || []).forEach(function (film) {
-    var filmKey =
-      String(film.n || '').trim().toLowerCase() + '|' +
-      String(Number(film.y) || '');
+    (DIRECTOR_DATA[director] || []).forEach(function (film) {
+      var filmKey =
+        String(film.n || '').trim().toLowerCase() + '|' +
+        String(Number(film.y) || '');
 
-    if (!film.n || !film.y || seenFilms[filmKey]) return;
+      if (!film.n || !film.y || seenFilms[filmKey]) return;
 
-    seenFilms[filmKey] = true;
-    uniqueFilms.push(film);
+      seenFilms[filmKey] = true;
+      uniqueFilms.push(film);
+    });
+
+    if (uniqueFilms.length < 2) {
+      delete DIRECTOR_DATA[director];
+      return;
+    }
+
+    uniqueFilms.sort(function (a, b) {
+      return Number(a.y) - Number(b.y);
+    });
+
+    DIRECTOR_DATA[director] = uniqueFilms;
   });
+}
 
-  if (uniqueFilms.length < 2) {
-    delete DIRECTOR_DATA[director];
-    return;
-  }
+buildDirectorFilmographiesFromEntries();
 
-  uniqueFilms.sort(function (a, b) {
-    return Number(a.y) - Number(b.y);
-  });
-
-  DIRECTOR_DATA[director] = uniqueFilms;
+// Populate director dropdown
+var dirSel = document.getElementById('directorSelect');
+Object.keys(DIRECTOR_DATA).sort().forEach(function (director) {
+  var option = document.createElement('option');
+  option.value = director;
+  option.textContent = director;
+  dirSel.appendChild(option);
 });
   
   
