@@ -16447,18 +16447,32 @@ function buildDirectorFilmographiesFromEntries() {
   });
 
   Object.keys(DIRECTOR_DATA).forEach(function (director) {
-    DIRECTOR_DATA[director].sort(function (a, b) {
-      return Number(a.y) - Number(b.y);
-    });
-  });
-}
+  var seenFilms = {};
+  var uniqueFilms = [];
 
-buildDirectorFilmographiesFromEntries();
-// Populate director dropdown
-var dirSel = document.getElementById('directorSelect');
-Object.keys(DIRECTOR_DATA).sort().forEach(function(d){
-  var o = document.createElement('option'); o.value = d; o.textContent = d; dirSel.appendChild(o);
+  (DIRECTOR_DATA[director] || []).forEach(function (film) {
+    var filmKey =
+      String(film.n || '').trim().toLowerCase() + '|' +
+      String(Number(film.y) || '');
+
+    if (!film.n || !film.y || seenFilms[filmKey]) return;
+
+    seenFilms[filmKey] = true;
+    uniqueFilms.push(film);
+  });
+
+  if (uniqueFilms.length < 2) {
+    delete DIRECTOR_DATA[director];
+    return;
+  }
+
+  uniqueFilms.sort(function (a, b) {
+    return Number(a.y) - Number(b.y);
+  });
+
+  DIRECTOR_DATA[director] = uniqueFilms;
 });
+  
   
 
 function setDirSort(s) {
