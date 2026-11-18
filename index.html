@@ -4448,8 +4448,7 @@ function lookupPool() {
   });
   // From FILMS master
   FILMS.forEach(function(f) {
-    add(f.n, f.y, f.l, f.ww, f.india, f.ff, f.lb, f.ow, null, null, f.actors||[], null, f.studio, null, null, [], [], [], null, null);
-  });
+add(f.n, f.y, f.l, f.ww, f.india, f.ff, f.lb, f.ow, null, null, f.actors||[], f.director || null, f.studio, null, null, [], [], [], null, null);  });
   // From FF_SORTED
   FF_SORTED.forEach(function(f) {
     add(f.n, f.y, f.l, null, null, f.ff, null, null, null, null, f.actors||[], null, null, null, null, [], [], [], null, null);
@@ -4734,15 +4733,34 @@ function toggleTheme() {
 var TMDB_KEY = '4e0319e384b46982454d1d873ceac50b';
 var TMDB_IMG_BASE = 'https://image.tmdb.org/t/p/';
 var tmdbCache = {};
-
+function normalizeTMDBTitle(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]/g, '');
+}
 function tmdbSearch(title, year, cb) {
   var cacheKey = title + '|' + (year || '');
   if (tmdbCache[cacheKey] !== undefined) { cb(tmdbCache[cacheKey]); return; }
   fetch('https://api.themoviedb.org/3/search/movie?api_key=' + TMDB_KEY + '&query=' + encodeURIComponent(title) + (year ? '&year=' + year : '') + '&language=en-US&page=1')
     .then(function(r) { return r.json(); })
     .then(function(d) {
-      var results = d.results || [];
-      var match = results.find(function(m) { return m.release_date && m.release_date.slice(0,4) == year; }) || results[0] || null;
+     var results = d.results || [];
+var wantedTitle = normalizeTMDBTitle(title);
+var wantedYear = year ? String(year).slice(0, 4) : '';
+
+var match = results.filter(function (movie) {
+  var titleMatches =
+    normalizeTMDBTitle(movie.title) === wantedTitle ||
+    normalizeTMDBTitle(movie.original_title) === wantedTitle;
+  var movieYear = movie.release_date
+    ? String(movie.release_date).slice(0, 4)
+    : '';
+
+  return titleMatches && (!wantedYear || movieYear === wantedYear);
+}).sort(function (a, b) {
+  return Number(b.popularity || 0) - Number(a.popularity || 0);
+})[0] || null;
       if (!match) { tmdbCache[cacheKey] = null; cb(null); return; }
       // Fetch full movie details for higher quality images
       fetch('https://api.themoviedb.org/3/movie/' + match.id + '?api_key=' + TMDB_KEY + '&append_to_response=images')
@@ -16394,7 +16412,48 @@ var actressSel = document.getElementById('actressSelect');
 Object.keys(ACTRESS_DATA).sort().forEach(function(a){
   var o = document.createElement('option'); o.value = a; o.textContent = a; actressSel.appendChild(o);
 });
+function buildDirectorFilmographiesFromEntries() {
+  var films = lookupPool();
 
+  films.forEach(function (film) {
+    var director = String(film.director || '').trim();
+    if (!director || !film.n || !film.y) return;
+
+    if (!DIRECTOR_DATA[director]) DIRECTOR_DATA[director] = [];
+
+    var year = Number(film.y);
+    var existing = DIRECTOR_DATA[director].find(function (row) {
+      return row.n.toLowerCase() === String(film.n).toLowerCase() &&
+        Number(row.y) === year;
+    });
+
+    var row = {
+      n: film.n,
+      y: year,
+      bo: film.ww != null && isFinite(Number(film.ww)) ? Number(film.ww) : null,
+      ff: film.ff != null && isFinite(Number(film.ff)) ? Number(film.ff) : null,
+      lb: film.lb != null && isFinite(Number(film.lb)) ? Number(film.lb) : null
+    };
+
+    if (!existing) {
+      DIRECTOR_DATA[director].push(row);
+      return;
+    }
+
+    // Use the film entry's values when present; keep existing curated values otherwise.
+    if (row.bo != null) existing.bo = row.bo;
+    if (row.ff != null) existing.ff = row.ff;
+    if (row.lb != null) existing.lb = row.lb;
+  });
+
+  Object.keys(DIRECTOR_DATA).forEach(function (director) {
+    DIRECTOR_DATA[director].sort(function (a, b) {
+      return Number(a.y) - Number(b.y);
+    });
+  });
+}
+
+buildDirectorFilmographiesFromEntries();
 // Populate director dropdown
 var dirSel = document.getElementById('directorSelect');
 Object.keys(DIRECTOR_DATA).sort().forEach(function(d){
