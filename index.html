@@ -1858,6 +1858,117 @@ body.light #page-main .home-topten .pcard-amt { color: rgba(255,255,255,.56) !im
   #page-main .home-hero .panel,
   #page-main .home-hero-actions button { transition: none; }
 }
+  #page-main .home-hero-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#page-main .home-hero-controls button {
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.82);
+  font: 700 .8rem 'Barlow', sans-serif;
+  cursor: pointer;
+}
+
+#page-main .home-hero-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+#page-main .home-hero-dots button {
+  width: 20px;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: rgba(255,255,255,.35);
+  cursor: pointer;
+  transition: width .2s ease, background .2s ease;
+}
+
+#page-main .home-hero-dots button.active {
+  width: 34px;
+  background: #31c66b;
+}
+
+#page-main .home-hero .hero-panels.is-comparison {
+  width: min(100%, 790px);
+}
+
+#page-main .home-hero .home-compare-pair {
+  display: flex;
+  flex: 0 1 330px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#page-main .home-hero .home-compare-pair .panel {
+  flex: 1 1 130px;
+}
+
+#page-main .home-hero .home-vs {
+  flex: 0 0 auto;
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px #000;
+}
+
+@media (max-width: 700px) {
+  #page-main .home-hero .hero-panels.is-comparison {
+    width: 100%;
+  }
+
+  #page-main .home-hero .home-compare-pair {
+    flex-basis: 46%;
+    gap: 4px;
+  }
+
+  #page-main .home-hero .home-compare-pair .panel {
+    flex-basis: 42%;
+  }
+
+  #page-main .home-hero .home-vs {
+    font-size: .5rem;
+  }
+}
+  #page-main .home-hero .home-compare-pair {
+  display: flex;
+  flex: 0 1 790px;
+  width: min(100%, 790px);
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+#page-main .home-hero .home-compare-pair .panel {
+  flex: 1 1 150px;
+  max-width: 180px;
+}
+
+#page-main .home-hero .home-compare-loading {
+  color: rgba(255,255,255,.8);
+  font-size: .8rem;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  #page-main .home-hero .home-compare-pair {
+    flex-basis: 100%;
+    gap: 5px;
+  }
+
+  #page-main .home-hero .home-compare-pair .panel {
+    flex-basis: 30%;
+  }
+}
 </style>
 </head>
 <body>
@@ -3373,20 +3484,20 @@ var YR_DATA = {
 
 <!-- ═══════════ PAGE: MAIN ═══════════ -->
 <div id="page-main" class="page active">
- <div class="hero home-hero">
+<div class="hero home-hero">
   <div class="hero-panels" id="heroPanels"></div>
-  <div class="home-hero-content">
-    <div class="home-hero-kicker">Indian cinema · box office</div>
-    <h1>Big stories.<br><span>Bigger numbers.</span></h1>
-    <p>Explore the films, stars, and box-office runs shaping Indian cinema. Follow daily collections, compare trajectories, and browse the all-time record books.</p>
-    <div class="home-hero-actions">
-      <button class="primary" onclick="showPage('topgrossers')">Explore top grossers <span aria-hidden="true">→</span></button>
-      <button onclick="showPage('tracking')">Compare film runs</button>
-    </div>
-    <div class="home-hero-meta">
-      <span>India net and worldwide</span>
-      <span>Daily film tracking</span>
-      <span>Records across languages</span>
+
+  <div class="home-hero-content" aria-live="polite">
+    <div class="home-hero-kicker" id="homeHeroKicker">Indian cinema · box office</div>
+    <h1 id="homeHeroTitle">Big stories.<br><span>Bigger numbers.</span></h1>
+    <p id="homeHeroDescription">Explore the films, stars, and box-office runs shaping Indian cinema.</p>
+    <div class="home-hero-actions" id="homeHeroActions"></div>
+
+    <div class="home-hero-controls" aria-label="Homepage feature carousel controls">
+      <button type="button" onclick="moveHomeHero(-1)" aria-label="Previous feature">‹</button>
+      <div class="home-hero-dots" id="homeHeroDots"></div>
+      <button type="button" onclick="moveHomeHero(1)" aria-label="Next feature">›</button>
+      <button type="button" id="homeHeroPause" onclick="toggleHomeHeroAutoplay()" aria-label="Pause carousel">Ⅱ</button>
     </div>
   </div>
 </div>
@@ -4638,28 +4749,47 @@ function tmdbSearch(title, year, cb) {
         .then(function(r) { return r.json(); })
         .then(function(details) {
           // Pick best backdrop — prefer wider ones
-          var backdrops = (details.images && details.images.backdrops) || [];
-          var bestBackdrop = backdrops.sort(function(a,b){ return b.width - a.width; })[0];
-          var out = {
-            poster:   match.poster_path   ? TMDB_IMG_BASE + 'w500' + match.poster_path   : null,
-            backdrop: bestBackdrop        ? TMDB_IMG_BASE + 'original' + bestBackdrop.file_path :
-                      match.backdrop_path ? TMDB_IMG_BASE + 'original' + match.backdrop_path : null,
-            id: match.id
-          };
-          tmdbCache[cacheKey] = out;
-          cb(out);
-        })
-        .catch(function() {
-          var out = {
-            poster:   match.poster_path   ? TMDB_IMG_BASE + 'w500'     + match.poster_path   : null,
-            backdrop: match.backdrop_path ? TMDB_IMG_BASE + 'original' + match.backdrop_path : null,
-            id: match.id
-          };
-          tmdbCache[cacheKey] = out;
-          cb(out);
-        });
+         var backdrops = (details.images && details.images.backdrops) || [];
+var bestBackdrop = backdrops.sort(function(a, b) {
+  return b.width - a.width;
+})[0];
+
+var out = {
+  poster: match.poster_path
+    ? TMDB_IMG_BASE + 'w500' + match.poster_path
+    : null,
+  backdrop: bestBackdrop
+    ? TMDB_IMG_BASE + 'original' + bestBackdrop.file_path
+    : (match.backdrop_path
+        ? TMDB_IMG_BASE + 'original' + match.backdrop_path
+        : null),
+  id: match.id,
+  genres: (details.genres || []).map(function(genre) {
+    return Number(genre.id);
+  })
+};
+
+tmdbCache[cacheKey] = out;
+cb(out);
+})
+.catch(function() {
+  var out = {
+    poster: match.poster_path
+      ? TMDB_IMG_BASE + 'w500' + match.poster_path
+      : null,
+    backdrop: match.backdrop_path
+      ? TMDB_IMG_BASE + 'original' + match.backdrop_path
+      : null,
+    id: match.id,
+    genres: (match.genre_ids || []).map(Number)
+  };
+
+  tmdbCache[cacheKey] = out;
+  cb(out);
+});
     })
-    .catch(function(e) { console.warn('TMDB error:', title, e); tmdbCache[cacheKey] = null; cb(null); });
+    .catch(function(e) 
+           { console.warn('TMDB error:', title, e); tmdbCache[cacheKey] = null; cb(null); });
 }
   var peoplePosterObserver = window.IntersectionObserver
   ? new IntersectionObserver(function (entries) {
@@ -13178,24 +13308,538 @@ function renderLiveTracker() {
 // ═══════════════════════════════════════
 // MAIN PAGE
 // ═══════════════════════════════════════
-// Hero panels from top 3 worldwide
-// Hero panels from top 3 worldwide
-var heroFilms = [
-  {n:'Dangal',      y:2016, ww:2070, key:'dangal',      backdrop:'https://image.tmdb.org/t/p/original/jjsoczqMGkSZJANJEqhFUeZFwDX.jpg'},
-  {n:'Baahubali 2', y:2017, ww:1810, key:'baahubali-2', backdrop:'https://image.tmdb.org/t/p/original/4oFkcnOnv2xJVQVKJFuWCKgLvLn.jpg'},
-  {n:'Pushpa 2',    y:2024, ww:1742, key:'pushpa-2',    backdrop:'https://image.tmdb.org/t/p/original/4KLgcoAkAI2mTMdnCBJLDPmNKiZ.jpg'}
-];
+// Homepage carousel: lifetime leaders, this year's leaders, upcoming films, and comparisons.
+var homeHeroIndex = 0;
+var homeHeroTimer = null;
+var homeHeroPaused = false;
 
-document.getElementById('heroPanels').innerHTML = heroFilms.map(function(f, i) {
-  var rank = ['#1 All-Time', '#2 All-Time', '#3 All-Time'][i];
+var homeHeroSimilarityGroups = [];
+var homeHeroSimilarityReady = false;
+var homeHeroSimilarityLoading = false;
 
-  return '<div class="panel" onclick="showFilmPage(\\'' + f.key + '\\')" role="button" tabindex="0" aria-label="Open ' + f.n + ' film page">' +
-    '<div class="panel-bg" style="background:url(\\'' + f.backdrop + '\\') center/cover no-repeat,' + bg(i) + '"></div>' +
+function scoreHomeHeroSimilarity(a, b) {
+  var aGenres = (a.genres || []).map(String);
+  var bGenres = (b.genres || []).map(String);
+
+  var sharedGenres = aGenres.filter(function (genre) {
+    return bGenres.indexOf(genre) !== -1;
+  });
+
+  if (!sharedGenres.length) return 0;
+
+  var union = aGenres.filter(function (genre, index) {
+    return aGenres.indexOf(genre) === index;
+  });
+
+  bGenres.forEach(function (genre) {
+    if (union.indexOf(genre) === -1) union.push(genre);
+  });
+
+  var aGross = Number(a.ww);
+  var bGross = Number(b.ww);
+  if (!aGross || !bGross) return 0;
+
+  var scaleRatio = Math.min(aGross, bGross) / Math.max(aGross, bGross);
+  if (scaleRatio < 0.55) return 0;
+
+  var score = 4 * (sharedGenres.length / union.length) + 3 * scaleRatio;
+
+  if (a.l && b.l && a.l === b.l) score += 0.5;
+
+  var aActors = a.actors || [];
+  var bActors = b.actors || [];
+
+  if (aActors.some(function (actor) {
+    return bActors.indexOf(actor) !== -1;
+  })) {
+    score += 1.1;
+  }
+
+  var yearGap = Math.abs(Number(a.y) - Number(b.y));
+  if (isFinite(yearGap)) score += 0.8 / (1 + yearGap / 4);
+
+  return score;
+}
+
+function findHomeHeroSimilarityGroup(films) {
+  var bestGroup = null;
+  var bestScore = 0;
+
+  for (var i = 0; i < films.length; i++) {
+    for (var j = i + 1; j < films.length; j++) {
+      for (var k = j + 1; k < films.length; k++) {
+        var scoreAB = scoreHomeHeroSimilarity(films[i], films[j]);
+        var scoreAC = scoreHomeHeroSimilarity(films[i], films[k]);
+        var scoreBC = scoreHomeHeroSimilarity(films[j], films[k]);
+
+        if (!scoreAB || !scoreAC || !scoreBC) continue;
+
+        var average = (scoreAB + scoreAC + scoreBC) / 3;
+
+        if (average > bestScore) {
+          bestScore = average;
+          bestGroup = [films[i], films[j], films[k]];
+        }
+      }
+    }
+  }
+
+  if (bestGroup) return [bestGroup];
+
+  var bestPair = null;
+
+  for (var a = 0; a < films.length; a++) {
+    for (var b = a + 1; b < films.length; b++) {
+      var pairScore = scoreHomeHeroSimilarity(films[a], films[b]);
+
+      if (pairScore > bestScore) {
+        bestScore = pairScore;
+        bestPair = [films[a], films[b]];
+      }
+    }
+  }
+
+  return bestPair ? [bestPair] : [];
+}
+
+function loadHomeHeroSimilarityGroups() {
+  if (homeHeroSimilarityLoading || homeHeroSimilarityReady) return;
+
+  homeHeroSimilarityLoading = true;
+
+  var candidates = getTopGrossers().filter(function (film) {
+    return Number(film.ww) >= 220;
+  }).slice(0, 75);
+
+  if (!candidates.length) {
+    homeHeroSimilarityLoading = false;
+    homeHeroSimilarityReady = true;
+    return;
+  }
+
+  var remaining = candidates.length;
+  var enrichedFilms = [];
+
+  candidates.forEach(function (film) {
+    tmdbSearch(film.n, film.y, function (result) {
+      if (result && result.genres && result.genres.length) {
+        enrichedFilms.push({
+          n: film.n,
+          y: film.y,
+          l: film.l,
+          ww: film.ww,
+          actors: film.actors || [],
+          genres: result.genres
+        });
+      }
+
+      remaining--;
+      if (remaining > 0) return;
+
+      homeHeroSimilarityGroups =
+        findHomeHeroSimilarityGroup(enrichedFilms);
+
+      homeHeroSimilarityLoading = false;
+      homeHeroSimilarityReady = true;
+
+      if (homeHeroIndex === 3) renderHomeHero();
+    });
+  });
+}
+
+function homeHeroEscape(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getHomeHeroSlides() {
+  var currentYear = new Date().getFullYear();
+
+  var allTimeTop = getTopGrossers().slice(0, 3);
+
+  var yearTop = FILMS.filter(function (film) {
+    return Number(film.y) === currentYear &&
+      film.ww != null &&
+      isFinite(Number(film.ww));
+  }).slice().sort(function (a, b) {
+    return Number(b.ww) - Number(a.ww);
+  }).slice(0, 3);
+
+  var starPattern =
+    /Shah Rukh Khan|Salman Khan|Prabhas|N\. T\. Rama Rao Jr\.|Allu Arjun|Rajinikanth|Ranbir Kapoor|Mahesh Babu/i;
+
+  var upcoming = UPCOMING.filter(function (film) {
+    return starPattern.test(film.note || '');
+  }).slice(0, 3).map(function (film) {
+    return {
+      n: film.n,
+      y: film.y,
+      l: film.l,
+      note: film.note,
+      upcoming: true
+    };
+  });
+
+  return [
+    {
+      kicker: 'All-time box office',
+      title: 'The worldwide top 3',
+      description: 'The biggest Indian theatrical runs, ranked by worldwide gross.',
+      cards: allTimeTop,
+      action: 'Explore all-time rankings',
+      page: 'topgrossers'
+    },
+    {
+      kicker: currentYear + ' box office',
+      title: 'This year’s biggest films',
+      description: 'The leading worldwide releases of ' + currentYear + ', ranked from the film database.',
+      cards: yearTop,
+      action: 'See this year’s grossers',
+      page: 'topgrossers'
+    },
+    {
+      kicker: 'Coming to cinemas',
+      title: 'Upcoming biggies',
+      description: 'Major star-led releases on the current schedule.',
+      cards: upcoming,
+      action: 'Browse the release schedule',
+      page: 'predictions'
+    },
+    {
+      kicker: 'Release-run comparisons',
+      title: 'Films from different years, side by side',
+      description: 'Compare films matched by genre and box-office scale.',
+      pairs: homeHeroSimilarityGroups,
+      action: 'Compare release runs',
+      page: 'tracking'
+    }
+  ];
+}
+
+function homeHeroCardMarkup(film, rank) {
+  var title = homeHeroEscape(film.n);
+
+  var detail = film.upcoming
+    ? homeHeroEscape(film.note || film.y || '')
+    : (film.ww != null
+        ? '₹' + film.ww + ' Cr · ' + homeHeroEscape(film.y)
+        : homeHeroEscape(film.l || ''));
+
+  return '<div class="panel home-hero-card" role="button" tabindex="0" aria-label="' + title + '">' +
+    '<div class="panel-bg" style="background:' + bg(rank) + '"></div>' +
     '<div class="panel-overlay"></div>' +
-    '<span class="home-film-rank">' + rank + '</span>' +
-    '<div class="home-film-copy"><strong>' + f.n + '</strong><span>₹' + f.ww + ' Cr · ' + f.y + '</span></div>' +
+    '<span class="home-film-rank">' +
+      (film.upcoming ? 'Coming soon' : '#' + (rank + 1)) +
+    '</span>' +
+    '<div class="home-film-copy"><strong>' + title + '</strong><span>' + detail + '</span></div>' +
   '</div>';
-}).join('');
+}
+
+function renderHomeHero() {
+  var slides = getHomeHeroSlides();
+  var slideIndex = homeHeroIndex;
+  var slide = slides[slideIndex];
+  var panels = document.getElementById('heroPanels');
+
+  if (!slide || !panels) return;
+
+  document.getElementById('homeHeroKicker').textContent = slide.kicker;
+  document.getElementById('homeHeroTitle').textContent = slide.title;
+  document.getElementById('homeHeroDescription').textContent = slide.description;
+
+  document.getElementById('homeHeroActions').innerHTML =
+'<button class="primary" onclick="showPage(\'' + slide.page + '\')">' +
+  slide.action + ' <span aria-hidden="true">→</span>' +
+    '</button>';
+
+  var items = [];
+
+  if (slide.pairs) {
+    panels.classList.add('is-comparison');
+
+    if (!homeHeroSimilarityReady) {
+      panels.innerHTML =
+        '<div class="home-compare-loading">Finding similar films by genre and box-office scale…</div>';
+
+      loadHomeHeroSimilarityGroups();
+    } else if (!slide.pairs.length) {
+      panels.innerHTML =
+        '<div class="home-compare-loading">No close genre and box-office matches found yet.</div>';
+    } else {
+      items = slide.pairs[0];
+
+      panels.innerHTML =
+        '<div class="home-compare-pair">' +
+          items.map(function (film, index) {
+            return (index ? '<span class="home-vs">VS</span>' : '') +
+              homeHeroCardMarkup(film, index);
+          }).join('') +
+        '</div>';
+    }
+  } else {
+    panels.classList.remove('is-comparison');
+    items = slide.cards || [];
+
+    panels.innerHTML = items.map(function (film, index) {
+      return homeHeroCardMarkup(film, index);
+    }).join('');
+  }
+
+  Array.prototype.forEach.call(
+    panels.querySelectorAll('.home-hero-card'),
+    function (card, index) {
+      var film = items[index];
+
+      function openFilm() {
+        if (film.upcoming) {
+          showPage('predictions');
+        } else if (typeof maybeOpenFilm === 'function') {
+          maybeOpenFilm(film.n);
+        }
+      }
+
+      card.addEventListener('click', openFilm);
+      card.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openFilm();
+        }
+      });
+
+      tmdbSearch(film.n, film.y, function (result) {
+        if (!result) return;
+
+        var poster = result.poster || result.backdrop;
+        var backdrop = result.backdrop || result.poster;
+
+        if (poster) {
+          card.querySelector('.panel-bg').style.backgroundImage =
+            'url(' + poster + ')';
+        }
+
+        if (backdrop && index === 0 && homeHeroIndex === slideIndex) {
+          document.querySelector('#page-main > .home-hero').style.backgroundImage =
+            'url(' + backdrop + ')';
+        }
+      });
+    }
+  );
+
+  document.getElementById('homeHeroDots').innerHTML =
+    slides.map(function (_, index) {
+      return '<button type="button" class="' +
+        (index === homeHeroIndex ? 'active' : '') +
+        '" onclick="setHomeHero(' + index + ')" aria-label="Show feature ' +
+        (index + 1) + '"></button>';
+    }).join('');
+}
+
+function setHomeHero(index) {
+  var slides = getHomeHeroSlides();
+
+  homeHeroIndex = (index + slides.length) % slides.length;
+  document.querySelector('#page-main > .home-hero').style.backgroundImage = '';
+  renderHomeHero();
+}
+
+function moveHomeHero(step) {
+  setHomeHero(homeHeroIndex + step);
+}
+
+function toggleHomeHeroAutoplay() {
+  homeHeroPaused = !homeHeroPaused;
+
+  document.getElementById('homeHeroPause').textContent =
+    homeHeroPaused ? '▶' : 'Ⅱ';
+
+  if (homeHeroTimer) clearInterval(homeHeroTimer);
+
+  if (!homeHeroPaused) {
+    homeHeroTimer = setInterval(function () {
+      moveHomeHero(1);
+    }, 7500);
+  }
+}
+
+renderHomeHero();
+
+homeHeroTimer = setInterval(function () {
+  if (!homeHeroPaused) moveHomeHero(1);
+}, 7500);
+
+  return [
+    {
+      kicker: 'All-time box office',
+      title: 'The worldwide top 3',
+      description: 'The biggest Indian theatrical runs, ranked by worldwide gross.',
+      cards: allTimeTop,
+      action: 'Explore all-time rankings',
+      page: 'topgrossers'
+    },
+    {
+      kicker: currentYear + ' box office',
+      title: 'This year’s biggest films',
+      description: 'The leading worldwide releases of ' + currentYear + ', ranked from the film database.',
+      cards: yearTop,
+      action: 'See this year’s grossers',
+      page: 'topgrossers'
+    },
+    {
+      kicker: 'Coming to cinemas',
+      title: 'Upcoming biggies',
+      description: 'Major star-led releases on the current schedule.',
+      cards: upcoming,
+      action: 'Browse the release schedule',
+      page: 'predictions'
+    },
+    {
+      kicker: 'Release-run comparisons',
+      title: 'Films from different years, side by side',
+      description: 'Compare their daily and weekly box-office trajectories.',
+      pairs: matchups,
+      action: 'Compare release runs',
+      page: 'tracking'
+    }
+  ];
+}
+
+function homeHeroCardMarkup(film, rank) {
+  var title = homeHeroEscape(film.n);
+  var detail = film.upcoming
+    ? homeHeroEscape(film.note || film.y || '')
+    : (film.ww != null
+        ? '₹' + film.ww + ' Cr · ' + homeHeroEscape(film.y)
+        : homeHeroEscape(film.l || ''));
+
+  return '<div class="panel home-hero-card" role="button" tabindex="0" aria-label="' + title + '">' +
+    '<div class="panel-bg" style="background:' + bg(rank) + '"></div>' +
+    '<div class="panel-overlay"></div>' +
+    '<span class="home-film-rank">' + (film.upcoming ? 'Coming soon' : '#' + (rank + 1)) + '</span>' +
+    '<div class="home-film-copy"><strong>' + title + '</strong><span>' + detail + '</span></div>' +
+  '</div>';
+}
+
+function renderHomeHero() {
+  var slides = getHomeHeroSlides();
+  var slideIndex = homeHeroIndex;
+  var slide = slides[slideIndex];
+  var panels = document.getElementById('heroPanels');
+
+  if (!slide || !panels) return;
+
+  document.getElementById('homeHeroKicker').textContent = slide.kicker;
+  document.getElementById('homeHeroTitle').textContent = slide.title;
+  document.getElementById('homeHeroDescription').textContent = slide.description;
+  document.getElementById('homeHeroActions').innerHTML =
+    '<button class="primary" onclick="showPage(\\'' + slide.page + '\\')">' +
+      slide.action + ' <span aria-hidden="true">→</span>' +
+    '</button>';
+
+  var items;
+
+  if (slide.pairs) {
+    panels.classList.add('is-comparison');
+    items = [];
+    panels.innerHTML = slide.pairs.map(function (pair, pairIndex) {
+      items = items.concat(pair);
+      var firstRank = pairIndex * 2;
+
+      return '<div class="home-compare-pair">' +
+        homeHeroCardMarkup(pair[0], firstRank) +
+        '<span class="home-vs">VS</span>' +
+        homeHeroCardMarkup(pair[1], firstRank + 1) +
+      '</div>';
+    }).join('');
+  } else {
+    panels.classList.remove('is-comparison');
+    items = slide.cards || [];
+    panels.innerHTML = items.map(function (film, index) {
+      return homeHeroCardMarkup(film, index);
+    }).join('');
+  }
+
+  Array.prototype.forEach.call(
+    panels.querySelectorAll('.home-hero-card'),
+    function (card, index) {
+      var film = items[index];
+
+      function openFilm() {
+        if (film.upcoming) {
+          showPage('predictions');
+        } else if (typeof maybeOpenFilm === 'function') {
+          maybeOpenFilm(film.n);
+        }
+      }
+
+      card.addEventListener('click', openFilm);
+      card.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openFilm();
+        }
+      });
+
+      tmdbSearch(film.n, film.y, function (result) {
+        if (!result) return;
+
+        var poster = result.poster || result.backdrop;
+        var backdrop = result.backdrop || result.poster;
+
+        if (poster) {
+          card.querySelector('.panel-bg').style.backgroundImage =
+            'url(' + poster + ')';
+        }
+
+        if (backdrop && index === 0 && homeHeroIndex === slideIndex) {
+          document.querySelector('#page-main > .home-hero').style.backgroundImage =
+            'url(' + backdrop + ')';
+        }
+      });
+    }
+  );
+
+  document.getElementById('homeHeroDots').innerHTML =
+    slides.map(function (_, index) {
+      return '<button type="button" class="' +
+        (index === homeHeroIndex ? 'active' : '') +
+        '" onclick="setHomeHero(' + index + ')" aria-label="Show feature ' +
+        (index + 1) + '"></button>';
+    }).join('');
+}
+
+function setHomeHero(index) {
+  var slides = getHomeHeroSlides();
+  homeHeroIndex = (index + slides.length) % slides.length;
+  document.querySelector('#page-main > .home-hero').style.backgroundImage = '';
+  renderHomeHero();
+}
+
+function moveHomeHero(step) {
+  setHomeHero(homeHeroIndex + step);
+}
+
+function toggleHomeHeroAutoplay() {
+  homeHeroPaused = !homeHeroPaused;
+  document.getElementById('homeHeroPause').textContent =
+    homeHeroPaused ? '▶' : 'Ⅱ';
+
+  if (homeHeroTimer) clearInterval(homeHeroTimer);
+
+  if (!homeHeroPaused) {
+    homeHeroTimer = setInterval(function () {
+      moveHomeHero(1);
+    }, 7500);
+  }
+}
+
+renderHomeHero();
+homeHeroTimer = setInterval(function () {
+  if (!homeHeroPaused) moveHomeHero(1);
+}, 7500);
 
 // Live tracker
 renderLiveTracker();
