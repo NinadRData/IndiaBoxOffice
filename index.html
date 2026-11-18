@@ -2108,7 +2108,7 @@ var FILMS = [
 {n:'Mersal', y:2017,l:'Tamil', director:'Atlee', actors:['Vijay','Kajal Aggarwal','Nithya Menen'], studio:'Sri Thenandal Films', india:null, ww:253, ow:null, ff:null, lb:3.3, budget:120},
 {n:'Sarkar', y:2018,l:'Tamil', director:'A. R. Murugadoss', actors:['Vijay','Keerthy Suresh'], studio:'Sun Pictures', india:141, ww:252, ow:31, ff:null, lb:3.0, budget:80},
 {n:'Master', y:2021,l:'Tamil', director:'Lokesh Kanagaraj', actors:['Vijay','Vijay Sethupathi'], studio:'XB Film Creators', india:154, ww:223, ow:43, ff:null, lb:3.4, budget:135},
-{n:'Beast', y:2022,l:'Tamil', director:'Nelson Dilipkumar', actors:['Vijay','Pooja Hegde'], studio:'Sun Pictures', india:130, ww:216, ow:43, ff:null, lb:2.4, budget:150},
+{n:'Beast', y:2022,l:'Tamil', director:'Nelson Dilipkumar', actors:['Vijay','Pooja Hegde'], studio:'Sun Pictures', india:130, ww:216, ow:43, ff:10.5, lb:2.4, budget:150},
 {n:'Andhadhun', y:2018,l:'Hindi', director:'Sriram Raghavan', actors:['Ayushmann Khurrana','Tabu','Radhika Apte'], studio:'Viacom18', india:100, ww:456, ow:27.65, ff:null, lb:4.1, budget:32},
 {n:'Saaho', y:2019,l:'Telugu', director:'Sujeeth', actors:['Prabhas','Shraddha Kapoor'], studio:'UV Creations', india:290, ww:451, ow:200, ff:26.5, lb:2.5, budget:350},
 {n:'Devara', y:2024,l:'Telugu', director:'Koratala Siva', actors:['N. T. Rama Rao Jr.','Janhvi Kapoor','Saif Ali Khan'], studio:'Sithara', india:280, ww:428, ow:160, ff:17.7, lb:2.6, budget:300},
@@ -16362,12 +16362,13 @@ document.addEventListener('click', function (event) {
   if (!input || !drop || !select) return;
 
   var query = input.value.trim().toLowerCase();
-  var names = Array.prototype.slice.call(select.options, 1)
-    .map(function (option) { return option.value; })
-    .filter(function (name) {
-      return !query || name.toLowerCase().indexOf(query) !== -1;
-    })
-    .slice(0, 20);
+ var names = Array.prototype.slice.call(select.options, 1)
+  .map(function (option) {
+    return option.value;
+  })
+  .filter(function (name) {
+    return !query || name.toLowerCase().indexOf(query) !== -1;
+  });
 
   drop.innerHTML = '';
 
