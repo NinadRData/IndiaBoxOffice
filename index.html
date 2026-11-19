@@ -2225,6 +2225,151 @@ body.light #page-main .home-topten .pcard-amt { color: rgba(255,255,255,.56) !im
     min-width: 700px;
   }
 }
+  .home-coming-soon {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 3.5rem) 0;
+  color: var(--text);
+}
+
+.home-coming-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .8rem;
+}
+
+.home-coming-head h2 {
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.home-coming-head p,
+.home-coming-footnote {
+  margin-top: .25rem;
+  color: var(--text-dim);
+  font-size: .72rem;
+}
+
+.home-coming-head button {
+  padding: .55rem .9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.home-coming-grid {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 0 2px 12px;
+  scroll-snap-type: x mandatory;
+}
+
+.home-coming-card {
+  flex: 0 0 170px;
+  cursor: pointer;
+  scroll-snap-align: start;
+}
+
+.home-coming-date {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 48px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: .66rem;
+}
+
+.home-coming-date strong {
+  color: var(--text);
+  font-size: .72rem;
+}
+
+.home-coming-date i {
+  position: absolute;
+  bottom: -5px;
+  left: calc(50% - 5px);
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.home-coming-poster {
+  height: 220px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: linear-gradient(145deg, var(--bg3), var(--bg2)) center / cover no-repeat;
+  color: var(--text-muted);
+  font: 800 2rem 'Barlow Condensed', sans-serif;
+}
+
+.home-coming-poster.has-poster > span {
+  display: none;
+}
+
+.home-coming-title {
+  margin: .55rem .15rem .15rem;
+  color: var(--text);
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.home-coming-meta {
+  min-height: 2.2em;
+  margin: 0 .15rem;
+  color: var(--text-dim);
+  font-size: .66rem;
+  line-height: 1.45;
+}
+
+.home-coming-estimate {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: .55rem .15rem 0;
+}
+
+.home-coming-estimate strong {
+  color: var(--green);
+  font-size: .8rem;
+}
+
+.home-coming-estimate span {
+  color: var(--text-muted);
+  font-size: .62rem;
+}
+
+.home-coming-footnote {
+  margin: 2px;
+}
+
+@media (max-width: 700px) {
+  .home-coming-soon {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .home-coming-card {
+    flex-basis: 150px;
+  }
+
+  .home-coming-poster {
+    height: 195px;
+  }
+}
 </style>
 </head>
 <body>
@@ -3811,10 +3956,21 @@ var YR_DATA = {
     <div class="sh"><h2>Recent Box Office</h2><span>2024–2026 · India Net · ₹ Crore</span></div>
     <div class="poster-scroll" id="recentRow"></div>
   </div>
-  <div style="padding:1.5rem 2rem 0">
-    <div class="sh"><h2>Upcoming Films</h2><span>Expected releases 2026–2027</span></div>
-    <div class="poster-scroll" id="upcomingRow"></div>
+<section class="home-coming-soon" aria-label="Coming soon">
+  <div class="home-coming-head">
+    <div>
+      <h2>Coming soon</h2>
+      <p>Upcoming releases · opening weekend forecasts</p>
+    </div>
+    <button type="button" onclick="showPage('predictions')">
+      Full schedule <span aria-hidden="true">→</span>
+    </button>
   </div>
+  <div class="home-coming-grid" id="upcomingRow"></div>
+  <div class="home-coming-footnote">
+    Opening weekend ranges are estimates based on available film data.
+  </div>
+</section>
   <div style="padding:1.5rem 2rem 0">
     <div class="sh"><h2>All-Time Highest Grossers</h2><span>Worldwide · ₹ Crore</span></div>
     <div class="poster-scroll" id="posterRow"></div>
@@ -13965,15 +14121,130 @@ RECENT_FILMS.slice(0,15).forEach(function(f,i){
   rr.appendChild(el);
 });
 
-// Upcoming row
+// Homepage Coming Soon cards
+function escapeHomeScheduleText(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char];
+  });
+}
+
+function getHomeScheduleDate(film) {
+  var note = film.note || '';
+  var monthPattern =
+    '(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)';
+
+  var exact = new RegExp(
+    '\\b' + monthPattern + '\\s+(\\d{1,2})(?:st|nd|rd|th)?[,]?\\s+(20\\d{2})\\b',
+    'i'
+  ).exec(note);
+
+  if (exact) {
+    var date = new Date(exact[1] + ' ' + exact[2] + ', ' + exact[3]);
+    return {
+      date: date,
+      day: date.toLocaleDateString('en-US', { weekday: 'long' }),
+      short: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    };
+  }
+
+  var monthYear = new RegExp(
+    '\\b' + monthPattern + '(?:\\s+or\\s+' + monthPattern + ')?\\s+(20\\d{2})\\b',
+    'i'
+  ).exec(note);
+
+  if (!monthYear) return null;
+
+  var firstDate = new Date(monthYear[1] + ' 1, ' + monthYear[3]);
+  var shortDate = firstDate.toLocaleDateString('en-US', { month: 'short' });
+
+  if (monthYear[2]) {
+    var secondDate = new Date(monthYear[2] + ' 1, ' + monthYear[3]);
+    shortDate += '–' + secondDate.toLocaleDateString('en-US', { month: 'short' });
+  }
+
+  return {
+    date: firstDate,
+    day: 'Date to be confirmed',
+    short: shortDate + ' ' + monthYear[3]
+  };
+}
+
 var ur = document.getElementById('upcomingRow');
-UPCOMING.forEach(function(f,i){
-  var col = LC[f.l]||'#888';
-  var el = document.createElement('div');
-  el.className = 'pcard';
-  el.innerHTML = '<div class="pcard-img" style="border-top:2px solid '+col+'"><div class="pcard-bg" style="background:'+bg(i+5)+'"><div class="pcard-bg-text">'+f.n.toUpperCase().slice(0,9)+'</div></div><div style="position:absolute;top:5px;left:5px;font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:2px;background:rgba(0,0,0,.6);color:rgba(255,255,255,.7);border:0.5px solid rgba(255,255,255,.15)">'+f.y+'</div><div class="pcard-shade"></div></div><div class="pcard-title">'+f.n+'</div><div class="pcard-amt" style="white-space:normal;line-height:1.3">'+f.note+'</div>';
-  ur.appendChild(el);
-});
+
+if (ur) {
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  var upcomingCards = UPCOMING.map(function (film) {
+    return { film: film, date: getHomeScheduleDate(film) };
+  }).filter(function (item) {
+    return !item.date || item.date.date >= today;
+  }).sort(function (a, b) {
+    if (!a.date) return 1;
+    if (!b.date) return -1;
+    return a.date.date - b.date.date;
+  }).slice(0, 6);
+
+  ur.innerHTML = upcomingCards.map(function (item, index) {
+    var film = item.film;
+    var date = item.date;
+    var prediction = getUpcomingAutoPrediction(film);
+    var opening = prediction && prediction.ow &&
+      prediction.ow.low != null && prediction.ow.high != null
+      ? '₹' + prediction.ow.low + '–₹' + prediction.ow.high + ' Cr'
+      : 'Forecast pending';
+
+    var metaParts = (film.note || '').split(' · ');
+    if (date && metaParts.length > 1) metaParts.pop();
+    var meta = metaParts.join(' · ') || film.l || 'Indian cinema';
+
+    return '<article class="home-coming-card" tabindex="0" role="link">' +
+      '<div class="home-coming-date">' +
+        '<span>' + escapeHomeScheduleText(date ? date.day : 'Date to be confirmed') + '</span>' +
+        '<strong>' + escapeHomeScheduleText(date ? date.short : String(film.y || 'TBA')) + '</strong>' +
+        '<i aria-hidden="true"></i>' +
+      '</div>' +
+      '<div class="home-coming-poster" data-poster-index="' + index + '">' +
+        '<span>' + escapeHomeScheduleText((film.n || '?').slice(0, 1)) + '</span>' +
+      '</div>' +
+      '<div class="home-coming-title">' + escapeHomeScheduleText(film.n) + '</div>' +
+      '<div class="home-coming-meta">' + escapeHomeScheduleText(meta) + '</div>' +
+      '<div class="home-coming-estimate">' +
+        '<strong>' + escapeHomeScheduleText(opening) + '</strong>' +
+        '<span>Opening weekend · India net</span>' +
+      '</div>' +
+    '</article>';
+  }).join('');
+
+  Array.prototype.forEach.call(ur.querySelectorAll('.home-coming-card'), function (card, index) {
+    function openSchedule() {
+      showPage('predictions');
+    }
+
+    card.addEventListener('click', openSchedule);
+    card.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openSchedule();
+      }
+    });
+
+    var film = upcomingCards[index].film;
+    var poster = card.querySelector('.home-coming-poster');
+
+    tmdbSearch(film.n, film.y, function (result) {
+      if (!result || !result.poster || !poster || !poster.isConnected) return;
+      poster.style.backgroundImage = 'url("' + result.poster + '")';
+      poster.classList.add('has-poster');
+    });
+  });
+}
 
 // All-time poster row
 var pr = document.getElementById('posterRow');
