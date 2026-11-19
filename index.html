@@ -1969,6 +1969,58 @@ body.light #page-main .home-topten .pcard-amt { color: rgba(255,255,255,.56) !im
     flex-basis: 30%;
   }
 }
+  #page-predictions .schedule-date-group {
+  display: block;
+  width: 100%;
+}
+
+#page-predictions .schedule-row {
+  display: grid !important;
+  grid-template-columns: 78px minmax(0, 1fr) minmax(190px, max-content) !important;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+#page-predictions .schedule-row > .schedule-poster {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#page-predictions .schedule-row > div:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+#page-predictions .schedule-row > .schedule-forecast {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+}
+
+@media (max-width: 600px) {
+  #page-predictions .schedule-row {
+    grid-template-columns: 62px minmax(0, 1fr) !important;
+  }
+
+  #page-predictions .schedule-row > .schedule-poster {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  #page-predictions .schedule-row > div:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  #page-predictions .schedule-row > .schedule-forecast {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    text-align: left;
+  }
+}
 </style>
 </head>
 <body>
@@ -15757,9 +15809,9 @@ function renderPreds() {
       group.map(function (item, index) {
         var film = item.film;
         var posterId = 'schedule-poster-' + groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
-      var prediction = getUpcomingAutoPrediction(film);
-var forecast = prediction && prediction.bo
-  ? '₹' + prediction.bo.low + '–₹' + prediction.bo.high + ' Cr'
+ var prediction = getUpcomingAutoPrediction(film);
+var forecast = prediction && prediction.ow
+  ? '₹' + prediction.ow.low + '–₹' + prediction.ow.high + ' Cr'
   : '';
 
         var row = '<div class="schedule-row">' +
@@ -15774,7 +15826,7 @@ var forecast = prediction && prediction.bo
           '</div>' +
           '<div class="schedule-forecast">' +
            (forecast
-  ? 'Auto worldwide forecast<strong>' + escapeScheduleText(forecast) + '</strong>'
+  ? 'Opening weekend · India net<strong>' + escapeScheduleText(forecast) + '</strong>'
   : 'Forecast unavailable · limited matching history')
           '</div>' +
         '</div>';
