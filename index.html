@@ -3155,29 +3155,25 @@ function getOWMilestones(threshold) {
 
 // Get all films for a given actor (master + supp merged, deduped)
 function getActorFilms(actor) {
-  var masterFilms = FILMS.filter(function(f){ return (f.actors||[]).indexOf(actor) >= 0; })
-    .map(function(f){ return {n:f.n, y:f.y, bo:f.ww, ow:f.ow, ow4:f.ow4, india:f.india, ff:f.ff, lb:f.lb}; });
-  var suppFilms = (ACTOR_SUPP[actor]||[]).map(function(f){ return {n:f.n, y:f.y, bo:f.bo||null, ow:f.ow||null, ow4:f.ow4||null, india:f.india||null, ff:f.ff||null, lb:f.lb||null}; });
-  var filmMap = {};
-  masterFilms.forEach(function(f){
-    var key = f.n.toLowerCase().trim()+'|'+f.y;
-    filmMap[key] = {n:f.n, y:f.y, bo:f.bo, ow:f.ow, ow4:f.ow4, india:f.india, ff:f.ff, lb:f.lb};
-  });
-  suppFilms.forEach(function(f){
-    var key = f.n.toLowerCase().trim()+'|'+f.y;
-    if (!filmMap[key]) {
-      filmMap[key] = {n:f.n, y:f.y, bo:f.bo, ow:f.ow, ow4:f.ow4, india:f.india, ff:f.ff, lb:f.lb};
-    } else {
-      if (f.ff && (!filmMap[key].ff || f.ff > filmMap[key].ff)) filmMap[key].ff = f.ff;
-      if (f.bo && (!filmMap[key].bo || f.bo > filmMap[key].bo)) filmMap[key].bo = f.bo;
-      if (f.ow && (!filmMap[key].ow || f.ow > filmMap[key].ow)) filmMap[key].ow = f.ow;
-      if (f.ow4 && !filmMap[key].ow4) filmMap[key].ow4 = f.ow4;
-      if (f.india && (!filmMap[key].india || f.india > filmMap[key].india)) filmMap[key].india = f.india;
-      if (f.lb && !filmMap[key].lb) filmMap[key].lb = f.lb;
-    }
-  });
-  var merged = Object.values(filmMap);
-  return merged.sort(function(a,b){ return a.y - b.y; });
+  return FILMS
+    .filter(function (film) {
+      return (film.actors || []).indexOf(actor) !== -1;
+    })
+    .map(function (film) {
+      return {
+        n: film.n,
+        y: film.y,
+        bo: film.ww,
+        ow: film.ow,
+        ow4: film.ow4,
+        india: film.india,
+        ff: film.ff,
+        lb: film.lb
+      };
+    })
+    .sort(function (a, b) {
+      return Number(a.y) - Number(b.y);
+    });
 }
 // Older footfall list (fallback only: films not in FILMS yet; FILMS wins when a film is in both)
 var FF_BASE = [
@@ -16409,6 +16405,84 @@ document.addEventListener('click', function (event) {
 
 ACTRESS_DATA['Katrina Kaif'] = ACTRESS_DATA_OVERRIDE_KATRINA;
 ACTRESS_DATA['Kareena Kapoor'] = ACTRESS_DATA_OVERRIDE_KAREENA;
+  function mergeSupplementaryFilmographiesIntoFilms() {
+  function keyFor(title, year) {
+    return String(title || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '') + '|' + Number(year);
+  }
+
+  var filmsByKey = {};
+
+  FILMS.forEach(function (film) {
+    filmsByKey[keyFor(film.n, film.y)] = film;
+  });
+
+  function mergeRow(person, row) {
+    if (!row || !row.n || !row.y) return;
+
+    var key = keyFor(row.n, row.y);
+    var film = filmsByKey[key];
+
+    if (!film) {
+      film = {
+        n: row.n,
+        y: Number(row.y),
+        l: row.l || '',
+        actors: [],
+        ww: null,
+        india: null,
+        ow: null,
+        ow4: null,
+        ff: null,
+        lb: null
+      };
+
+      FILMS.push(film);
+      filmsByKey[key] = film;
+    }
+
+    if (!Array.isArray(film.actors)) film.actors = [];
+    if (film.actors.indexOf(person) === -1) {
+      film.actors.push(person);
+    }
+
+    var values = {
+      ww: row.ww != null ? row.ww : row.bo,
+      india: row.india,
+      ow: row.ow,
+      ow4: row.ow4,
+      ff: row.ff,
+      lb: row.lb
+    };
+
+    Object.keys(values).forEach(function (field) {
+      var value = values[field];
+
+      if (
+        film[field] == null &&
+        value != null &&
+        isFinite(Number(value))
+      ) {
+        film[field] = Number(value);
+      }
+    });
+  }
+
+  Object.keys(ACTOR_SUPP || {}).forEach(function (actor) {
+    (ACTOR_SUPP[actor] || []).forEach(function (row) {
+      mergeRow(actor, row);
+    });
+  });
+
+  Object.keys(ACTRESS_DATA || {}).forEach(function (actress) {
+    (ACTRESS_DATA[actress] || []).forEach(function (row) {
+      mergeRow(actress, row);
+    });
+  });
+}
+
+mergeSupplementaryFilmographiesIntoFilms();
 var actressSel = document.getElementById('actressSelect');
 Object.keys(ACTRESS_DATA).sort().forEach(function(a){
   var o = document.createElement('option'); o.value = a; o.textContent = a; actressSel.appendChild(o);
@@ -16586,7 +16660,24 @@ function renderActress() {
   var tableEl  = document.getElementById('actress-table-wrap');
   if (!actress) { emptyEl.style.display='block'; statsEl.innerHTML=''; chartEl.innerHTML=''; tableEl.innerHTML=''; return; }
   emptyEl.style.display = 'none';
-  var fms = ACTRESS_DATA[actress] || [];
+var fms = FILMS
+  .filter(function (film) {
+    return (film.actors || []).indexOf(actress) !== -1;
+  })
+  .map(function (film) {
+    return {
+      n: film.n,
+      y: film.y,
+      bo: film.ww,
+      ff: film.ff,
+      lb: film.lb,
+      ow: film.ow,
+      india: film.india
+    };
+  })
+  .sort(function (a, b) {
+    return Number(a.y) - Number(b.y);
+  });
   if (!fms.length) { emptyEl.style.display='block'; emptyEl.textContent='No data for '+actress; return; }
   updatePeopleProfileHero('actress', actress, fms);
 
