@@ -2041,6 +2041,190 @@ body.light #page-main .home-topten .pcard-amt { color: rgba(255,255,255,.56) !im
     grid-template-columns: 62px minmax(0, 1fr) !important;
   }
 }
+  /* Records and Analysis UI polish */
+#page-records > div:nth-child(2),
+#page-action > div:nth-child(2) {
+  max-width: 1200px !important;
+  padding: 2rem clamp(1rem, 3vw, 2.5rem) !important;
+}
+
+#page-records > div:nth-child(2) > div:first-child {
+  gap: 8px !important;
+  padding: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+#page-records .rec-tab,
+#page-action .lf {
+  color: var(--text-dim);
+  border-color: var(--border);
+  border-radius: 6px;
+  transition: color 220ms ease, background-color 220ms ease,
+    border-color 220ms ease, transform 180ms ease;
+}
+
+#page-records .rec-tab:hover,
+#page-action .lf:hover {
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+#page-records .rec-tab.on,
+#page-action .lf.on {
+  color: #111;
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
+#page-records .stat-card,
+#page-records .chart-box,
+#page-action .stat-card,
+#page-action [style*="background:var(--bg3)"] {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+}
+
+#page-records .rec-row,
+#page-records #daily-rec-chart > div,
+#page-action #act-ow-chart > div {
+  min-height: 46px;
+  border-bottom-color: var(--border) !important;
+}
+
+#page-records .rec-row:hover,
+#page-action .rec-row:hover {
+  background: rgba(245, 197, 24, .08);
+}
+
+#page-records .rec-name,
+#page-records .rec-bar-lbl,
+#page-records #daily-rec-chart,
+#page-action #act-stats .stat-val {
+  color: var(--text) !important;
+}
+
+#page-records [style*="color:rgba(255,255,255"],
+#page-action [style*="color:rgba(255,255,255"] {
+  color: var(--text-dim) !important;
+}
+
+#page-records .ff-note,
+#page-action .ff-note {
+  color: var(--text-dim);
+  border-radius: 0 8px 8px 0;
+}
+
+#page-action #act-table {
+  overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+  #page-records > div:nth-child(2),
+  #page-action > div:nth-child(2) {
+    padding: 1.25rem 1rem !important;
+  }
+
+  #page-records > div:nth-child(2) > div:first-child {
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+  }
+}
+  /* Yearly box office: restyle existing rows and columns */
+#yr-table > .yr-result-row {
+  display: grid;
+  grid-template-columns: 40px minmax(180px, 1fr) 70px 90px 90px 120px 100px;
+  align-items: center;
+  gap: 0;
+  min-height: 68px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+#yr-table > .yr-result-row:hover {
+  background: rgba(34, 197, 94, .07);
+}
+
+#yr-table .yr-film-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+#yr-table .yr-poster {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 5px;
+  background: linear-gradient(145deg, var(--bg3), var(--bg2)) center / cover no-repeat;
+  color: var(--text-muted);
+  font-size: .7rem;
+}
+
+#yr-table .yr-poster.has-poster > span {
+  display: none;
+}
+
+#yr-table .yr-film-copy {
+  min-width: 0;
+}
+
+#yr-table .yr-film-title {
+  overflow: hidden;
+  color: var(--text);
+  font-size: .84rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#yr-table .yr-film-lang {
+  margin-top: 4px;
+  font-size: .67rem;
+}
+
+#yr-table .yr-rank {
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+#yr-table .yr-rank.top-three {
+  color: var(--gold);
+}
+
+#yr-table .yr-num {
+  text-align: right;
+  white-space: nowrap;
+  color: var(--text-dim);
+  font-size: .77rem;
+}
+
+#yr-table .yr-worldwide {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+#yr-table .yr-multiplier {
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  #yr-table {
+    overflow-x: auto;
+  }
+
+  #yr-table > .yr-result-row {
+    min-width: 700px;
+  }
+}
 </style>
 </head>
 <body>
@@ -13895,23 +14079,111 @@ function getYearFilms(yr) {
   return results.slice(0, limit);
 }
 
-function renderYrTable(){
+function escapeYearTableText(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char];
+  });
+}
+
+function renderYrTable() {
+  var table = document.getElementById('yr-table');
+  if (!table) return;
+
   var data = getYearFilms(curYr);
-  var maxWW = data.length ? Math.max.apply(null, data.map(function(f){return f.ww||0;})) || 1 : 1;
-  document.getElementById('yr-table').innerHTML = data.map(function(f,i){
-    var col = LC[f.l]||'#888';
-    var pct = Math.round(f.ww/maxWW*100);
-    var hasPg = !!getFilmPage(f.n);
-    return '<div style="display:grid;grid-template-columns:40px 1fr 70px 90px 90px 120px 100px;padding:.5rem 8px;border-bottom:0.5px solid rgba(255,255,255,.04);border-radius:3px;align-items:center;cursor:'+(hasPg?'pointer':'default')+'" onclick="maybeOpenFilm(\''+f.n.replace(/'/g,"\\'")+'\')" onmouseover="this.style.background=\'rgba(255,255,255,.03)\'" onmouseout="this.style.background=\'\'">' +
-      '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:.9rem;font-weight:800;color:'+(i<3?'var(--gold)':'rgba(255,255,255,.2)')+'">'+(i+1)+'</div>' +
-      '<div><div style="font-size:.82rem;font-weight:500;color:rgba(255,255,255,.85)">'+f.n+(hasPg?' <span style="font-size:.5rem;color:var(--gold);vertical-align:middle">●</span>':'')+'</div><div style="margin-top:3px;height:2px;background:rgba(255,255,255,.05);border-radius:1px;max-width:260px"><div style="width:'+pct+'%;height:2px;border-radius:1px;background:'+col+'88"></div></div></div>' +
-      '<div style="text-align:right;font-size:.72rem;color:'+col+';font-weight:600">'+f.l+'</div>' +
-      '<div style="text-align:right;font-size:.78rem;color:rgba(255,255,255,.4)">'+(f.ow?'₹'+f.ow+' Cr':'—')+'</div>' +
-      '<div style="text-align:right;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.7)">₹'+f.india+' Cr</div>' +
-      '<div style="text-align:right;font-size:.82rem;font-weight:600;color:var(--gold)">₹'+f.ww+' Cr</div>' +
-      '<div style="text-align:right;font-size:.7rem;font-weight:700;color:'+(f.ow&&f.india?(legs=Math.round(f.india/f.ow*100)/100)>=4?'#4ade80':legs>=2.5?'#facc15':'#f87171':'rgba(255,255,255,.2)')+'">'+(f.ow&&f.india?(Math.round(f.india/f.ow*100)/100)+'×':'—')+'</div>' +
-    '</div>';
+  var maxWW = data.length
+    ? Math.max.apply(null, data.map(function (film) {
+        return Number(film.ww) || 0;
+      })) || 1
+    : 1;
+
+  table.innerHTML = data.map(function (film, index) {
+    var name = escapeYearTableText(film.n);
+    var year = Number(film.y) || Number(curYr);
+    var posterId = 'yr-poster-' + curYr + '-' + index;
+    var languageColor = LC[film.l] || '#888';
+    var worldwide = Number(film.ww) || 0;
+    var percentage = Math.round(worldwide / maxWW * 100);
+    var multiplier = film.ow && film.india
+      ? Number(film.india) / Number(film.ow)
+      : null;
+    var multiplierColor = !multiplier
+      ? 'var(--text-muted)'
+      : multiplier >= 4
+        ? '#4ade80'
+        : multiplier >= 2.5
+          ? '#facc15'
+          : '#fb7185';
+
+    return '<div class="yr-result-row" data-film-name="' + name +
+      '" data-film-year="' + year + '" tabindex="0" role="button">' +
+        '<div class="yr-rank' + (index < 3 ? ' top-three' : '') +
+          '">#' + (index + 1) + '</div>' +
+        '<div class="yr-film-cell">' +
+          '<div class="yr-poster" id="' + posterId + '">' +
+            '<span>' + escapeYearTableText((film.n || '?').slice(0, 1)) + '</span>' +
+          '</div>' +
+          '<div class="yr-film-copy">' +
+            '<div class="yr-film-title">' + name +
+              (getFilmPage(film.n)
+                ? ' <span style="color:var(--gold);font-size:.55rem">●</span>'
+                : '') +
+            '</div>' +
+            '<div class="yr-film-lang" style="color:' + languageColor + '">' +
+              escapeYearTableText(film.l || '') +
+            '</div>' +
+            '<div style="height:2px;background:var(--border);border-radius:2px;margin-top:5px;max-width:220px">' +
+              '<div style="width:' + percentage +
+                '%;height:2px;background:' + languageColor +
+                ';border-radius:2px"></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="yr-num">' + escapeYearTableText(film.l || '') + '</div>' +
+        '<div class="yr-num">' +
+          (film.ow != null ? '₹' + film.ow + ' Cr' : '—') +
+        '</div>' +
+        '<div class="yr-num">' +
+          (film.india != null ? '₹' + film.india + ' Cr' : '—') +
+        '</div>' +
+        '<div class="yr-num yr-worldwide">₹' + worldwide + ' Cr</div>' +
+        '<div class="yr-num yr-multiplier" style="color:' + multiplierColor + '">' +
+          (multiplier ? multiplier.toFixed(2) + '×' : '—') +
+        '</div>' +
+      '</div>';
   }).join('');
+
+  Array.prototype.forEach.call(
+    table.querySelectorAll('.yr-result-row'),
+    function (row) {
+      var title = row.getAttribute('data-film-name');
+      var year = Number(row.getAttribute('data-film-year'));
+
+      function openFilm() {
+        maybeOpenFilm(title);
+      }
+
+      row.addEventListener('click', openFilm);
+      row.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openFilm();
+        }
+      });
+
+      var poster = row.querySelector('.yr-poster');
+      tmdbSearch(title, year, function (result) {
+        if (!result || !poster || !poster.isConnected || !result.poster) return;
+        poster.style.backgroundImage = 'url("' + result.poster + '")';
+        poster.classList.add('has-poster');
+      });
+    }
+  );
 }
 renderYrTable();
 
@@ -15818,40 +16090,49 @@ function renderPreds() {
     return a.localeCompare(b);
   });
 
-  grid.innerHTML = groupKeys.map(function (groupKey) {
-    var group = groups[groupKey];
-    var heading = groupKey === 'tba'
-      ? 'Date to be announced'
-      : group[0].dateInfo.groupLabel;
+ grid.innerHTML = groupKeys.map(function (groupKey) {
+  var group = groups[groupKey];
+  var heading = groupKey === 'tba'
+    ? 'Date to be announced'
+    : group[0].dateInfo.groupLabel;
 
-return '<section class="schedule-date-group" style="display:block!important;width:100%">' +
-  '<h3 class="schedule-date-heading">' + escapeScheduleText(heading) + '</h3>' +
-      '<div class="schedule-date-films">' +
-  '<div style="display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%">' +
+  return '<section class="schedule-date-group">' +
+    '<h3 class="schedule-date-heading">' +
+      escapeScheduleText(heading) +
+    '</h3>' +
+    '<div class="schedule-date-films">' +
       group.map(function (item, index) {
         var film = item.film;
-        var posterId = 'schedule-poster-' + groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
- var prediction = getUpcomingAutoPrediction(film);
-var forecast = prediction && prediction.ow
-  ? '₹' + prediction.ow.low + '–₹' + prediction.ow.high + ' Cr'
-  : '';
+        var posterId = 'schedule-poster-' +
+          groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
+        var prediction = getUpcomingAutoPrediction(film);
+        var forecast = prediction && prediction.ow
+          ? '₹' + prediction.ow.low + '–₹' +
+              prediction.ow.high + ' Cr'
+          : '';
 
-var row = '<div class="schedule-row" style="display:grid!important;grid-template-columns:78px minmax(0,1fr) 190px!important;width:100%!important;box-sizing:border-box">' +
-  '<div class="schedule-poster" id="' + posterId + '">' +
-            escapeScheduleText(film.n.slice(0, 1)) +
-          '</div>' +
-          '<div>' +
-            '<div class="schedule-film-title">' + escapeScheduleText(film.n) + '</div>' +
-            '<div class="schedule-film-meta">' +
-              escapeScheduleText(film.note || film.l || 'Release details to be announced') +
+        var row =
+          '<div class="schedule-row">' +
+            '<div class="schedule-poster" id="' + posterId + '">' +
+              escapeScheduleText((film.n || '?').slice(0, 1)) +
             '</div>' +
-          '</div>' +
-          '<div class="schedule-forecast">' +
-           (forecast
-  ? 'Opening weekend · India net<strong>' + escapeScheduleText(forecast) + '</strong>'
-  : 'Forecast unavailable · limited matching history')
-          '</div>' +
-        '</div>';
+            '<div>' +
+              '<div class="schedule-film-title">' +
+                escapeScheduleText(film.n) +
+              '</div>' +
+              '<div class="schedule-film-meta">' +
+                escapeScheduleText(
+                  film.note || film.l || 'Release details to be announced'
+                ) +
+              '</div>' +
+            '</div>' +
+            '<div class="schedule-forecast">' +
+              (forecast
+                ? 'Opening weekend · India net<strong>' +
+                    escapeScheduleText(forecast) + '</strong>'
+                : 'Forecast unavailable · limited matching history') +
+            '</div>' +
+          '</div>';
 
         setTimeout(function () {
           var posterEl = document.getElementById(posterId);
@@ -15859,6 +16140,7 @@ var row = '<div class="schedule-row" style="display:grid!important;grid-template
 
           tmdbSearch(film.n, film.y, function (result) {
             if (!result || !posterEl.isConnected) return;
+
             var poster = result.poster || result.backdrop;
             if (poster) {
               posterEl.textContent = '';
@@ -15867,12 +16149,11 @@ var row = '<div class="schedule-row" style="display:grid!important;grid-template
           });
         }, 0);
 
-    return row;
-}).join('') +
-'</div>' +
-'</section>';
+        return row;
+      }).join('') +
+    '</div>' +
+  '</section>';
 }).join('');
-}
 renderPreds();
 // ═══════════════════════════════════════
 // ACTION OW & LEGS PAGE
