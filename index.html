@@ -15824,9 +15824,10 @@ function renderPreds() {
       ? 'Date to be announced'
       : group[0].dateInfo.groupLabel;
 
-    return '<section class="schedule-date-group">' +
-      '<h3 class="schedule-date-heading">' + escapeScheduleText(heading) + '</h3>' +
+return '<section class="schedule-date-group" style="display:block!important;width:100%">' +
+  '<h3 class="schedule-date-heading">' + escapeScheduleText(heading) + '</h3>' +
       '<div class="schedule-date-films">' +
+  '<div style="display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%">' +
       group.map(function (item, index) {
         var film = item.film;
         var posterId = 'schedule-poster-' + groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
@@ -15835,8 +15836,8 @@ var forecast = prediction && prediction.ow
   ? '₹' + prediction.ow.low + '–₹' + prediction.ow.high + ' Cr'
   : '';
 
-        var row = '<div class="schedule-row">' +
-          '<div class="schedule-poster" id="' + posterId + '">' +
+var row = '<div class="schedule-row" style="display:grid!important;grid-template-columns:78px minmax(0,1fr) 190px!important;width:100%!important;box-sizing:border-box">' +
+  '<div class="schedule-poster" id="' + posterId + '">' +
             escapeScheduleText(film.n.slice(0, 1)) +
           '</div>' +
           '<div>' +
@@ -15866,11 +15867,11 @@ var forecast = prediction && prediction.ow
           });
         }, 0);
 
-        return row;
-    }).join('') +
+    return row;
+}).join('') +
 '</div>' +
 '</section>';
-  }).join('');
+}).join('');
 }
 renderPreds();
 // ═══════════════════════════════════════
