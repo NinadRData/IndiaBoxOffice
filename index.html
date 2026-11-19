@@ -2103,11 +2103,11 @@ var FILMS = [
 {n:'Tiger 3', y:2023,l:'Hindi', director:'Maneesh Sharma', actors:['Salman Khan','Katrina Kaif'], studio:'YRF', india:286, ww:466, ow:89, ff:15, lb:2.5, budget:250},
 {n:'Border 2', y:2026,l:'Hindi', director:'Anurag Singh', actors:['Sunny Deol','Varun Dhawan'], studio:'Zee Studios', india:341, ww:464, ow:129.49, ff:15.79, lb:3.0, budget:150},
 {n:'The GOAT', y:2024,l:'Tamil', director:'Venkat Prabhu', actors:['Vijay','Sneha','Meenakshi Chaudhary'], studio:'Agni Studios', india:252, ww:457, ow:95, ff:17.5, lb:3.0, budget:150},
-{n:'Varisu', y:2023,l:'Tamil', director:'Vamshi Paidipally', actors:['Vijay','Rashmika Mandanna'], studio:'Vyjayanthi', india:200, ww:297, ow:40, ff:null, lb:2.8, budget:100},
-{n:'Bigil', y:2019,l:'Tamil', director:'Atlee', actors:['Vijay','Nayanthara'], studio:'AGS Entertainment', india:171, ww:295, ow:83, ff:null, lb:3.1, budget:150},
-{n:'Mersal', y:2017,l:'Tamil', director:'Atlee', actors:['Vijay','Kajal Aggarwal','Nithya Menen'], studio:'Sri Thenandal Films', india:null, ww:253, ow:null, ff:null, lb:3.3, budget:120},
-{n:'Sarkar', y:2018,l:'Tamil', director:'A. R. Murugadoss', actors:['Vijay','Keerthy Suresh'], studio:'Sun Pictures', india:141, ww:252, ow:31, ff:null, lb:3.0, budget:80},
-{n:'Master', y:2021,l:'Tamil', director:'Lokesh Kanagaraj', actors:['Vijay','Vijay Sethupathi'], studio:'XB Film Creators', india:154, ww:223, ow:43, ff:null, lb:3.4, budget:135},
+{n:'Varisu', y:2023,l:'Tamil', director:'Vamshi Paidipally', actors:['Vijay','Rashmika Mandanna'], studio:'Vyjayanthi', india:200, ww:297, ow:40, ff:14.1, lb:2.8, budget:100},
+{n:'Bigil', y:2019,l:'Tamil', director:'Atlee', actors:['Vijay','Nayanthara'], studio:'AGS Entertainment', india:171, ww:295, ow:83, ff:16.3, lb:3.1, budget:150},
+{n:'Mersal', y:2017,l:'Tamil', director:'Atlee', actors:['Vijay','Kajal Aggarwal','Nithya Menen'], studio:'Sri Thenandal Films', india:140, ww:253, ow:null, ff:15.8, lb:3.3, budget:120},
+{n:'Sarkar', y:2018,l:'Tamil', director:'A. R. Murugadoss', actors:['Vijay','Keerthy Suresh'], studio:'Sun Pictures', india:141, ww:252, ow:31, ff:15.0, lb:3.0, budget:80},
+{n:'Master', y:2021,l:'Tamil', director:'Lokesh Kanagaraj', actors:['Vijay','Vijay Sethupathi'], studio:'XB Film Creators', india:154, ww:223, ow:43, ff:12.0, lb:3.4, budget:135},
 {n:'Beast', y:2022,l:'Tamil', director:'Nelson Dilipkumar', actors:['Vijay','Pooja Hegde'], studio:'Sun Pictures', india:130, ww:216, ow:43, ff:10.5, lb:2.4, budget:150},
 {n:'Andhadhun', y:2018,l:'Hindi', director:'Sriram Raghavan', actors:['Ayushmann Khurrana','Tabu','Radhika Apte'], studio:'Viacom18', india:100, ww:456, ow:27.65, ff:null, lb:4.1, budget:32},
 {n:'Saaho', y:2019,l:'Telugu', director:'Sujeeth', actors:['Prabhas','Shraddha Kapoor'], studio:'UV Creations', india:290, ww:451, ow:200, ff:26.5, lb:2.5, budget:350},
@@ -15372,6 +15372,64 @@ var PREDS = [
   {title:'Dragon',         lang:'Telugu',  actor:'Jr. NTR',          director:'Prashanth Neel',    date:'2027-06-01', bo:{low:450,mid:800,high:1200}, ow:{low:130,mid:220,high:360}, ff:{low:16,mid:27,high:43},  notes:'NTR + Prashanth Neel after RRR is one of the most anticipated pairings. Could be a monster.'},
 ];
 
+ function schedulePredictionKey(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+function getUpcomingAutoPrediction(film) {
+  var filmKey = schedulePredictionKey(film.n);
+
+  var metadata = (PREDS || []).find(function (entry) {
+    return schedulePredictionKey(entry.title) === filmKey;
+  });
+
+  var noteKey = schedulePredictionKey(film.note);
+  var actor = film.actor || (metadata && metadata.actor) || '';
+  var director = film.director || (metadata && metadata.director) || '';
+
+  if (!actor) {
+    var knownActors = {};
+
+    FILMS.forEach(function (entry) {
+      (entry.actors || []).forEach(function (name) {
+        knownActors[name] = true;
+      });
+    });
+
+    var names = Object.keys(knownActors).sort(function (a, b) {
+      return b.length - a.length;
+    });
+
+    for (var i = 0; i < names.length; i++) {
+      if (noteKey.indexOf(schedulePredictionKey(names[i])) !== -1) {
+        actor = names[i];
+        break;
+      }
+    }
+
+    if (!actor && noteKey.indexOf('ntr') !== -1) {
+      actor = 'N. T. Rama Rao Jr.';
+    }
+    if (!actor && noteKey.indexOf('srk') !== -1) {
+      actor = 'Shah Rukh Khan';
+    }
+  }
+
+  var target = {
+    title: film.n,
+    lang: film.l || (metadata && metadata.lang) || '',
+    actor: actor,
+    director: director,
+    date: film.date ||
+      (metadata && metadata.date) ||
+      (String(film.y || '') + '-06-15')
+  };
+
+  return autoForecastFromFilmData(target);
+} 
 var predLangFilter='all';
 function setPredLang(l,btn){
   predLangFilter=l;
@@ -15580,12 +15638,10 @@ function renderPreds() {
       group.map(function (item, index) {
         var film = item.film;
         var posterId = 'schedule-poster-' + groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
-        var prediction = (PREDS || []).find(function (entry) {
-          return normalizeTitle(entry.title) === normalizeTitle(film.n);
-        });
-        var forecast = prediction && prediction.bo
-          ? '₹' + prediction.bo.low + '–₹' + prediction.bo.high + ' Cr'
-          : '';
+      var prediction = getUpcomingAutoPrediction(film);
+var forecast = prediction && prediction.bo
+  ? '₹' + prediction.bo.low + '–₹' + prediction.bo.high + ' Cr'
+  : '';
 
         var row = '<div class="schedule-row">' +
           '<div class="schedule-poster" id="' + posterId + '">' +
@@ -15598,8 +15654,9 @@ function renderPreds() {
             '</div>' +
           '</div>' +
           '<div class="schedule-forecast">' +
-            (forecast ? 'Forecast<strong>' + escapeScheduleText(forecast) + '</strong>' :
-              escapeScheduleText(film.l || 'Release date announced')) +
+           (forecast
+  ? 'Auto worldwide forecast<strong>' + escapeScheduleText(forecast) + '</strong>'
+  : 'Forecast unavailable · limited matching history')
           '</div>' +
         '</div>';
 
