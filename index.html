@@ -2021,6 +2021,26 @@ body.light #page-main .home-topten .pcard-amt { color: rgba(255,255,255,.56) !im
     text-align: left;
   }
 }
+  #page-predictions .schedule-date-films {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  width: 100%;
+}
+
+#page-predictions .schedule-date-films > .schedule-row {
+  display: grid !important;
+  grid-template-columns: 78px minmax(0, 1fr) minmax(190px, max-content) !important;
+  width: 100% !important;
+  flex: 0 0 auto !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  #page-predictions .schedule-date-films > .schedule-row {
+    grid-template-columns: 62px minmax(0, 1fr) !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -15806,6 +15826,7 @@ function renderPreds() {
 
     return '<section class="schedule-date-group">' +
       '<h3 class="schedule-date-heading">' + escapeScheduleText(heading) + '</h3>' +
+      '<div class="schedule-date-films">' +
       group.map(function (item, index) {
         var film = item.film;
         var posterId = 'schedule-poster-' + groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
@@ -15846,8 +15867,9 @@ var forecast = prediction && prediction.ow
         }, 0);
 
         return row;
-      }).join('') +
-    '</section>';
+    }).join('') +
+'</div>' +
+'</section>';
   }).join('');
 }
 renderPreds();
