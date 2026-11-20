@@ -14437,8 +14437,9 @@ function normalizeTitle(s) {
 
 function getYearFilms(yr) {
   var yrNum = parseInt(yr);
-  var results = FILMS.filter(function(f){ return f.y === yrNum && f.ww != null; })
-    .map(function(f){
+  var results = FILMS.filter(function(f){
+    return f.y === yrNum && (f.ww != null || f.india != null);
+  })    .map(function(f){
       var merged = {n:f.n, l:f.l, ow:f.ow, india:f.india, ww:f.ww, studio:f.studio, liveKey:f.liveKey||null};
       if (f.liveKey) {
         var live = getLiveFilmData(f.liveKey);
@@ -14452,7 +14453,9 @@ function getYearFilms(yr) {
     });
 
   results.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
-  var limit = (yr==='2020' || yr==='2021') ? 5 : 15;
+  var limit = (yr === '2025' || yr === '2026')
+    ? results.length
+    : (yr === '2020' || yr === '2021') ? 5 : 15;
   return results.slice(0, limit);
 }
 
@@ -14528,8 +14531,10 @@ function renderYrTable() {
         '<div class="yr-num">' +
           (film.india != null ? '₹' + film.india + ' Cr' : '—') +
         '</div>' +
-        '<div class="yr-num yr-worldwide">₹' + worldwide + ' Cr</div>' +
-        '<div class="yr-num yr-multiplier" style="color:' + multiplierColor + '">' +
+        '<div class="yr-num yr-worldwide">' +
+          (film.ww != null ? '₹' + worldwide + ' Cr' : '—') +
+        '</div>' +
+      '<div class="yr-num yr-multiplier" style="color:' + multiplierColor + '">' +
           (multiplier ? multiplier.toFixed(2) + '×' : '—') +
         '</div>' +
       '</div>';
@@ -19299,7 +19304,54 @@ function key(name, year) {
         applyFigures(film, sourceByKey[k]);
         matched[k] = sourceByKey[k];
       });
+      // Add feed films that are not already in the film database.
+      data.films.forEach(function (film) {
+        if ((film.year !== 2025 && film.year !== 2026) ||
+            typeof film.title !== 'string' ||
+            !Number.isFinite(film.indiaNet)) return;
 
+        var k = key(film.title, film.year);
+
+        // Skip duplicates or ambiguous exact matches.
+        if (sourceCounts[k] !== 1 || databaseCounts[k]) return;
+
+        var incomingName = normalizedName(film.title);
+
+        // A longer or shorter version of an existing title may be the
+        // same film. Skip it until an alias can be checked.
+        var possibleDuplicate = FILMS.some(function (existing) {
+          if (!existing || existing.y !== film.year || !existing.n) {
+            return false;
+          }
+
+          var existingName = normalizedName(existing.n);
+          return incomingName.length >= 5 &&
+            existingName.length >= 5 &&
+            (incomingName.indexOf(existingName) === 0 ||
+             existingName.indexOf(incomingName) === 0);
+        });
+
+        if (possibleDuplicate) {
+          console.warn('Possible duplicate; not added:', film.title);
+          return;
+        }
+
+        FILMS.push({
+          n: film.title,
+          y: film.year,
+          l: '—',
+          india: film.indiaNet,
+          ww: Number.isFinite(film.worldwideGross)
+            ? film.worldwideGross
+            : null,
+          ow: null,
+          studio: null,
+          sourceUrl: film.url
+        });
+
+        databaseCounts[k] = 1;
+        matched[k] = film;
+      });
       if (typeof YR_DATA !== 'undefined') {
         [2025, 2026].forEach(function (year) {
           var rows = YR_DATA[String(year)] || [];
