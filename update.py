@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Update the public current-year Sacnilk collection snapshot."""
+"""Update the current-year Sacnilk collection snapshot."""
 
 import datetime
 import html.parser
@@ -22,13 +22,22 @@ class Parser(html.parser.HTMLParser):
         self.capture = None
         self.buffer = []
         self.rows = []
+        self.in_list = False
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         classes = attrs.get("class", "").split()
 
-        if self.row is None and tag == "li" and "ds-lrow" in classes:
-            self.row = {}
+        if tag == "ul" and "ds-list" in classes:
+            self.in_list = True
+
+        if (
+            self.in_list
+            and self.row is None
+            and tag == "li"
+            and "ds-lrow" in classes
+        ):
+            self.row = {"text": []}
             self.depth = 1
             return
 
@@ -50,10 +59,15 @@ class Parser(html.parser.HTMLParser):
             self.buffer = []
 
     def handle_data(self, data):
+        if self.row is not None:
+            self.row["text"].append(data)
         if self.capture:
             self.buffer.append(data)
 
     def handle_endtag(self, tag):
+        if tag == "ul" and self.row is None:
+            self.in_list = False
+
         if self.row is None:
             return
 
@@ -82,14 +96,37 @@ class Parser(html.parser.HTMLParser):
             self.depth -= 1
 
             if self.depth == 0:
+                row = self.row
+                text = " ".join(" ".join(row.pop("text")).split())
+
+                worldwide = re.search(
+                    r"Worldwide\s+₹\s*([\d,]+(?:\.\d+)?)\s*Cr",
+                    text,
+                )
+                day = re.search(r"\bDay\s+(\d+)\s+₹", text)
+
+                if worldwide:
+                    row["worldwideGross"] = float(
+                        worldwide.group(1).replace(",", "")
+                    )
+                if day:
+                    row["reportedDay"] = int(day.group(1))
+
+                foreign = bool(
+                    re.search(r"·\s*Hollywood\s*·", text, re.I)
+                )
+                is_collection_row = " released " in f" {text} "
+
                 if (
-                    self.row.get("title")
-                    and self.row.get("url", "").startswith(
+                    is_collection_row
+                    and not foreign
+                    and row.get("title")
+                    and row.get("url", "").startswith(
                         "https://www.sacnilk.com/movie/"
                     )
-                    and "indiaNet" in self.row
+                    and "indiaNet" in row
                 ):
-                    self.rows.append(self.row)
+                    self.rows.append(row)
 
                 self.row = None
 
@@ -118,7 +155,7 @@ def main():
     parser = Parser()
     parser.feed(page.decode("utf-8"))
 
-    # Remove duplicate mobile/desktop entries.
+    # Remove duplicate entries, keeping the first.
     rows = list(
         {row["url"]: row for row in reversed(parser.rows)}.values()
     )[::-1]
