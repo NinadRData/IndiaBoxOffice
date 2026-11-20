@@ -3474,8 +3474,8 @@ function getBOMilestones(threshold) {
   FILMS.forEach(function(f) {
     if (f.ww == null) return;
     var key = f.n.toLowerCase().trim() + '|' + f.y;
-    f.actors.forEach(function(a) {
-      creditActor(a, key, {n:f.n, y:f.y, bo:f.ww}, f.ww >= minBO);
+(Array.isArray(f.actors) ? f.actors : []).forEach(function(a) {
+  creditActor(a, key, {n:f.n, y:f.y, bo:f.ww}, f.ww >= minBO);
     });
   });
 
