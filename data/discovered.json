@@ -1,0 +1,262 @@
+{
+  "updatedAt": "2026-11-20T20:23:41.204419+00:00",
+  "films": [
+    {
+      "title": "O.M Operation Mole",
+      "year": 2026,
+      "language": "Tamil",
+      "url": "https://www.sacnilk.com/movie/OM_Chapter_1_Udhiram_2026",
+      "release": "2026-11-20",
+      "indiaNet": 17.7,
+      "worldwideGross": 31.55,
+      "days": [
+        {
+          "date": "2026-11-20",
+          "day": 1,
+          "indiaNet": 17.7
+        }
+      ],
+      "fetchedAt": "2026-11-20T20:23:01.636032+00:00"
+    },
+    {
+      "title": "Ramayana",
+      "year": 2026,
+      "language": "Hindi",
+      "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
+      "release": "2026-11-05",
+      "indiaNet": 880.05,
+      "worldwideGross": 1574.6,
+      "days": [
+        {
+          "date": "2026-11-05",
+          "day": 1,
+          "indiaNet": 64.85
+        },
+        {
+          "date": "2026-11-06",
+          "day": 2,
+          "indiaNet": 48.05
+        },
+        {
+          "date": "2026-11-07",
+          "day": 3,
+          "indiaNet": 69.8
+        },
+        {
+          "date": "2026-11-08",
+          "day": 4,
+          "indiaNet": 56.15
+        },
+        {
+          "date": "2026-11-09",
+          "day": 5,
+          "indiaNet": 107.5
+        },
+        {
+          "date": "2026-11-10",
+          "day": 6,
+          "indiaNet": 94.1
+        },
+        {
+          "date": "2026-11-11",
+          "day": 7,
+          "indiaNet": 70.65
+        },
+        {
+          "date": "2026-11-12",
+          "day": 8,
+          "indiaNet": 53.5
+        },
+        {
+          "date": "2026-11-13",
+          "day": 9,
+          "indiaNet": 48.1
+        },
+        {
+          "date": "2026-11-14",
+          "day": 10,
+          "indiaNet": 72.9
+        },
+        {
+          "date": "2026-11-15",
+          "day": 11,
+          "indiaNet": 75.0
+        },
+        {
+          "date": "2026-11-16",
+          "day": 12,
+          "indiaNet": 32.0
+        },
+        {
+          "date": "2026-11-17",
+          "day": 13,
+          "indiaNet": 28.6
+        },
+        {
+          "date": "2026-11-18",
+          "day": 14,
+          "indiaNet": 23.2
+        },
+        {
+          "date": "2026-11-19",
+          "day": 15,
+          "indiaNet": 19.35
+        },
+        {
+          "date": "2026-11-20",
+          "day": 16,
+          "indiaNet": 16.3
+        }
+      ],
+      "fetchedAt": "2026-11-20T20:23:02.829866+00:00"
+    },
+    {
+      "title": "ENE Repeat",
+      "year": 2026,
+      "language": "Telugu",
+      "url": "https://www.sacnilk.com/movie/ENE_Repeat_2026",
+      "release": "2026-11-19",
+      "indiaNet": 8.95,
+      "worldwideGross": 19.4,
+      "days": [
+        {
+          "date": "2026-11-19",
+          "day": 1,
+          "indiaNet": 5.85
+        },
+        {
+          "date": "2026-11-20",
+          "day": 2,
+          "indiaNet": 3.1
+        }
+      ],
+      "fetchedAt": "2026-11-20T20:23:04.014961+00:00"
+    },
+    {
+      "title": "Scene",
+      "year": 2026,
+      "language": "Tamil",
+      "url": "https://www.sacnilk.com/movie/Scene_2026",
+      "release": "2026-11-06",
+      "indiaNet": 147.72,
+      "worldwideGross": 260.6,
+      "days": [
+        {
+          "date": "2026-11-06",
+          "day": 1,
+          "indiaNet": 19.15
+        },
+        {
+          "date": "2026-11-07",
+          "day": 2,
+          "indiaNet": 20.35
+        },
+        {
+          "date": "2026-11-08",
+          "day": 3,
+          "indiaNet": 23.65
+        },
+        {
+          "date": "2026-11-09",
+          "day": 4,
+          "indiaNet": 21.4
+        },
+        {
+          "date": "2026-11-10",
+          "day": 5,
+          "indiaNet": 12.85
+        },
+        {
+          "date": "2026-11-11",
+          "day": 6,
+          "indiaNet": 8.05
+        },
+        {
+          "date": "2026-11-12",
+          "day": 7,
+          "indiaNet": 6.25
+        },
+        {
+          "date": "2026-11-13",
+          "day": 8,
+          "indiaNet": 6.0
+        },
+        {
+          "date": "2026-11-14",
+          "day": 9,
+          "indiaNet": 9.5
+        },
+        {
+          "date": "2026-11-15",
+          "day": 10,
+          "indiaNet": 9.3
+        },
+        {
+          "date": "2026-11-16",
+          "day": 11,
+          "indiaNet": 3.0
+        },
+        {
+          "date": "2026-11-17",
+          "day": 12,
+          "indiaNet": 2.9
+        },
+        {
+          "date": "2026-11-18",
+          "day": 13,
+          "indiaNet": 2.65
+        },
+        {
+          "date": "2026-11-19",
+          "day": 14,
+          "indiaNet": 1.9
+        }
+      ],
+      "fetchedAt": "2026-11-20T20:23:05.205025+00:00"
+    },
+    {
+      "title": "Bachelor Party D'eux",
+      "year": 2026,
+      "language": "Malayalam",
+      "url": "https://www.sacnilk.com/movie/Bachelor_Party_Deux_2026",
+      "release": "2026-11-19",
+      "indiaNet": 3.12,
+      "worldwideGross": 3.0,
+      "days": [
+        {
+          "date": "2026-11-19",
+          "day": 1,
+          "indiaNet": 2.55
+        }
+      ],
+      "fetchedAt": "2026-11-20T20:23:10.958409+00:00"
+    },
+    {
+      "title": "Donga Naa Koduku",
+      "year": 2026,
+      "language": "Telugu",
+      "url": "https://www.sacnilk.com/movie/Donga_Naa_Koduku_2026",
+      "release": "2026-11-13",
+      "indiaNet": 8.62,
+      "worldwideGross": 8.61,
+      "days": [
+        {
+          "date": "2026-11-13",
+          "day": 1,
+          "indiaNet": 1.85
+        },
+        {
+          "date": "2026-11-14",
+          "day": 2,
+          "indiaNet": 2.0
+        },
+        {
+          "date": "2026-11-15",
+          "day": 3,
+          "indiaNet": 1.95
+        }
+      ],
+      "fetchedAt": "2026-11-20T20:23:32.880758+00:00"
+    }
+  ]
+}
