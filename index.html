@@ -13092,14 +13092,14 @@ function showFilmPage(key) {
     '<div style="background:rgba(0,0,0,.5);border-bottom:0.5px solid rgba(255,255,255,.06);padding:1.25rem 2rem">' +
       '<div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden">' +
         [
-          {l:'India Net',       v:'₹'+page.india+' Cr',  c:'#f5c518', s:'Domestic theatrical nett'},
-          {l:'Worldwide',       v:'₹'+page.ww+' Cr',     c:'#f5c518', s:'Global gross'},
-          {l:'Opening Weekend', v:'₹'+page.ow+' Cr',     c:'#f97316', s:'3-day opening'},
-          {l:'Multiplier',      v:page.multiplier+'×',   c:'#22c55e', s:'Opening → Total'},
-          {l:'Footfalls',       v:page.ff+'M',            c:'#4fc3f7', s:'Tickets sold'},
-          {l:'Budget',          v:'₹'+page.budget+' Cr', c:'rgba(255,255,255,.6)', s:'Production cost'},
-          {l:'Letterboxd',      v:page.lb+' / 5',        c:'rgba(255,255,255,.6)', s:'Audience rating'},
-          {l:'OTT',             v:page.ott,               c:'rgba(255,255,255,.6)', s:'Streaming platform'},
+                {l:'India Net',       v:page.india != null ? '₹'+page.india+' Cr' : '—', c:'#f5c518', s:'Domestic theatrical nett'},
+          {l:'Worldwide',       v:page.ww != null ? '₹'+page.ww+' Cr' : '—', c:'#f5c518', s:'Global gross'},
+          {l:'Opening Weekend', v:page.ow != null ? '₹'+page.ow+' Cr' : '—', c:'#f97316', s:'3-day opening'},
+          {l:'Multiplier',      v:page.multiplier != null ? page.multiplier+'×' : '—', c:'#22c55e', s:'Opening → Total'},
+          {l:'Footfalls',       v:page.ff != null ? page.ff+'M' : '—', c:'#4fc3f7', s:'Tickets sold'},
+          {l:'Budget',          v:page.budget != null ? '₹'+page.budget+' Cr' : '—', c:'rgba(255,255,255,.6)', s:'Production cost'},
+          {l:'Letterboxd',      v:page.lb != null ? page.lb+' / 5' : '—', c:'rgba(255,255,255,.6)', s:'Audience rating'},
+          {l:'OTT',             v:page.ott || '—', c:'rgba(255,255,255,.6)', s:'Streaming platform'},
         ].map(function(m){
           return '<div style="background:#0d0d0d;padding:1rem 1.25rem;display:flex;flex-direction:column;gap:.35rem">' +
             '<div style="font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28)">'+m.l+'</div>' +
@@ -13301,7 +13301,7 @@ function showFilmPage(key) {
         }).join('') +
         '<div style="margin-top:.75rem;padding-top:.6rem;border-top:0.5px solid rgba(255,255,255,.06);display:flex;justify-content:space-between">' +
           '<span style="font-size:.65rem;color:rgba(255,255,255,.28)">Total Overseas</span>' +
-          '<span style="font-size:.78rem;font-weight:600;color:#4fc3f7">₹'+page.overseas.reduce(function(s,o){return s+o.val;},0)+' Cr</span>' +
+                    '<span style="font-size:.78rem;font-weight:600;color:#4fc3f7">'+(page.overseas.length ? '₹'+page.overseas.reduce(function(s,o){return s+o.val;},0)+' Cr' : '—')+'</span>' +
         '</div>' +
       '</div>' +
 
@@ -19402,8 +19402,7 @@ function key(name, year) {
     });
 })();
 </script>
-<script src="tracker.js?v=2" defer></script>
+<script src="tracker.js?v=3" defer></script>
   <script src="daily-page-sync.js" defer></script>
- <script src="auto-pages.js" defer></script>
-</body>
+<script src="auto-pages.js?v=2" defer></script></body>
 </html>
