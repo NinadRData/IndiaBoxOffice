@@ -19223,6 +19223,116 @@ window.addEventListener('load', function () {
   }
 });
 </script>
+  <script>
+(function () {
+  function normalizedName(value) {
+    return String(value || '')
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]/g, '');
+  }
+
+  function key(name, year) {
+    return String(year) + ':' + normalizedName(name);
+  }
+
+  function applyFigures(target, source) {
+    if (Number.isFinite(source.indiaNet)) {
+      target.india = source.indiaNet;
+    }
+    if (Number.isFinite(source.worldwideGross)) {
+      target.ww = source.worldwideGross;
+    }
+  }
+
+  fetch('data/sacnilk.json', { cache: 'no-cache' })
+    .then(function (response) {
+      if (!response.ok) throw new Error('Snapshot unavailable');
+      return response.json();
+    })
+    .then(function (data) {
+      if (!Array.isArray(data.films) || !Array.isArray(FILMS)) return;
+
+      var sourceByKey = {};
+      var sourceCounts = {};
+      var databaseCounts = {};
+
+      data.films.forEach(function (film) {
+        if ((film.year !== 2025 && film.year !== 2026) ||
+            typeof film.title !== 'string' ||
+            !Number.isFinite(film.indiaNet)) return;
+
+        var k = key(film.title, film.year);
+        sourceCounts[k] = (sourceCounts[k] || 0) + 1;
+        sourceByKey[k] = film;
+      });
+
+      FILMS.forEach(function (film) {
+        if (!film || !film.n ||
+            (film.y !== 2025 && film.y !== 2026)) return;
+
+        var k = key(film.n, film.y);
+        databaseCounts[k] = (databaseCounts[k] || 0) + 1;
+      });
+
+      var matched = {};
+
+      FILMS.forEach(function (film) {
+        if (!film || !film.n) return;
+
+        var k = key(film.n, film.y);
+        if (sourceCounts[k] !== 1 || databaseCounts[k] !== 1) return;
+
+        applyFigures(film, sourceByKey[k]);
+        matched[k] = sourceByKey[k];
+      });
+
+      if (typeof YR_DATA !== 'undefined') {
+        [2025, 2026].forEach(function (year) {
+          var rows = YR_DATA[String(year)] || [];
+          rows.forEach(function (film) {
+            var source = matched[key(film.n, year)];
+            if (source) applyFigures(film, source);
+          });
+        });
+      }
+
+      if (typeof FILM_PAGES !== 'undefined') {
+        Object.keys(FILM_PAGES).forEach(function (pageKey) {
+          var page = FILM_PAGES[pageKey];
+          if (!page || !page.title || !page.year) return;
+
+          var source = matched[key(page.title, page.year)];
+          if (!source) return;
+
+          applyFigures(page, source);
+
+          if (page.prediction && page.prediction.actuals) {
+            page.prediction.actuals.running_total = source.indiaNet;
+            if (Number.isFinite(source.worldwideGross)) {
+              page.prediction.actuals.running_ww = source.worldwideGross;
+            }
+          }
+        });
+      }
+
+      if (typeof renderYrTable === 'function') {
+        renderYrTable();
+      }
+
+      console.log(
+        'Sacnilk database sync:',
+        Object.keys(matched).length,
+        'films matched; snapshot fetched',
+        data.updatedAt
+      );
+    })
+    .catch(function (error) {
+      console.warn('Sacnilk database sync unavailable:', error);
+    });
+})();
+</script>
 
 </body>
 </html>
