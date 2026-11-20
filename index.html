@@ -3967,8 +3967,7 @@ var YR_DATA = {
 
         var card = document.createElement('a');
         var title = document.createElement('span');
-        var value = document.createElement('strong');
-
+var value = document.createElement('div');
         card.href = film.url;
         card.target = '_blank';
         card.rel = 'noopener noreferrer';
@@ -3978,11 +3977,33 @@ var YR_DATA = {
           'border-radius:8px;color:inherit;text-decoration:none';
 
         title.textContent = film.title;
-        value.textContent =
-          '₹' + film.indiaNet.toLocaleString('en-IN', {
-            maximumFractionDigits: 2
-          }) + ' Cr';
-        value.style.cssText = 'color:#f97316;white-space:nowrap';
+       function amount(number) {
+  return '₹' + number.toLocaleString('en-IN', {
+    maximumFractionDigits: 2
+  }) + ' Cr';
+}
+
+value.style.cssText =
+  'text-align:right;white-space:nowrap;font-size:.8rem';
+
+var net = document.createElement('div');
+net.textContent = 'India net: ' + amount(film.indiaNet);
+net.style.color = '#f97316';
+
+var worldwide = document.createElement('div');
+worldwide.textContent = 'Worldwide gross: ' +
+  (Number.isFinite(film.worldwideGross)
+    ? amount(film.worldwideGross)
+    : 'Not reported');
+
+value.append(net, worldwide);
+
+if (Number.isInteger(film.reportedDay)) {
+  var day = document.createElement('div');
+  day.textContent = 'Source reports through day ' + film.reportedDay;
+  day.style.cssText = 'font-size:.68rem;opacity:.65';
+  value.append(day);
+}
 
         card.append(title, value);
         list.appendChild(card);
