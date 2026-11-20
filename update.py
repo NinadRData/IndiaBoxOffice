@@ -112,7 +112,7 @@ class Parser(html.parser.HTMLParser):
                 if day:
                     row["reportedDay"] = int(day.group(1))
 
-                                foreign = bool(
+                foreign = bool(
                     re.search(r"·\s*Hollywood\s*·", text, re.I)
                 )
                 is_collection_row = " released " in f" {text} "
