@@ -62,10 +62,66 @@
   reset(weekly, 'Last week at the box office', 'Loading collections…');
   reset(live, 'Live tracker', 'Loading collections…');
 
-  fetch('data/tracker.json', { cache: 'no-cache' })
-    .then(function (response) {
-      if (!response.ok) throw new Error('Tracker unavailable');
-      return response.json();
+  Promise.all([
+    fetch('data/tracker.json', { cache: 'no-cache' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Tracker unavailable');
+        return response.json();
+      }),
+
+    fetch('data/discovered.json', { cache: 'no-cache' })
+      .then(function (response) {
+        return response.ok ? response.json() : null;
+      })
+      .catch(function () {
+        return null;
+      })
+  ])
+    .then(function (results) {
+      var data = results[0];
+      var discovered = results[1];
+
+      if (!data || !Array.isArray(data.films)) {
+        throw new Error('Invalid tracker');
+      }
+
+      var byUrl = Object.create(null);
+
+      data.films.forEach(function (film) {
+        if (film && typeof film.url === 'string') {
+          byUrl[film.url] = film;
+        }
+      });
+
+      if (discovered && Array.isArray(discovered.films)) {
+        discovered.films.forEach(function (film) {
+          if (
+            !film ||
+            typeof film.url !== 'string' ||
+            !Array.isArray(film.days)
+          ) return;
+
+          var previous = byUrl[film.url];
+          var incomingTime = Date.parse(film.fetchedAt || '');
+          var previousTime = Date.parse(
+            (previous && previous.fetchedAt) || data.updatedAt
+          );
+
+          if (
+            !previous ||
+            (Number.isFinite(incomingTime) &&
+             incomingTime > previousTime)
+          ) {
+            byUrl[film.url] = film;
+          }
+        });
+      }
+
+      data.films = Object.keys(byUrl).map(function (url) {
+        return byUrl[url];
+      });
+
+      return data;
     })
     .then(function (data) {
       if (
@@ -151,6 +207,8 @@
         if (!days.length) return;
 
         var last = days[days.length - 1];
+                // Don't show old cached releases as currently running.
+        if (date(asOf) - date(last.date) > 14 * 86400000) return;
 
         var week = days.filter(function (day) {
           return day.date >= start && day.date <= end;
