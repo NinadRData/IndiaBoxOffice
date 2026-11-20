@@ -1,228 +1,121 @@
 {
   "source": "https://www.sacnilk.com/latest-boxoffice-collection",
-  "updatedAt": "2026-11-20T04:35:12.458024+00:00",
+  "updatedAt": "2026-11-20T04:57:15.906326+00:00",
   "unit": "INR crore",
   "metric": "India net",
   "films": [
     {
-      "url": "https://www.sacnilk.com/movie/ENE_Repeat_2026",
-      "title": "ENE Repeat",
-      "indiaNet": 5.85
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Bachelor_Party_Deux_2026",
-      "title": "Bachelor Party D'eux",
-      "indiaNet": 2.55
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Mirzapur_The_Movie_2026",
-      "title": "Mirzapur The Movie",
-      "indiaNet": 230.64
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/bhooth_bangla_2026",
-      "title": "Bhooth Bangla",
-      "indiaNet": 182.36
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Dhamaal_4_2026",
-      "title": "Dhamaal 4",
-      "indiaNet": 167.88
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Awarapan_2_2026",
-      "title": "Awarapan 2",
-      "indiaNet": 150.63
-    },
-    {
       "url": "https://www.sacnilk.com/movie/Dhurandhar_2_2026",
       "title": "Dhurandhar 2: The Revenge",
-      "indiaNet": 1149.3
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
-      "title": "Drishyam 3: The Conclusion",
-      "indiaNet": 380.92
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Hanuman_Ansh_2026",
-      "title": "Hanuman Ansh",
-      "indiaNet": 342.94
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Border_2_2026",
-      "title": "Border 2",
-      "indiaNet": 329.43
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Mana_Shankaravaraprasad_Garu_2026",
-      "title": "Mana ShankaraVaraprasad Garu",
-      "indiaNet": 218.47
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/peddi_2026",
-      "title": "Peddi",
-      "indiaNet": 244.64
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Irumudi_2026",
-      "title": "Irumudi",
-      "indiaNet": 194.54
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/The_Raja_Saab_2024",
-      "title": "The Raja Saab",
-      "indiaNet": 120.11
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/The_Paradise_2026",
-      "title": "The Paradise",
-      "indiaNet": 108.29
+      "indiaNet": 1149.3,
+      "worldwideGross": 1813.39
     },
     {
       "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
       "title": "Jailer 2",
-      "indiaNet": 475.11
+      "indiaNet": 475.11,
+      "worldwideGross": 835.61,
+      "reportedDay": 36
     },
     {
-      "url": "https://www.sacnilk.com/movie/Thalapathy_69_2025",
-      "title": "Jana Nayagan",
-      "indiaNet": 198.83
+      "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
+      "title": "Drishyam 3: The Conclusion",
+      "indiaNet": 380.92,
+      "worldwideGross": 589.23,
+      "reportedDay": 49
     },
     {
-      "url": "https://www.sacnilk.com/movie/karuppu_2026",
-      "title": "Karuppu",
-      "indiaNet": 198.18
+      "url": "https://www.sacnilk.com/movie/Hanuman_Ansh_2026",
+      "title": "Hanuman Ansh",
+      "indiaNet": 342.94,
+      "worldwideGross": 453.41,
+      "reportedDay": 105
     },
     {
-      "url": "https://www.sacnilk.com/movie/Mandaadi_2026",
-      "title": "Mandaadi",
-      "indiaNet": 86.89
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Spider_Man_Brand_New_Day_2026",
-      "title": "Spider-Man: Brand New Day",
-      "indiaNet": 501.01
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/The_Odyssey_2026",
-      "title": "The Odyssey",
-      "indiaNet": 196.95
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Obsession_2026",
-      "title": "Obsession",
-      "indiaNet": 84.96
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Project_Hail_Mary_2026",
-      "title": "Project Hail Mary",
-      "indiaNet": 71.54
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Michael_2026",
-      "title": "Michael",
-      "indiaNet": 71.09
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Bethlehem_Kudumba_Unit_2026",
-      "title": "Bethlehem Kudumba Unit",
-      "indiaNet": 165.07
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Vaazha_2_Biopic_of_a_Billion_Bros_2026",
-      "title": "Vaazha 2: Biopic of a Billion Bros",
-      "indiaNet": 123.82
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/drishyam_3_malayalam_2026",
-      "title": "Drishyam 3 (Malayalam)",
-      "indiaNet": 97.45
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Aadu_3_2026",
-      "title": "Aadu 3",
-      "indiaNet": 51.12
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Premada_Oorali_2026",
-      "title": "Premada Oorali",
-      "indiaNet": 116.51
+      "url": "https://www.sacnilk.com/movie/Border_2_2026",
+      "title": "Border 2",
+      "indiaNet": 329.43,
+      "worldwideGross": 450.19
     },
     {
       "url": "https://www.sacnilk.com/movie/toxic_2026",
       "title": "Toxic",
-      "indiaNet": 250.13
+      "indiaNet": 250.13,
+      "worldwideGross": 342.26
     },
     {
-      "url": "https://www.sacnilk.com/movie/KD__The_Devil_2026",
-      "title": "KD - The Devil",
-      "indiaNet": 21.86
+      "url": "https://www.sacnilk.com/movie/peddi_2026",
+      "title": "Peddi",
+      "indiaNet": 244.64,
+      "worldwideGross": 341.9
     },
     {
-      "url": "https://www.sacnilk.com/movie/Love_Mocktail_3_2026",
-      "title": "Love Mocktail 3",
-      "indiaNet": 15.0
+      "url": "https://www.sacnilk.com/movie/Mirzapur_The_Movie_2026",
+      "title": "Mirzapur The Movie",
+      "indiaNet": 230.64,
+      "worldwideGross": 339.91
     },
     {
-      "url": "https://www.sacnilk.com/movie/Deool_Band_2_2026",
-      "title": "Deool Band 2",
-      "indiaNet": 74.35
+      "url": "https://www.sacnilk.com/movie/Mana_Shankaravaraprasad_Garu_2026",
+      "title": "Mana ShankaraVaraprasad Garu",
+      "indiaNet": 218.47,
+      "worldwideGross": 301.49
     },
     {
-      "url": "https://www.sacnilk.com/movie/raja_shivaji_2026",
-      "title": "Raja Shivaji",
-      "indiaNet": 71.02
+      "url": "https://www.sacnilk.com/movie/Thalapathy_69_2025",
+      "title": "Jana Nayagan",
+      "indiaNet": 198.83,
+      "worldwideGross": 324.97
     },
     {
-      "url": "https://www.sacnilk.com/movie/Krantijyoti_Vidyalay_Marathi_Madhyam_2026",
-      "title": "Krantijyoti Vidyalay Marathi Madhyam",
-      "indiaNet": 25.05
+      "url": "https://www.sacnilk.com/movie/karuppu_2026",
+      "title": "Karuppu",
+      "indiaNet": 198.18,
+      "worldwideGross": 310.12
     },
     {
-      "url": "https://www.sacnilk.com/movie/Tumbadchi_Manjula_2026",
-      "title": "Tumbadchi Manjula",
-      "indiaNet": 16.47
+      "url": "https://www.sacnilk.com/movie/Irumudi_2026",
+      "title": "Irumudi",
+      "indiaNet": 194.54,
+      "worldwideGross": 246.87
     },
     {
-      "url": "https://www.sacnilk.com/movie/Aga_Aga_Sunbai_Kay_Mhantay_Sasubai_2026",
-      "title": "Aga Aga Sunbai! Kay Mhantay Sasubai?",
-      "indiaNet": 8.97
+      "url": "https://www.sacnilk.com/movie/bhooth_bangla_2026",
+      "title": "Bhooth Bangla",
+      "indiaNet": 182.36,
+      "worldwideGross": 270.91
     },
     {
-      "url": "https://www.sacnilk.com/movie/Carry_on_Jatta_4_2026",
-      "title": "Carry on Jatta 4",
-      "indiaNet": 18.74
+      "url": "https://www.sacnilk.com/movie/Dhamaal_4_2026",
+      "title": "Dhamaal 4",
+      "indiaNet": 167.88,
+      "worldwideGross": 230.17
     },
     {
-      "url": "https://www.sacnilk.com/movie/Rabb_Da_Radio_3_2026",
-      "title": "Rabb Da Radio 3",
-      "indiaNet": 12.57
+      "url": "https://www.sacnilk.com/movie/Bethlehem_Kudumba_Unit_2026",
+      "title": "Bethlehem Kudumba Unit",
+      "indiaNet": 165.07,
+      "worldwideGross": 331.1
     },
     {
-      "url": "https://www.sacnilk.com/movie/Ishqan_De_Lekhe_2026",
-      "title": "Ishqan De Lekhe",
-      "indiaNet": 11.94
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Ishqnama_2026",
-      "title": "Ishqnama",
-      "indiaNet": 11.61
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Yaar_Jigree_Kasooti_Degree_2026",
-      "title": "Yaar Jigree Kasooti Degree",
-      "indiaNet": 7.5
+      "url": "https://www.sacnilk.com/movie/Awarapan_2_2026",
+      "title": "Awarapan 2",
+      "indiaNet": 150.63,
+      "worldwideGross": 213.05
     },
     {
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "title": "Ramayana",
-      "indiaNet": 19.35
+      "indiaNet": 863.75,
+      "worldwideGross": 1547.15,
+      "reportedDay": 15
     },
     {
       "url": "https://www.sacnilk.com/movie/Scene_2026",
       "title": "Scene",
-      "indiaNet": 1.9
+      "indiaNet": 146.95,
+      "worldwideGross": 259.45,
+      "reportedDay": 14
     },
     {
       "url": "https://www.sacnilk.com/movie/Mookuthi_Amman_2_2026",
