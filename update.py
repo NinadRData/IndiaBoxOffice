@@ -117,8 +117,15 @@ class Parser(html.parser.HTMLParser):
                 )
                 is_collection_row = " released " in f" {text} "
 
+                              release = re.search(
+                    r"\breleased\s+\d{1,2}\s+[A-Za-z]+\s+(\d{4})\b",
+                    text,
+                )
+                if release:
+                    row["year"] = int(release.group(1))
+
                 if (
-                    is_collection_row
+                    release and is_collection_row
                     and not foreign
                     and row.get("title")
                     and row.get("url", "").startswith(
@@ -154,6 +161,45 @@ def main():
 
     parser = Parser()
     parser.feed(page.decode("utf-8"))
+        # Keep the current-year list separate from other lists on the page.
+    parser.rows = [
+        row for row in parser.rows if row.get("year") == 2026
+    ]
+
+    archive_url = (
+        "https://www.sacnilk.com/entertainmenttopbar/"
+        "Top_10_Indian_Movies_(India_Net_Collection_2025)"
+    )
+    archive_request = urllib.request.Request(
+        archive_url,
+        headers={
+            "User-Agent": "BoxOfficeIndiaFeed/1.0 (daily collection snapshot)"
+        },
+    )
+
+    with urllib.request.urlopen(archive_request, timeout=30) as response:
+        host = response.geturl().split("/")[2]
+        if host not in ("www.sacnilk.com", "sacnilk.com"):
+            raise ValueError("Unexpected archive redirect")
+
+        archive_page = response.read(10_000_001)
+
+    if len(archive_page) > 10_000_000:
+        raise ValueError("Archive page too large")
+
+    archive = Parser()
+    archive.feed(archive_page.decode("utf-8"))
+
+    archive_rows = [
+        row for row in archive.rows if row.get("year") == 2025
+    ]
+
+    if len(archive_rows) < 5:
+        raise ValueError(
+            "Too few 2025 rows found; previous snapshot kept."
+        )
+
+    parser.rows.extend(archive_rows)
 
     # Remove duplicate entries, keeping the first.
     rows = list(
