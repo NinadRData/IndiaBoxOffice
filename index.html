@@ -19233,9 +19233,21 @@ window.addEventListener('load', function () {
       .replace(/[^a-z0-9]/g, '');
   }
 
-  function key(name, year) {
-    return String(year) + ':' + normalizedName(name);
-  }
+function key(name, year) {
+  var normalized = normalizedName(name);
+
+  // Verified alternate names in the website and Sacnilk feed.
+  var aliases = {
+    '2026:ramayanapart1': 'ramayana',
+    '2026:dhurandhar2therevenge': 'dhurandhar2',
+    '2026:drishyam3theconclusion': 'drishyamtheconclusion'
+  };
+
+  var fullKey = String(year) + ':' + normalized;
+  return aliases[fullKey]
+    ? String(year) + ':' + aliases[fullKey]
+    : fullKey;
+}
 
   function applyFigures(target, source) {
     if (Number.isFinite(source.indiaNet)) {
