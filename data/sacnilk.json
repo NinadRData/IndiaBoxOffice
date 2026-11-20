@@ -1,6 +1,6 @@
 {
   "source": "https://www.sacnilk.com/latest-boxoffice-collection",
-  "updatedAt": "2026-11-20T04:57:15.906326+00:00",
+  "updatedAt": "2026-11-20T05:48:41.492368+00:00",
   "unit": "INR crore",
   "metric": "India net",
   "films": [
@@ -8,119 +8,195 @@
       "url": "https://www.sacnilk.com/movie/Dhurandhar_2_2026",
       "title": "Dhurandhar 2: The Revenge",
       "indiaNet": 1149.3,
-      "worldwideGross": 1813.39
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
-      "title": "Jailer 2",
-      "indiaNet": 475.11,
-      "worldwideGross": 835.61,
-      "reportedDay": 36
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
-      "title": "Drishyam 3: The Conclusion",
-      "indiaNet": 380.92,
-      "worldwideGross": 589.23,
-      "reportedDay": 49
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Hanuman_Ansh_2026",
-      "title": "Hanuman Ansh",
-      "indiaNet": 342.94,
-      "worldwideGross": 453.41,
-      "reportedDay": 105
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Border_2_2026",
-      "title": "Border 2",
-      "indiaNet": 329.43,
-      "worldwideGross": 450.19
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/toxic_2026",
-      "title": "Toxic",
-      "indiaNet": 250.13,
-      "worldwideGross": 342.26
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/peddi_2026",
-      "title": "Peddi",
-      "indiaNet": 244.64,
-      "worldwideGross": 341.9
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Mirzapur_The_Movie_2026",
-      "title": "Mirzapur The Movie",
-      "indiaNet": 230.64,
-      "worldwideGross": 339.91
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Mana_Shankaravaraprasad_Garu_2026",
-      "title": "Mana ShankaraVaraprasad Garu",
-      "indiaNet": 218.47,
-      "worldwideGross": 301.49
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Thalapathy_69_2025",
-      "title": "Jana Nayagan",
-      "indiaNet": 198.83,
-      "worldwideGross": 324.97
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/karuppu_2026",
-      "title": "Karuppu",
-      "indiaNet": 198.18,
-      "worldwideGross": 310.12
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Irumudi_2026",
-      "title": "Irumudi",
-      "indiaNet": 194.54,
-      "worldwideGross": 246.87
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/bhooth_bangla_2026",
-      "title": "Bhooth Bangla",
-      "indiaNet": 182.36,
-      "worldwideGross": 270.91
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Dhamaal_4_2026",
-      "title": "Dhamaal 4",
-      "indiaNet": 167.88,
-      "worldwideGross": 230.17
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Bethlehem_Kudumba_Unit_2026",
-      "title": "Bethlehem Kudumba Unit",
-      "indiaNet": 165.07,
-      "worldwideGross": 331.1
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/Awarapan_2_2026",
-      "title": "Awarapan 2",
-      "indiaNet": 150.63,
-      "worldwideGross": 213.05
+      "worldwideGross": 1813.39,
+      "year": 2026
     },
     {
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "title": "Ramayana",
       "indiaNet": 863.75,
       "worldwideGross": 1547.15,
-      "reportedDay": 15
+      "reportedDay": 15,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
+      "title": "Jailer 2",
+      "indiaNet": 475.11,
+      "worldwideGross": 835.61,
+      "reportedDay": 36,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
+      "title": "Drishyam 3: The Conclusion",
+      "indiaNet": 380.92,
+      "worldwideGross": 589.23,
+      "reportedDay": 49,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Hanuman_Ansh_2026",
+      "title": "Hanuman Ansh",
+      "indiaNet": 342.94,
+      "worldwideGross": 453.41,
+      "reportedDay": 105,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Border_2_2026",
+      "title": "Border 2",
+      "indiaNet": 329.43,
+      "worldwideGross": 450.19,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/toxic_2026",
+      "title": "Toxic",
+      "indiaNet": 250.13,
+      "worldwideGross": 342.26,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/peddi_2026",
+      "title": "Peddi",
+      "indiaNet": 244.64,
+      "worldwideGross": 341.9,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Mirzapur_The_Movie_2026",
+      "title": "Mirzapur The Movie",
+      "indiaNet": 230.64,
+      "worldwideGross": 339.91,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Mana_Shankaravaraprasad_Garu_2026",
+      "title": "Mana ShankaraVaraprasad Garu",
+      "indiaNet": 218.47,
+      "worldwideGross": 301.49,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Thalapathy_69_2025",
+      "title": "Jana Nayagan",
+      "indiaNet": 198.83,
+      "worldwideGross": 324.97,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/karuppu_2026",
+      "title": "Karuppu",
+      "indiaNet": 198.18,
+      "worldwideGross": 310.12,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Irumudi_2026",
+      "title": "Irumudi",
+      "indiaNet": 194.54,
+      "worldwideGross": 246.87,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/bhooth_bangla_2026",
+      "title": "Bhooth Bangla",
+      "indiaNet": 182.36,
+      "worldwideGross": 270.91,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Dhamaal_4_2026",
+      "title": "Dhamaal 4",
+      "indiaNet": 167.88,
+      "worldwideGross": 230.17,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Bethlehem_Kudumba_Unit_2026",
+      "title": "Bethlehem Kudumba Unit",
+      "indiaNet": 165.07,
+      "worldwideGross": 331.1,
+      "year": 2026
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Awarapan_2_2026",
+      "title": "Awarapan 2",
+      "indiaNet": 150.63,
+      "worldwideGross": 213.05,
+      "year": 2026
     },
     {
       "url": "https://www.sacnilk.com/movie/Scene_2026",
       "title": "Scene",
       "indiaNet": 146.95,
       "worldwideGross": 259.45,
-      "reportedDay": 14
+      "reportedDay": 14,
+      "year": 2026
     },
     {
-      "url": "https://www.sacnilk.com/movie/Mookuthi_Amman_2_2026",
-      "title": "Mookuthi Amman 2",
-      "indiaNet": 21.51
+      "url": "https://www.sacnilk.com/movie/Dhurandhar_2025",
+      "title": "Dhurandhar",
+      "indiaNet": 840.2,
+      "worldwideGross": 1307.35,
+      "year": 2025
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Kantara_2_2024",
+      "title": "Kantara: A Legend Chapter-1",
+      "indiaNet": 622.48,
+      "worldwideGross": 852.36,
+      "year": 2025
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Chaava_2024",
+      "title": "Chhaava",
+      "indiaNet": 601.54,
+      "worldwideGross": 807.91,
+      "year": 2025
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Saiyaara_2025",
+      "title": "Saiyaara",
+      "indiaNet": 329.73,
+      "worldwideGross": 570.33,
+      "year": 2025
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Coolie_2025",
+      "title": "Coolie",
+      "indiaNet": 285.01,
+      "worldwideGross": 518.0,
+      "year": 2025
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Mahavatar_Narsimha_2025",
+      "title": "Mahavatar Narsimha",
+      "indiaNet": 251.3,
+      "worldwideGross": 326.82,
+      "year": 2025
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/War_2_2024",
+      "title": "War 2",
+      "indiaNet": 236.55,
+      "worldwideGross": 364.35,
+      "year": 2025
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/OG_2024",
+      "title": "They Call Him OG",
+      "indiaNet": 194.15,
+      "worldwideGross": 295.22,
+      "year": 2025
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Sankranthiki_Vasthunam_2025",
+      "title": "Sankranthiki Vasthunam",
+      "indiaNet": 186.97,
+      "worldwideGross": 255.48,
+      "year": 2025
     }
   ]
 }
