@@ -5004,8 +5004,7 @@ function lookupSearch(q) {
   // Also check actor names as secondary match
   var actorMatch = pool.filter(function(f){
     if (f.n.toLowerCase().indexOf(q) >= 0) return false; // already included
-    return (f.actors||[]).some(function(a){ return a.toLowerCase().indexOf(q) >= 0; });
-  });
+return (f.actors||[]).some(function(a){ return typeof a === 'string' && a.toLowerCase().indexOf(q) >= 0; });  });
   return exact.concat(partial).concat(actorMatch).slice(0, 12);
 }
 
