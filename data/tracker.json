@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-20T13:22:06.197424+00:00",
-  "snapshotUpdatedAt": "2026-11-20T13:22:01.289986+00:00",
+  "updatedAt": "2026-11-20T20:19:10.227545+00:00",
+  "snapshotUpdatedAt": "2026-11-20T20:19:04.976856+00:00",
   "films": [
     {
       "title": "Ramayana",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "year": 2026,
-      "indiaNet": 863.75,
-      "worldwideGross": 1547.15,
+      "indiaNet": 880.05,
+      "worldwideGross": 1574.6,
       "days": [
         {
           "date": "2026-11-05",
@@ -83,6 +83,11 @@
           "date": "2026-11-19",
           "day": 15,
           "indiaNet": 19.35
+        },
+        {
+          "date": "2026-11-20",
+          "day": 16,
+          "indiaNet": 16.3
         }
       ]
     },
@@ -90,8 +95,8 @@
       "title": "Jailer 2",
       "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
       "year": 2026,
-      "indiaNet": 475.11,
-      "worldwideGross": 835.61,
+      "indiaNet": 475.17,
+      "worldwideGross": 835.68,
       "days": [
         {
           "date": "2026-10-15",
@@ -224,8 +229,8 @@
       "title": "Scene",
       "url": "https://www.sacnilk.com/movie/Scene_2026",
       "year": 2026,
-      "indiaNet": 146.95,
-      "worldwideGross": 259.45,
+      "indiaNet": 147.72,
+      "worldwideGross": 260.6,
       "days": [
         {
           "date": "2026-11-06",
