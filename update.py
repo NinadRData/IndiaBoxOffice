@@ -229,7 +229,7 @@ def main():
         {row["url"]: row for row in reversed(parser.rows)}.values()
     )[::-1]
 
-        if not rows:
+    if not rows:
         raise ValueError(
             "Too few rows found. The source layout may have changed. "
             "The existing snapshot has been kept."
