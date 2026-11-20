@@ -3956,8 +3956,8 @@ var YR_DATA = {
         (age > 48 * 60 * 60 * 1000
           ? ' · Snapshot may be out of date'
           : '') +
-        ' · Current-year films';
-
+        '  · 2025 onward';
+  
       data.films.forEach(function (film) {
         if (typeof film.title !== 'string' ||
             !Number.isFinite(film.indiaNet) ||
@@ -4059,7 +4059,7 @@ if (Number.isInteger(film.reportedDay)) {
   </div>
 
   <div style="padding:1.5rem 2rem 0">
-    <div class="sh"><h2>Recent Box Office</h2><span>2024–2026 · India Net · ₹ Crore</span></div>
+    <div class="sh"><h2>Recent Box Office</h2><span>Recent releases · India Net · ₹ Crore</span></div>
     <div class="poster-scroll" id="recentRow"></div>
   </div>
 <section class="home-coming-soon" aria-label="Coming soon">
@@ -14365,8 +14365,37 @@ getTopGrossers().slice(0,15).forEach(function(f,i){
 });
 
 // Yearly table
-var curYr = '2026';
-function setYrTab(yr,btn){
+var curYr = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Asia/Kolkata',
+  year: 'numeric'
+}).format(new Date());
+
+(function () {
+  var tabs = document.getElementById('yr-tabs');
+  if (!tabs) return;
+
+  var current = Number(curYr);
+
+  for (var year = 2027; year <= current; year++) {
+    var button = document.createElement('button');
+    button.className = 'lf';
+    button.textContent = String(year);
+
+    button.onclick = function () {
+      setYrTab(this.textContent, this);
+    };
+
+    tabs.insertBefore(button, tabs.firstChild);
+  }
+
+  tabs.querySelectorAll('.lf').forEach(function (button) {
+    button.classList.toggle(
+      'on',
+      button.textContent.trim() === curYr
+    );
+  });
+})();
+  function setYrTab(yr,btn){
   curYr=yr;
   document.querySelectorAll('#yr-tabs .lf').forEach(function(b){b.classList.remove('on');});
   btn.classList.add('on');
@@ -14448,8 +14477,8 @@ function getYearFilms(yr) {
     });
 
   results.sort(function(a,b){ return (b.ww||0)-(a.ww||0); });
-  var limit = (yr === '2025' || yr === '2026')
-    ? results.length
+var limit = (Number(yr) >= 2025)
+  ? results.length
     : (yr === '2020' || yr === '2021') ? 5 : 15;
   return results.slice(0, limit);
 }
@@ -19274,7 +19303,7 @@ function key(name, year) {
       var databaseCounts = {};
 
       data.films.forEach(function (film) {
-        if ((film.year !== 2025 && film.year !== 2026) ||
+        if ((!Number.isInteger(film.year) || film.year < 2025) ||
             typeof film.title !== 'string' ||
             !Number.isFinite(film.indiaNet)) return;
 
@@ -19285,7 +19314,7 @@ function key(name, year) {
 
       FILMS.forEach(function (film) {
         if (!film || !film.n ||
-            (film.y !== 2025 && film.y !== 2026)) return;
+            (!Number.isInteger(film.y) || film.y < 2025)) return;
 
         var k = key(film.n, film.y);
         databaseCounts[k] = (databaseCounts[k] || 0) + 1;
@@ -19304,7 +19333,7 @@ function key(name, year) {
       });
       // Add feed films that are not already in the film database.
       data.films.forEach(function (film) {
-        if ((film.year !== 2025 && film.year !== 2026) ||
+        if ((!Number.isInteger(film.year) || film.year < 2025) ||
             typeof film.title !== 'string' ||
             !Number.isFinite(film.indiaNet)) return;
 
@@ -19351,8 +19380,12 @@ function key(name, year) {
         matched[k] = film;
       });
       if (typeof YR_DATA !== 'undefined') {
-        [2025, 2026].forEach(function (year) {
-          var rows = YR_DATA[String(year)] || [];
+Object.keys(YR_DATA)
+  .filter(function (year) {
+    return Number(year) >= 2025;
+  })
+  .forEach(function (year) {
+    var rows = YR_DATA[String(year)] || [];
           rows.forEach(function (film) {
             var source = matched[key(film.n, year)];
             if (source) applyFigures(film, source);
