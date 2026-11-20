@@ -9,6 +9,7 @@ import pathlib
 import re
 import tempfile
 import urllib.request
+from zoneinfo import ZoneInfo
 
 URL = "https://www.sacnilk.com/latest-boxoffice-collection"
 OUT = pathlib.Path(__file__).parent / "data" / "sacnilk.json"
@@ -161,10 +162,20 @@ def main():
 
     parser = Parser()
     parser.feed(page.decode("utf-8"))
-        # Keep the current-year list separate from other lists on the page.
+
+    current_year = datetime.datetime.now(
+        ZoneInfo("Asia/Kolkata")
+    ).year
+
     parser.rows = [
-        row for row in parser.rows if row.get("year") == 2026
+        row for row in parser.rows
+        if row.get("year") == current_year
     ]
+
+    if not parser.rows:
+        raise ValueError(
+            "No current-year films found; previous snapshot kept."
+        )
 
     archive_url = (
         "https://www.sacnilk.com/entertainmenttopbar/"
@@ -200,13 +211,25 @@ def main():
         )
 
     parser.rows.extend(archive_rows)
+        # Keep previously saved years when the source moves to a new year.
+    if OUT.exists():
+        previous = json.loads(OUT.read_text(encoding="utf-8"))
+
+        for row in previous.get("films", []):
+            if (
+                isinstance(row, dict)
+                and isinstance(row.get("year"), int)
+                and 2025 <= row["year"] < current_year
+                and isinstance(row.get("url"), str)
+            ):
+                parser.rows.append(row)
 
     # Remove duplicate entries, keeping the first.
     rows = list(
         {row["url"]: row for row in reversed(parser.rows)}.values()
     )[::-1]
 
-    if len(rows) < 10:
+        if not rows:
         raise ValueError(
             "Too few rows found. The source layout may have changed. "
             "The existing snapshot has been kept."
