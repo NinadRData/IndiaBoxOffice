@@ -12936,7 +12936,7 @@ function showFilmPageWithPredictions(key) {
         var wwSoFar = act.running_ww || act.running_total || 0;
         var indiaSoFar = act.running_total || 0;
         var roi = wwSoFar && p.budget ? Math.round(wwSoFar / p.budget * 100) / 100 : null;
-        var breakeven = p.budget * 2.5;
+        var breakeven = p.budget * 2;
         var profitable = wwSoFar >= breakeven;
         var roiCol = !roi ? '#888' : roi >= 3 ? '#4ade80' : roi >= 2 ? '#facc15' : '#f87171';
         function pct(v){ return Math.min(100, Math.round(v / Math.max(wwSoFar, p.budget) * 100)); }
@@ -12965,7 +12965,7 @@ function showFilmPageWithPredictions(key) {
               '</div>';
             }).join('') +
             '<div style="margin-top:.75rem;font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;padding-top:.75rem;border-top:0.5px solid rgba(255,255,255,.07)">' +
-              'Breakeven ≈ 2.5× budget (₹'+Math.round(breakeven)+' Cr) · ' +
+              'Breakeven ≈ 2× budget (₹'+Math.round(breakeven)+' Cr) · ' +
               (profitable
                 ? '<span style="color:#4ade80">✓ Profitable</span>'
                 : '<span style="color:#f87171">₹'+Math.round(breakeven - wwSoFar)+' Cr still needed to break even</span>') +
@@ -13225,7 +13225,7 @@ function showFilmPage(key) {
       // Profitability widget
       (page.budget && page.ww ? (function(){
         var roi = Math.round(page.ww / page.budget * 100) / 100;
-        var breakeven = page.budget * 2.5;
+var breakeven = page.budget * 2;
         var profitable = page.ww >= breakeven;
         var roiCol = roi >= 4 ? '#4ade80' : roi >= 2.5 ? '#facc15' : '#f87171';
         var maxBar = Math.max(page.ww, breakeven) * 1.05;
@@ -13255,7 +13255,7 @@ function showFilmPage(key) {
               '</div>';
             }).join('') +
             '<div style="margin-top:.75rem;font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;padding-top:.75rem;border-top:0.5px solid rgba(255,255,255,.07)">' +
-              'Breakeven ≈ 2.5× budget (₹'+Math.round(breakeven)+' Cr) · ' +
+              'Breakeven ≈ 2× budget (₹'+Math.round(breakeven)+' Cr) · ' +
               (profitable
                 ? '<span style="color:#4ade80">✓ Profitable</span>'
                 : '<span style="color:#f87171">₹'+Math.round(breakeven - page.ww)+' Cr still needed to break even</span>') +
@@ -13841,7 +13841,7 @@ function buildLiveCard(f) {
   var roiCol = !roi ? '#888' : roi >= 4 ? '#4ade80' : roi >= 2.5 ? '#f5c518' : '#f87171';
 
   // Breakeven
-  var breakeven = f.budget * 2.5;
+  var breakeven = f.budget * 2;
   var profitable = f.wwRunning >= breakeven;
 
   var status   = getLiveStatus(f);
@@ -19546,5 +19546,53 @@ Object.keys(YR_DATA)
 <script src="daily-page-sync.js?v=2" defer></script>
   <script src="auto-pages.js?v=2" defer></script>
   <script src="daily-chart.js" defer></script>
+  <script>
+(function () {
+  var banner = document.createElement('div');
+  banner.setAttribute('role', 'status');
+  banner.style.cssText =
+    'padding:10px 20px;text-align:center;font-size:14px;' +
+    'background:#17212a;color:#d7e1e8;';
+
+  banner.textContent = 'Checking box office data…';
+  document.body.insertBefore(banner, document.body.firstChild);
+
+  fetch('data/sacnilk.json', { cache: 'no-store' })
+    .then(function (response) {
+      if (!response.ok) throw new Error('Snapshot unavailable');
+      return response.json();
+    })
+    .then(function (data) {
+      var updated = new Date(data.updatedAt);
+      var age = Date.now() - updated.getTime();
+
+      if (isNaN(updated.getTime()) || age < -5 * 60 * 1000) {
+        throw new Error('Invalid snapshot timestamp');
+      }
+
+      var formatted = updated.toLocaleString(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      });
+
+      if (age > 36 * 60 * 60 * 1000) {
+        banner.style.background = '#493516';
+        banner.style.color = '#ffe2a3';
+        banner.textContent =
+          'Box office data may be out of date. Last successful snapshot: ' +
+          formatted;
+      } else {
+        banner.textContent =
+          'Box office snapshot last updated: ' + formatted;
+      }
+    })
+    .catch(function () {
+      banner.style.background = '#4a2020';
+      banner.style.color = '#ffd1d1';
+      banner.textContent =
+        'Could not check the box office snapshot. Data may be unavailable.';
+    });
+})();
+</script>
 </body>
 </html>
