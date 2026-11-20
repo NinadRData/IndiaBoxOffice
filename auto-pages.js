@@ -50,85 +50,284 @@
       : '—';
   }
 
-  function simplePage(film) {
+   function simplePage(film) {
     var old = document.getElementById('page-film-' + film.key);
     if (old) old.remove();
 
     var page = el(
       'div',
       null,
-      'padding:3rem 1.5rem;max-width:1100px;margin:auto'
+      'background:#10171b;color:#fff;min-height:100vh'
     );
     page.id = 'page-film-' + film.key;
     page.className = 'page';
 
+    var hero = el(
+      'div',
+      null,
+      'position:relative;min-height:330px;display:flex;' +
+      'align-items:flex-end;background:#24160f center/cover no-repeat;' +
+      'overflow:hidden'
+    );
+
+    var shade = el(
+      'div',
+      null,
+      'position:absolute;inset:0;' +
+      'background:linear-gradient(90deg,rgba(25,10,5,.88),' +
+      'rgba(12,10,10,.52)),linear-gradient(0deg,#080a0b,transparent 75%)'
+    );
+    hero.append(shade);
+
+    var heroInner = el(
+      'div',
+      null,
+      'position:relative;width:100%;max-width:1380px;' +
+      'margin:auto;padding:2.2rem 1.5rem'
+    );
+
     var back = el(
       'button',
-      '← Back',
-      'margin-bottom:1rem;padding:.5rem 1rem;cursor:pointer'
+      '← BACK',
+      'padding:.4rem .75rem;border:1px solid rgba(255,255,255,.3);' +
+      'border-radius:4px;background:rgba(255,255,255,.06);' +
+      'color:#ddd;cursor:pointer;letter-spacing:2px;font-size:.65rem'
     );
+
     back.onclick = function () {
       showPage('main');
     };
-    page.append(back);
 
-    page.append(el(
+    heroInner.append(back);
+
+    heroInner.append(el(
+      'span',
+      '  ' + (film.lang || '—').toUpperCase() + '  ·  ' + film.year,
+      'color:#f97316;font-size:.72rem;letter-spacing:2px'
+    ));
+
+    heroInner.append(el(
       'h1',
       film.title,
-      'font-size:2.4rem;margin:.5rem 0'
+      'font-family:"Barlow Condensed",sans-serif;' +
+      'font-size:clamp(3rem,7vw,6rem);font-weight:900;' +
+      'line-height:.95;margin:1.5rem 0 .8rem'
     ));
-    page.append(el('p', film.year + ' · ' + film.lang, 'color:#aaa'));
 
-    var link = el('a', 'View source on Sacnilk', 'color:#facc15');
-    link.href = film.sourceUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    page.append(link);
-
-    page.append(el(
+    heroInner.append(el(
       'p',
-      'India net ' + money(film.india) +
-      ' · Worldwide gross ' + money(film.ww),
-      'color:#facc15;margin:1.5rem 0'
+      'Release: ' + (film.release || '—'),
+      'color:#b7aaa3;font-size:.9rem'
     ));
 
-    page.append(el(
+    hero.append(heroInner);
+    page.append(hero);
+
+    var band = el(
+      'div',
+      null,
+      'background:#090d0e;padding:2rem 1.5rem'
+    );
+
+    var stats = el(
+      'div',
+      null,
+      'display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));' +
+      'max-width:1380px;margin:auto;border:1px solid #283036;' +
+      'border-radius:10px;overflow:hidden'
+    );
+
+    var cards = [
+      ['India net', money(film.india), 'Domestic theatrical net', '#facc15'],
+      ['Worldwide', money(film.ww), 'Global gross', '#facc15'],
+      ['Opening weekend', '—', '3-day opening', '#fb923c'],
+      ['Multiplier', '—', 'Opening to total', '#4ade80'],
+      ['Footfalls', '—', 'Tickets sold', '#38bdf8'],
+      ['Budget', '—', 'Production cost', '#a1a1aa'],
+      ['Letterboxd', '—', 'Audience rating', '#a1a1aa']
+    ];
+
+    cards.forEach(function (item) {
+      var card = el(
+        'div',
+        null,
+        'padding:1.2rem;border-right:1px solid #20282d;' +
+        'background:#0c1011;min-height:125px'
+      );
+
+      card.append(el(
+        'div',
+        item[0].toUpperCase(),
+        'font-size:.58rem;letter-spacing:2px;' +
+        'color:#78858b;font-weight:700'
+      ));
+
+      card.append(el(
+        'div',
+        item[1],
+        'font-family:"Barlow Condensed",sans-serif;font-size:1.65rem;' +
+        'font-weight:800;color:' + item[3] +
+        ';margin:.5rem 0;overflow-wrap:anywhere'
+      ));
+
+      card.append(el(
+        'div',
+        item[2],
+        'color:#7a858c;font-size:.72rem'
+      ));
+
+      stats.append(card);
+    });
+
+    band.append(stats);
+    page.append(band);
+
+    var content = el(
+      'div',
+      null,
+      'max-width:1280px;margin:auto;padding:2.2rem 1.5rem 3rem'
+    );
+
+    var box = el(
+      'div',
+      null,
+      'background:#11191d;border:1px solid #283036;' +
+      'border-radius:10px;overflow:hidden'
+    );
+
+    var heading = el(
+      'div',
+      null,
+      'padding:1.2rem 1.4rem;border-bottom:1px solid #283036'
+    );
+
+    heading.append(el(
       'h2',
-      'Daily India net',
-      'margin:1.5rem 0 .5rem'
+      'Daily box office',
+      'font-size:1.2rem;margin:0 0 .35rem'
     ));
+
+    heading.append(el(
+      'p',
+      'India net · ₹ crore',
+      'font-size:.72rem;color:#929fa6;margin:0'
+    ));
+
+    box.append(heading);
+
+    var max = Math.max.apply(
+      null,
+      film.daily.map(function (day) {
+        return Number(day.gross) || 0;
+      })
+    ) || 1;
 
     film.daily.forEach(function (day, index) {
       var row = el(
         'div',
         null,
-        'display:flex;justify-content:space-between;gap:1rem;' +
-        'border-bottom:1px solid #29343c;padding:.7rem 0'
+        'display:flex;align-items:center;gap:1rem;' +
+        'padding:.85rem 1.4rem;border-bottom:1px solid #222c31'
       );
 
-      row.append(el('span', 'Day ' + (index + 1) + ' · ' + day.date));
-      row.append(el(
-        'span',
-        money(day.gross) + ' · Total ' + money(day.total)
+      var label = el('div', null, 'width:110px;flex:none');
+
+      label.append(el(
+        'div',
+        'Day ' + (index + 1),
+        'font-weight:700;font-size:.8rem'
       ));
-      page.append(row);
+
+      label.append(el(
+        'div',
+        day.date,
+        'color:#9ba6ac;font-size:.7rem;margin-top:.2rem'
+      ));
+
+      row.append(label);
+
+      var track = el(
+        'div',
+        null,
+        'flex:1;height:5px;background:#29343b;' +
+        'border-radius:4px;overflow:hidden'
+      );
+
+      var width = Math.max(
+        0,
+        Math.min(100, (Number(day.gross) || 0) / max * 100)
+      );
+
+      track.append(el(
+        'div',
+        null,
+        'height:100%;width:' + width + '%;' +
+        'background:linear-gradient(90deg,#9a6503,#facc15)'
+      ));
+
+      row.append(track);
+
+      var figures = el(
+        'div',
+        null,
+        'text-align:right;white-space:nowrap'
+      );
+
+      figures.append(el(
+        'div',
+        money(day.gross),
+        'font-weight:700;color:#facc15'
+      ));
+
+      figures.append(el(
+        'div',
+        'Total ' + money(day.total),
+        'font-size:.68rem;color:#9ba6ac;margin-top:.2rem'
+      ));
+
+      row.append(figures);
+      box.append(row);
     });
+
+    content.append(box);
 
     var checked = film.fetchedAt
       ? new Date(film.fetchedAt).toLocaleString()
       : 'unknown';
 
-    page.append(el(
+    var note = el(
       'p',
-      'Daily estimates supplied by Sacnilk · Last checked: ' +
-      checked + '. Other film details are not yet available.',
-      'color:#aaa;font-size:.8rem;margin-top:1rem'
-    ));
+      'Sacnilk estimates · Last checked: ' + checked +
+      ' · Missing details are shown as —. ',
+      'font-size:.72rem;color:#929fa6;margin:1rem 0'
+    );
+
+    var source = el('a', 'View source', 'color:#facc15');
+    source.href = film.sourceUrl;
+    source.target = '_blank';
+    source.rel = 'noopener noreferrer';
+    note.append(source);
+
+    content.append(note);
+    page.append(content);
 
     document.body.append(page);
     showPage('film-' + film.key);
-  }
 
+    if (typeof tmdbSearch === 'function') {
+      tmdbSearch(film.title, film.year, function (result) {
+        if (
+          result &&
+          result.backdrop &&
+          /^https:\/\/image\.tmdb\.org\//.test(result.backdrop) &&
+          hero.isConnected
+        ) {
+          hero.style.backgroundImage =
+            'url("' + result.backdrop.replace(/["\\]/g, '') + '")';
+        }
+      });
+    }
+  }
   window.showFilmPage = function (key) {
     var page = Object.keys(FILM_PAGES)
       .map(function (item) {
