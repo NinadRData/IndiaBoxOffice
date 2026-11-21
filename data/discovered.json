@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T20:23:41.204419+00:00",
+  "updatedAt": "2026-11-21T13:04:28.771840+00:00",
   "films": [
     {
       "title": "O.M Operation Mole",
@@ -7,16 +7,16 @@
       "language": "Tamil",
       "url": "https://www.sacnilk.com/movie/OM_Chapter_1_Udhiram_2026",
       "release": "2026-11-20",
-      "indiaNet": 17.7,
-      "worldwideGross": 31.55,
+      "indiaNet": 18.1,
+      "worldwideGross": 32.0,
       "days": [
         {
           "date": "2026-11-20",
           "day": 1,
-          "indiaNet": 17.7
+          "indiaNet": 18.1
         }
       ],
-      "fetchedAt": "2026-11-20T20:23:01.636032+00:00"
+      "fetchedAt": "2026-11-21T13:03:47.880966+00:00"
     },
     {
       "title": "Ramayana",
@@ -24,8 +24,8 @@
       "language": "Hindi",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "release": "2026-11-05",
-      "indiaNet": 880.05,
-      "worldwideGross": 1574.6,
+      "indiaNet": 879.5,
+      "worldwideGross": 1573.95,
       "days": [
         {
           "date": "2026-11-05",
@@ -105,10 +105,10 @@
         {
           "date": "2026-11-20",
           "day": 16,
-          "indiaNet": 16.3
+          "indiaNet": 15.75
         }
       ],
-      "fetchedAt": "2026-11-20T20:23:02.829866+00:00"
+      "fetchedAt": "2026-11-21T13:03:49.064030+00:00"
     },
     {
       "title": "ENE Repeat",
@@ -130,7 +130,7 @@
           "indiaNet": 3.1
         }
       ],
-      "fetchedAt": "2026-11-20T20:23:04.014961+00:00"
+      "fetchedAt": "2026-11-21T13:03:50.513673+00:00"
     },
     {
       "title": "Scene",
@@ -212,7 +212,7 @@
           "indiaNet": 1.9
         }
       ],
-      "fetchedAt": "2026-11-20T20:23:05.205025+00:00"
+      "fetchedAt": "2026-11-21T13:03:51.784970+00:00"
     },
     {
       "title": "Bachelor Party D'eux",
@@ -221,7 +221,7 @@
       "url": "https://www.sacnilk.com/movie/Bachelor_Party_Deux_2026",
       "release": "2026-11-19",
       "indiaNet": 3.12,
-      "worldwideGross": 3.0,
+      "worldwideGross": 3.67,
       "days": [
         {
           "date": "2026-11-19",
@@ -229,7 +229,7 @@
           "indiaNet": 2.55
         }
       ],
-      "fetchedAt": "2026-11-20T20:23:10.958409+00:00"
+      "fetchedAt": "2026-11-21T13:03:57.213212+00:00"
     },
     {
       "title": "Donga Naa Koduku",
@@ -256,7 +256,7 @@
           "indiaNet": 1.95
         }
       ],
-      "fetchedAt": "2026-11-20T20:23:32.880758+00:00"
+      "fetchedAt": "2026-11-21T13:04:20.325370+00:00"
     }
   ]
 }
