@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-20T21:36:35.834787+00:00",
-  "snapshotUpdatedAt": "2026-11-20T21:36:30.811321+00:00",
+  "updatedAt": "2026-11-21T12:52:14.338021+00:00",
+  "snapshotUpdatedAt": "2026-11-21T12:52:08.740771+00:00",
   "films": [
     {
       "title": "Ramayana",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "year": 2026,
-      "indiaNet": 880.05,
-      "worldwideGross": 1574.6,
+      "indiaNet": 879.5,
+      "worldwideGross": 1573.95,
       "days": [
         {
           "date": "2026-11-05",
@@ -87,7 +87,7 @@
         {
           "date": "2026-11-20",
           "day": 16,
-          "indiaNet": 16.3
+          "indiaNet": 15.75
         }
       ]
     },
