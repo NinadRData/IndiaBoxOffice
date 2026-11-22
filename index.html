@@ -2370,6 +2370,75 @@ body.light #page-main .home-topten .pcard-amt { color: rgba(255,255,255,.56) !im
     height: 195px;
   }
 }
+  /* Analysis page */
+#page-action .page-hero {
+  border-bottom: 1px solid rgba(251, 146, 60, .18);
+}
+
+#page-action .page-hero-inner {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+#page-action .lf {
+  padding: .55rem .85rem;
+  border-radius: 6px;
+  color: #d9e1e5;
+  border: 1px solid rgba(255, 255, 255, .16);
+  transition: background .2s, border-color .2s, color .2s;
+}
+
+#page-action .lf:hover {
+  border-color: #fb923c;
+  color: #fff;
+}
+
+#page-action .lf.on {
+  background: rgba(251, 146, 60, .18);
+  border-color: #fb923c;
+  color: #fff;
+}
+
+#page-action .stat-card {
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 10px;
+}
+
+/* Chart panels */
+#page-action #act-ow-chart,
+#page-action #act-legs-chart {
+  line-height: 1.5;
+}
+
+/* Improve contrast on the existing muted labels */
+#page-action [style*="color:rgba(255,255,255,.2)"],
+#page-action [style*="color:rgba(255,255,255,.25)"],
+#page-action [style*="color:rgba(255,255,255,.3)"],
+#page-action [style*="color:rgba(255,255,255,.4)"] {
+  color: #aebbc3 !important;
+}
+
+#page-action footer {
+  color: #aebbc3;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  #page-action .page-hero-inner {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  #page-action #act-table {
+    min-width: 700px;
+  }
+
+  #page-action #act-table,
+  #page-action #act-ow-chart,
+  #page-action #act-legs-chart {
+    overflow-x: auto;
+  }
+}
 </style>
 </head>
 <body>
@@ -4506,6 +4575,7 @@ if (Number.isInteger(film.reportedDay)) {
         <button class="lf" onclick="setActFilter('lang','Telugu',this)">Telugu</button>
         <button class="lf" onclick="setActFilter('lang','Tamil',this)">Tamil</button>
         <button class="lf" onclick="setActFilter('lang','Kannada',this)">Kannada</button>
+        <button class="lf" onclick="setActFilter('lang','Malayalam',this)">Malayalam</button>
       </div>
 
       <div style="display:flex;gap:6px" id="act-sort-btns">
@@ -4555,7 +4625,7 @@ if (Number.isInteger(film.reportedDay)) {
     </div>
 
   </div>
-  <footer>Box Office India · Opening weekend = 3-day India nett · Legs = India net ÷ Opening weekend · Data through April 2026</footer>
+<footer>Box Office India · Opening weekend = 3-day India net · Legs = India net ÷ opening weekend · Figures reflect available film data</footer>
 </div>
 
 <!-- ═══════════ PAGE: ACTRESSES ═══════════ -->
