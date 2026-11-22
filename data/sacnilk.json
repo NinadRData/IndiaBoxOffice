@@ -1,6 +1,6 @@
 {
   "source": "https://www.sacnilk.com/latest-boxoffice-collection",
-  "updatedAt": "2026-11-21T12:52:08.740771+00:00",
+  "updatedAt": "2026-11-22T06:51:43.309526+00:00",
   "unit": "INR crore",
   "metric": "India net",
   "films": [
@@ -14,33 +14,33 @@
     {
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "title": "Ramayana",
-      "indiaNet": 879.5,
-      "worldwideGross": 1573.95,
-      "reportedDay": 16,
+      "indiaNet": 907.15,
+      "worldwideGross": 1651.0,
+      "reportedDay": 17,
       "year": 2026
     },
     {
       "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
       "title": "Jailer 2",
-      "indiaNet": 475.17,
-      "worldwideGross": 835.68,
-      "reportedDay": 37,
+      "indiaNet": 475.27,
+      "worldwideGross": 835.8,
+      "reportedDay": 38,
       "year": 2026
     },
     {
       "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
       "title": "Drishyam 3: The Conclusion",
-      "indiaNet": 380.95,
-      "worldwideGross": 589.26,
-      "reportedDay": 50,
+      "indiaNet": 381.01,
+      "worldwideGross": 589.33,
+      "reportedDay": 51,
       "year": 2026
     },
     {
       "url": "https://www.sacnilk.com/movie/Hanuman_Ansh_2026",
       "title": "Hanuman Ansh",
-      "indiaNet": 342.95,
-      "worldwideGross": 453.42,
-      "reportedDay": 106,
+      "indiaNet": 342.96,
+      "worldwideGross": 453.43,
+      "reportedDay": 107,
       "year": 2026
     },
     {
@@ -130,9 +130,9 @@
     {
       "url": "https://www.sacnilk.com/movie/Scene_2026",
       "title": "Scene",
-      "indiaNet": 147.72,
-      "worldwideGross": 260.6,
-      "reportedDay": 15,
+      "indiaNet": 149.07,
+      "worldwideGross": 262.42,
+      "reportedDay": 16,
       "year": 2026
     },
     {
