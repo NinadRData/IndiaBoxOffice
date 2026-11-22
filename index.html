@@ -4394,6 +4394,10 @@ if (Number.isInteger(film.reportedDay)) {
     </div>
   <!-- MOST PROFITABLE SECTION -->
 <div id="rec-sec-profitable" style="display:none">
+    <div id="prof-sort-controls" style="display:flex;gap:6px;margin-bottom:1rem">
+    <button class="lf on" onclick="setProfSort('most', this)">Most</button>
+    <button class="lf" onclick="setProfSort('least', this)">Least</button>
+  </div>
   <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem" id="prof-lang-filters">
     <button class="lf on" onclick="setProfLangFilter('all',this)">All</button>
     <button class="lf" onclick="setProfLangFilter('Hindi',this)">Hindi</button>
@@ -16548,6 +16552,18 @@ function getFranchiseTotals(){
     .sort(function(a,b){ return b.total-a.total; });
 }
 var profLangFilter = 'all';
+  var profSort = 'most';
+
+function setProfSort(sort, btn) {
+  profSort = sort;
+
+  document.querySelectorAll('#prof-sort-controls .lf').forEach(function (button) {
+    button.classList.remove('on');
+  });
+
+  btn.classList.add('on');
+  renderProfitableRecords();
+}
 function setProfLangFilter(l, btn){
   profLangFilter = l;
   document.querySelectorAll('#prof-lang-filters .lf').forEach(function(b){b.classList.remove('on');});
@@ -16566,8 +16582,20 @@ function getMostProfitable(){
   
 function renderProfitableRecords(){
   var data = getMostProfitable();
-  if (profLangFilter !== 'all') data = data.filter(function(d){ return d.l === profLangFilter; });
-  var maxRoi = data.length ? data[0].roi : 1;
+
+  if (profLangFilter !== 'all') {
+    data = data.filter(function (d) {
+      return d.l === profLangFilter;
+    });
+  }
+
+  if (profSort === 'least') {
+    data.reverse();
+  }
+
+  var maxRoi = data.length
+    ? Math.max.apply(null, data.map(function (d) { return d.roi; })) || 1
+    : 1;
   document.getElementById('profit-chart-lbl').textContent = data.length+' films with known budgets';
   document.getElementById('profit-chart').innerHTML = data.map(function(d,i){
     var pct = Math.round(d.roi/maxRoi*100);
