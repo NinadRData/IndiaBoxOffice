@@ -5273,6 +5273,38 @@ function normalizeTMDBTitle(value) {
     .replace(/&/g, 'and')
     .replace(/[^a-z0-9]/g, '');
 }
+  // Poster lookup: verified IDs, conservative matching and shared requests.
+var tmdbPending = Object.create(null);
+var tmdbQueue = Promise.resolve();
+var tmdbNextStart = 0;
+var tmdbKnownFilms = {
+  'gadar2|2023': 885331,
+  'dhurandhar|2025': 1291608,
+  'dhurandhar2|2026': 1582770,
+  'dhurandhartherevenge|2026': 1582770,
+  'dhurandhar2therevenge|2026': 1582770,
+  'ramayana|2026': 656908,
+  'ramayanapart1|2026': 656908,
+  'ramayanariseofalegend|2026': 656908
+};
+function tmdbRequest(path) {
+  function run(attempt) {
+    var delay = Math.max(0, tmdbNextStart - Date.now());
+    return new Promise(function (resolve) { setTimeout(resolve, delay); })
+      .then(function () {
+        tmdbNextStart = Date.now() + 300;
+        return fetch('https://api.themoviedb.org/3/' + path);
+      }).then(function (response) {
+        if (response.status === 429 && attempt < 2) {
+          var retry = Number(response.headers.get('Retry-After'));
+          var wait = retry > 0 ? Math.min(retry * 1000, 30000) : 3000 * (attempt + 1);
+          return new Promise(function (resolve) { setTimeout(resolve, wait); })
+            .then(function () { return run(attempt + 1); });
+        }
+        if (!response.ok) throw new Error('TMDB HTTP ' + response.status);
+        return response.json();
+      });
+  }
     var result = tmdbQueue.then(function () { return run(0); });
   tmdbQueue = result.catch(function () {});
   return result;
