@@ -4438,8 +4438,8 @@ if (Number.isInteger(film.reportedDay)) {
       <option value="">Choose a weekday…</option>
     </select>
 
-    <button class="lf" onclick="setDailyRecMetric('weekendDrop',this)">Worst Weekend Drop</button>
-    <button class="lf" onclick="setDailyRecMetric('mondayDrop',this)">Worst Monday Drop</button>
+    <button class="lf" onclick="setDailyRecMetric('weekendDrop',this)">Worst 1st Weekend Drop</button>
+    <button class="lf" onclick="setDailyRecMetric('mondayDrop',this)">Worst 1st Monday Drop</button>
   </div>
 
   <div id="daily-rec-label" style="font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:1rem"></div>
@@ -16342,51 +16342,50 @@ if (weekdayMatch) {
     : null;
 }
 
-  if (metric === 'weekendDrop') {
-    var worstWeekend = null;
+   if (metric === 'weekendDrop') {
+    if (weekends.length < 2) return null;
 
-    for (var w = 0; w < weekends.length - 1; w++) {
-      var previousWeekend = weekends[w].total;
-      var nextWeekend = weekends[w + 1].total;
+    var firstWeekend = weekends[0];
+    var secondWeekend = weekends[1];
 
-      if (previousWeekend <= 0) continue;
+    // Require consecutive complete Friday–Sunday weekends.
+    if (
+      secondWeekend.start - firstWeekend.start !== 7 ||
+      firstWeekend.total <= 0
+    ) return null;
 
-      var weekendChange = ((nextWeekend - previousWeekend) / previousWeekend) * 100;
+    var change =
+      ((secondWeekend.total - firstWeekend.total) /
+        firstWeekend.total) * 100;
 
-      if (weekendChange < 0 && (!worstWeekend || weekendChange < worstWeekend.value)) {
-        worstWeekend = {
-          value: weekendChange,
-          detail: 'Weekend ' + (w + 1) + ' → ' + (w + 2)
-        };
-      }
-    }
-
-    return worstWeekend;
+    return change < 0
+      ? { value: change, detail: 'Weekend 1 → Weekend 2' }
+      : null;
   }
 
-  if (metric === 'mondayDrop') {
-    var worstMonday = null;
+   if (metric === 'mondayDrop') {
+    var firstMonday = mondays[0];
+    if (!firstMonday || firstMonday.index === 0) return null;
 
-    for (var m = 0; m < rows.length; m++) {
-      if (rows[m].day !== 'Mon' || m === 0 || rows[m - 1].day !== 'Sun') continue;
+    var mondayIndex = firstMonday.index;
+    var sunday = rows[mondayIndex - 1];
 
-      var sundayGross = Number(rows[m - 1].gross);
-      var mondayGross = Number(rows[m].gross);
+    if (!sunday || sunday.day !== 'Sun') return null;
 
-      if (sundayGross <= 0) continue;
+    var sundayGross = Number(sunday.gross);
+    var mondayGross = Number(firstMonday.row.gross);
 
-      var mondayChange = ((mondayGross - sundayGross) / sundayGross) * 100;
+    if (sundayGross <= 0) return null;
 
-      if (mondayChange < 0 && (!worstMonday || mondayChange < worstMonday.value)) {
-        worstMonday = {
-          value: mondayChange,
-          detail: 'Sunday ₹' + sundayGross.toFixed(2) +
-            ' → Monday ₹' + mondayGross.toFixed(2) + ' Cr'
-        };
-      }
-    }
+    var change = ((mondayGross - sundayGross) / sundayGross) * 100;
 
-    return worstMonday;
+    return change < 0
+      ? {
+          value: change,
+          detail: 'First Sunday ₹' + sundayGross.toFixed(2) +
+            ' → first Monday ₹' + mondayGross.toFixed(2) + ' Cr'
+        }
+      : null;
   }
 
   return null;
