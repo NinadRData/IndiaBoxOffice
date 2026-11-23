@@ -4126,19 +4126,19 @@ if (Number.isInteger(film.reportedDay)) {
     });
 })();
 </script>
-  <!-- WEEKEND BOX OFFICE: India net, Friday–Sunday -->
+ <!-- WEEKEND BOX OFFICE: India net, Friday–Sunday -->
 <section id="weekend-box-office" style="padding:1.75rem 2rem 0">
   <h2 style="font-size:1rem;letter-spacing:.14em;text-transform:uppercase;margin:0 0 .5rem">
     Weekend box office
   </h2>
 
-  <p id="weekend-meta" style="font-size:.76rem;color:#a5afb6;margin:0 0 1rem">
+  <p id="weekend-meta"
+     style="font-size:.76rem;color:#a5afb6;margin:0 0 1rem">
     Loading collections…
   </p>
 
-  <div
-    id="weekend-results"
-    style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+  <div id="weekend-results"
+       style="overflow-x:auto;border:1px solid var(--border);border-radius:8px">
   </div>
 </section>
 
@@ -4147,16 +4147,20 @@ if (Number.isInteger(film.reportedDay)) {
   var meta = document.getElementById('weekend-meta');
   var results = document.getElementById('weekend-results');
 
-  function iso(d) {
-    return d.toISOString().slice(0, 10);
+  function add(date, days) {
+    return new Date(date.getTime() + days * 86400000);
   }
 
-  function add(d, n) {
-    return new Date(d.getTime() + n * 86400000);
+  function iso(date) {
+    return date.toISOString().slice(0, 10);
   }
 
-  function dateLabel(s) {
-    return new Date(s + 'T12:00:00Z').toLocaleDateString('en-IN', {
+  function utcDate(value) {
+    return new Date(value + 'T12:00:00Z');
+  }
+
+  function displayDate(value) {
+    return utcDate(value).toLocaleDateString('en-IN', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
@@ -4164,33 +4168,146 @@ if (Number.isInteger(film.reportedDay)) {
     });
   }
 
-  function money(n) {
-    return '₹' + n.toLocaleString('en-IN', {
+  function money(value) {
+    if (!Number.isFinite(value)) return '—';
+
+    return '₹' + value.toLocaleString('en-IN', {
       maximumFractionDigits: 2
     }) + ' Cr';
   }
 
-  function text(tag, value, style) {
-    var node = document.createElement(tag);
-    node.textContent = value;
-    if (style) node.style.cssText = style;
-    return node;
+  function node(tag, value, css) {
+    var element = document.createElement(tag);
+
+    if (value != null) element.textContent = value;
+    if (css) element.style.cssText = css;
+
+    return element;
+  }
+
+  function fetchJson(path, required) {
+    return fetch(path, { cache: 'no-cache' })
+      .then(function (response) {
+        if (!response.ok) {
+          if (required) throw new Error('Data unavailable');
+          return null;
+        }
+
+        return response.json();
+      })
+      .catch(function (error) {
+        if (required) throw error;
+        return null;
+      });
+  }
+
+  function indiaToday() {
+    var parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).formatToParts(new Date());
+
+    var fields = {};
+
+    parts.forEach(function (part) {
+      fields[part.type] = part.value;
+    });
+
+    return fields.year + '-' + fields.month + '-' + fields.day;
+  }
+
+  function validDays(film) {
+    var byDate = Object.create(null);
+
+    if (!film || !Array.isArray(film.days)) return byDate;
+
+    film.days.forEach(function (day) {
+      if (
+        !day ||
+        typeof day.date !== 'string' ||
+        !Number.isFinite(day.indiaNet) ||
+        day.indiaNet < 0 ||
+        byDate[day.date]
+      ) return;
+
+      byDate[day.date] = day;
+    });
+
+    return byDate;
+  }
+
+  function periodTotal(days, start, end) {
+    var total = 0;
+    var count = 0;
+
+    Object.keys(days).forEach(function (date) {
+      if (date >= start && date <= end) {
+        total += days[date].indiaNet;
+        count++;
+      }
+    });
+
+    return { total: total, count: count };
+  }
+
+  /*
+   * Calculate a cumulative total only when all day numbers from
+   * Day 1 through the last available day are present.
+   */
+  function cumulativeThrough(days, end) {
+    var entries = Object.keys(days)
+      .filter(function (date) {
+        return date <= end;
+      })
+      .map(function (date) {
+        return days[date];
+      })
+      .sort(function (a, b) {
+        return a.day - b.day;
+      });
+
+    if (!entries.length) return null;
+
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].day !== i + 1) return null;
+    }
+
+    return entries.reduce(function (total, day) {
+      return total + day.indiaNet;
+    }, 0);
+  }
+
+  function weekendNumber(days, friday) {
+    var dayOne = Object.keys(days)
+      .map(function (date) {
+        return days[date];
+      })
+      .find(function (day) {
+        return day.day === 1 && typeof day.date === 'string';
+      });
+
+    if (!dayOne) return null;
+
+    var release = utcDate(dayOne.date);
+
+    if (!Number.isFinite(release.getTime())) return null;
+
+    var releaseFriday = add(
+      release,
+      -((release.getUTCDay() + 2) % 7)
+    );
+
+    var number =
+      Math.floor((friday - releaseFriday) / (7 * 86400000)) + 1;
+
+    return number > 0 ? number : null;
   }
 
   Promise.all([
-    fetch('data/tracker.json', { cache: 'no-cache' })
-      .then(function (response) {
-        if (!response.ok) throw new Error('Tracker unavailable');
-        return response.json();
-      }),
-
-    fetch('data/discovered.json', { cache: 'no-cache' })
-      .then(function (response) {
-        return response.ok ? response.json() : null;
-      })
-      .catch(function () {
-        return null;
-      })
+    fetchJson('data/tracker.json', true),
+    fetchJson('data/discovered.json', false)
   ])
     .then(function (sources) {
       var tracker = sources[0];
@@ -4204,7 +4321,6 @@ if (Number.isInteger(film.reportedDay)) {
         throw new Error('Invalid tracker data');
       }
 
-      // Combine the existing tracker and discovered-film feeds.
       var films = Object.create(null);
 
       tracker.films.forEach(function (film) {
@@ -4222,81 +4338,79 @@ if (Number.isInteger(film.reportedDay)) {
           ) return;
 
           var old = films[film.url];
-          var newer = Date.parse(film.fetchedAt || '');
-          var older = Date.parse(
+          var incoming = Date.parse(film.fetchedAt || '');
+          var previous = Date.parse(
             (old && old.fetchedAt) || tracker.updatedAt
           );
 
-          if (!old || (Number.isFinite(newer) && newer > older)) {
+          if (
+            !old ||
+            (
+              Number.isFinite(incoming) &&
+              incoming > previous
+            )
+          ) {
             films[film.url] = film;
           }
         });
       }
 
-      // Find the most recent Friday using the date in India.
-      var parts = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'Asia/Kolkata',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      }).formatToParts(new Date());
+      var today = indiaToday();
+      var now = utcDate(today);
 
-      var fields = {};
-      parts.forEach(function (part) {
-        fields[part.type] = part.value;
-      });
-
-      var today = fields.year + '-' + fields.month + '-' + fields.day;
-      var currentDate = new Date(today + 'T12:00:00Z');
       var friday = add(
-        currentDate,
-        -((currentDate.getUTCDay() + 2) % 7)
+        now,
+        -((now.getUTCDay() + 2) % 7)
       );
 
       var start = iso(friday);
       var end = iso(add(friday, 2));
+      var previousStart = iso(add(friday, -7));
+      var previousEnd = iso(add(friday, -5));
       var rows = [];
 
-      Object.keys(films).forEach(function (key) {
-        var film = films[key];
+      Object.keys(films).forEach(function (url) {
+        var film = films[url];
+
+        if (!film || typeof film.title !== 'string') return;
+
+        var days = validDays(film);
+
+        var current = periodTotal(days, start, end);
+        var previous = periodTotal(
+          days,
+          previousStart,
+          previousEnd
+        );
+
+        if (!current.count) return;
+
+        var change = null;
 
         if (
-          typeof film.title !== 'string' ||
-          !Array.isArray(film.days)
-        ) return;
-
-        var dates = Object.create(null);
-        var sum = 0;
-
-        film.days.forEach(function (day) {
-          if (
-            !day ||
-            typeof day.date !== 'string' ||
-            day.date < start ||
-            day.date > end ||
-            day.date > today ||
-            dates[day.date] ||
-            !Number.isFinite(day.indiaNet) ||
-            day.indiaNet < 0
-          ) return;
-
-          dates[day.date] = true;
-          sum += day.indiaNet;
-        });
-
-        var count = Object.keys(dates).length;
-
-        if (count) {
-          rows.push({
-            title: film.title,
-            total: sum,
-            count: count
-          });
+          current.count === 3 &&
+          previous.count === 3 &&
+          previous.total > 0
+        ) {
+          change =
+            Math.round(
+              ((current.total / previous.total) - 1) * 1000
+            ) / 10;
         }
+
+        rows.push({
+          film: film,
+          weekend: current.total,
+          dayCount: current.count,
+          change: change,
+          total: cumulativeThrough(days, end),
+          weeks: weekendNumber(days, friday)
+        });
       });
 
       rows.sort(function (a, b) {
-        return b.total - a.total || a.title.localeCompare(b.title);
+        return b.weekend - a.weekend ||
+          a.film.title.localeCompare(b.film.title);
       });
 
       var stale =
@@ -4304,14 +4418,16 @@ if (Number.isInteger(film.reportedDay)) {
         48 * 60 * 60 * 1000;
 
       meta.textContent =
-        dateLabel(start) + ' – ' + dateLabel(end) +
-        ' · India net · Source-reported figures; totals may be incomplete' +
+        displayDate(start) + ' – ' + displayDate(end) +
+        ' · India net · Source-reported estimates' +
         ' · Tracker updated ' +
         new Date(tracker.updatedAt).toLocaleString() +
         (stale ? ' · Data may be out of date' : '');
 
+      results.replaceChildren();
+
       if (!rows.length) {
-        results.appendChild(text(
+        results.appendChild(node(
           'p',
           'No collections reported for this weekend yet.',
           'padding:1rem;margin:0;color:#a5afb6'
@@ -4319,47 +4435,171 @@ if (Number.isInteger(film.reportedDay)) {
         return;
       }
 
-      rows.forEach(function (row, index) {
-        var line = text(
-          'div',
-          '',
-          'display:flex;align-items:center;gap:1rem;' +
-          'padding:.85rem 1rem;' +
-          'border-bottom:1px solid rgba(255,255,255,.07)'
+      var table = node(
+        'table',
+        null,
+        'width:100%;min-width:680px;border-collapse:collapse;' +
+        'background:var(--bg3);'
+      );
+
+      var thead = document.createElement('thead');
+      var header = document.createElement('tr');
+
+      [
+        { name: '#', align: 'left' },
+        { name: 'Movie', align: 'left' },
+        { name: 'Weekend net', align: 'right' },
+        { name: 'Change', align: 'right' },
+        { name: 'Total net', align: 'right' },
+        { name: 'Weeks', align: 'right' }
+      ].forEach(function (column) {
+        var cell = node(
+          'th',
+          column.name,
+          'padding:.9rem .8rem;text-align:' + column.align + ';' +
+          'font-size:.7rem;letter-spacing:.08em;' +
+          'text-transform:uppercase;color:#a5afb6;' +
+          'border-bottom:1px solid rgba(255,255,255,.12);'
         );
 
-        line.appendChild(text(
-          'span',
-          String(index + 1),
-          'color:#facc15;font-weight:800;min-width:1.5rem'
-        ));
-
-        var name = text('div', '', 'flex:1;min-width:0');
-
-        name.appendChild(text(
-          'div',
-          row.title,
-          'font-weight:700;color:#f1f3f5;overflow-wrap:anywhere'
-        ));
-
-        name.appendChild(text(
-          'div',
-          row.count + ' of 3 days reported',
-          'font-size:.7rem;color:#a5afb6;margin-top:.25rem'
-        ));
-
-        line.appendChild(name);
-
-        line.appendChild(text(
-          'strong',
-          money(row.total),
-          'color:#facc15;white-space:nowrap'
-        ));
-
-        results.appendChild(line);
+        cell.scope = 'col';
+        header.appendChild(cell);
       });
+
+      thead.appendChild(header);
+      table.appendChild(thead);
+
+      var tbody = document.createElement('tbody');
+
+      rows.forEach(function (item, index) {
+        var tr = document.createElement('tr');
+
+        var cellStyle =
+          'padding:.7rem .8rem;' +
+          'border-bottom:1px solid rgba(255,255,255,.07);';
+
+        var rank = node(
+          'td',
+          String(index + 1),
+          cellStyle + 'font-weight:800;color:#facc15;'
+        );
+
+        tr.appendChild(rank);
+
+        var movieCell = node(
+          'td',
+          null,
+          cellStyle + 'min-width:220px;'
+        );
+
+        var movieWrap = node(
+          'div',
+          null,
+          'display:flex;align-items:center;gap:.8rem;'
+        );
+
+        /*
+         * Reuse posters already in the site's cache.
+         * Do not send additional TMDB requests.
+         */
+        var cached = null;
+
+        if (typeof tmdbCache !== 'undefined') {
+          cached = tmdbCache[
+            item.film.title + '|' + (item.film.year || '')
+          ];
+        }
+
+        if (cached && cached.poster) {
+          var image = document.createElement('img');
+          image.src = cached.poster;
+          image.alt = '';
+          image.loading = 'lazy';
+          image.style.cssText =
+            'width:42px;height:62px;object-fit:cover;' +
+            'border-radius:5px;flex:none;';
+
+          image.onerror = function () {
+            this.style.visibility = 'hidden';
+          };
+
+          movieWrap.appendChild(image);
+        } else {
+          movieWrap.appendChild(node(
+            'span',
+            '—',
+            'display:grid;place-items:center;width:42px;' +
+            'height:62px;border-radius:5px;flex:none;' +
+            'background:#28333b;color:#8c9aa5;'
+          ));
+        }
+
+        var name = node('div', null, 'min-width:0;');
+
+        name.appendChild(node(
+          'div',
+          item.film.title,
+          'font-weight:700;color:#f1f3f5;'
+        ));
+
+        name.appendChild(node(
+          'div',
+          item.dayCount + ' of 3 days reported',
+          'font-size:.68rem;color:#a5afb6;margin-top:.3rem;'
+        ));
+
+        movieWrap.appendChild(name);
+        movieCell.appendChild(movieWrap);
+        tr.appendChild(movieCell);
+
+        tr.appendChild(node(
+          'td',
+          money(item.weekend),
+          cellStyle + 'text-align:right;white-space:nowrap;' +
+          'font-weight:700;color:#facc15;'
+        ));
+
+        var changeText = 'N/A';
+        var changeColor = '#a5afb6';
+
+        if (item.change != null) {
+          changeText =
+            (item.change > 0 ? '+' : '') + item.change + '%';
+
+          changeColor =
+            item.change < 0 ? '#f87171' :
+            item.change > 0 ? '#4ade80' :
+            '#a5afb6';
+        }
+
+        tr.appendChild(node(
+          'td',
+          changeText,
+          cellStyle + 'text-align:right;white-space:nowrap;' +
+          'color:' + changeColor + ';'
+        ));
+
+        tr.appendChild(node(
+          'td',
+          money(item.total),
+          cellStyle + 'text-align:right;white-space:nowrap;' +
+          'color:#d1d5db;'
+        ));
+
+        tr.appendChild(node(
+          'td',
+          item.weeks == null ? '—' : String(item.weeks),
+          cellStyle + 'text-align:right;color:#d1d5db;'
+        ));
+
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(tbody);
+      results.appendChild(table);
     })
-    .catch(function () {
+    .catch(function (error) {
+      console.warn('Weekend chart unavailable:', error);
       meta.textContent =
         'Weekend data is unavailable. Please try again later.';
     });
