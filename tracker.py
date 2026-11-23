@@ -67,10 +67,11 @@ class DayParser(html.parser.HTMLParser):
                     r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b",
                     self.row[0],
                 )
-                amount = re.fullmatch(
-                    r"₹\s*([\d,]+(?:\.\d+)?)\s*Cr(?:\s*\*)?",
-                    self.row[1],
-                )
+                 amount = re.fullmatch(
+                 r"₹\s*([\d,]+(?:\.\d+)?)\s*(Cr|L)(?:\s*\*)?",
+                 self.row[1],
+                 flags=re.IGNORECASE,
+             )
 
                 if day and date and amount:
                     month = dt.datetime.strptime(
@@ -88,8 +89,8 @@ class DayParser(html.parser.HTMLParser):
                             "date": max(choices).isoformat(),
                             "day": int(day.group(1)),
                             "indiaNet": float(
-                                amount.group(1).replace(",", "")
-                            ),
+                             amount.group(1).replace(",", "")
+                         ) / (100 if amount.group(2).lower() == "l" else 1),
                         })
 
             self.row = None
