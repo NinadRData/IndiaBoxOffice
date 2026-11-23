@@ -2549,7 +2549,7 @@ var FILMS = [
 {n:'Secret Superstar', y:2017,l:'Hindi', director:'Advait Chandan', actors:['Aamir Khan','Zaira Wasim'], studio:'Aamir Khan Prod.', india:73, ww:875, ow:26, ff:5.09, lb:3.4, budget:15},
 {n:'Stree 2', y:2024,l:'Hindi', director:'Amar Kaushik', actors:['Rajkummar Rao','Shraddha Kapoor','Tamannaah'], studio:'Maddock', india:627, ww:874, ow:139.4, ff:32, lb:3.5, budget:55},
 
-{n:'Chaava', y:2025,l:'Hindi', director:'Laxman Utekar', actors:['Vicky Kaushal','Rashmika Mandanna'], studio:'Maddock', india:600, ww:797, ow:121.43, ff:30.5, lb:3.6, budget:75},
+{n:'Chhaava', y:2025,l:'Hindi', director:'Laxman Utekar', actors:['Vicky Kaushal','Rashmika Mandanna'], studio:'Maddock', india:600, ww:797, ow:121.43, ff:30.5, lb:3.6, budget:75},
 {n:'PK', y:2014,l:'Hindi', director:'Rajkumar Hirani', actors:['Aamir Khan','Anushka Sharma'], studio:'Vidhu Vinod Chopra', india:340, ww:769, ow:95, ff:35.06, lb:3.8, budget:85},
 {n:'Gadar 2', y:2023,l:'Hindi', director:'Anil Sharma', actors:['Sunny Deol','Ameesha Patel'], studio:'Zee Studios', india:525, ww:691, ow:134, ff:34, lb:2.3, budget:60},
 {n:'2.0', y:2018,l:'Tamil', director:'S. Shankar', actors:['Rajinikanth','Akshay Kumar','Amy Jackson'], studio:'Lyca', india:407, ww:691, ow:155, ff:42, lb:3.1, budget:570},
@@ -3782,7 +3782,7 @@ var FF_BASE = [
   {n:'Karma',                   y:1986, l:'Hindi',   ff:31.1, actors:['Dilip Kumar','Anil Kapoor','Jackie Shroff']},
   {n:'Tiger Zinda Hai',        y:2017, l:'Hindi',   ff:30.89,actors:['Salman Khan','Katrina Kaif']},
   {n:'Kaho Naa Pyaar Hai',     y:2000, l:'Hindi',   ff:30.66,actors:['Hrithik Roshan','Ameesha Patel']},
-  {n:'Chaava',                  y:2025, l:'Hindi',   ff:30.5, actors:['Vicky Kaushal','Rashmika Mandanna']},
+  {n:'Chhaava',                  y:2025, l:'Hindi',   ff:30.5, actors:['Vicky Kaushal','Rashmika Mandanna']},
   {n:'Chandra',                 y:1944, l:'Hindi',   ff:30.4, actors:[]},
   {n:'Nastik',                  y:1954, l:'Hindi',   ff:30.3, actors:['Ajit','Nalini Jaywant']},
   {n:'Jhanak Jhanak Payal Baaje',y:1955,l:'Hindi',  ff:30.3, actors:['Gopi Krishna','Sandhya']},
@@ -3928,7 +3928,7 @@ var YR_DATA = {
   '2025': [
     {n:'Dhurandhar',              l:'Hindi',   ow:106.50, india:895,  ww:1349,  studio:'Jio Studios'},
     {n:'Kantara: Chapter 1',      l:'Kannada', ow:163,    india:622,  ww:852,   studio:'Hombale'},
-    {n:'Chaava',                  l:'Hindi',   ow:121.43, india:600,  ww:797,   studio:'Maddock'},
+    {n:'Chhaava',                  l:'Hindi',   ow:121.43, india:600,  ww:797,   studio:'Maddock'},
     {n:'Saiyaara',                l:'Hindi',   ow:84.50,  india:337,  ww:577,   studio:'YRF'},
     {n:'War 2',                   l:'Hindi',   ow:122,    india:236.55, ww:364, studio:'YRF'},
     {n:'Mahavtar Narsimha',       l:'Hindi',   ow:15,     india:251,  ww:326,   studio:'TBA'},
@@ -4521,6 +4521,16 @@ if (Number.isInteger(film.reportedDay)) {
   </div>
   </div><!-- closes rec-sec-opening -->
 <div id="rec-sec-daily" style="display:none">
+    <label for="daily-rec-year" style="display:block;color:#d4dce0;margin-bottom:.75rem">
+    Release year
+    <select
+      id="daily-rec-year"
+      onchange="renderDailyRecords()"
+      style="margin-left:.5rem;background:#1e1e2e;border:1px solid rgba(255,255,255,.25);border-radius:4px;color:#fff;padding:.45rem .6rem;font:inherit"
+    >
+      <option value="all">All years</option>
+    </select>
+  </label>
   <div id="daily-rec-controls" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem">
     <button class="lf on" onclick="setDailyRecMetric('openingDay',this)">Opening Day</button>
     <button class="lf" onclick="setDailyRecMetric('weekend1',this)">1st Weekend</button>
@@ -13781,6 +13791,8 @@ overseas: [
 function getFilmPage(title) {
   if(!title) return null;
   var t = title.trim().toLowerCase();
+  // Connect the Top Grossers title to the KGF 2 page.
+if (t === 'kgf 2') return FILM_PAGES['kgf-2'] || null;
 
   // Direct key match
   if(FILM_PAGES[t]) return FILM_PAGES[t];
@@ -15993,7 +16005,7 @@ var TG_OW_DATA = [
   {n:'Border 2',              y:2026, l:'Hindi',    ow:129.9, india:341,  ww:464},
   {n:'Coolie',                y:2025, l:'Tamil',    ow:129,   india:285,  ww:518},
   {n:'War 2',                 y:2025, l:'Hindi',    ow:122,   india:236,  ww:364},
-  {n:'Chaava',                y:2025, l:'Hindi',    ow:121,   india:700,  ww:797},
+  {n:'Chhaava',                y:2025, l:'Hindi',    ow:121,   india:700,  ww:797},
   {n:'Happy New Year',        y:2014, l:'Hindi',    ow:108,   india:203,  ww:383},
   {n:'Gadar 2',               y:2023, l:'Hindi',    ow:134,   india:525,  ww:691},
   {n:'Pathaan',               y:2023, l:'Hindi',    ow:152,   india:543,  ww:1050},
@@ -17290,6 +17302,51 @@ if (weekdayMatch) {
 
 function renderDailyRecords() {
   initDailyRecWeekdaySelect();
+    var yearSelect = document.getElementById('daily-rec-year');
+  var selectedYear = yearSelect ? yearSelect.value : 'all';
+
+  if (yearSelect) {
+    var years = {};
+
+    Object.keys(FILM_PAGES).forEach(function (key) {
+      var film = FILM_PAGES[key];
+      var year = film && Number(film.year);
+
+      if (
+        Number.isInteger(year) &&
+        year >= 1888 &&
+        year <= 2100 &&
+        Array.isArray(film.daily) &&
+        film.daily.some(function (day) {
+          return day &&
+            !day.bucket &&
+            day.gross != null &&
+            Number.isFinite(Number(day.gross));
+        })
+      ) {
+        years[year] = true;
+      }
+    });
+
+    yearSelect.innerHTML = '<option value="all">All years</option>';
+
+    Object.keys(years)
+      .map(Number)
+      .sort(function (a, b) { return b - a; })
+      .forEach(function (year) {
+        var option = document.createElement('option');
+        option.value = String(year);
+        option.textContent = String(year);
+        yearSelect.appendChild(option);
+      });
+
+    yearSelect.value =
+      selectedYear === 'all' || years[selectedYear]
+        ? selectedYear
+        : 'all';
+
+    selectedYear = yearSelect.value;
+  }
 
   var labels = {
     openingDay: 'Opening Day India Net',
@@ -17306,8 +17363,15 @@ bestThirdWeekendDrop: 'Best 3rd Weekend Drop vs 2nd',
   var data = [];
 
   Object.keys(FILM_PAGES).forEach(function (key) {
-    var film = FILM_PAGES[key];
+       var film = FILM_PAGES[key];
+
+    if (
+      !film ||
+      (selectedYear !== 'all' && Number(film.year) !== Number(selectedYear))
+    ) return;
+
     var result = getDailyRecValue(film, dailyRecMetric);
+  
 
     if (!result || !isFinite(result.value)) return;
 
@@ -18370,7 +18434,7 @@ var ACTRESS_DATA = {
     {n:'Animal',                  y:2023, bo:917,  ff:30,    lb:2.4},
     {n:'Pushpa 2',                y:2024, bo:1742, ff:63,    lb:2.7},
     {n:'Sikandar',                y:2025, bo:220,  ff:5.76,  lb:1.7},
-    {n:'Chaava',                  y:2025, bo:797,  ff:30.5,  lb:3.6},
+    {n:'Chhaava',                  y:2025, bo:797,  ff:30.5,  lb:3.6},
     {n:'The Girlfriend',          y:2025, bo:null, ff:null,  lb:null},
   ],
   'Katrina Kaif': [
