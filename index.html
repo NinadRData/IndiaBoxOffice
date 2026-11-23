@@ -3841,7 +3841,6 @@ function getTopGrossers(){
     .sort(function(a,b){ return b.ww-a.ww; });
 }
 var RECENT_FILMS = FILMS.filter(function(f){ return f.y >= 2024 && f.ww != null; }).sort(function(a,b){ return b.india - a.india; });
-var TOP3 = getTopGrossers().slice(0,3);
 
 // Upcoming films (static — no data yet)
 var UPCOMING = [
@@ -10527,7 +10526,6 @@ overseas: [
       'A direct sequel, Dhurandhar 2, was announced before the film even completed its theatrical run.',
     ],
   },
-  'bhool bhulaiyaa 3': {key:'bhool-bhulaiyaa-3',title:'Bhool Bhulaiyaa 3',year:2024,lang:'Hindi',director:'Anees Bazmee',studio:'T-Series / Cine1 Studios',cast:[{name:'Kartik Aaryan',role:'Rooh Baba'},{name:'Vidya Balan',role:'Manjulika'},{name:'Madhuri Dixit',role:'Manjulika 2'},{name:'Triptii Dimri',role:'Reet'},{name:'Rajpal Yadav',role:'Chhota Pandit'}],synopsis:'',release:'2024-11-01',runtime:164,budget:130,india:283,ow:110,ww:423,ff:12,multiplier:2.57,lb:2.1,ott:'Netflix',music:'Pritam',awards:[],timeline:[{label:'Week 1',val:190},{label:'Week 2',val:60},{label:'Week 3',val:25},{label:'Week 4+',val:8}],overseas:[{market:'USA/Canada',val:18},{market:'Gulf',val:12},{market:'UK',val:8},{market:'Australia',val:5},{market:'Other',val:5}],comparable:[{n:'Bhool Bhulaiyaa 2 (2022)',ww:266,col:'#22c55e'},{n:'Bhool Bhulaiyaa 3 (2024)',ww:423,col:'#f5c518',highlight:true},{n:'Stree 2 (2024)',ww:874,col:'#a78bfa'}],trivia:['Released on Diwali 2024, clashing directly with Singham Again.']},
   'bhoot-bhangla': {
     key: 'bhoot-bhangla',
     title: 'Bhoot Bhangla',
@@ -13816,117 +13814,6 @@ function loadSimilarMoviePosters(root) {
   });
 }  
 
-// ─── BHOOT BHANGLA PREDICTION PAGE ───
-function showBhootBhangla() {
-  showFilmPageWithPredictions('bhoot-bhangla');
-}
-
-// ── SACNILK LIVE FETCH — global scope ──
-var SACNILK_SLUGS = {
-  'dhurandhar-2':  'Dhurandhar2-2026',
-  'bhoot-bhangla': 'BhootBhangla-2025',
-  'dhurandhar':    'Dhurandhar-2025',
-};
-
-function _sacnilkFetch(filmKey) {
-  var slug = SACNILK_SLUGS[filmKey];
-  var statusEl = document.getElementById('sacnilk-status');
-  var btnEl    = document.getElementById('sacnilk-btn');
-  if (!slug) { statusEl.textContent = 'No slug configured for this film.'; return; }
-  statusEl.textContent = 'Fetching…';
-  btnEl.disabled = true;
-
-  var proxies = [
-    'https://corsproxy.io/?' + encodeURIComponent('https://sacnilk.com/api/collection/movie?movieName=' + slug),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://sacnilk.com/api/collection/movie?movieName=' + slug),
-    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent('https://sacnilk.com/api/collection/movie?movieName=' + slug),
-  ];
-
-  var tried = 0;
-  function tryNext() {
-    if (tried >= proxies.length) {
-      statusEl.innerHTML = '<span style="color:#f87171">All proxies blocked. Paste JSON manually below.</span>';
-      var pa = document.getElementById('sacnilk-paste-area');
-      if (pa) pa.style.display = 'block';
-      btnEl.disabled = false;
-      return;
-    }
-    var url = proxies[tried++];
-    statusEl.textContent = 'Trying proxy ' + tried + '/' + proxies.length + '…';
-    fetch(url)
-      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
-      .then(function(text){
-        var data;
-        try { data = JSON.parse(text); }
-        catch(e) {
-          var m = text.match(/\{[\s\S]*"collection"[\s\S]*\}/);
-          if (m) { try { data = JSON.parse(m[0]); } catch(e2) { tryNext(); return; } }
-          else { tryNext(); return; }
-        }
-        _parseSacnilk(data, filmKey);
-      })
-      .catch(function(){ tryNext(); });
-  }
-  tryNext();
-}
-
-function _parseSacnilkPaste() {
-  var inp = document.getElementById('sacnilk-paste-input');
-  var statusEl = document.getElementById('sacnilk-status');
-  if (!inp) return;
-  try {
-    var data = JSON.parse(inp.value.trim());
-    _parseSacnilk(data, inp.dataset.filmKey);
-  } catch(e) {
-    statusEl.innerHTML = '<span style="color:#f87171">Invalid JSON — check paste.</span>';
-  }
-}
-
-function _parseSacnilk(data, filmKey) {
-  var statusEl = document.getElementById('sacnilk-status');
-  var btnEl    = document.getElementById('sacnilk-btn');
-  if (btnEl) btnEl.disabled = false;
-
-  var rows = data.collection || data.data || data.collections || (Array.isArray(data) ? data : null);
-  if (!rows || !rows.length) {
-    statusEl.innerHTML = '<span style="color:#f87171">Response received but no rows found. Keys: ' + Object.keys(data).join(', ') + '</span>';
-    var raw = document.getElementById('sacnilk-raw');
-    if (raw) { raw.style.display = 'block'; raw.textContent = JSON.stringify(data, null, 2).slice(0, 1500); }
-    return;
-  }
-
-  var total = 0;
-  var newDaily = rows.map(function(r){
-    var gross = parseFloat(r.india_net || r.indiaNet || r.net || r.gross || r.collection || 0);
-    total = Math.round((total + gross) * 100) / 100;
-    return { date: r.day||r.date||r.label||'', day: r.day_name||r.dayName||r.weekday||'',
-             gross: Math.round(gross*100)/100, total: total, chgDay: null, chgWeek: null };
-  });
-  for (var i = 1; i < newDaily.length; i++) {
-    if (newDaily[i-1].gross)
-      newDaily[i].chgDay = Math.round((newDaily[i].gross/newDaily[i-1].gross - 1)*1000)/10;
-  }
-
-  var runningTotal = newDaily[newDaily.length-1].total;
-  statusEl.innerHTML = '<span style="color:#4ade80">✓ ' + newDaily.length + ' days fetched · Running total: ₹' + runningTotal + ' Cr</span>';
-
-  var fp = null;
-  Object.keys(FILM_PAGES).forEach(function(k){ if(FILM_PAGES[k].key===filmKey) fp=FILM_PAGES[k]; });
-  if (fp) {
-    fp.daily = newDaily;
-    if (fp.prediction && fp.prediction.actuals) {
-      fp.prediction.actuals.running_total = runningTotal;
-      fp.prediction.actuals.running_ww    = fp.prediction.actuals.running_ww || null;
-      fp.prediction.actuals.week1 = Math.round(newDaily.slice(0,Math.min(8,newDaily.length)).reduce(function(s,d){return s+d.gross;},0)*100)/100;
-    }
-  }
-
-  var existing = document.getElementById('page-film-'+filmKey);
-  if (existing) existing.parentNode.removeChild(existing);
-  if (fp && fp.prediction) showFilmPageWithPredictions(filmKey);
-  else if (fp) showFilmPage(filmKey);
-}
-
 function showFilmPageWithPredictions(key) {
   var page = null;
   Object.keys(FILM_PAGES).forEach(function(k){ if(FILM_PAGES[k].key===key) page=FILM_PAGES[k]; });
@@ -15346,6 +15233,7 @@ function homeHeroCardMarkup(film, rank) {
 function renderHomeHero() {
   var slides = getHomeHeroSlides();
   var slideIndex = homeHeroIndex;
+  var backgroundChosen = false;
   var slide = slides[slideIndex];
   var panels = document.getElementById('heroPanels');
 
@@ -15424,10 +15312,17 @@ function renderHomeHero() {
           card.querySelector('.panel-bg').style.backgroundImage =
             'url(' + poster + ')';
         }
-
-        if (backdrop && index === 0 && homeHeroIndex === slideIndex) {
-          document.querySelector('#page-main > .home-hero').style.backgroundImage =
-            'url(' + backdrop + ')';
+        if (
+          backdrop &&
+          !backgroundChosen &&
+          homeHeroIndex === slideIndex &&
+          card.isConnected
+        ) {
+          var hero = document.querySelector('#page-main > .home-hero');
+          if (hero) {
+            backgroundChosen = true;
+            hero.style.backgroundImage = 'url(' + backdrop + ')';
+          }
         }
       });
     }
@@ -16401,23 +16296,6 @@ function fetchWikiHeadshot(name, cb) {
     .catch(function(){ wikiImgCache[name] = null; cb(null); });
 }
 
-function applyActorHero(actor) {
-  var imgEl  = document.getElementById('actor-hero-img');
-  var nameEl = document.getElementById('actor-hero-name');
-  var subEl  = document.getElementById('actor-hero-sub');
-  if (nameEl) nameEl.innerHTML = actor + ' <span style="color:var(--purple)">·</span> Filmography';
-  if (subEl)  subEl.textContent = 'Complete box office and footfall data.';
-  if (!imgEl) return;
-  // Fade out while loading
-  imgEl.style.opacity = '0';
-  fetchWikiHeadshot(actor, function(imgUrl) {
-    if (imgUrl) {
-      imgEl.style.backgroundImage    = 'url(' + imgUrl + ')';
-      imgEl.style.backgroundPosition = 'center 10%';
-      imgEl.style.opacity = '1';
-    }
-  });
-}
   var actorRangeMode = 'all';
 
 function setActorRange(mode, btn){
@@ -17599,20 +17477,6 @@ function getUpcomingAutoPrediction(film) {
 
   return autoForecastFromFilmData(target);
 } 
-var predLangFilter='all';
-function setPredLang(l,btn){
-  predLangFilter=l;
-  document.querySelectorAll('#pred-lang-filters .lf').forEach(function(b){b.style.background='';b.style.borderColor='';b.style.color='';});
-  btn.style.background='rgba(34,197,94,.12)';btn.style.borderColor='rgba(34,197,94,.3)';btn.style.color='var(--green)';
-  renderPreds();
-}
-function fmtRange(obj,pre,suf){
-  if(!obj||(!obj.low&&!obj.mid&&!obj.high))return null;
-  return [obj.low?'<span style="color:#ef4444">'+pre+obj.low+suf+'</span>':null,
-    obj.mid?'<span style="color:#f59e0b">'+pre+obj.mid+suf+'</span>':null,
-    obj.high?'<span style="color:var(--green)">'+pre+obj.high+suf+'</span>':null]
-    .filter(Boolean).join('<span style="color:rgba(255,255,255,.15)"> – </span>');
-}
 function renderPreds() {
   var grid = document.getElementById('pred-grid');
   var monthSelect = document.getElementById('schedule-month');
@@ -19142,9 +19006,6 @@ function trajR1(n) {
   return Math.round(n * 10) / 10;
 }
 
-function trajTrunc(s, n) {
-  return s.length > n ? s.slice(0, n - 1) + '…' : s;
-}
 
 function trajNiceStep(max) {
   if (!(max > 0)) return 1;
