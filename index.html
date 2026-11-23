@@ -21512,5 +21512,370 @@ Object.keys(YR_DATA)
 })();
 </script>
   <script src="upcoming-auto.js" defer></script>
+  <script>
+(function () {
+  /*
+   * Keep a reference before tracker.js replaces the weekly chart's
+   * original contents.
+   */
+  var weeklyChart = document.getElementById('weekly-chart');
+  var weeklySection = weeklyChart
+    ? weeklyChart.parentElement.parentElement
+    : null;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var weekend = document.getElementById('weekend-box-office');
+    var daily = document.getElementById('daily-box-office');
+    var snapshotTitle = document.getElementById('sac-feed-title');
+
+    /*
+     * Remove the visible snapshot cards. The saved data and other
+     * scripts that use it remain available.
+     */
+    if (snapshotTitle) {
+      var snapshotSection = snapshotTitle.closest('section');
+      if (snapshotSection) snapshotSection.remove();
+    }
+
+    if (!daily || !weekend || !weeklySection) {
+      console.warn(
+        'Box Office Results: one or more chart sections were not found.'
+      );
+      return;
+    }
+
+    /*
+     * Create one container and move the existing charts inside it.
+     * Their existing data and controls continue to work.
+     */
+    var container = document.createElement('section');
+    container.id = 'box-office-results';
+    container.style.cssText =
+      'padding:1.75rem 2rem 0;';
+
+    var title = document.createElement('h2');
+    title.textContent = 'Box Office Results';
+    title.style.cssText =
+      'font-size:1rem;letter-spacing:.14em;' +
+      'text-transform:uppercase;margin:0 0 1rem;';
+
+    var tabs = document.createElement('div');
+    tabs.setAttribute('role', 'tablist');
+    tabs.setAttribute('aria-label', 'Box office period');
+    tabs.style.cssText =
+      'display:inline-flex;flex-wrap:wrap;gap:.35rem;' +
+      'padding:.3rem;background:#1d272f;' +
+      'border:1px solid rgba(255,255,255,.1);' +
+      'border-radius:999px;margin-bottom:.75rem;';
+
+    weekend.parentNode.insertBefore(container, weekend);
+    container.appendChild(title);
+    container.appendChild(tabs);
+
+    var panels = [
+      { name: 'Daily', element: daily },
+      { name: 'Weekend', element: weekend },
+      { name: 'Weekly', element: weeklySection }
+    ];
+
+    var buttons = [];
+
+    function selectPanel(selectedIndex) {
+      panels.forEach(function (panel, index) {
+        var selected = index === selectedIndex;
+
+        panel.element.style.display = selected ? '' : 'none';
+
+        buttons[index].setAttribute(
+          'aria-selected',
+          selected ? 'true' : 'false'
+        );
+
+        buttons[index].style.background =
+          selected ? '#facc15' : 'transparent';
+
+        buttons[index].style.color =
+          selected ? '#111827' : '#e5e7eb';
+      });
+    }
+
+    panels.forEach(function (panel, index) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = panel.name;
+      button.setAttribute('role', 'tab');
+      button.style.cssText =
+        'border:0;border-radius:999px;padding:.65rem 1.1rem;' +
+        'font-weight:700;cursor:pointer;';
+
+      button.addEventListener('click', function () {
+        selectPanel(index);
+      });
+
+      buttons.push(button);
+      tabs.appendChild(button);
+
+      /*
+       * The charts already have their own inner padding.
+       * Remove it to align them with the tabs.
+       */
+      panel.element.style.padding = '1rem 0 0';
+      container.appendChild(panel.element);
+    });
+
+    selectPanel(0);
+
+    /*
+     * Add previous-weekend changes to the existing weekend chart.
+     */
+    var weekendResults = document.getElementById('weekend-results');
+    if (!weekendResults) return;
+
+    function iso(date) {
+      return date.toISOString().slice(0, 10);
+    }
+
+    function addDays(date, amount) {
+      return new Date(date.getTime() + amount * 86400000);
+    }
+
+    function indiaToday() {
+      var parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).formatToParts(new Date());
+
+      var fields = {};
+
+      parts.forEach(function (part) {
+        fields[part.type] = part.value;
+      });
+
+      return fields.year + '-' + fields.month + '-' + fields.day;
+    }
+
+    function weekendTotal(film, start, end) {
+      var dates = Object.create(null);
+      var total = 0;
+
+      if (!film || !Array.isArray(film.days)) {
+        return { total: 0, count: 0 };
+      }
+
+      film.days.forEach(function (day) {
+        if (
+          !day ||
+          typeof day.date !== 'string' ||
+          day.date < start ||
+          day.date > end ||
+          dates[day.date] ||
+          !Number.isFinite(day.indiaNet) ||
+          day.indiaNet < 0
+        ) return;
+
+        dates[day.date] = true;
+        total += day.indiaNet;
+      });
+
+      return {
+        total: total,
+        count: Object.keys(dates).length
+      };
+    }
+
+    function fetchJson(path, required) {
+      return fetch(path, { cache: 'no-cache' })
+        .then(function (response) {
+          if (!response.ok) {
+            if (required) throw new Error('Data unavailable');
+            return null;
+          }
+
+          return response.json();
+        })
+        .catch(function (error) {
+          if (required) throw error;
+          return null;
+        });
+    }
+
+    var filmsByTitle = null;
+
+    function addChanges() {
+      if (!filmsByTitle) return;
+
+      var rows = weekendResults.children;
+
+      if (!rows.length) return;
+
+      var today = indiaToday();
+      var currentDate = new Date(today + 'T12:00:00Z');
+
+      var friday = addDays(
+        currentDate,
+        -((currentDate.getUTCDay() + 2) % 7)
+      );
+
+      var currentStart = iso(friday);
+      var currentEnd = iso(addDays(friday, 2));
+      var previousStart = iso(addDays(friday, -7));
+      var previousEnd = iso(addDays(friday, -5));
+
+      Array.prototype.forEach.call(rows, function (row) {
+        /*
+         * Weekend rows contain rank, a name block, and the total.
+         * Leave the empty-state message alone.
+         */
+        if (
+          row.children.length < 3 ||
+          row.querySelector('.weekend-change')
+        ) return;
+
+        var nameBlock = row.children[1];
+        var titleNode = nameBlock && nameBlock.children[0];
+        if (!titleNode) return;
+
+        var matches = filmsByTitle[titleNode.textContent] || [];
+
+        var label = document.createElement('span');
+        label.className = 'weekend-change';
+        label.style.cssText =
+          'min-width:5.5rem;text-align:right;' +
+          'font-size:.76rem;color:#a5afb6;';
+
+        var changeText = 'N/A';
+
+        /*
+         * Avoid guessing when more than one film has the same title.
+         */
+        if (matches.length === 1) {
+          var current = weekendTotal(
+            matches[0],
+            currentStart,
+            currentEnd
+          );
+
+          var previous = weekendTotal(
+            matches[0],
+            previousStart,
+            previousEnd
+          );
+
+          if (
+            current.count === 3 &&
+            previous.count === 3 &&
+            previous.total > 0
+          ) {
+            var percent =
+              Math.round(
+                ((current.total / previous.total) - 1) * 1000
+              ) / 10;
+
+            changeText =
+              (percent > 0 ? '+' : '') + percent + '%';
+
+            label.style.color =
+              percent < 0 ? '#f87171' :
+              percent > 0 ? '#4ade80' :
+              '#a5afb6';
+          }
+        }
+
+        label.textContent = 'Change: ' + changeText;
+        row.appendChild(label);
+      });
+    }
+
+    /*
+     * The weekend chart may finish loading before or after these
+     * requests, so watch for its rows.
+     */
+    var observer = new MutationObserver(function () {
+      addChanges();
+    });
+
+    observer.observe(weekendResults, { childList: true });
+
+    Promise.all([
+      fetchJson('data/tracker.json', true),
+      fetchJson('data/discovered.json', false)
+    ])
+      .then(function (sources) {
+        var tracker = sources[0];
+        var discovered = sources[1];
+
+        if (!tracker || !Array.isArray(tracker.films)) {
+          throw new Error('Invalid tracker data');
+        }
+
+        var byUrl = Object.create(null);
+
+        tracker.films.forEach(function (film) {
+          if (film && typeof film.url === 'string') {
+            byUrl[film.url] = film;
+          }
+        });
+
+        if (discovered && Array.isArray(discovered.films)) {
+          discovered.films.forEach(function (film) {
+            if (
+              !film ||
+              typeof film.url !== 'string' ||
+              !Array.isArray(film.days)
+            ) return;
+
+            var old = byUrl[film.url];
+            var incomingTime = Date.parse(film.fetchedAt || '');
+            var oldTime = Date.parse(
+              (old && old.fetchedAt) || tracker.updatedAt
+            );
+
+            if (
+              !old ||
+              (
+                Number.isFinite(incomingTime) &&
+                incomingTime > oldTime
+              )
+            ) {
+              byUrl[film.url] = film;
+            }
+          });
+        }
+
+        filmsByTitle = Object.create(null);
+
+        Object.keys(byUrl).forEach(function (url) {
+          var film = byUrl[url];
+          if (typeof film.title !== 'string') return;
+
+          if (!filmsByTitle[film.title]) {
+            filmsByTitle[film.title] = [];
+          }
+
+          filmsByTitle[film.title].push(film);
+        });
+
+        addChanges();
+      })
+      .catch(function (error) {
+        console.warn('Weekend change data unavailable:', error);
+      });
+
+    var note = document.createElement('p');
+    note.textContent =
+      'Weekend change compares complete Friday–Sunday totals. ' +
+      'N/A means a previous weekend or complete daily figures ' +
+      'are not available.';
+
+    note.style.cssText =
+      'color:#a5afb6;font-size:.72rem;line-height:1.5;' +
+      'margin:.75rem 0 0;';
+
+    weekend.appendChild(note);
+  });
+})();
+</script>
 </body>
 </html>
