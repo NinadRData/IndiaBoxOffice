@@ -4126,6 +4126,245 @@ if (Number.isInteger(film.reportedDay)) {
     });
 })();
 </script>
+  <!-- WEEKEND BOX OFFICE: India net, Friday–Sunday -->
+<section id="weekend-box-office" style="padding:1.75rem 2rem 0">
+  <h2 style="font-size:1rem;letter-spacing:.14em;text-transform:uppercase;margin:0 0 .5rem">
+    Weekend box office
+  </h2>
+
+  <p id="weekend-meta" style="font-size:.76rem;color:#a5afb6;margin:0 0 1rem">
+    Loading collections…
+  </p>
+
+  <div
+    id="weekend-results"
+    style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+  </div>
+</section>
+
+<script>
+(function () {
+  var meta = document.getElementById('weekend-meta');
+  var results = document.getElementById('weekend-results');
+
+  function iso(d) {
+    return d.toISOString().slice(0, 10);
+  }
+
+  function add(d, n) {
+    return new Date(d.getTime() + n * 86400000);
+  }
+
+  function dateLabel(s) {
+    return new Date(s + 'T12:00:00Z').toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      timeZone: 'UTC'
+    });
+  }
+
+  function money(n) {
+    return '₹' + n.toLocaleString('en-IN', {
+      maximumFractionDigits: 2
+    }) + ' Cr';
+  }
+
+  function text(tag, value, style) {
+    var node = document.createElement(tag);
+    node.textContent = value;
+    if (style) node.style.cssText = style;
+    return node;
+  }
+
+  Promise.all([
+    fetch('data/tracker.json', { cache: 'no-cache' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Tracker unavailable');
+        return response.json();
+      }),
+
+    fetch('data/discovered.json', { cache: 'no-cache' })
+      .then(function (response) {
+        return response.ok ? response.json() : null;
+      })
+      .catch(function () {
+        return null;
+      })
+  ])
+    .then(function (sources) {
+      var tracker = sources[0];
+      var discovered = sources[1];
+
+      if (
+        !tracker ||
+        !Array.isArray(tracker.films) ||
+        !Number.isFinite(Date.parse(tracker.updatedAt))
+      ) {
+        throw new Error('Invalid tracker data');
+      }
+
+      // Combine the existing tracker and discovered-film feeds.
+      var films = Object.create(null);
+
+      tracker.films.forEach(function (film) {
+        if (film && typeof film.url === 'string') {
+          films[film.url] = film;
+        }
+      });
+
+      if (discovered && Array.isArray(discovered.films)) {
+        discovered.films.forEach(function (film) {
+          if (
+            !film ||
+            typeof film.url !== 'string' ||
+            !Array.isArray(film.days)
+          ) return;
+
+          var old = films[film.url];
+          var newer = Date.parse(film.fetchedAt || '');
+          var older = Date.parse(
+            (old && old.fetchedAt) || tracker.updatedAt
+          );
+
+          if (!old || (Number.isFinite(newer) && newer > older)) {
+            films[film.url] = film;
+          }
+        });
+      }
+
+      // Find the most recent Friday using the date in India.
+      var parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).formatToParts(new Date());
+
+      var fields = {};
+      parts.forEach(function (part) {
+        fields[part.type] = part.value;
+      });
+
+      var today = fields.year + '-' + fields.month + '-' + fields.day;
+      var currentDate = new Date(today + 'T12:00:00Z');
+      var friday = add(
+        currentDate,
+        -((currentDate.getUTCDay() + 2) % 7)
+      );
+
+      var start = iso(friday);
+      var end = iso(add(friday, 2));
+      var rows = [];
+
+      Object.keys(films).forEach(function (key) {
+        var film = films[key];
+
+        if (
+          typeof film.title !== 'string' ||
+          !Array.isArray(film.days)
+        ) return;
+
+        var dates = Object.create(null);
+        var sum = 0;
+
+        film.days.forEach(function (day) {
+          if (
+            !day ||
+            typeof day.date !== 'string' ||
+            day.date < start ||
+            day.date > end ||
+            day.date > today ||
+            dates[day.date] ||
+            !Number.isFinite(day.indiaNet) ||
+            day.indiaNet < 0
+          ) return;
+
+          dates[day.date] = true;
+          sum += day.indiaNet;
+        });
+
+        var count = Object.keys(dates).length;
+
+        if (count) {
+          rows.push({
+            title: film.title,
+            total: sum,
+            count: count
+          });
+        }
+      });
+
+      rows.sort(function (a, b) {
+        return b.total - a.total || a.title.localeCompare(b.title);
+      });
+
+      var stale =
+        Date.now() - Date.parse(tracker.updatedAt) >
+        48 * 60 * 60 * 1000;
+
+      meta.textContent =
+        dateLabel(start) + ' – ' + dateLabel(end) +
+        ' · India net · Source-reported figures; totals may be incomplete' +
+        ' · Tracker updated ' +
+        new Date(tracker.updatedAt).toLocaleString() +
+        (stale ? ' · Data may be out of date' : '');
+
+      if (!rows.length) {
+        results.appendChild(text(
+          'p',
+          'No collections reported for this weekend yet.',
+          'padding:1rem;margin:0;color:#a5afb6'
+        ));
+        return;
+      }
+
+      rows.forEach(function (row, index) {
+        var line = text(
+          'div',
+          '',
+          'display:flex;align-items:center;gap:1rem;' +
+          'padding:.85rem 1rem;' +
+          'border-bottom:1px solid rgba(255,255,255,.07)'
+        );
+
+        line.appendChild(text(
+          'span',
+          String(index + 1),
+          'color:#facc15;font-weight:800;min-width:1.5rem'
+        ));
+
+        var name = text('div', '', 'flex:1;min-width:0');
+
+        name.appendChild(text(
+          'div',
+          row.title,
+          'font-weight:700;color:#f1f3f5;overflow-wrap:anywhere'
+        ));
+
+        name.appendChild(text(
+          'div',
+          row.count + ' of 3 days reported',
+          'font-size:.7rem;color:#a5afb6;margin-top:.25rem'
+        ));
+
+        line.appendChild(name);
+
+        line.appendChild(text(
+          'strong',
+          money(row.total),
+          'color:#facc15;white-space:nowrap'
+        ));
+
+        results.appendChild(line);
+      });
+    })
+    .catch(function () {
+      meta.textContent =
+        'Weekend data is unavailable. Please try again later.';
+    });
+})();
+</script>
   <!-- ═══ THIS WEEK AT THE BOX OFFICE ═══ -->
   <div style="padding:1.75rem 2rem 0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem">
@@ -10538,79 +10777,188 @@ overseas: [
     trivia: [
     ],
   },
-  'bajrangi bhaijaan': {
-    key: 'bajrangi-bhaijaan',
-    title: 'Bajrangi Bhaijaan',
-    year: 2015,
-    lang: 'Hindi',
-    director: 'Kabir Khan',
-    studio: 'Salman Khan Films / Eros International',
-    cast: [
-      {name:'Salman Khan',         role:'Pawan Kumar Chaturvedi (Bajrangi)'},
-      {name:'Harshaali Malhotra',  role:'Munni / Shahida'},
-      {name:'Kareena Kapoor',      role:'Rasika'},
-      {name:'Nawazuddin Siddiqui', role:'Chand Nawab'},
-      {name:'Om Puri',             role:'Maulana Sahab'},
-    ],
-    synopsis: 'A simple-hearted, devotedly religious man named Pawan — a Hanuman bhakt who cannot tell a lie — finds a mute Pakistani girl named Munni separated from her family in India. Unable to abandon her, he embarks on an impossible mission: to cross into Pakistan without a passport and reunite Munni with her mother. What follows is one of the most beloved road movies in Indian cinema history — funny, heartbreaking, and ultimately a soaring hymn to the idea that human goodness transcends borders, religion, and nationalism. Bajrangi Bhaijaan became a cultural phenomenon on both sides of the India-Pakistan border and remains one of the most emotionally resonant blockbusters ever made.',
-    release: '2015-07-17',
-    runtime: 163,
-    budget: 90,
-    india: 320,
-    ow: 102.35,
-    ww: 918,
-    ff: 35.42,
-    multiplier: 3.13,
-    lb: 3.8,
-    ott: 'Amazon Prime Video',
-    music: 'Pritam',
-    awards: [
-      'Filmfare – Best Film',
-      'Filmfare – Best Director (Kabir Khan)',
-      'Filmfare – Best Supporting Actress (Kareena Kapoor, Nominated)',
-      'IIFA – Best Film',
-      'IIFA – Best Director (Kabir Khan)',
-      'Screen Awards – Best Film',
-      'Screen Awards – Best Actor (Salman Khan)',
-      'National Award – Best Popular Film Providing Wholesome Entertainment (Nominated)',
-      'Star Screen – Best Child Artist (Harshaali Malhotra)',
-    ],
-    timeline: [
-      {label:'Week 1',   val:193},
-      {label:'Week 2',   val:108},
-      {label:'Week 3',   val:65},
-      {label:'Week 4',   val:32},
-      {label:'Week 5+',  val:22},
-    ],
-    overseas: [
-      {market:'Pakistan',   val:28},
-      {market:'USA/Canada', val:52},
-      {market:'Gulf',       val:82},
-      {market:'UK',         val:45},
-      {market:'Australia',  val:22},
-      {market:'Other',      val:269},
-    ],
-    comparable: [
-      {n:'PK (2014)',                ww:769,  col:'#22c55e'},
-      {n:'Bajrangi Bhaijaan (2015)', ww:918,  col:'#f5c518', highlight:true},
-      {n:'Secret Superstar (2017)',  ww:875,  col:'#4fc3f7'},
-      {n:'Dangal (2016)',            ww:2070, col:'#f97316'},
-      {n:'Sultan (2016)',            ww:614,  col:'#a78bfa'},
-      {n:'Animal (2023)',            ww:917,  col:'#ef4444'},
-    ],
-    trivia: [
-      'Bajrangi Bhaijaan is the only Salman Khan film to gross over ₹900 Cr worldwide and remains his highest-grossing film of all time — a record that has stood for over a decade.',
-      'The film was a massive hit in Pakistan, where it was screened in cinemas to sold-out crowds and generated an extraordinary outpouring of goodwill — unusual for an Indian film dealing with Indo-Pak themes.',
-      'Child actress Harshaali Malhotra, who played Munni, was 6 years old during filming. Her performance — entirely wordless for much of the film — drew universal critical acclaim and launched her to nationwide fame.',
-      'Kabir Khan and Salman Khan had previously collaborated on Ek Tha Tiger (2012) and Bajrangi Bhaijaan is widely considered their masterpiece together.',
-      'The film\'s climax — Munni\'s reunion with her family as crowds on both sides of the border cheer — is considered one of the most emotionally effective sequences in Hindi cinema.',
-      'Pritam\'s soundtrack, particularly "Bhar Do Jholi" and "Tu Jo Mila", gave the film a spiritual depth that connected deeply with audiences across religions.',
-      'Bajrangi Bhaijaan grossed ₹102 Cr nett in its opening weekend — the biggest ever for a Salman Khan film and one of the biggest in Hindi cinema at the time.',
-      'The film\'s China release added significantly to its international footprint, with Chinese audiences responding strongly to its universal themes of innocence and human connection.',
-      'Nawazuddin Siddiqui\'s role as the bumbling journalist Chand Nawab was a breakout comic performance that introduced him to mass commercial audiences after years as a critically acclaimed actor.',
-      'A sequel, Bajrangi Bhaijaan 2, has been discussed by Salman Khan and Kabir Khan but no production timeline has been confirmed as of 2026.',
-    ],
-  },
+'bajrangi-bhaijaan': {
+  key: 'bajrangi-bhaijaan',
+  title: 'Bajrangi Bhaijaan',
+  year: 2015,
+  lang: 'Hindi',
+  director: 'Kabir Khan',
+  studio: 'Salman Khan Films / Eros International',
+  cast: [
+    {name:'Salman Khan', role:'Pawan Kumar Chaturvedi (Bajrangi)'},
+    {name:'Harshaali Malhotra', role:'Munni / Shahida'},
+    {name:'Kareena Kapoor', role:'Rasika'},
+    {name:'Nawazuddin Siddiqui', role:'Chand Nawab'},
+    {name:'Om Puri', role:'Maulana Sahab'},
+  ],
+  synopsis: 'A simple-hearted, devotedly religious man named Pawan, a Hanuman bhakt who cannot tell a lie, finds a mute Pakistani girl named Munni separated from her family in India. Unable to abandon her, he embarks on an impossible mission: to cross into Pakistan without a passport and reunite Munni with her mother. What follows is one of the most beloved road movies in Indian cinema history, funny, heartbreaking, and ultimately a hymn to the idea that human goodness transcends borders, religion, and nationalism. Bajrangi Bhaijaan became a cultural phenomenon on both sides of the India-Pakistan border and remains one of the most emotionally resonant blockbusters ever made.',
+  release: '2015-07-17',
+  runtime: 163,
+  budget: 90,
+  india: 320.34,
+  indiaGross: 444.92,
+  overseasGross: 473.26,
+  ow: 102.60,
+  ww: 918.18,
+  ff: 35.42,
+  get multiplier() { return Math.round(this.india / this.ow * 100) / 100; },
+  lb: 3.8,
+  ott: 'Amazon Prime Video',
+  music: 'Pritam',
+  awards: [
+    'Filmfare – Best Film',
+    'Filmfare – Best Director (Kabir Khan)',
+    'Filmfare – Best Supporting Actress (Kareena Kapoor, Nominated)',
+    'IIFA – Best Film',
+    'IIFA – Best Director (Kabir Khan)',
+    'Screen Awards – Best Film',
+    'Screen Awards – Best Actor (Salman Khan)',
+    'National Award – Best Popular Film Providing Wholesome Entertainment (Nominated)',
+    'Star Screen – Best Child Artist (Harshaali Malhotra)',
+  ],
+  daily: [
+    {date:'Fri Jul 17',day:'Fri',gross:27.25,chgDay:null,chgWeek:null,total:27.25,ff:null,shows:null,occupancy:null},
+    {date:'Sat Jul 18',day:'Sat',gross:36.60,chgDay:34.31,chgWeek:null,total:63.85,ff:null,shows:null,occupancy:null},
+    {date:'Sun Jul 19',day:'Sun',gross:38.75,chgDay:5.87,chgWeek:null,total:102.60,ff:null,shows:null,occupancy:null},
+    {date:'Mon Jul 20',day:'Mon',gross:27.05,chgDay:-30.19,chgWeek:null,total:129.65,ff:null,shows:null,occupancy:null},
+    {date:'Tue Jul 21',day:'Tue',gross:21.40,chgDay:-20.89,chgWeek:null,total:151.05,ff:null,shows:null,occupancy:null},
+    {date:'Wed Jul 22',day:'Wed',gross:18.02,chgDay:-15.79,chgWeek:null,total:169.07,ff:null,shows:null,occupancy:null},
+    {date:'Thu Jul 23',day:'Thu',gross:15.55,chgDay:-13.71,chgWeek:null,total:184.62,ff:null,shows:null,occupancy:null},
+    {date:'Fri Jul 24',day:'Fri',gross:12.80,chgDay:-17.68,chgWeek:null,total:197.42,ff:null,shows:null,occupancy:null},
+    {date:'Sat Jul 25',day:'Sat',gross:19.25,chgDay:50.39,chgWeek:null,total:216.67,ff:null,shows:null,occupancy:null},
+    {date:'Sun Jul 26',day:'Sun',gross:24.05,chgDay:24.94,chgWeek:null,total:240.72,ff:null,shows:null,occupancy:null},
+    {date:'Mon Jul 27',day:'Mon',gross:9.30,chgDay:-61.33,chgWeek:null,total:250.02,ff:null,shows:null,occupancy:null},
+    {date:'Tue Jul 28',day:'Tue',gross:9.10,chgDay:-2.15,chgWeek:null,total:259.12,ff:null,shows:null,occupancy:null},
+    {date:'Wed Jul 29',day:'Wed',gross:7.10,chgDay:-21.98,chgWeek:null,total:266.22,ff:null,shows:null,occupancy:null},
+    {date:'Thu Jul 30',day:'Thu',gross:6.03,chgDay:-15.07,chgWeek:null,total:272.25,ff:null,shows:null,occupancy:null},
+    {date:'Fri Jul 31',day:'Fri',gross:4.11,chgDay:-31.84,chgWeek:null,total:276.36,ff:null,shows:null,occupancy:null},
+    {date:'Sat Aug 1',day:'Sat',gross:6.80,chgDay:65.45,chgWeek:null,total:283.16,ff:null,shows:null,occupancy:null},
+    {date:'Sun Aug 2',day:'Sun',gross:9.07,chgDay:33.38,chgWeek:null,total:292.23,ff:null,shows:null,occupancy:null},
+    {date:'Mon Aug 3',day:'Mon',gross:2.75,chgDay:-69.68,chgWeek:null,total:294.98,ff:null,shows:null,occupancy:null},
+    {date:'Tue Aug 4',day:'Tue',gross:2.63,chgDay:-4.36,chgWeek:null,total:297.61,ff:null,shows:null,occupancy:null},
+    {date:'Wed Aug 5',day:'Wed',gross:2.45,chgDay:-6.84,chgWeek:null,total:300.06,ff:null,shows:null,occupancy:null},
+    {date:'Thu Aug 6',day:'Thu',gross:2.25,chgDay:-8.16,chgWeek:null,total:302.31,ff:null,shows:null,occupancy:null},
+    {date:'Fri Aug 7',day:'Fri',gross:1.45,chgDay:-35.56,chgWeek:null,total:303.76,ff:null,shows:null,occupancy:null},
+    {date:'Sat Aug 8',day:'Sat',gross:2.73,chgDay:88.28,chgWeek:null,total:306.49,ff:null,shows:null,occupancy:null},
+    {date:'Sun Aug 9',day:'Sun',gross:3.51,chgDay:28.57,chgWeek:null,total:310.00,ff:null,shows:null,occupancy:null},
+    {date:'Mon Aug 10',day:'Mon',gross:1.15,chgDay:-67.24,chgWeek:null,total:311.15,ff:null,shows:null,occupancy:null},
+    {date:'Tue Aug 11',day:'Tue',gross:1.02,chgDay:-11.30,chgWeek:null,total:312.17,ff:null,shows:null,occupancy:null},
+    {date:'Wed Aug 12',day:'Wed',gross:0.96,chgDay:-5.88,chgWeek:null,total:313.13,ff:null,shows:null,occupancy:null},
+    {date:'Thu Aug 13',day:'Thu',gross:0.91,chgDay:-5.21,chgWeek:null,total:314.04,ff:null,shows:null,occupancy:null},
+    {date:'Days 29–31',day:'Fri–Sun',gross:2.63,chgDay:null,chgWeek:null,total:316.67,ff:null,shows:null,occupancy:null},
+    {date:'Mon Aug 17',day:'Mon',gross:0.38,chgDay:-58.24,chgWeek:null,total:317.05,ff:null,shows:null,occupancy:null},
+    {date:'Tue Aug 18',day:'Tue',gross:0.36,chgDay:-5.26,chgWeek:null,total:317.41,ff:null,shows:null,occupancy:null},
+    {date:'Wed Aug 19',day:'Wed',gross:0.33,chgDay:-8.33,chgWeek:null,total:317.74,ff:null,shows:null,occupancy:null},
+    {date:'Thu Aug 20',day:'Thu',gross:0.32,chgDay:-3.03,chgWeek:null,total:318.06,ff:null,shows:null,occupancy:null},
+    {date:'Days 36–42',day:'Fri–Thu',gross:1.56,chgDay:null,chgWeek:null,total:319.62,ff:null,shows:null,occupancy:null},
+    {date:'Days 43–49',day:'Fri–Thu',gross:0.72,chgDay:null,chgWeek:null,total:320.34,ff:null,shows:null,occupancy:null},
+  ],
+  wwCum: [],
+  timeline: [
+    {label:'Week 1',val:184.62},
+    {label:'Week 2',val:87.63},
+    {label:'Week 3',val:30.06},
+    {label:'Week 4',val:11.73},
+    {label:'Week 5',val:4.02},
+    {label:'Week 6',val:1.56},
+    {label:'Week 7',val:0.72},
+  ],
+  overseas: [
+    {market:'Pakistan',val:28},
+    {market:'USA/Canada',val:52},
+    {market:'Gulf',val:82},
+    {market:'UK',val:45},
+    {market:'Australia',val:22},
+    {market:'Other',val:269},
+  ],
+  comparable: [
+    {n:'PK (2014)',ww:769,col:'#22c55e'},
+    {n:'Bajrangi Bhaijaan (2015)',ww:918.18,col:'#f5c518',highlight:true},
+    {n:'Secret Superstar (2017)',ww:875,col:'#4fc3f7'},
+    {n:'Dangal (2016)',ww:2070,col:'#f97316'},
+    {n:'Sultan (2016)',ww:614,col:'#a78bfa'},
+    {n:'Animal (2023)',ww:917,col:'#ef4444'},
+  ],
+},
+
+'bhool-bhulaiyaa-3': {
+  key: 'bhool-bhulaiyaa-3',
+  title: 'Bhool Bhulaiyaa 3',
+  year: 2024,
+  lang: 'Hindi',
+  director: 'Anees Bazmee',
+  studio: 'T-Series / Cine1 Studios',
+  cast: [
+    {name:'Kartik Aaryan',role:'Ruhaan / Rooh Baba'},
+    {name:'Vidya Balan',role:'Manjulika'},
+    {name:'Madhuri Dixit',role:'Anjulika'},
+    {name:'Triptii Dimri',role:'Meera'},
+    {name:'Sanjay Mishra',role:'Chhote Pandit'},
+    {name:'Rajpal Yadav',role:'Tiwari'},
+  ],
+  synopsis: 'Ruhaan, popularly known as Rooh Baba, finds himself drawn into a haunted royal palace where two women claim to be the legendary Manjulika. As he attempts to uncover the truth behind the supernatural events, a series of secrets, family rivalries, and unexpected twists unfold.',
+  release: '2024-11-01',
+  runtime: 158,
+  budget: null,
+  india: 283.80,
+  indiaGross: 334.67,
+  overseasGross: 89.18,
+  ow: 110.20,
+  ww: 423.85,
+  ff: null,
+  get multiplier() { return Math.round(this.india / this.ow * 100) / 100; },
+  lb: null,
+  ott: 'Netflix',
+  music: 'Amaal Mallik / Tanishk Bagchi / Sachet-Parampara',
+  awards: [],
+  daily: [
+    {date:'Fri Nov 1',day:'Fri',gross:36.60,chgDay:null,chgWeek:null,total:36.60,ff:null,shows:null,occupancy:null},
+    {date:'Sat Nov 2',day:'Sat',gross:38.40,chgDay:4.92,chgWeek:null,total:75.00,ff:null,shows:null,occupancy:null},
+    {date:'Sun Nov 3',day:'Sun',gross:35.20,chgDay:-8.33,chgWeek:null,total:110.20,ff:null,shows:null,occupancy:null},
+    {date:'Mon Nov 4',day:'Mon',gross:17.80,chgDay:-49.43,chgWeek:null,total:128.00,ff:null,shows:null,occupancy:null},
+    {date:'Tue Nov 5',day:'Tue',gross:15.91,chgDay:-10.62,chgWeek:null,total:143.91,ff:null,shows:null,occupancy:null},
+    {date:'Wed Nov 6',day:'Wed',gross:12.74,chgDay:-19.92,chgWeek:null,total:156.65,ff:null,shows:null,occupancy:null},
+    {date:'Thu Nov 7',day:'Thu',gross:12.21,chgDay:-4.16,chgWeek:null,total:168.86,ff:null,shows:null,occupancy:null},
+    {date:'Fri Nov 8',day:'Fri',gross:12.40,chgDay:1.56,chgWeek:null,total:181.26,ff:null,shows:null,occupancy:null},
+    {date:'Sat Nov 9',day:'Sat',gross:17.40,chgDay:40.32,chgWeek:null,total:198.66,ff:null,shows:null,occupancy:null},
+    {date:'Sun Nov 10',day:'Sun',gross:18.10,chgDay:4.02,chgWeek:null,total:216.76,ff:null,shows:null,occupancy:null},
+    {date:'Mon Nov 11',day:'Mon',gross:5.40,chgDay:-70.17,chgWeek:null,total:222.16,ff:null,shows:null,occupancy:null},
+    {date:'Tue Nov 12',day:'Tue',gross:4.40,chgDay:-18.52,chgWeek:null,total:226.56,ff:null,shows:null,occupancy:null},
+    {date:'Wed Nov 13',day:'Wed',gross:4.21,chgDay:-4.32,chgWeek:null,total:230.77,ff:null,shows:null,occupancy:null},
+    {date:'Thu Nov 14',day:'Thu',gross:4.10,chgDay:-2.61,chgWeek:null,total:234.87,ff:null,shows:null,occupancy:null},
+    {date:'Fri Nov 15',day:'Fri',gross:4.51,chgDay:10.00,chgWeek:null,total:239.38,ff:null,shows:null,occupancy:null},
+    {date:'Sat Nov 16',day:'Sat',gross:5.65,chgDay:25.28,chgWeek:null,total:245.03,ff:null,shows:null,occupancy:null},
+    {date:'Sun Nov 17',day:'Sun',gross:6.62,chgDay:17.17,chgWeek:null,total:251.65,ff:null,shows:null,occupancy:null},
+    {date:'Mon Nov 18',day:'Mon',gross:2.27,chgDay:-65.71,chgWeek:null,total:253.92,ff:null,shows:null,occupancy:null},
+    {date:'Tue Nov 19',day:'Tue',gross:2.42,chgDay:6.61,chgWeek:null,total:256.34,ff:null,shows:null,occupancy:null},
+    {date:'Wed Nov 20',day:'Wed',gross:2.58,chgDay:6.61,chgWeek:null,total:258.92,ff:null,shows:null,occupancy:null},
+    {date:'Thu Nov 21',day:'Thu',gross:1.83,chgDay:-29.07,chgWeek:null,total:260.75,ff:null,shows:null,occupancy:null},
+    {date:'Fri Nov 22',day:'Fri',gross:1.58,chgDay:-13.66,chgWeek:null,total:262.33,ff:null,shows:null,occupancy:null},
+    {date:'Sat Nov 23',day:'Sat',gross:3.06,chgDay:93.67,chgWeek:null,total:265.39,ff:null,shows:null,occupancy:null},
+    {date:'Sun Nov 24',day:'Sun',gross:3.83,chgDay:25.16,chgWeek:null,total:269.22,ff:null,shows:null,occupancy:null},
+    {date:'Mon Nov 25',day:'Mon',gross:1.25,chgDay:-67.36,chgWeek:null,total:270.47,ff:null,shows:null,occupancy:null},
+    {date:'Tue Nov 26',day:'Tue',gross:1.16,chgDay:-7.20,chgWeek:null,total:271.63,ff:null,shows:null,occupancy:null},
+    {date:'Wed Nov 27',day:'Wed',gross:1.15,chgDay:-0.86,chgWeek:null,total:272.78,ff:null,shows:null,occupancy:null},
+    {date:'Thu Nov 28',day:'Thu',gross:1.06,chgDay:-7.83,chgWeek:null,total:273.84,ff:null,shows:null,occupancy:null},
+    {date:'Fri Nov 29',day:'Fri',gross:2.66,chgDay:150.94,chgWeek:null,total:276.50,ff:null,shows:null,occupancy:null},
+    {date:'Sat Nov 30',day:'Sat',gross:2.25,chgDay:-15.41,chgWeek:null,total:278.75,ff:null,shows:null,occupancy:null},
+    {date:'Sun Dec 1',day:'Sun',gross:2.65,chgDay:17.78,chgWeek:null,total:281.40,ff:null,shows:null,occupancy:null},
+    {date:'Mon Dec 2',day:'Mon',gross:0.60,chgDay:-77.36,chgWeek:null,total:282.00,ff:null,shows:null,occupancy:null},
+    {date:'Tue Dec 3',day:'Tue',gross:0.60,chgDay:0,chgWeek:null,total:282.60,ff:null,shows:null,occupancy:null},
+    {date:'Wed Dec 4',day:'Wed',gross:0.60,chgDay:0,chgWeek:null,total:283.20,ff:null,shows:null,occupancy:null},
+    {date:'Thu Dec 5',day:'Thu',gross:0.60,chgDay:0,chgWeek:null,total:283.80,ff:null,shows:null,occupancy:null},
+  ],
+  wwCum: [],
+  timeline: [
+    {label:'Week 1',val:168.86},
+    {label:'Week 2',val:66.01},
+    {label:'Week 3',val:25.88},
+    {label:'Week 4',val:13.09},
+    {label:'Week 5+',val:9.96},
+  ],
+  overseas: [],
+  comparable: [],
+},
   'dhurandhar': {
     key: 'dhurandhar',
     title: 'Dhurandhar',
