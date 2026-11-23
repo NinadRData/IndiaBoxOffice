@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-23T15:06:05.240013+00:00",
-  "snapshotUpdatedAt": "2026-11-23T15:05:59.110082+00:00",
+  "updatedAt": "2026-11-23T17:57:45.072589+00:00",
+  "snapshotUpdatedAt": "2026-11-23T17:57:41.964074+00:00",
   "films": [
     {
       "title": "Ramayana",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "year": 2026,
-      "indiaNet": 942.75,
-      "worldwideGross": 1693.5,
+      "indiaNet": 955.45,
+      "worldwideGross": 1704.65,
       "days": [
         {
           "date": "2026-11-05",
@@ -98,140 +98,11 @@
           "date": "2026-11-22",
           "day": 18,
           "indiaNet": 35.6
-        }
-      ]
-    },
-    {
-      "title": "Jailer 2",
-      "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
-      "year": 2026,
-      "indiaNet": 475.38,
-      "worldwideGross": 835.93,
-      "days": [
-        {
-          "date": "2026-10-15",
-          "day": 1,
-          "indiaNet": 59.7
         },
         {
-          "date": "2026-10-16",
-          "day": 2,
-          "indiaNet": 37.1
-        },
-        {
-          "date": "2026-10-17",
-          "day": 3,
-          "indiaNet": 47.25
-        },
-        {
-          "date": "2026-10-18",
-          "day": 4,
-          "indiaNet": 55.85
-        },
-        {
-          "date": "2026-10-19",
-          "day": 5,
-          "indiaNet": 42.35
-        },
-        {
-          "date": "2026-10-20",
-          "day": 6,
-          "indiaNet": 46.8
-        },
-        {
-          "date": "2026-10-21",
-          "day": 7,
-          "indiaNet": 28.15
-        },
-        {
-          "date": "2026-10-22",
-          "day": 8,
-          "indiaNet": 17.15
-        },
-        {
-          "date": "2026-10-23",
-          "day": 9,
-          "indiaNet": 14.5
-        },
-        {
-          "date": "2026-10-24",
-          "day": 10,
-          "indiaNet": 24.15
-        },
-        {
-          "date": "2026-10-25",
-          "day": 11,
-          "indiaNet": 25.7
-        },
-        {
-          "date": "2026-10-26",
-          "day": 12,
-          "indiaNet": 9.45
-        },
-        {
-          "date": "2026-10-27",
-          "day": 13,
-          "indiaNet": 8.3
-        },
-        {
-          "date": "2026-10-28",
-          "day": 14,
-          "indiaNet": 7.2
-        },
-        {
-          "date": "2026-10-29",
-          "day": 15,
-          "indiaNet": 6.25
-        },
-        {
-          "date": "2026-10-30",
-          "day": 16,
-          "indiaNet": 5.5
-        },
-        {
-          "date": "2026-10-31",
-          "day": 17,
-          "indiaNet": 9.7
-        },
-        {
-          "date": "2026-11-01",
-          "day": 18,
-          "indiaNet": 11.2
-        },
-        {
-          "date": "2026-11-02",
+          "date": "2026-11-23",
           "day": 19,
-          "indiaNet": 3.4
-        },
-        {
-          "date": "2026-11-03",
-          "day": 20,
-          "indiaNet": 3.35
-        },
-        {
-          "date": "2026-11-04",
-          "day": 21,
-          "indiaNet": 3.0
-        },
-        {
-          "date": "2026-11-05",
-          "day": 22,
-          "indiaNet": 1.6
-        },
-        {
-          "date": "2026-11-07",
-          "day": 24,
-          "indiaNet": 1.0
-        },
-        {
-          "date": "2026-11-08",
-          "day": 25,
-          "indiaNet": 1.15
-        },
-        {
-          "date": "2026-11-09",
-          "day": 26,
-          "indiaNet": 1.25
+          "indiaNet": 12.7
         }
       ]
     },
@@ -239,8 +110,8 @@
       "title": "Scene",
       "url": "https://www.sacnilk.com/movie/Scene_2026",
       "year": 2026,
-      "indiaNet": 150.65,
-      "worldwideGross": 264.5,
+      "indiaNet": 151.22,
+      "worldwideGross": 265.15,
       "days": [
         {
           "date": "2026-11-06",
@@ -313,6 +184,11 @@
           "indiaNet": 1.9
         },
         {
+          "date": "2026-11-20",
+          "day": 15,
+          "indiaNet": 0.77
+        },
+        {
           "date": "2026-11-21",
           "day": 16,
           "indiaNet": 1.35
@@ -321,6 +197,11 @@
           "date": "2026-11-22",
           "day": 17,
           "indiaNet": 1.58
+        },
+        {
+          "date": "2026-11-23",
+          "day": 18,
+          "indiaNet": 0.57
         }
       ]
     }
