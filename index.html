@@ -8893,386 +8893,906 @@ overseas: [
     trivia: [
     ],
   },
- 'dangal': {
+
+  dangal: {
     key: 'dangal',
     title: 'Dangal',
     year: 2016,
     lang: 'Hindi',
     director: 'Nitesh Tiwari',
     studio: 'Aamir Khan Productions / Walt Disney Pictures India',
+
     cast: [
-      {name:'Aamir Khan',          role:'Mahavir Singh Phogat'},
-      {name:'Fatima Sana Shaikh',  role:'Geeta Phogat (adult)'},
-      {name:'Sanya Malhotra',      role:'Babita Phogat (adult)'},
-      {name:'Zaira Wasim',         role:'Geeta Phogat (young)'},
-      {name:'Suhani Bhatnagar',    role:'Babita Phogat (young)'},
+      {name:'Aamir Khan',role:'Mahavir Singh Phogat'},
+      {name:'Fatima Sana Shaikh',role:'Geeta Phogat (Adult)'},
+      {name:'Sanya Malhotra',role:'Babita Kumari (Adult)'},
+      {name:'Zaira Wasim',role:'Geeta Phogat (Young)'},
+      {name:'Suhani Bhatnagar',role:'Babita Kumari (Young)'}
     ],
-    synopsis: 'Based on the true story of Mahavir Singh Phogat, a former wrestler from Haryana who trains his daughters Geeta and Babita to become world-class wrestlers — against the resistance of a conservative village, an indifferent sports establishment, and the weight of deeply entrenched gender norms. Aamir Khan\'s most complete performance, Nitesh Tiwari\'s masterful direction, and a story of a father\'s fierce, complicated love combine to produce what is not only the highest-grossing Indian film of all time, but one of the most universally beloved sports films ever made. Dangal\'s extraordinary ₹2070 Cr worldwide gross — driven almost entirely by a ₹1200 Cr+ run in China — remains unmatched in Indian cinema history.',
+
+    synopsis: "Based on the true story of Mahavir Singh Phogat, a former wrestler from Haryana who trains his daughters Geeta and Babita to become world-class wrestlers — against the resistance of a conservative village, an indifferent sports establishment, and the weight of deeply entrenched gender norms. Aamir Khan's most complete performance, Nitesh Tiwari's masterful direction, and a story of a father's fierce, complicated love combine to produce one of the most universally beloved sports films ever made. Dangal's extraordinary worldwide performance — driven by an exceptional run in China — remains one of the most remarkable international achievements in Indian cinema.",
+
     release: '2016-12-23',
     runtime: 161,
     budget: 70,
-    india: 387,
-    ow: 107,
-    ww: 2070,
+
+    india: 387.38,
+    indiaGross: 538.03,
+    ow: 107.01,
+    ww: 1968.03,
+    overseasGross: 1430,
     ff: 37,
-    multiplier: 3.62,
+
+    get multiplier() {
+      return Math.round(this.india / this.ow * 100) / 100;
+    },
+
     lb: 3.9,
     ott: 'Disney+ Hotstar',
     music: 'Pritam',
+
     awards: [
-      'National Award – Best Popular Film Providing Wholesome Entertainment',
-      'Filmfare – Best Film',
-      'Filmfare – Best Director (Nitesh Tiwari)',
-      'Filmfare – Best Actor (Aamir Khan)',
-      'IIFA – Best Film',
-      'IIFA – Best Director (Nitesh Tiwari)',
-      'IIFA – Best Actor (Aamir Khan)',
-      'Screen Awards – Best Film',
+      'National Film Award – Best Popular Film Providing Wholesome Entertainment',
+      'Filmfare Award – Best Film',
+      'Filmfare Award – Best Director (Nitesh Tiwari)',
+      'Filmfare Award – Best Actor (Aamir Khan)',
+      'IIFA Award – Best Film',
+      'IIFA Award – Best Director',
+      'IIFA Award – Best Actor',
+      'Screen Award – Best Film'
     ],
+
+    daily: [
+      // Week 1
+      {date:'Fri Dec 23',day:'Fri',gross:29.78,chgDay:null,chgWeek:null,total:29.78,ff:null,shows:null,occupancy:null},
+      {date:'Sat Dec 24',day:'Sat',gross:34.82,chgDay:16.92,chgWeek:null,total:64.60,ff:null,shows:null,occupancy:null},
+      {date:'Sun Dec 25',day:'Sun',gross:42.41,chgDay:21.80,chgWeek:null,total:107.01,ff:null,shows:null,occupancy:null},
+      {date:'Mon Dec 26',day:'Mon',gross:25.69,chgDay:-39.42,chgWeek:null,total:132.70,ff:null,shows:null,occupancy:null},
+      {date:'Tue Dec 27',day:'Tue',gross:23.09,chgDay:-10.12,chgWeek:null,total:155.79,ff:null,shows:null,occupancy:null},
+      {date:'Wed Dec 28',day:'Wed',gross:21.46,chgDay:-7.06,chgWeek:null,total:177.25,ff:null,shows:null,occupancy:null},
+      {date:'Thu Dec 29',day:'Thu',gross:20.29,chgDay:-5.45,chgWeek:null,total:197.54,ff:null,shows:null,occupancy:null},
+
+      // Week 2
+      {date:'Fri Dec 30',day:'Fri',gross:18.59,chgDay:-8.38,chgWeek:null,total:216.13,ff:null,shows:null,occupancy:null},
+      {date:'Sat Dec 31',day:'Sat',gross:23.07,chgDay:24.10,chgWeek:null,total:239.20,ff:null,shows:null,occupancy:null},
+      {date:'Sun Jan 1',day:'Sun',gross:32.04,chgDay:38.88,chgWeek:null,total:271.24,ff:null,shows:null,occupancy:null},
+      {date:'Mon Jan 2',day:'Mon',gross:13.45,chgDay:-58.02,chgWeek:null,total:284.69,ff:null,shows:null,occupancy:null},
+      {date:'Tue Jan 3',day:'Tue',gross:10.46,chgDay:-22.23,chgWeek:null,total:295.15,ff:null,shows:null,occupancy:null},
+      {date:'Wed Jan 4',day:'Wed',gross:9.23,chgDay:-11.76,chgWeek:null,total:304.38,ff:null,shows:null,occupancy:null},
+      {date:'Thu Jan 5',day:'Thu',gross:9.12,chgDay:-1.19,chgWeek:null,total:313.50,ff:null,shows:null,occupancy:null},
+
+      // Week 3
+      {date:'Fri Jan 6',day:'Fri',gross:6.66,chgDay:-26.97,chgWeek:null,total:320.16,ff:null,shows:null,occupancy:null},
+      {date:'Sat Jan 7',day:'Sat',gross:10.80,chgDay:62.16,chgWeek:null,total:330.96,ff:null,shows:null,occupancy:null},
+      {date:'Sun Jan 8',day:'Sun',gross:14.33,chgDay:32.69,chgWeek:null,total:345.29,ff:null,shows:null,occupancy:null},
+      {date:'Mon Jan 9',day:'Mon',gross:4.35,chgDay:-69.64,chgWeek:null,total:349.64,ff:null,shows:null,occupancy:null},
+      {date:'Tue Jan 10',day:'Tue',gross:4.03,chgDay:-7.36,chgWeek:null,total:353.67,ff:null,shows:null,occupancy:null},
+      {date:'Wed Jan 11',day:'Wed',gross:3.21,chgDay:-20.35,chgWeek:null,total:356.88,ff:null,shows:null,occupancy:null},
+      {date:'Thu Jan 12',day:'Thu',gross:2.97,chgDay:-7.48,chgWeek:null,total:359.85,ff:null,shows:null,occupancy:null},
+
+      // Week 4
+      {date:'Fri Jan 13',day:'Fri',gross:1.94,chgDay:-34.68,chgWeek:null,total:361.79,ff:null,shows:null,occupancy:null},
+      {date:'Sat Jan 14',day:'Sat',gross:4.06,chgDay:109.28,chgWeek:null,total:365.85,ff:null,shows:null,occupancy:null},
+      {date:'Sun Jan 15',day:'Sun',gross:4.24,chgDay:4.43,chgWeek:null,total:370.09,ff:null,shows:null,occupancy:null},
+      {date:'Mon Jan 16',day:'Mon',gross:1.37,chgDay:-67.69,chgWeek:null,total:371.46,ff:null,shows:null,occupancy:null},
+      {date:'Tue Jan 17',day:'Tue',gross:1.27,chgDay:-7.30,chgWeek:null,total:372.73,ff:null,shows:null,occupancy:null},
+      {date:'Wed Jan 18',day:'Wed',gross:1.16,chgDay:-8.66,chgWeek:null,total:373.89,ff:null,shows:null,occupancy:null},
+      {date:'Thu Jan 19',day:'Thu',gross:1.04,chgDay:-10.34,chgWeek:null,total:374.93,ff:null,shows:null,occupancy:null},
+
+      // Week 5
+      {date:'Fri Jan 20',day:'Fri',gross:1.19,chgDay:14.42,chgWeek:null,total:376.12,ff:null,shows:null,occupancy:null},
+      {date:'Sat Jan 21',day:'Sat',gross:2.10,chgDay:76.47,chgWeek:null,total:378.22,ff:null,shows:null,occupancy:null},
+      {date:'Sun Jan 22',day:'Sun',gross:2.83,chgDay:34.76,chgWeek:null,total:381.05,ff:null,shows:null,occupancy:null},
+      {date:'Mon Jan 23',day:'Mon',gross:0.94,chgDay:-66.78,chgWeek:null,total:381.99,ff:null,shows:null,occupancy:null},
+      {date:'Tue Jan 24',day:'Tue',gross:1.01,chgDay:7.45,chgWeek:null,total:383.00,ff:null,shows:null,occupancy:null},
+      {date:'Wed Jan 25',day:'Wed',gross:0.34,chgDay:-66.34,chgWeek:null,total:383.34,ff:null,shows:null,occupancy:null},
+      {date:'Thu Jan 26',day:'Thu',gross:0.54,chgDay:58.82,chgWeek:null,total:383.88,ff:null,shows:null,occupancy:null},
+
+      // Week 6
+      {date:'Fri Jan 27',day:'Fri',gross:0.28,chgDay:-48.15,chgWeek:null,total:384.16,ff:null,shows:null,occupancy:null},
+      {date:'Sat Jan 28',day:'Sat',gross:0.41,chgDay:46.43,chgWeek:null,total:384.57,ff:null,shows:null,occupancy:null},
+      {date:'Sun Jan 29',day:'Sun',gross:0.50,chgDay:21.95,chgWeek:null,total:385.07,ff:null,shows:null,occupancy:null},
+      {date:'Mon Jan 30',day:'Mon',gross:0.17,chgDay:-66.00,chgWeek:null,total:385.24,ff:null,shows:null,occupancy:null},
+      {date:'Tue Jan 31',day:'Tue',gross:0.15,chgDay:-11.76,chgWeek:null,total:385.39,ff:null,shows:null,occupancy:null},
+      {date:'Wed Feb 1',day:'Wed',gross:0.15,chgDay:0,chgWeek:null,total:385.54,ff:null,shows:null,occupancy:null},
+      {date:'Thu Feb 2',day:'Thu',gross:0.13,chgDay:-13.33,chgWeek:null,total:385.67,ff:null,shows:null,occupancy:null},
+
+      // Later reported checkpoints
+      {date:'Feb 3–9',day:'Fri–Thu',gross:1.02,chgDay:null,chgWeek:null,total:386.69,ff:null,shows:null,occupancy:null},
+      {date:'Week 8',day:'Weekly',gross:0.43,chgDay:null,chgWeek:null,total:387.12,ff:null,shows:null,occupancy:null},
+      {date:'Week 9',day:'Weekly',gross:0.19,chgDay:null,chgWeek:null,total:387.31,ff:null,shows:null,occupancy:null},
+      {date:'Week 10',day:'Weekly',gross:0.05,chgDay:null,chgWeek:null,total:387.36,ff:null,shows:null,occupancy:null},
+      {date:'Week 11',day:'Weekly',gross:0.02,chgDay:null,chgWeek:null,total:387.38,ff:null,shows:null,occupancy:null}
+    ],
+
+    wwCum: [],
+
     timeline: [
-      {label:'Week 1',    val:172},
-      {label:'Week 2',    val:98},
-      {label:'Week 3',    val:62},
-      {label:'Week 4',    val:35},
-      {label:'Week 5+',   val:20},
+      {period:'Week 1',gross:197.54},
+      {period:'Week 2',gross:115.96},
+      {period:'Week 3',gross:46.35},
+      {period:'Week 4',gross:15.08},
+      {period:'Week 5',gross:8.95},
+      {period:'Week 6',gross:1.79},
+      {period:'Week 7',gross:1.02},
+      {period:'Week 8',gross:0.43},
+      {period:'Week 9',gross:0.19},
+      {period:'Week 10',gross:0.05},
+      {period:'Week 11',gross:0.02}
     ],
+
     overseas: [
-      {market:'China',      val:1290},
-      {market:'USA/Canada', val:38},
-      {market:'Gulf',       val:32},
-      {market:'UK',         val:28},
-      {market:'Australia',  val:12},
-      {market:'Other',      val:30},
+      {market:'China',val:1290},
+      {market:'USA/Canada',val:38},
+      {market:'Gulf',val:32},
+      {market:'UK',val:28},
+      {market:'Australia',val:12},
+      {market:'Other',val:30}
     ],
+
     comparable: [
-      {n:'Dangal (2016)',        ww:2070, col:'#f5c518', highlight:true},
-      {n:'Baahubali 2 (2017)',   ww:1810, col:'#4fc3f7'},
-      {n:'Pushpa 2 (2024)',      ww:1742, col:'#f97316'},
-      {n:'Dhurandhar 2 (2026)',  ww:1740, col:'#c084fc'},
-      {n:'RRR (2022)',           ww:1230, col:'#22c55e'},
-      {n:'KGF 2 (2022)',         ww:1215, col:'#a78bfa'},
-    ],
-    trivia: [
-      'Dangal is the highest-grossing Indian film of all time with ₹2070 Cr worldwide — a record it has held since 2017. Its overseas gross of ₹1430 Cr — led by ₹1290 Cr from China alone — is the most extraordinary international performance by any Indian film in history.',
-      'Aamir Khan gained 25 kg to play the older, heavier Mahavir Phogat, then lost it all to play the younger version — one of the most extreme physical transformations in Bollywood history.',
-      'The film was shot entirely in reverse chronological order of Aamir\'s body weight — the older scenes first, then the weight-loss scenes — for logistical reasons, adding to the remarkable physical commitment.',
-      'Dangal\'s multiplier of 3.62× (India total ÷ opening weekend) reflects strong legs driven by word-of-mouth, family audiences, and repeat viewership across small towns.',
-      'In China, Dangal became a cultural phenomenon — screened in schools as an educational film, discussed in government media as an example of Indian soft power, and trending on Weibo for weeks.',
-      'Geeta and Babita Phogat — whose real lives inspired the film — have spoken about the creative liberties taken, but have also praised it for bringing global attention to women\'s wrestling in India.',
-      'Nitesh Tiwari went on to direct Chhichhore (2019, National Award for Best Film) and is now directing the Ramayana (2026) epic with Ranbir Kapoor.',
-      'Dangal\'s India nett of ₹387 Cr made it one of the biggest domestic Hindi blockbusters of 2016, but the ₹1430 Cr overseas gross — nearly 4× the domestic figure — is what makes it truly singular in Indian cinema history.',
+      {n:'Dangal (2016)',ww:1968.03,col:'#f5c518',highlight:true},
+      {n:'Baahubali 2 (2017)',ww:1810,col:'#4fc3f7'},
+      {n:'Pushpa 2 (2024)',ww:1742,col:'#f97316'},
+      {n:'Dhurandhar 2',ww:1740,col:'#c084fc'},
+      {n:'RRR (2022)',ww:1230,col:'#22c55e'},
+      {n:'KGF 2 (2022)',ww:1215,col:'#a78bfa'}
     ],
   },
-  'tiger 3': {
+
+  'tiger-3': {
     key: 'tiger-3',
     title: 'Tiger 3',
     year: 2023,
     lang: 'Hindi',
     director: 'Maneesh Sharma',
     studio: 'Yash Raj Films',
+
     cast: [
-      {name:'Salman Khan',      role:'Tiger / Avinash Singh Rathore'},
-      {name:'Katrina Kaif',     role:'Zoya'},
-      {name:'Emraan Hashmi',    role:'Aatish'},
-      {name:'Shah Rukh Khan',   role:'Pathaan (Cameo)'},
-      {name:'Revathi',          role:'Pakistani ISI Chief'},
+      {name:'Salman Khan',role:'Tiger / Avinash Singh Rathore'},
+      {name:'Katrina Kaif',role:'Zoya'},
+      {name:'Emraan Hashmi',role:'Aatish'},
+      {name:'Shah Rukh Khan',role:'Pathaan (Cameo)'},
+      {name:'Revathi',role:'Pakistani ISI Chief'}
     ],
-    synopsis: 'Tiger and Zoya return in the third instalment of YRF\'s blockbuster spy franchise. Framed for a conspiracy against India, Tiger is declared a rogue agent and hunted by both governments. With Zoya by his side and the entire machinery of the state turned against him, Tiger must clear his name, dismantle the real threat — a Pakistani rogue operative named Aatish — and save the country he has devoted his life to. The film delivered one of the most anticipated Diwali releases in Bollywood history and featured a crowd-detonating Shah Rukh Khan crossover that set up the YRF spy universe endgame.',
+
+    synopsis: "Tiger and Zoya return in the third instalment of YRF's blockbuster spy franchise. Framed for a conspiracy against India, Tiger is declared a rogue agent and hunted by both governments. With Zoya by his side and the entire machinery of the state turned against him, Tiger must clear his name, dismantle the real threat — a Pakistani rogue operative named Aatish — and save the country he has devoted his life to. The film delivered one of the most anticipated Diwali releases in Bollywood history and featured a crowd-detonating Shah Rukh Khan crossover that set up the YRF spy universe endgame.",
+
     release: '2023-11-12',
     runtime: 159,
     budget: 300,
+
     india: 285.52,
-    ow: 148.5,
-    ww: 466,
+    indiaGross: 346.08,
+    ow: 148.50,
+    ww: 466.63,
+    overseasGross: 120.55,
     ff: 15,
-    multiplier: 1.92,
+
+    get multiplier() {
+      return Math.round(this.india / this.ow * 100) / 100;
+    },
+
     lb: 2.5,
     ott: 'Amazon Prime Video',
     music: 'Pritam',
+
     awards: [
-      'Filmfare – Best Action (Nominated)',
-      'IIFA – Most Entertaining Film (Nominated)',
+      'Filmfare Award – Best Action (Nominated)',
+      'IIFA Award – Most Entertaining Film (Nominated)'
     ],
+
+    daily: [
+      // Week 1
+      {date:'Sun Nov 12',day:'Sun',gross:44.50,chgDay:null,chgWeek:null,total:44.50,ff:2491103,shows:null,occupancy:null},
+      {date:'Mon Nov 13',day:'Mon',gross:59.25,chgDay:33.15,chgWeek:null,total:103.75,ff:3305491,shows:null,occupancy:null},
+      {date:'Tue Nov 14',day:'Tue',gross:44.75,chgDay:-24.47,chgWeek:null,total:148.50,ff:2541260,shows:null,occupancy:null},
+      {date:'Wed Nov 15',day:'Wed',gross:21.25,chgDay:-52.51,chgWeek:null,total:169.75,ff:1064473,shows:null,occupancy:null},
+      {date:'Thu Nov 16',day:'Thu',gross:18.50,chgDay:-12.94,chgWeek:null,total:188.25,ff:919035,shows:null,occupancy:null},
+      {date:'Fri Nov 17',day:'Fri',gross:13.25,chgDay:-28.38,chgWeek:null,total:201.50,ff:676182,shows:null,occupancy:null},
+      {date:'Sat Nov 18',day:'Sat',gross:18.75,chgDay:41.51,chgWeek:null,total:220.25,ff:979652,shows:null,occupancy:null},
+
+      // Week 2
+      {date:'Sun Nov 19',day:'Sun',gross:10.50,chgDay:-44.00,chgWeek:null,total:230.75,ff:572252,shows:null,occupancy:null},
+      {date:'Mon Nov 20',day:'Mon',gross:7.35,chgDay:-30.00,chgWeek:null,total:238.10,ff:483062,shows:null,occupancy:null},
+      {date:'Tue Nov 21',day:'Tue',gross:6.70,chgDay:-8.84,chgWeek:null,total:244.80,ff:441723,shows:null,occupancy:null},
+      {date:'Wed Nov 22',day:'Wed',gross:6.10,chgDay:-8.96,chgWeek:null,total:250.90,ff:387592,shows:null,occupancy:null},
+      {date:'Thu Nov 23',day:'Thu',gross:5.30,chgDay:-13.11,chgWeek:null,total:256.20,ff:338350,shows:null,occupancy:null},
+      {date:'Fri Nov 24',day:'Fri',gross:3.83,chgDay:-27.74,chgWeek:null,total:260.03,ff:238069,shows:null,occupancy:null},
+      {date:'Sat Nov 25',day:'Sat',gross:5.79,chgDay:51.17,chgWeek:null,total:265.82,ff:347951,shows:null,occupancy:null},
+
+      // Week 3
+      {date:'Sun Nov 26',day:'Sun',gross:6.81,chgDay:17.62,chgWeek:null,total:272.63,ff:411891,shows:null,occupancy:null},
+      {date:'Mon Nov 27',day:'Mon',gross:3.09,chgDay:-54.63,chgWeek:null,total:275.72,ff:191407,shows:null,occupancy:null},
+      {date:'Tue Nov 28',day:'Tue',gross:2.31,chgDay:-25.24,chgWeek:null,total:278.03,ff:151764,shows:null,occupancy:null},
+      {date:'Wed Nov 29',day:'Wed',gross:2.21,chgDay:-4.33,chgWeek:null,total:280.24,ff:148753,shows:null,occupancy:null},
+
+      // Day 19: footfall and worldwide gross supplied;
+      // India daily net figure was not included in the source data.
+      {date:'Thu Nov 30',day:'Thu',gross:null,chgDay:null,chgWeek:null,total:null,ff:140839,shows:null,occupancy:null},
+
+      // Later reported India net checkpoints.
+      // These are retained as grouped figures rather than invented daily values.
+      {date:'Days 20–26',day:'Grouped',gross:2.22,chgDay:null,chgWeek:null,total:null,ff:null,shows:null,occupancy:null},
+      {date:'Days 27–33',day:'Grouped',gross:0.75,chgDay:null,chgWeek:null,total:null,ff:null,shows:null,occupancy:null},
+      {date:'Days 34–40',day:'Grouped',gross:0.25,chgDay:null,chgWeek:null,total:null,ff:null,shows:null,occupancy:null}
+    ],
+
+    wwCum: [
+      {day:1,date:'Nov 12, 2023',gross:93.98},
+      {day:2,date:'Nov 13',gross:179.28},
+      {day:3,date:'Nov 14',gross:236.53},
+      {day:4,date:'Nov 15',gross:270.65},
+      {day:5,date:'Nov 16',gross:297.01},
+      {day:6,date:'Nov 17',gross:321.89},
+      {day:7,date:'Nov 18',gross:347.87},
+      {day:8,date:'Nov 19',gross:372.75},
+      {day:9,date:'Nov 20',gross:383.94},
+      {day:10,date:'Nov 21',gross:393.77},
+      {day:11,date:'Nov 22',gross:400.50},
+      {day:12,date:'Nov 23',gross:412.48},
+      {day:13,date:'Nov 24',gross:418.97},
+      {day:14,date:'Nov 25',gross:430.78},
+      {day:15,date:'Nov 26',gross:439.74},
+      {day:16,date:'Nov 27',gross:444.19},
+      {day:17,date:'Nov 28',gross:447.48},
+      {day:18,date:'Nov 29',gross:449.89},
+      {day:19,date:'Nov 30',gross:454.44}
+    ],
+
     timeline: [
-      {label:'Week 1',   val:235},
-      {label:'Week 2',   val:35},
-      {label:'Week 3',   val:11},
-      {label:'Week 4+',  val:4.52},
+      {period:'Week 1',gross:188.25},
+      {period:'Week 2',gross:94.05},
+      {period:'Week 3',gross:2.22},
+      {period:'Week 4',gross:0.75},
+      {period:'Week 5',gross:0.25}
     ],
+
     overseas: [
-      {market:'USA/Canada', val:52},
-      {market:'Gulf',       val:48},
-      {market:'UK',         val:32},
-      {market:'Australia',  val:18},
-      {market:'Other',      val:52},
+      {market:'USA/Canada',val:52},
+      {market:'Gulf',val:48},
+      {market:'UK',val:32},
+      {market:'Australia',val:18},
+      {market:'Other',val:52}
     ],
+
     comparable: [
-      {n:'Tiger Zinda Hai (2017)', ww:565,  col:'#22c55e'},
-      {n:'Pathaan (2023)',         ww:1050, col:'#4fc3f7'},
-      {n:'Tiger 3 (2023)',         ww:466,  col:'#f5c518', highlight:true},
-      {n:'Jawan (2023)',           ww:1148, col:'#a78bfa'},
-      {n:'War (2019)',             ww:475,  col:'#f97316'},
-      {n:'Ek Tha Tiger (2012)',    ww:334,  col:'#2ec4b6'},
-    ],
-    trivia: [
-      'Tiger 3 released on Diwali 2023 — the first major Bollywood release on that date in years — and posted the biggest Diwali opening day in Hindi cinema history at the time.',
-      'Shah Rukh Khan\'s cameo as Pathaan in the climax was kept completely under wraps and triggered one of the loudest audience reactions of 2023.',
-      'The film marks the third collaboration between Salman Khan and director Maneesh Sharma, who also helmed the original Tiger franchise.',
-      'Katrina Kaif performed all her own action sequences, including a hand-to-hand fight in a towel that became one of the most discussed scenes of the year.',
-      'Emraan Hashmi reinvented his image completely as the cold, calculating villain Aatish — widely praised as one of the more effective antagonists in the YRF spy universe.',
-      'Tiger 3 is the first film in the YRF spy universe where all three franchises — Tiger, Pathaan, and War — are explicitly confirmed as part of the same shared world.',
-      'The film grossed ₹150 Cr nett in its opening weekend — the biggest Diwali opening weekend in Bollywood history at the time.',
+      {n:'Tiger Zinda Hai (2017)',ww:565,col:'#22c55e'},
+      {n:'Pathaan (2023)',ww:1050,col:'#4fc3f7'},
+      {n:'Tiger 3 (2023)',ww:466.63,col:'#f5c518',highlight:true},
+      {n:'Jawan (2023)',ww:1148,col:'#a78bfa'},
+      {n:'War (2019)',ww:475,col:'#f97316'},
+      {n:'Ek Tha Tiger (2012)',ww:334,col:'#2ec4b6'}
     ],
   },
-  'leo': {
+ 'leo': {
     key: 'leo',
     title: 'Leo',
     year: 2023,
     lang: 'Tamil',
     director: 'Lokesh Kanagaraj',
     studio: 'Seven Screen Studio',
+
     cast: [
-      {name:'Vijay',              role:'Leo Das / Parthiban'},
-      {name:'Trisha Krishnan',    role:'Sathyavathi'},
-      {name:'Sanjay Dutt',        role:'Harold Das'},
-      {name:'Arjun',              role:'Antony Das'},
-      {name:'Gautham Menon',      role:'ACP Thomas'},
+        {name:'Vijay', role:'Leo Das / Parthiban'},
+        {name:'Trisha Krishnan', role:'Sathyavathi'},
+        {name:'Sanjay Dutt', role:'Harold Das'},
+        {name:'Arjun', role:'Antony Das'},
+        {name:'Gautham Menon', role:'ACP Thomas'}
     ],
-    synopsis: 'A mild-mannered café owner in the mountains of Himachal Pradesh is mistaken for a feared gangster — and as assassins close in, it becomes terrifyingly clear the case of mistaken identity may not be a mistake at all. Lokesh Kanagaraj weaves Leo into his Lokesh Cinematic Universe, delivering a ferociously stylish action thriller that balances intimate family drama with explosive set pieces. Vijay is magnetic in a role that demanded both vulnerability and menace, and the film\'s connections to Vikram sent fans into a frenzy.',
+
+    synopsis: "A mild-mannered café owner in the mountains of Himachal Pradesh is mistaken for a feared gangster — and as assassins close in, it becomes terrifyingly clear the case of mistaken identity may not be a mistake at all. Lokesh Kanagaraj weaves Leo into his Lokesh Cinematic Universe, delivering a ferociously stylish action thriller that balances intimate family drama with explosive set pieces. Vijay is magnetic in a role that demanded both vulnerability and menace, and the film's connections to Vikram sent fans into a frenzy.",
+
     release: '2023-10-19',
     runtime: 164,
     budget: 250,
-    india: 341,
+
+    india: 341.04,
+    indiaGross: 401.90,
     ow: 112,
-    ww: 605,
+    ww: 605.90,
+    overseasGross: 204.00,
     ff: 24.3,
-    multiplier: 3.04,
+
+    get multiplier() {
+        return Math.round(this.india / this.ow * 100) / 100;
+    },
+
     lb: 3.3,
     ott: 'Netflix',
     music: 'Anirudh Ravichander',
+
     awards: [
-      'Filmfare (South) – Best Film Tamil (Nominated)',
-      'Filmfare (South) – Best Actor Tamil (Vijay, Nominated)',
-      'SIIMA – Best Director (Lokesh Kanagaraj, Nominated)',
-      'SIIMA – Best Action',
+        'Filmfare South Best Film (Tamil) — Nominated',
+        'Filmfare South Best Actor (Tamil), Vijay — Nominated',
+        'SIIMA Best Director, Lokesh Kanagaraj — Nominated',
+        'SIIMA Best Action'
     ],
+
+    daily: [
+        // Week 1
+        {date:'Thu Oct 19',day:'Thu',gross:64.80,chgDay:null,chgWeek:null,total:64.80,ff:4424223,shows:15067,occupancy:64.4},
+        {date:'Fri Oct 20',day:'Fri',gross:34.25,chgDay:-47.1,chgWeek:null,total:99.05,ff:2492291,shows:11473,occupancy:50.0},
+        {date:'Sat Oct 21',day:'Sat',gross:38.30,chgDay:11.8,chgWeek:null,total:137.35,ff:2533430,shows:12046,occupancy:52.5},
+        {date:'Sun Oct 22',day:'Sun',gross:39.80,chgDay:3.9,chgWeek:null,total:177.15,ff:2792594,shows:12524,occupancy:54.9},
+        {date:'Mon Oct 23',day:'Mon',gross:34.10,chgDay:-14.3,chgWeek:null,total:211.25,ff:2567240,shows:12298,occupancy:48.4},
+        {date:'Tue Oct 24',day:'Tue',gross:30.70,chgDay:-10.0,chgWeek:null,total:241.95,ff:2137265,shows:12384,occupancy:44.7},
+        {date:'Wed Oct 25',day:'Wed',gross:13.40,chgDay:-56.4,chgWeek:null,total:255.35,ff:1065220,shows:10997,occupancy:24.9},
+        {date:'Thu Oct 26',day:'Thu',gross:8.90,chgDay:-33.6,chgWeek:null,total:264.25,ff:705964,shows:10716,occupancy:20.6},
+
+        // Week 2
+        {date:'Fri Oct 27',day:'Fri',gross:7.65,chgDay:-14.0,chgWeek:null,total:271.90,ff:536027,shows:8363,occupancy:23.1},
+        {date:'Sat Oct 28',day:'Sat',gross:15.00,chgDay:96.1,chgWeek:null,total:286.90,ff:1084047,shows:9124,occupancy:31.2},
+        {date:'Sun Oct 29',day:'Sun',gross:16.55,chgDay:10.3,chgWeek:null,total:303.45,ff:1194825,shows:9425,occupancy:33.5},
+        {date:'Mon Oct 30',day:'Mon',gross:4.45,chgDay:-73.1,chgWeek:null,total:307.90,ff:351717,shows:8316,occupancy:18.6},
+        {date:'Tue Oct 31',day:'Tue',gross:3.50,chgDay:-21.3,chgWeek:null,total:311.40,ff:278407,shows:8406,occupancy:18.1},
+        {date:'Wed Nov 1',day:'Wed',gross:3.55,chgDay:1.4,chgWeek:null,total:314.95,ff:278756,shows:8284,occupancy:16.3},
+        {date:'Thu Nov 2',day:'Thu',gross:2.65,chgDay:-25.4,chgWeek:null,total:317.60,ff:206823,shows:8237,occupancy:14.5},
+
+        // Week 3
+        {date:'Fri Nov 3',day:'Fri',gross:2.25,chgDay:-15.1,chgWeek:null,total:319.85,ff:180550,shows:6108,occupancy:15.5},
+        {date:'Sat Nov 4',day:'Sat',gross:4.15,chgDay:84.4,chgWeek:null,total:324.00,ff:328162,shows:6536,occupancy:19.6},
+        {date:'Sun Nov 5',day:'Sun',gross:4.75,chgDay:14.5,chgWeek:null,total:328.75,ff:375363,shows:6732,occupancy:21.0},
+        {date:'Mon Nov 6',day:'Mon',gross:1.65,chgDay:-65.3,chgWeek:null,total:330.40,ff:136912,shows:6004,occupancy:13.7},
+        {date:'Tue Nov 7',day:'Tue',gross:1.70,chgDay:3.0,chgWeek:null,total:332.10,ff:141212,shows:6056,occupancy:13.3},
+        {date:'Wed Nov 8',day:'Wed',gross:1.55,chgDay:-8.8,chgWeek:null,total:333.65,ff:null,shows:5997,occupancy:13.7},
+        {date:'Thu Nov 9',day:'Thu',gross:1.50,chgDay:-3.2,chgWeek:null,total:335.15,ff:null,shows:5851,occupancy:13.5},
+
+        // Week 4
+        {date:'Fri Nov 10',day:'Fri',gross:0.48,chgDay:-68.0,chgWeek:null,total:335.63,ff:null,shows:2054,occupancy:11.4},
+        {date:'Sat Nov 11',day:'Sat',gross:0.92,chgDay:91.7,chgWeek:null,total:336.55,ff:null,shows:2122,occupancy:14.8},
+        {date:'Sun Nov 12',day:'Sun',gross:0.67,chgDay:-27.2,chgWeek:null,total:337.22,ff:null,shows:401,occupancy:52.6},
+        {date:'Mon Nov 13',day:'Mon',gross:0.81,chgDay:20.9,chgWeek:null,total:338.03,ff:null,shows:402,occupancy:57.9},
+        {date:'Tue Nov 14',day:'Tue',gross:0.47,chgDay:-42.0,chgWeek:null,total:338.50,ff:null,shows:416,occupancy:36.4},
+        {date:'Wed Nov 15',day:'Wed',gross:0.25,chgDay:-46.8,chgWeek:null,total:338.75,ff:null,shows:435,occupancy:23.7},
+        {date:'Thu Nov 16',day:'Thu',gross:0.23,chgDay:-8.0,chgWeek:null,total:338.98,ff:null,shows:443,occupancy:22.1},
+
+        // Week 5
+        {date:'Fri Nov 17',day:'Fri',gross:0.25,chgDay:8.7,chgWeek:null,total:339.23,ff:null,shows:408,occupancy:22.2},
+        {date:'Sat Nov 18',day:'Sat',gross:0.33,chgDay:32.0,chgWeek:null,total:339.56,ff:null,shows:472,occupancy:22.6},
+        {date:'Sun Nov 19',day:'Sun',gross:0.29,chgDay:-12.1,chgWeek:null,total:339.85,ff:null,shows:482,occupancy:21.6},
+        {date:'Mon Nov 20',day:'Mon',gross:0.19,chgDay:-34.5,chgWeek:null,total:340.04,ff:null,shows:435,occupancy:19.0},
+        {date:'Tue Nov 21',day:'Tue',gross:0.20,chgDay:5.3,chgWeek:null,total:340.24,ff:null,shows:444,occupancy:19.5},
+        {date:'Wed Nov 22',day:'Wed',gross:0.16,chgDay:-20.0,chgWeek:null,total:340.40,ff:null,shows:459,occupancy:18.0},
+        {date:'Thu Nov 23',day:'Thu',gross:0.11,chgDay:-31.3,chgWeek:null,total:340.51,ff:null,shows:400,occupancy:16.8},
+
+        // Later reported days
+        {date:'Thu Nov 30',day:'Thu',gross:0.47,chgDay:null,chgWeek:null,total:null,ff:null,shows:180,occupancy:20.7},
+        {date:'Thu Dec 7',day:'Thu',gross:0.06,chgDay:null,chgWeek:null,total:null,ff:null,shows:23,occupancy:36.5}
+    ],
+
+    wwCum: [
+        {day:1,date:'Oct 19',gross:142.03},
+        {day:2,date:'Oct 20',gross:210.08},
+        {day:3,date:'Oct 21',gross:284.74},
+        {day:4,date:'Oct 22',gross:353.47},
+        {day:5,date:'Oct 23',gross:402.00},
+        {day:6,date:'Oct 24',gross:443.42},
+        {day:7,date:'Oct 25',gross:460.83},
+        {day:8,date:'Oct 26',gross:473.06},
+        {day:9,date:'Oct 27',gross:484.78},
+        {day:10,date:'Oct 28',gross:504.08},
+        {day:11,date:'Oct 29',gross:532.01},
+        {day:12,date:'Oct 30',gross:538.04},
+        {day:13,date:'Oct 31',gross:542.97},
+        {day:14,date:'Nov 1',gross:548.06},
+        {day:15,date:'Nov 2',gross:552.05},
+        {day:16,date:'Nov 3',gross:555.57},
+        {day:17,date:'Nov 4',gross:560.75},
+        {day:18,date:'Nov 5',gross:567.63},
+        {day:19,date:'Nov 6',gross:570.49},
+        {day:20,date:'Nov 7',gross:577.40}
+    ],
+
     timeline: [
-      {label:'Week 1',   val:208},
-      {label:'Week 2',   val:90},
-      {label:'Week 3',   val:30},
-      {label:'Week 4+',  val:13},
+        {week:'Week 1',gross:264.25},
+        {week:'Week 2',gross:53.35},
+        {week:'Week 3',gross:17.55},
+        {week:'Week 4',gross:3.83},
+        {week:'Week 5',gross:1.53},
+        {week:'Week 6',gross:0.47},
+        {week:'Week 7',gross:0.06}
     ],
+
     overseas: [
-      {market:'USA/Canada', val:62},
-      {market:'Gulf',       val:55},
-      {market:'UK',         val:38},
-      {market:'Australia',  val:22},
-      {market:'Other',      val:37},
+        {market:'USA/Canada',val:62},
+        {market:'Gulf',val:55},
+        {market:'UK',val:38},
+        {market:'Australia',val:22},
+        {market:'Other',val:37}
     ],
+
     comparable: [
-      {n:'Leo (2023)',            ww:605,  col:'#f5c518', highlight:true},
-      {n:'Jailer (2023)',         ww:604,  col:'#22c55e'},
-      {n:'Vikram (2022)',         ww:414,  col:'#f97316'},
-      {n:'Varisu (2023)',         ww:297,  col:'#4fc3f7'},
-      {n:'Beast (2022)',          ww:216,  col:'#a78bfa'},
-      {n:'The GOAT (2024)',       ww:457,  col:'#ef4444'},
-    ],
-    trivia: [
-      'Leo is part of Lokesh Kanagaraj\'s LCU (Lokesh Cinematic Universe) — a shared world connecting Kaithi, Vikram, and Leo through characters and plot threads.',
-      'Vijay\'s character Leo Das is revealed to be connected to Kamal Haasan\'s Vikram universe, sending fans into a frenzy during the film\'s climax.',
-      'Sanjay Dutt flew to Chennai specifically for his role as Harold Das, shooting his entire portion in under 20 days.',
-      'Leo\'s Hindi dubbed version performed exceptionally well in the North, grossing over ₹60 Cr — one of the highest for a Tamil film in Hindi markets at the time.',
-      'Anirudh\'s "Naa Ready" became one of the most-streamed Tamil film songs of 2023, accumulating over 300 million streams across platforms.',
-      'The film marked Vijay\'s last pan-India release before his announced retirement from acting to enter politics — giving it an added emotional weight for his fanbase.',
-      'Lokesh Kanagaraj shot the film\'s action sequences without any wire work, insisting on practical stunts for authenticity.',
-    ],
-  },
-  'pathaan': {
+        {title:'Leo',gross:605.90,highlight:true},
+        {title:'Jailer',gross:604},
+        {title:'Vikram',gross:414},
+        {title:'Varisu',gross:297},
+        {title:'Beast',gross:216},
+        {title:'The GOAT',gross:457}
+    ]
+},
+
+'pathaan': {
     key: 'pathaan',
     title: 'Pathaan',
     year: 2023,
     lang: 'Hindi',
     director: 'Siddharth Anand',
     studio: 'Yash Raj Films',
+
     cast: [
-      {name:'Shah Rukh Khan',     role:'Pathaan'},
-      {name:'Deepika Padukone',   role:'Rubai'},
-      {name:'John Abraham',       role:'Jim'},
-      {name:'Dimple Kapadia',     role:'Nandini'},
+        {name:'Shah Rukh Khan',role:'Pathaan'},
+        {name:'Deepika Padukone',role:'Rubai'},
+        {name:'John Abraham',role:'Jim'},
+        {name:'Dimple Kapadia',role:'Nandini'}
     ],
-    synopsis: 'After a four-year absence from screens, Shah Rukh Khan returned with a vengeance in this slick YRF spy thriller. Pathaan, a disavowed RAW agent, is pulled back into action to stop Jim — a rogue operative with a devastating bioweapon and a personal vendetta against India. Siddharth Anand delivers wall-to-wall action across exotic locations, with SRK and Deepika in peak form. Pathaan didn\'t just break records — it triggered one of the most euphoric cinematic homecomings in Bollywood history, proving that the superstar\'s connection with audiences was undiminished.',
+
+    synopsis: "After a four-year absence from screens, Shah Rukh Khan returned with a vengeance in this slick YRF spy thriller. Pathaan, a disavowed RAW agent, is pulled back into action to stop Jim — a rogue operative with a devastating bioweapon and a personal vendetta against India. Siddharth Anand delivers wall-to-wall action across exotic locations, with SRK and Deepika in peak form. Pathaan didn't just break records — it triggered one of the most euphoric cinematic homecomings in Bollywood history, proving that the superstar's connection with audiences was undiminished.",
+
     release: '2023-01-25',
     runtime: 146,
     budget: 250,
-    india: 543,
+
+    india: 543.09,
+    indiaGross: 657.50,
     ow: 152,
-    ww: 1050,
+    ww: 1055.00,
+    overseasGross: 397.50,
     ff: 34.9,
-    multiplier: 3.57,
+
+    get multiplier() {
+        return Math.round(this.india / this.ow * 100) / 100;
+    },
+
     lb: 2.8,
     ott: 'Amazon Prime Video',
     music: 'Vishal–Shekhar',
+
     awards: [
-      'Filmfare – Best Action Film',
-      'Filmfare – Best Actor (Shah Rukh Khan, Nominated)',
-      'IIFA – Most Entertaining Film',
-      'Screen Awards – Best Debut Director (Nominated)',
+        'Filmfare Best Action Film',
+        'Filmfare Best Actor, Shah Rukh Khan — Nominated',
+        'IIFA Most Entertaining Film',
+        'Screen Awards Best Debut Director — Nominated'
     ],
+
+    daily: [
+        // Week 1
+        {date:'Wed Jan 25',day:'Wed',gross:57.00,chgDay:null,chgWeek:null,total:57.00,ff:2947340,shows:null,occupancy:null},
+        {date:'Thu Jan 26',day:'Thu',gross:70.50,chgDay:23.7,chgWeek:null,total:127.50,ff:3620820,shows:null,occupancy:null},
+        {date:'Fri Jan 27',day:'Fri',gross:39.25,chgDay:-44.3,chgWeek:null,total:166.75,ff:2106270,shows:null,occupancy:null},
+        {date:'Sat Jan 28',day:'Sat',gross:53.25,chgDay:35.7,chgWeek:null,total:220.00,ff:2816000,shows:null,occupancy:null},
+        {date:'Sun Jan 29',day:'Sun',gross:60.75,chgDay:14.1,chgWeek:null,total:280.75,ff:3161750,shows:null,occupancy:null},
+        {date:'Mon Jan 30',day:'Mon',gross:26.50,chgDay:-56.4,chgWeek:null,total:307.25,ff:1710190,shows:null,occupancy:null},
+        {date:'Tue Jan 31',day:'Tue',gross:23.00,chgDay:-13.2,chgWeek:null,total:330.25,ff:1475050,shows:null,occupancy:null},
+
+        // Week 2
+        {date:'Wed Feb 1',day:'Wed',gross:18.25,chgDay:-20.7,chgWeek:null,total:348.50,ff:1183130,shows:null,occupancy:null},
+        {date:'Thu Feb 2',day:'Thu',gross:15.65,chgDay:-14.2,chgWeek:null,total:364.15,ff:1015550,shows:null,occupancy:null},
+        {date:'Fri Feb 3',day:'Fri',gross:14.00,chgDay:-10.5,chgWeek:null,total:378.15,ff:765302,shows:null,occupancy:null},
+        {date:'Sat Feb 4',day:'Sat',gross:23.25,chgDay:66.1,chgWeek:null,total:401.40,ff:1282240,shows:null,occupancy:null},
+        {date:'Sun Feb 5',day:'Sun',gross:28.50,chgDay:22.6,chgWeek:null,total:429.90,ff:1573640,shows:null,occupancy:null},
+        {date:'Mon Feb 6',day:'Mon',gross:8.55,chgDay:-70.0,chgWeek:null,total:438.45,ff:722511,shows:null,occupancy:null},
+        {date:'Tue Feb 7',day:'Tue',gross:7.75,chgDay:-9.4,chgWeek:null,total:446.20,ff:658167,shows:null,occupancy:null},
+
+        // Week 3
+        {date:'Wed Feb 8',day:'Wed',gross:6.75,chgDay:-12.9,chgWeek:null,total:452.95,ff:572640,shows:null,occupancy:null},
+        {date:'Thu Feb 9',day:'Thu',gross:5.95,chgDay:-11.9,chgWeek:null,total:458.90,ff:507038,shows:null,occupancy:null},
+        {date:'Fri Feb 10',day:'Fri',gross:5.90,chgDay:-0.8,chgWeek:null,total:464.80,ff:448418,shows:null,occupancy:null},
+        {date:'Sat Feb 11',day:'Sat',gross:11.25,chgDay:90.7,chgWeek:null,total:476.05,ff:845588,shows:null,occupancy:null},
+        {date:'Sun Feb 12',day:'Sun',gross:13.00,chgDay:15.6,chgWeek:null,total:489.05,ff:967892,shows:null,occupancy:null},
+        {date:'Mon Feb 13',day:'Mon',gross:4.20,chgDay:-67.7,chgWeek:null,total:493.25,ff:380979,shows:null,occupancy:null},
+        {date:'Tue Feb 14',day:'Tue',gross:5.60,chgDay:33.3,chgWeek:null,total:498.85,ff:503457,shows:null,occupancy:null},
+
+        // Week 4
+        {date:'Wed Feb 15',day:'Wed',gross:3.60,chgDay:-35.7,chgWeek:null,total:502.45,ff:325929,shows:null,occupancy:null},
+        {date:'Thu Feb 16',day:'Thu',gross:3.40,chgDay:-5.6,chgWeek:null,total:505.85,ff:308518,shows:null,occupancy:null},
+        {date:'Fri Feb 17',day:'Fri',gross:2.27,chgDay:-33.2,chgWeek:null,total:508.12,ff:null,shows:null,occupancy:null},
+        {date:'Sat Feb 18',day:'Sat',gross:3.32,chgDay:46.3,chgWeek:null,total:511.44,ff:null,shows:null,occupancy:null},
+        {date:'Sun Feb 19',day:'Sun',gross:4.25,chgDay:28.0,chgWeek:null,total:515.69,ff:null,shows:null,occupancy:null},
+        {date:'Mon Feb 20',day:'Mon',gross:1.25,chgDay:-70.6,chgWeek:null,total:516.94,ff:null,shows:null,occupancy:null},
+        {date:'Tue Feb 21',day:'Tue',gross:1.14,chgDay:-8.8,chgWeek:null,total:518.08,ff:null,shows:null,occupancy:null},
+
+        // Week 5
+        {date:'Wed Feb 22',day:'Wed',gross:1.08,chgDay:-5.3,chgWeek:null,total:519.16,ff:null,shows:null,occupancy:null},
+        {date:'Thu Feb 23',day:'Thu',gross:1.02,chgDay:-5.6,chgWeek:null,total:520.18,ff:null,shows:null,occupancy:null},
+        {date:'Fri Feb 24',day:'Fri',gross:1.02,chgDay:0,chgWeek:null,total:521.20,ff:null,shows:null,occupancy:null},
+        {date:'Sat Feb 25',day:'Sat',gross:1.98,chgDay:94.1,chgWeek:null,total:523.18,ff:null,shows:null,occupancy:null},
+        {date:'Sun Feb 26',day:'Sun',gross:2.50,chgDay:26.3,chgWeek:null,total:525.68,ff:null,shows:null,occupancy:null},
+        {date:'Mon Feb 27',day:'Mon',gross:0.82,chgDay:-67.2,chgWeek:null,total:526.50,ff:null,shows:null,occupancy:null},
+        {date:'Tue Feb 28',day:'Tue',gross:0.77,chgDay:-6.1,chgWeek:null,total:527.27,ff:null,shows:null,occupancy:null},
+
+        // Week 6
+        {date:'Wed Mar 1',day:'Wed',gross:0.77,chgDay:0,chgWeek:null,total:528.04,ff:null,shows:null,occupancy:null},
+        {date:'Thu Mar 2',day:'Thu',gross:0.77,chgDay:0,chgWeek:null,total:528.81,ff:null,shows:null,occupancy:null},
+        {date:'Fri Mar 3',day:'Fri',gross:1.07,chgDay:39.0,chgWeek:null,total:529.88,ff:null,shows:null,occupancy:null},
+        {date:'Sat Mar 4',day:'Sat',gross:2.10,chgDay:96.3,chgWeek:null,total:531.98,ff:null,shows:null,occupancy:null},
+        {date:'Sun Mar 5',day:'Sun',gross:2.65,chgDay:26.2,chgWeek:null,total:534.63,ff:null,shows:null,occupancy:null},
+        {date:'Mon Mar 6',day:'Mon',gross:0.77,chgDay:-70.9,chgWeek:null,total:535.40,ff:null,shows:null,occupancy:null},
+        {date:'Tue Mar 7',day:'Tue',gross:1.29,chgDay:67.5,chgWeek:null,total:536.69,ff:null,shows:null,occupancy:null},
+
+        // Week 7
+        {date:'Wed Mar 8',day:'Wed',gross:0.72,chgDay:-44.2,chgWeek:null,total:537.41,ff:null,shows:null,occupancy:null},
+        {date:'Thu Mar 9',day:'Thu',gross:0.52,chgDay:-27.8,chgWeek:null,total:537.93,ff:null,shows:null,occupancy:null},
+        {date:'Fri Mar 10',day:'Fri',gross:0.31,chgDay:-40.4,chgWeek:null,total:538.24,ff:null,shows:null,occupancy:null},
+        {date:'Sat Mar 11',day:'Sat',gross:0.61,chgDay:96.8,chgWeek:null,total:538.85,ff:null,shows:null,occupancy:null},
+        {date:'Sun Mar 12',day:'Sun',gross:0.81,chgDay:32.8,chgWeek:null,total:539.66,ff:null,shows:null,occupancy:null},
+        {date:'Mon Mar 13',day:'Mon',gross:0.30,chgDay:-63.0,chgWeek:null,total:539.96,ff:null,shows:null,occupancy:null},
+        {date:'Tue Mar 14',day:'Tue',gross:0.30,chgDay:0,chgWeek:null,total:540.26,ff:null,shows:null,occupancy:null},
+
+        // Week 8
+        {date:'Wed Mar 15',day:'Wed',gross:0.25,chgDay:-16.7,chgWeek:null,total:540.51,ff:null,shows:1014,occupancy:13.0},
+        {date:'Thu Mar 16',day:'Thu',gross:0.25,chgDay:0,chgWeek:null,total:540.76,ff:null,shows:911,occupancy:13.0},
+        {date:'Fri Mar 17',day:'Fri',gross:0.20,chgDay:-20,chgWeek:null,total:540.96,ff:null,shows:364,occupancy:19},
+        {date:'Sat Mar 18',day:'Sat',gross:0.30,chgDay:50,chgWeek:null,total:541.26,ff:null,shows:408,occupancy:24},
+        {date:'Sun Mar 19',day:'Sun',gross:0.45,chgDay:50,chgWeek:null,total:541.71,ff:null,shows:431,occupancy:27},
+        {date:'Mon Mar 20',day:'Mon',gross:0.25,chgDay:-44.4,chgWeek:null,total:541.96,ff:null,shows:434,occupancy:15},
+        {date:'Tue Mar 21',day:'Tue',gross:0.25,chgDay:0,chgWeek:null,total:542.21,ff:null,shows:431,occupancy:17},
+
+        // Later reported days
+        {date:'Wed Mar 22',day:'Wed',gross:0.30,chgDay:20,chgWeek:null,total:542.51,ff:null,shows:445,occupancy:17},
+        {date:'Thu Mar 23',day:'Thu',gross:0.13,chgDay:-56.7,chgWeek:null,total:542.64,ff:null,shows:372,occupancy:15},
+        {date:'Thu Mar 30',day:'Thu',gross:0.45,chgDay:null,chgWeek:null,total:null,ff:null,shows:58,occupancy:8}
+    ],
+
+    wwCum: [
+        {day:1,date:'Jan 25',gross:104.19},
+        {day:2,date:'Jan 26',gross:219.60},
+        {day:3,date:'Jan 27',gross:313.00},
+        {day:4,date:'Jan 28',gross:429.00},
+        {day:5,date:'Jan 29',gross:542.00},
+        {day:6,date:'Jan 30',gross:593.70},
+        {day:7,date:'Jan 31',gross:636.40},
+        {day:8,date:'Feb 1',gross:668.20},
+        {day:9,date:'Feb 2',gross:696.98},
+        {day:10,date:'Feb 3',gross:729.00},
+        {day:11,date:'Feb 4',gross:781.68},
+        {day:12,date:'Feb 5',gross:832.00},
+        {day:13,date:'Feb 6',gross:849.00},
+        {day:14,date:'Feb 7',gross:865.00},
+        {day:15,date:'Feb 8',gross:878.54},
+        {day:16,date:'Feb 9',gross:888.68},
+        {day:17,date:'Feb 10',gross:901.00},
+        {day:18,date:'Feb 11',gross:923.00},
+        {day:19,date:'Feb 12',gross:945.00},
+        {day:20,date:'Feb 13',gross:952.00},
+        {day:21,date:'Feb 14',gross:962.60},
+        {day:22,date:'Feb 15',gross:968.00},
+        {day:23,date:'Feb 16',gross:975.00},
+        {day:24,date:'Feb 17',gross:980.00},
+        {day:25,date:'Feb 18',gross:988.00},
+        {day:26,date:'Feb 19',gross:996.00},
+        {day:27,date:'Feb 20',gross:1000.00},
+        {day:28,date:'Feb 21',gross:1002.00},
+        {day:29,date:'Feb 22',gross:1006.00},
+        {day:30,date:'Feb 23',gross:1008.00}
+    ],
+
     timeline: [
-      {label:'Week 1',   val:364},
-      {label:'Week 2',   val:94},
-      {label:'Week 3',   val:48},
-      {label:'Week 4+',  val:37},
+        {week:'Week 1',gross:127.50},
+        {week:'Week 2',gross:109.15},
+        {week:'Week 3',gross:37.00},
+        {week:'Week 4',gross:14.33},
+        {week:'Week 5',gross:8.63},
+        {week:'Week 6',gross:9.12},
+        {week:'Week 7',gross:2.83},
+        {week:'Week 8',gross:1.88},
+        {week:'Week 9',gross:0.45}
     ],
+
     overseas: [
-      {market:'USA/Canada', val:128},
-      {market:'Gulf',       val:82},
-      {market:'UK',         val:62},
-      {market:'Australia',  val:28},
-      {market:'Other',      val:207},
+        {market:'USA/Canada',val:128},
+        {market:'Gulf',val:82},
+        {market:'UK',val:62},
+        {market:'Australia',val:28},
+        {market:'Other',val:207}
     ],
+
     comparable: [
-      {n:'Jawan (2023)',             ww:1148, col:'#22c55e'},
-      {n:'Pathaan (2023)',           ww:1050, col:'#f5c518', highlight:true},
-      {n:'Bajrangi Bhaijaan (2015)', ww:918,  col:'#f97316'},
-      {n:'Animal (2023)',            ww:917,  col:'#ef4444'},
-      {n:'War (2019)',               ww:475,  col:'#4fc3f7'},
-      {n:'Don 2 (2011)',             ww:202,  col:'#a78bfa'},
-    ],
-    trivia: [
-      'Pathaan was Shah Rukh Khan\'s first release after a four-year gap following the commercial failure of Zero (2018) — the longest hiatus of his career.',
-      'The film\'s opening day of ₹57 Cr nett was the biggest ever for a Hindi film at the time, a record it held until Jawan later that same year.',
-      'Pathaan and Jawan made SRK the first actor in Indian history to have two ₹1000 Cr+ worldwide grossers in the same calendar year.',
-      'The "Besharam Rang" song controversy — where protestors demanded a boycott — arguably boosted the film\'s visibility and contributed to record advance bookings.',
-      'Pathaan is part of YRF\'s spy universe alongside Tiger and War, with all three franchises converging in the planned crossover Tiger vs Pathaan.',
-      'John Abraham\'s villain Jim became one of the most discussed antagonists of 2023, with fan demand prompting talks of a spin-off.',
-      'The film was shot across locations in Spain, Afghanistan, Russia, and UAE — one of the most geographically expansive shoots for a Hindi film.',
-    ],
-  },
-  'salaar': {
+        {title:'Pathaan',gross:1055.00,highlight:true},
+        {title:'Jawan',gross:1148},
+        {title:'Tiger Zinda Hai',gross:565},
+        {title:'War',gross:475},
+        {title:'Ek Tha Tiger',gross:334}
+    ]
+},
+'salaar': {
     key: 'salaar',
     title: 'Salaar: Part 1 – Ceasefire',
     year: 2023,
-    lang: 'Telugu',
+    language: 'Telugu',
     director: 'Prashanth Neel',
     studio: 'Hombale Films',
     cast: [
-      {name:'Prabhas',              role:'Salaar / Deva'},
-      {name:'Prithviraj Sukumaran', role:'Vardha Raja Mannar'},
-      {name:'Shruti Haasan',        role:'Aadya'},
-      {name:'Jagapathi Babu',       role:'Raja Mannar'},
+        {actor:'Prabhas',character:'Salaar / Deva'},
+        {actor:'Prithviraj Sukumaran',character:'Vardha Raja Mannar'},
+        {actor:'Shruti Haasan',character:'Aadya'},
+        {actor:'Jagapathi Babu',character:'Raja Mannar'}
     ],
-    synopsis: 'From the director of KGF comes a ferocious mythological crime epic set in the brutal kingdom of Khansaar. Deva, a man of fearsome violence and unbreakable loyalty, returns to fulfil a promise made to his dying friend — a promise that will plunge him into the heart of a war between dynastic factions. Prashanth Neel constructs a sprawling, operatic world of betrayal and bloodshed, with Prabhas delivering one of his most physically imposing performances. Salaar: Ceasefire sets the stage for what promises to be an even larger sequel.',
+    synopsis: "From the director of KGF comes a ferocious mythological crime epic set in the brutal kingdom of Khansaar. Deva, a man of fearsome violence and unbreakable loyalty, returns to fulfil a promise made to his dying friend — a promise that will plunge him into the heart of a war between dynastic factions. Prashanth Neel constructs a sprawling, operatic world of betrayal and bloodshed, with Prabhas delivering one of his most physically imposing performances. Salaar: Ceasefire sets the stage for what promises to be an even larger sequel.",
     release: '2023-12-22',
     runtime: 176,
     budget: 200,
-    india: 406,
+    india: 406.45,
+    indiaGross: 487.75,
     ow: 208,
-    ww: 617,
+    ww: 617.75,
+    overseasGross: 130,
     ff: 26,
-    multiplier: 1.95,
     lb: 2.8,
     ott: 'Netflix',
     music: 'Ravi Basrur',
+
+    get multiplier() {
+        return Math.round(this.india / this.ow * 100) / 100;
+    },
+
     awards: [
-      'Filmfare (South) – Best Action',
-      'SIIMA – Best Film Telugu (Nominated)',
-      'SIIMA – Best Director (Prashanth Neel, Nominated)',
+        'Filmfare South – Best Action',
+        'SIIMA – Best Film (Telugu), nominated',
+        'SIIMA – Best Director (Prashanth Neel), nominated'
     ],
+
+    daily: [
+        // Week 1
+        {date:'Fri Dec 22',day:'Fri',gross:90.70,chgDay:null,chgWeek:null,total:90.70,ff:5913088,shows:null,occupancy:null},
+        {date:'Sat Dec 23',day:'Sat',gross:56.35,chgDay:-37.87,chgWeek:null,total:147.05,ff:3407885,shows:null,occupancy:null},
+        {date:'Sun Dec 24',day:'Sun',gross:62.05,chgDay:10.12,chgWeek:null,total:209.10,ff:3907941,shows:null,occupancy:null},
+        {date:'Mon Dec 25',day:'Mon',gross:46.30,chgDay:-25.38,chgWeek:null,total:255.40,ff:2758638,shows:null,occupancy:null},
+        {date:'Tue Dec 26',day:'Tue',gross:24.90,chgDay:-46.22,chgWeek:null,total:280.30,ff:1460910,shows:null,occupancy:null},
+        {date:'Wed Dec 27',day:'Wed',gross:15.60,chgDay:-37.35,chgWeek:null,total:295.90,ff:859570,shows:null,occupancy:null},
+        {date:'Thu Dec 28',day:'Thu',gross:12.10,chgDay:-22.44,chgWeek:null,total:308.00,ff:735226,shows:null,occupancy:null},
+
+        // Week 2
+        {date:'Fri Dec 29',day:'Fri',gross:9.62,chgDay:-20.50,chgWeek:null,total:317.62,ff:583517,shows:null,occupancy:null},
+        {date:'Sat Dec 30',day:'Sat',gross:12.55,chgDay:30.46,chgWeek:null,total:330.17,ff:741103,shows:null,occupancy:null},
+        {date:'Sun Dec 31',day:'Sun',gross:15.10,chgDay:20.32,chgWeek:null,total:345.27,ff:895125,shows:null,occupancy:null},
+        {date:'Mon Jan 1',day:'Mon',gross:16.60,chgDay:9.93,chgWeek:null,total:361.87,ff:1098391,shows:null,occupancy:null},
+        {date:'Tue Jan 2',day:'Tue',gross:6.45,chgDay:-61.14,chgWeek:null,total:368.32,ff:424648,shows:null,occupancy:null},
+        {date:'Wed Jan 3',day:'Wed',gross:5.18,chgDay:-19.69,chgWeek:null,total:373.50,ff:349948,shows:null,occupancy:null},
+        {date:'Thu Jan 4',day:'Thu',gross:4.60,chgDay:-11.20,chgWeek:null,total:378.10,ff:306190,shows:null,occupancy:null},
+
+        // Week 3
+        {date:'Fri Jan 5',day:'Fri',gross:3.65,chgDay:-20.65,chgWeek:null,total:381.75,ff:226978,shows:null,occupancy:null},
+        {date:'Sat Jan 6',day:'Sat',gross:5.45,chgDay:49.32,chgWeek:null,total:387.20,ff:332225,shows:null,occupancy:null},
+        {date:'Sun Jan 7',day:'Sun',gross:6.05,chgDay:11.01,chgWeek:null,total:393.25,ff:379391,shows:null,occupancy:null},
+        {date:'Mon Jan 8',day:'Mon',gross:2.40,chgDay:-60.33,chgWeek:null,total:395.65,ff:187889,shows:null,occupancy:null},
+        {date:'Tue Jan 9',day:'Tue',gross:2.20,chgDay:-8.33,chgWeek:null,total:397.85,ff:174829,shows:null,occupancy:null},
+        {date:'Wed Jan 10',day:'Wed',gross:2.00,chgDay:-9.09,chgWeek:null,total:399.85,ff:161045,shows:null,occupancy:null},
+        {date:'Thu Jan 11',day:'Thu',gross:1.95,chgDay:-2.50,chgWeek:null,total:401.80,ff:null,shows:null,occupancy:null},
+
+        // Week 4
+        {date:'Fri Jan 12',day:'Fri',gross:0.50,chgDay:-74.36,chgWeek:null,total:402.30,ff:null,shows:null,occupancy:null},
+        {date:'Sat Jan 13',day:'Sat',gross:0.65,chgDay:30.00,chgWeek:null,total:402.95,ff:null,shows:null,occupancy:null},
+        {date:'Sun Jan 14',day:'Sun',gross:0.95,chgDay:46.15,chgWeek:null,total:403.90,ff:null,shows:null,occupancy:null},
+        {date:'Mon Jan 15',day:'Mon',gross:0.55,chgDay:-42.11,chgWeek:null,total:404.45,ff:null,shows:null,occupancy:null},
+        {date:'Tue Jan 16',day:'Tue',gross:0.36,chgDay:-34.55,chgWeek:null,total:404.81,ff:null,shows:null,occupancy:null},
+        {date:'Wed Jan 17',day:'Wed',gross:0.32,chgDay:-11.11,chgWeek:null,total:405.13,ff:null,shows:null,occupancy:null},
+        {date:'Thu Jan 18',day:'Thu',gross:0.27,chgDay:-15.63,chgWeek:null,total:405.40,ff:null,shows:null,occupancy:null},
+
+        // Week 5
+        {date:'Fri Jan 19',day:'Fri',gross:0.12,chgDay:-55.56,chgWeek:null,total:405.52,ff:null,shows:null,occupancy:null},
+        {date:'Sat Jan 20',day:'Sat',gross:0.15,chgDay:25.00,chgWeek:null,total:405.67,ff:null,shows:null,occupancy:null},
+        {date:'Sun Jan 21',day:'Sun',gross:0.19,chgDay:26.67,chgWeek:null,total:405.86,ff:null,shows:null,occupancy:null},
+        {date:'Mon Jan 22',day:'Mon',gross:0.15,chgDay:-21.05,chgWeek:null,total:406.01,ff:null,shows:null,occupancy:null},
+        {date:'Tue Jan 23',day:'Tue',gross:0.15,chgDay:0.00,chgWeek:null,total:406.16,ff:null,shows:null,occupancy:null},
+        {date:'Wed Jan 24',day:'Wed',gross:0.14,chgDay:-6.67,chgWeek:null,total:406.30,ff:null,shows:null,occupancy:null},
+        {date:'Thu Jan 25',day:'Thu',gross:0.05,chgDay:-64.29,chgWeek:null,total:406.35,ff:null,shows:null,occupancy:null},
+
+        // Week 6 – grouped source checkpoint
+        {date:'Week 6',day:'Week',gross:0.10,chgDay:null,chgWeek:null,total:406.45,ff:null,shows:null,occupancy:null}
+    ],
+
+    wwCum: [
+        {day:1,date:'Dec 22',gross:158.12},
+        {day:2,date:'Dec 23',gross:243.81},
+        {day:3,date:'Dec 24',gross:325.02},
+        {day:4,date:'Dec 25',gross:392.16},
+        {day:5,date:'Dec 26',gross:429.54},
+        {day:6,date:'Dec 27',gross:451.87},
+        {day:7,date:'Dec 28',gross:469.05},
+        {day:8,date:'Dec 29',gross:485.46},
+        {day:9,date:'Dec 30',gross:505.04},
+        {day:10,date:'Dec 31',gross:527.77},
+        {day:11,date:'Jan 1',gross:557.17},
+        {day:12,date:'Jan 2',gross:564.65},
+        {day:13,date:'Jan 3',gross:570.64},
+        {day:14,date:'Jan 4',gross:577.98},
+        {day:15,date:'Jan 5',gross:582.22},
+        {day:16,date:'Jan 6',gross:588.60},
+        {day:17,date:'Jan 7',gross:596.67},
+        {day:18,date:'Jan 8',gross:599.42},
+        {day:19,date:'Jan 9',gross:601.95},
+        {day:20,date:'Jan 10',gross:604.50}
+    ],
+
     timeline: [
-      {label:'Week 1',   val:308},
-      {label:'Week 2',   val:70},
-      {label:'Week 3',   val:18},
-      {label:'Week 4+',  val:10},
+        {period:'Week 1',gross:308.00},
+        {period:'Week 2',gross:70.10},
+        {period:'Week 3',gross:23.70},
+        {period:'Week 4',gross:3.60},
+        {period:'Week 5',gross:0.95},
+        {period:'Week 6',gross:0.10}
     ],
+
     overseas: [
-      {market:'USA/Canada', val:72},
-      {market:'Gulf',       val:55},
-      {market:'UK',         val:38},
-      {market:'Australia',  val:22},
-      {market:'Other',      val:39},
+        {market:'USA/Canada',val:72},
+        {market:'Gulf',val:55},
+        {market:'UK',val:38},
+        {market:'Australia',val:22},
+        {market:'Other',val:39}
     ],
-    comparable: [
-      {n:'KGF 2 (2022)',             ww:1215, col:'#f97316'},
-      {n:'Pushpa 2 (2024)',          ww:1742, col:'#22c55e'},
-      {n:'Baahubali 2 (2017)',       ww:1810, col:'#4fc3f7'},
-      {n:'Salaar (2023)',            ww:617,  col:'#ef4444', highlight:true},
-      {n:'Saaho (2019)',             ww:451,  col:'#a78bfa'},
-      {n:'Adipurush (2023)',         ww:393,  col:'#f5c518'},
-    ],
-    trivia: [
-      'Salaar clashed directly with Dunki (Shah Rukh Khan) on December 22 — one of the most anticipated box office clashes of 2023. Salaar won decisively in the South while Dunki held its own in the North.',
-      'Prashanth Neel built the fictional kingdom of Khansaar entirely on sets spanning over 50 acres in Hyderabad — one of the largest set constructions in South Indian cinema.',
-      'Prabhas underwent a dramatic physical transformation for the role, training for nearly 14 months to achieve the raw, imposing look of Deva.',
-      'Ravi Basrur\'s background score, which he also composed for KGF 1 and 2, was recorded with a 90-piece orchestra and is widely considered one of the best in recent Indian cinema.',
-      'The film\'s climax was deliberately left open-ended, with Salaar: Part 2 — Shouryanga Parvam — in active development.',
-      'Salaar crossed ₹300 Cr nett in India in just 8 days, making it one of the fastest Telugu films to reach that milestone.',
-    ],
-  },
-  'jawan': {
+
+    comparables: [
+        {title:'KGF: Chapter 2',ww:1215},
+        {title:'Pushpa 2: The Rule',ww:1742},
+        {title:'Baahubali 2: The Conclusion',ww:1810},
+        {title:'Salaar: Part 1 – Ceasefire',ww:617.75,highlight:true},
+        {title:'Saaho',ww:451},
+        {title:'Adipurush',ww:393}
+    ]
+},
+
+'jawan': {
     key: 'jawan',
     title: 'Jawan',
     year: 2023,
-    lang: 'Hindi',
+    language: 'Hindi',
     director: 'Atlee',
     studio: 'Red Chillies Entertainment',
     cast: [
-      {name:'Shah Rukh Khan',       role:'Azad / Vikram Rathore'},
-      {name:'Nayanthara',           role:'DCP Narmada'},
-      {name:'Vijay Sethupathi',     role:'Kalee Gaikwad'},
-      {name:'Deepika Padukone',     role:'Aishwarya (Cameo)'},
-      {name:'Sanya Malhotra',       role:'Eeram'},
+        {actor:'Shah Rukh Khan',character:'Azad / Vikram Rathore'},
+        {actor:'Nayanthara',character:'DCP Narmada'},
+        {actor:'Vijay Sethupathi',character:'Kalee Gaikwad'},
+        {actor:'Deepika Padukone',character:'Aishwarya'},
+        {actor:'Sanya Malhotra',character:'Eeram'}
     ],
-    synopsis: 'A high-octane action entertainer directed by Tamil blockbuster machine Atlee. A mysterious masked man orchestrates a series of daring heists and social justice missions across India, while a hardened cop closes in on him. The film weaves together two timelines — and two avatars of Shah Rukh Khan — into a barnstorming populist spectacle that became one of the biggest Hindi films ever made. Jawan marked SRK\'s triumphant return to mass commercial cinema and the biggest collaboration between Hindi and Tamil film industries.',
+    synopsis: "A high-octane action entertainer directed by Tamil blockbuster machine Atlee. A mysterious masked man orchestrates a series of daring heists and social justice missions across India, while a hardened cop closes in on him. The film weaves together two timelines — and two avatars of Shah Rukh Khan — into a barnstorming populist spectacle that became one of the biggest Hindi films ever made. Jawan marked SRK's triumphant return to mass commercial cinema and the biggest collaboration between Hindi and Tamil film industries.",
     release: '2023-09-07',
     runtime: 169,
     budget: 300,
-    india: 643.9,
+    india: 643.87,
+    indiaGross: 761.98,
     ow: 211,
-    ww: 1148,
+    ww: 1148.32,
+    overseasGross: 386.34,
     ff: 39.2,
-    multiplier: 3.05,
     lb: 3.3,
     ott: 'Netflix',
     music: 'Anirudh Ravichander',
+
+    get multiplier() {
+        return Math.round(this.india / this.ow * 100) / 100;
+    },
+
     awards: [
-      'Filmfare – Best Film (Nominated)',
-      'Filmfare – Best Director (Atlee, Nominated)',
-      'IIFA – Best Film (Nominated)',
-      'Screen Awards – Best Action',
+        'Filmfare – Best Film, nominated',
+        'Filmfare – Best Director (Atlee), nominated',
+        'IIFA – Best Film, nominated',
+        'Screen Awards – Best Action'
     ],
+
+    daily: [
+        // Week 1
+        {date:'Thu Sep 7',day:'Thu',gross:75.00,chgDay:null,chgWeek:null,total:75.00,ff:4436417,shows:null,occupancy:null},
+        {date:'Fri Sep 8',day:'Fri',gross:53.23,chgDay:-29.03,chgWeek:null,total:128.23,ff:2941295,shows:null,occupancy:null},
+        {date:'Sat Sep 9',day:'Sat',gross:77.83,chgDay:46.21,chgWeek:null,total:206.06,ff:4423923,shows:null,occupancy:null},
+        {date:'Sun Sep 10',day:'Sun',gross:80.10,chgDay:2.92,chgWeek:null,total:286.16,ff:4492307,shows:null,occupancy:null},
+        {date:'Mon Sep 11',day:'Mon',gross:32.92,chgDay:-58.90,chgWeek:null,total:319.08,ff:2093311,shows:null,occupancy:null},
+        {date:'Tue Sep 12',day:'Tue',gross:26.52,chgDay:-19.44,chgWeek:null,total:345.60,ff:1601733,shows:null,occupancy:null},
+        {date:'Wed Sep 13',day:'Wed',gross:23.83,chgDay:-10.14,chgWeek:null,total:369.43,ff:1319830,shows:null,occupancy:null},
+
+        // Week 2
+        {date:'Thu Sep 14',day:'Thu',gross:21.90,chgDay:-8.10,chgWeek:null,total:391.33,ff:1411591,shows:null,occupancy:null},
+        {date:'Fri Sep 15',day:'Fri',gross:19.10,chgDay:-12.79,chgWeek:null,total:410.43,ff:1002940,shows:null,occupancy:null},
+        {date:'Sat Sep 16',day:'Sat',gross:32.30,chgDay:69.11,chgWeek:null,total:442.73,ff:1761641,shows:null,occupancy:null},
+        {date:'Sun Sep 17',day:'Sun',gross:37.26,chgDay:15.36,chgWeek:null,total:479.99,ff:2110461,shows:null,occupancy:null},
+        {date:'Mon Sep 18',day:'Mon',gross:16.25,chgDay:-56.39,chgWeek:null,total:496.24,ff:1074193,shows:null,occupancy:null},
+        {date:'Tue Sep 19',day:'Tue',gross:14.80,chgDay:-8.92,chgWeek:null,total:511.04,ff:961367,shows:null,occupancy:null},
+        {date:'Wed Sep 20',day:'Wed',gross:9.40,chgDay:-36.49,chgWeek:null,total:520.44,ff:645030,shows:null,occupancy:null},
+
+        // Week 3
+        {date:'Thu Sep 21',day:'Thu',gross:7.95,chgDay:-15.43,chgWeek:null,total:528.39,ff:510975,shows:null,occupancy:null},
+        {date:'Fri Sep 22',day:'Fri',gross:7.61,chgDay:-4.28,chgWeek:null,total:536.00,ff:448022,shows:null,occupancy:null},
+        {date:'Sat Sep 23',day:'Sat',gross:12.25,chgDay:60.97,chgWeek:null,total:548.25,ff:688887,shows:null,occupancy:null},
+        {date:'Sun Sep 24',day:'Sun',gross:14.95,chgDay:22.04,chgWeek:null,total:563.20,ff:856292,shows:null,occupancy:null},
+        {date:'Mon Sep 25',day:'Mon',gross:5.45,chgDay:-63.55,chgWeek:null,total:568.65,ff:361413,shows:null,occupancy:null},
+        {date:'Tue Sep 26',day:'Tue',gross:4.86,chgDay:-10.83,chgWeek:null,total:573.51,ff:324565,shows:null,occupancy:null},
+        {date:'Wed Sep 27',day:'Wed',gross:4.84,chgDay:-0.41,chgWeek:null,total:578.35,ff:335616,shows:null,occupancy:null},
+
+        // Week 4
+        {date:'Thu Sep 28',day:'Thu',gross:5.97,chgDay:23.35,chgWeek:null,total:584.32,ff:362456,shows:null,occupancy:null},
+        {date:'Fri Sep 29',day:'Fri',gross:5.05,chgDay:-15.41,chgWeek:null,total:589.37,ff:285855,shows:null,occupancy:null},
+        {date:'Sat Sep 30',day:'Sat',gross:8.46,chgDay:67.52,chgWeek:null,total:597.83,ff:450331,shows:null,occupancy:null},
+        {date:'Sun Oct 1',day:'Sun',gross:9.38,chgDay:10.87,chgWeek:null,total:607.21,ff:524445,shows:null,occupancy:null},
+        {date:'Mon Oct 2',day:'Mon',gross:6.85,chgDay:-26.97,chgWeek:null,total:614.06,ff:382646,shows:null,occupancy:null},
+        {date:'Tue Oct 3',day:'Tue',gross:2.05,chgDay:-70.07,chgWeek:null,total:616.11,ff:1401080,shows:null,occupancy:null},
+        {date:'Wed Oct 4',day:'Wed',gross:1.95,chgDay:-4.88,chgWeek:null,total:618.06,ff:138962,shows:null,occupancy:null},
+
+        // Week 5
+        {date:'Thu Oct 5',day:'Thu',gross:1.86,chgDay:-4.62,chgWeek:null,total:619.92,ff:130139,shows:null,occupancy:null},
+        {date:'Fri Oct 6',day:'Fri',gross:1.14,chgDay:-38.71,chgWeek:null,total:621.06,ff:71314,shows:null,occupancy:null},
+        {date:'Sat Oct 7',day:'Sat',gross:2.35,chgDay:106.14,chgWeek:null,total:623.41,ff:null,shows:null,occupancy:null},
+        {date:'Sun Oct 8',day:'Sun',gross:2.96,chgDay:25.96,chgWeek:null,total:626.37,ff:null,shows:null,occupancy:null},
+        {date:'Mon Oct 9',day:'Mon',gross:0.88,chgDay:-70.27,chgWeek:null,total:627.25,ff:null,shows:null,occupancy:null},
+        {date:'Tue Oct 10',day:'Tue',gross:0.82,chgDay:-6.82,chgWeek:null,total:628.07,ff:null,shows:null,occupancy:null},
+        {date:'Wed Oct 11',day:'Wed',gross:0.79,chgDay:-3.66,chgWeek:null,total:628.86,ff:null,shows:null,occupancy:null},
+
+        // Week 6
+        {date:'Thu Oct 12',day:'Thu',gross:0.77,chgDay:-2.53,chgWeek:null,total:629.63,ff:null,shows:null,occupancy:null},
+        {date:'Fri Oct 13',day:'Fri',gross:4.80,chgDay:523.38,chgWeek:null,total:634.43,ff:null,shows:null,occupancy:null},
+        {date:'Sat Oct 14',day:'Sat',gross:1.54,chgDay:-67.92,chgWeek:null,total:635.97,ff:null,shows:null,occupancy:null},
+        {date:'Sun Oct 15',day:'Sun',gross:2.13,chgDay:38.31,chgWeek:null,total:638.10,ff:null,shows:null,occupancy:null},
+
+        // Later grouped source checkpoints
+        {date:'Days 40–43',day:'Grouped',gross:2.32,chgDay:null,chgWeek:null,total:null,ff:null,shows:null,occupancy:null},
+        {date:'Days 44–50',day:'Grouped',gross:2.15,chgDay:null,chgWeek:null,total:null,ff:null,shows:null,occupancy:null},
+        {date:'Days 51–57',day:'Grouped',gross:1.00,chgDay:null,chgWeek:null,total:null,ff:null,shows:null,occupancy:null},
+        {date:'Days 58–64',day:'Grouped',gross:0.30,chgDay:null,chgWeek:null,total:643.87,ff:null,shows:null,occupancy:null}
+    ],
+
+    wwCum: [
+        {day:1,date:'Sep 7',gross:129.13},
+        {day:2,date:'Sep 8',gross:239.52},
+        {day:3,date:'Sep 9',gross:383.18},
+        {day:4,date:'Sep 10',gross:518.69},
+        {day:5,date:'Sep 11',gross:572.77},
+        {day:6,date:'Sep 12',gross:617.59},
+        {day:7,date:'Sep 13',gross:656.07},
+        {day:8,date:'Sep 14',gross:692.27},
+        {day:9,date:'Sep 15',gross:720.62},
+        {day:10,date:'Sep 16',gross:792.60},
+        {day:11,date:'Sep 17',gross:855.69},
+        {day:12,date:'Sep 18',gross:878.80},
+        {day:13,date:'Sep 19',gross:900.57},
+        {day:14,date:'Sep 20',gross:916.76},
+        {day:15,date:'Sep 21',gross:931.94},
+        {day:16,date:'Sep 22',gross:948.88},
+        {day:17,date:'Sep 23',gross:972.71},
+        {day:18,date:'Sep 24',gross:1001.15},
+        {day:19,date:'Sep 25',gross:1008.55},
+        {day:20,date:'Sep 26',gross:1018.06},
+        {day:21,date:'Sep 27',gross:1026.87},
+        {day:22,date:'Sep 28',gross:1039.81},
+        {day:23,date:'Sep 29',gross:1051.81},
+        {day:24,date:'Sep 30',gross:1068.83},
+        {day:25,date:'Oct 1',gross:1081.88},
+        {day:26,date:'Oct 2',gross:1092.17},
+        {day:27,date:'Oct 3',gross:1096.40},
+        {day:28,date:'Oct 4',gross:1099.66},
+        {day:29,date:'Oct 5',gross:1103.81},
+        {day:30,date:'Oct 6',gross:1107.65}
+    ],
+
     timeline: [
-      {label:'Week 1',           val:391},
-      {label:'Week 2',           val:137},
-      {label:'Week 3',           val:56},
-      {label:'Week 4+',          val:59.9},
+        {period:'Week 1',gross:391.33},
+        {period:'Week 2',gross:137.06},
+        {period:'Week 3',gross:55.93},
+        {period:'Week 4',gross:35.60},
+        {period:'Week 5',gross:9.71},
+        {period:'Week 6',gross:10.79},
+        {period:'Week 7',gross:2.15},
+        {period:'Week 8',gross:1.00},
+        {period:'Week 9',gross:0.30}
     ],
+
     overseas: [
-      {market:'USA/Canada', val:132},
-      {market:'Gulf',       val:75},
-      {market:'UK',         val:58},
-      {market:'Australia',  val:30},
-      {market:'Other',      val:213},
+        {market:'USA/Canada',val:132},
+        {market:'Gulf',val:75},
+        {market:'UK',val:58},
+        {market:'Australia',val:30},
+        {market:'Other',val:213}
     ],
-    comparable: [
-      {n:'Pathaan (2023)',           ww:1050, col:'#4fc3f7'},
-      {n:'Jawan (2023)',             ww:1148, col:'#22c55e', highlight:true},
-      {n:'Bajrangi Bhaijaan (2015)', ww:918,  col:'#f97316'},
-      {n:'Animal (2023)',            ww:917,  col:'#ef4444'},
-      {n:'Stree 2 (2024)',           ww:874,  col:'#a78bfa'},
-      {n:'Chennai Express (2013)',   ww:424,  col:'#f5c518'},
-    ],
-    trivia: [
-      'Jawan is the highest-grossing film ever directed by a Tamil filmmaker in Hindi cinema.',
-      'Shah Rukh Khan plays a dual role — father and son — requiring separate physical looks and mannerisms, both shot simultaneously across a gruelling schedule.',
-      'Anirudh Ravichander\'s background score was recorded with a 120-piece live orchestra in Prague, one of the largest for any Indian film.',
-      'The film\'s opening day of ₹75 Cr nett was the biggest ever for a Hindi film at the time of release.',
-      'Nayanthara made her Hindi film debut with Jawan, becoming the first Tamil actress to lead opposite SRK in a pan-India release.',
-      'Deepika Padukone\'s cameo was kept completely secret until release, generating enormous buzz and adding to the film\'s rewatch value.',
-      'Jawan and Pathaan together grossed over ₹2100 Cr worldwide in the same calendar year — the most ever by a single actor in one year.',
-    ],
-  },
-  'gadar 2': {
+
+    comparables: [
+        {title:'Pathaan',ww:1050},
+        {title:'Jawan',ww:1148.32,highlight:true},
+        {title:'Bajrangi Bhaijaan',ww:918},
+        {title:'Animal',ww:917},
+        {title:'Stree 2',ww:874},
+        {title:'Chennai Express',ww:424}
+    ]
+}
+ 'gadar-2': {
     key: 'gadar-2',
     title: 'Gadar 2: The Katha Continues',
     year: 2023,
@@ -9280,59 +9800,163 @@ overseas: [
     director: 'Anil Sharma',
     studio: 'Zee Studios / Kamal Mukut Pictures',
     cast: [
-      {name:'Sunny Deol',       role:'Tara Singh'},
-      {name:'Ameesha Patel',    role:'Sakeena'},
-      {name:'Utkarsh Sharma',   role:'Jeete'},
-      {name:'Manish Wadhwa',    role:'Major General Hamid Iqbal'},
+        {name: 'Sunny Deol', role: 'Tara Singh'},
+        {name: 'Ameesha Patel', role: 'Sakeena'},
+        {name: 'Utkarsh Sharma', role: 'Jeete'},
+        {name: 'Manish Wadhwa', role: 'Major General Hamid Iqbal'},
     ],
-    synopsis: 'The long-awaited sequel to the 2001 blockbuster Gadar: Ek Prem Katha. Set in 1971 during the Indo-Pakistani War, Tara Singh crosses into Pakistan once more — this time to rescue his son Jeete, who has been captured and imprisoned. What follows is a thunderous, unabashedly patriotic action spectacle that tapped into the same emotional vein as the original and detonated at the box office, becoming one of the most shocking comeback stories in Indian film history. Sunny Deol\'s iconic hand-pump scene from the original became a cultural shorthand for the film\'s spirit.',
+    synopsis: 'Picking up the story of Tara Singh and Sakeena, Gadar 2 follows Tara as he travels to Pakistan to rescue his son Jeete, who has been captured during a military conflict. Anil Sharma brings back the emotional intensity and unapologetic patriotism of the original, with Sunny Deol delivering another larger-than-life performance. Driven by nostalgia, action, and a powerful father-son story, the sequel became one of the biggest Hindi box-office successes of 2023.',
     release: '2023-08-11',
     runtime: 170,
     budget: 100,
-    india: 525,
+    india: 525.45,
+    indiaGross: 625.54,
     ow: 134,
-    ww: 691,
+    ww: 691.08,
+    overseasGross: 65.54,
     ff: 34,
-    multiplier: 3.92,
+    get multiplier() { return Math.round(this.india / this.ow * 100) / 100; },
     lb: 2.3,
     ott: 'Zee5',
     music: 'Mithoon / Uttam Singh',
+
     awards: [
-      'Filmfare – Best Action (Nominated)',
-      'IIFA – Most Entertaining Film',
-      'Screen Awards – Best Actor (Sunny Deol, Nominated)',
+        'Filmfare Best Action nominated',
+        'IIFA Most Entertaining Film',
+        'Screen Awards Best Actor — Sunny Deol nominated',
     ],
+
+    daily: [
+        // Week 1
+        {date:'Fri Aug 11',day:'Fri',gross:40.10,chgDay:null,chgWeek:null,total:40.10,ff:null,shows:null,occupancy:null},
+        {date:'Sat Aug 12',day:'Sat',gross:43.08,chgDay:7.43,chgWeek:null,total:83.18,ff:null,shows:null,occupancy:null},
+        {date:'Sun Aug 13',day:'Sun',gross:51.70,chgDay:20.01,chgWeek:null,total:134.88,ff:null,shows:null,occupancy:null},
+        {date:'Mon Aug 14',day:'Mon',gross:38.70,chgDay:-25.15,chgWeek:null,total:173.58,ff:null,shows:null,occupancy:null},
+        {date:'Tue Aug 15',day:'Tue',gross:55.40,chgDay:43.15,chgWeek:null,total:228.98,ff:null,shows:null,occupancy:null},
+        {date:'Wed Aug 16',day:'Wed',gross:32.37,chgDay:-41.57,chgWeek:null,total:261.35,ff:null,shows:null,occupancy:null},
+        {date:'Thu Aug 17',day:'Thu',gross:23.28,chgDay:-28.08,chgWeek:null,total:284.63,ff:null,shows:null,occupancy:null},
+
+        // Week 2
+        {date:'Fri Aug 18',day:'Fri',gross:20.50,chgDay:-11.94,chgWeek:null,total:305.13,ff:null,shows:null,occupancy:null},
+        {date:'Sat Aug 19',day:'Sat',gross:31.07,chgDay:51.56,chgWeek:null,total:336.20,ff:null,shows:null,occupancy:null},
+        {date:'Sun Aug 20',day:'Sun',gross:38.90,chgDay:25.20,chgWeek:null,total:375.10,ff:null,shows:null,occupancy:null},
+        {date:'Mon Aug 21',day:'Mon',gross:13.50,chgDay:-65.30,chgWeek:null,total:388.60,ff:null,shows:null,occupancy:null},
+        {date:'Tue Aug 22',day:'Tue',gross:12.10,chgDay:-10.37,chgWeek:null,total:400.70,ff:null,shows:null,occupancy:null},
+        {date:'Wed Aug 23',day:'Wed',gross:10.00,chgDay:-17.36,chgWeek:null,total:410.70,ff:null,shows:null,occupancy:null},
+        {date:'Thu Aug 24',day:'Thu',gross:8.40,chgDay:-16.00,chgWeek:null,total:419.10,ff:null,shows:null,occupancy:null},
+
+        // Week 3
+        {date:'Fri Aug 25',day:'Fri',gross:7.10,chgDay:-15.48,chgWeek:null,total:426.20,ff:null,shows:null,occupancy:null},
+        {date:'Sat Aug 26',day:'Sat',gross:13.75,chgDay:93.66,chgWeek:null,total:439.95,ff:null,shows:null,occupancy:null},
+        {date:'Sun Aug 27',day:'Sun',gross:16.10,chgDay:17.09,chgWeek:null,total:456.05,ff:null,shows:null,occupancy:null},
+        {date:'Mon Aug 28',day:'Mon',gross:4.60,chgDay:-71.43,chgWeek:null,total:460.65,ff:null,shows:null,occupancy:null},
+        {date:'Tue Aug 29',day:'Tue',gross:5.10,chgDay:10.87,chgWeek:null,total:465.75,ff:null,shows:null,occupancy:null},
+        {date:'Wed Aug 30',day:'Wed',gross:8.60,chgDay:68.63,chgWeek:null,total:474.35,ff:null,shows:null,occupancy:null},
+        {date:'Thu Aug 31',day:'Thu',gross:8.10,chgDay:-5.81,chgWeek:null,total:482.45,ff:null,shows:null,occupancy:null},
+
+        // Week 4
+        {date:'Fri Sep 1',day:'Fri',gross:5.20,chgDay:-35.80,chgWeek:null,total:487.65,ff:null,shows:null,occupancy:null},
+        {date:'Sat Sep 2',day:'Sat',gross:5.72,chgDay:10.00,chgWeek:null,total:493.37,ff:null,shows:null,occupancy:null},
+        {date:'Sun Sep 3',day:'Sun',gross:7.80,chgDay:36.36,chgWeek:null,total:501.17,ff:null,shows:null,occupancy:null},
+        {date:'Mon Sep 4',day:'Mon',gross:2.30,chgDay:-70.51,chgWeek:null,total:503.47,ff:null,shows:null,occupancy:null},
+        {date:'Tue Sep 5',day:'Tue',gross:2.29,chgDay:-0.43,chgWeek:null,total:505.76,ff:null,shows:null,occupancy:null},
+        {date:'Wed Sep 6',day:'Wed',gross:2.72,chgDay:18.78,chgWeek:null,total:508.48,ff:null,shows:null,occupancy:null},
+        {date:'Thu Sep 7',day:'Thu',gross:1.52,chgDay:-44.12,chgWeek:null,total:510.00,ff:null,shows:null,occupancy:null},
+
+        // Week 5
+        {date:'Fri Sep 8',day:'Fri',gross:1.05,chgDay:-30.92,chgWeek:null,total:511.05,ff:null,shows:null,occupancy:null},
+        {date:'Sat Sep 9',day:'Sat',gross:1.85,chgDay:76.19,chgWeek:null,total:512.90,ff:null,shows:null,occupancy:null},
+        {date:'Sun Sep 10',day:'Sun',gross:2.13,chgDay:15.14,chgWeek:null,total:515.03,ff:null,shows:null,occupancy:null},
+        {date:'Mon Sep 11',day:'Mon',gross:0.60,chgDay:-71.83,chgWeek:null,total:515.63,ff:null,shows:null,occupancy:null},
+        {date:'Tue Sep 12',day:'Tue',gross:0.60,chgDay:0,chgWeek:null,total:516.23,ff:null,shows:null,occupancy:null},
+        {date:'Wed Sep 13',day:'Wed',gross:0.55,chgDay:-8.33,chgWeek:null,total:516.78,ff:null,shows:null,occupancy:null},
+        {date:'Thu Sep 14',day:'Thu',gross:0.50,chgDay:-9.09,chgWeek:null,total:517.28,ff:null,shows:null,occupancy:null},
+
+        // Week 6
+        {date:'Fri Sep 15',day:'Fri',gross:0.55,chgDay:10.00,chgWeek:null,total:517.83,ff:null,shows:null,occupancy:null},
+        {date:'Sat Sep 16',day:'Sat',gross:0.95,chgDay:72.73,chgWeek:null,total:518.78,ff:null,shows:null,occupancy:null},
+        {date:'Sun Sep 17',day:'Sun',gross:1.22,chgDay:28.42,chgWeek:null,total:520.00,ff:null,shows:null,occupancy:null},
+        {date:'Mon Sep 18',day:'Mon',gross:0.50,chgDay:-59.02,chgWeek:null,total:520.50,ff:null,shows:null,occupancy:null},
+        {date:'Tue Sep 19',day:'Tue',gross:0.60,chgDay:20.00,chgWeek:null,total:521.10,ff:null,shows:null,occupancy:null},
+        {date:'Wed Sep 20',day:'Wed',gross:0.45,chgDay:-25.00,chgWeek:null,total:521.55,ff:null,shows:null,occupancy:null},
+        {date:'Thu Sep 21',day:'Thu',gross:0.45,chgDay:0,chgWeek:null,total:522.00,ff:null,shows:null,occupancy:null},
+
+        // Week 7
+        {date:'Fri Sep 22',day:'Fri',gross:0.40,chgDay:-11.11,chgWeek:null,total:522.40,ff:null,shows:null,occupancy:null},
+        {date:'Sat Sep 23',day:'Sat',gross:0.55,chgDay:37.50,chgWeek:null,total:522.95,ff:null,shows:null,occupancy:null},
+        {date:'Sun Sep 24',day:'Sun',gross:0.70,chgDay:27.27,chgWeek:null,total:523.65,ff:null,shows:null,occupancy:null},
+        {date:'Mon Sep 25',day:'Mon',gross:0.35,chgDay:-50.00,chgWeek:null,total:524.00,ff:null,shows:null,occupancy:null},
+        {date:'Tue Sep 26',day:'Tue',gross:0.35,chgDay:0,chgWeek:null,total:524.35,ff:null,shows:null,occupancy:null},
+        {date:'Wed Sep 27',day:'Wed',gross:0.40,chgDay:14.29,chgWeek:null,total:524.75,ff:null,shows:null,occupancy:null},
+        {date:'Thu Sep 28',day:'Thu',gross:0.25,chgDay:-37.50,chgWeek:null,total:525.00,ff:null,shows:null,occupancy:null},
+
+        // Week 8
+        {date:'Days 50–56',day:'Grouped',gross:0.45,chgDay:null,chgWeek:null,total:525.45,ff:null,shows:null,occupancy:null},
+    ],
+
+    wwCum: [
+        {day:1,date:'Aug 11',gross:53.32},
+        {day:2,date:'Aug 12',gross:108.58},
+        {day:3,date:'Aug 13',gross:179.59},
+        {day:4,date:'Aug 14',gross:230.64},
+        {day:5,date:'Aug 15',gross:299.01},
+        {day:6,date:'Aug 16',gross:339.21},
+        {day:7,date:'Aug 17',gross:369.78},
+        {day:8,date:'Aug 18',gross:396.08},
+        {day:9,date:'Aug 19',gross:435.05},
+        {day:10,date:'Aug 20',gross:489.34},
+        {day:11,date:'Aug 21',gross:508.14},
+        {day:12,date:'Aug 22',gross:524.29},
+        {day:13,date:'Aug 23',gross:536.49},
+        {day:14,date:'Aug 24',gross:546.82},
+        {day:15,date:'Aug 25',gross:556.27},
+        {day:16,date:'Aug 26',gross:573.63},
+        {day:17,date:'Aug 27',gross:594.63},
+        {day:18,date:'Aug 28',gross:606.01},
+        {day:19,date:'Aug 29',gross:612.48},
+        {day:20,date:'Aug 30',gross:623.04},
+        {day:21,date:'Aug 31',gross:633.02},
+        {day:22,date:'Sep 1',gross:640.10},
+        {day:23,date:'Sep 2',gross:647.35},
+        {day:24,date:'Sep 3',gross:657.06},
+        {day:25,date:'Sep 4',gross:659.98},
+        {day:26,date:'Sep 5',gross:663.08},
+        {day:27,date:'Sep 6',gross:666.27},
+        {day:28,date:'Sep 7',gross:667.84},
+        {day:29,date:'Sep 8',gross:669.09},
+        {day:30,date:'Sep 9',gross:671.80},
+    ],
+
     timeline: [
-      {label:'Week 1',           val:284},
-      {label:'Week 2',           val:135},
-      {label:'Week 3',           val:63},
-      {label:'Week 4+',          val:43},
+        {label:'Week 1',val:284.63},
+        {label:'Week 2',val:134.47},
+        {label:'Week 3',val:63.35},
+        {label:'Week 4',val:27.55},
+        {label:'Week 5',val:7.28},
+        {label:'Week 6',val:4.72},
+        {label:'Week 7',val:3.00},
+        {label:'Week 8',val:0.45},
     ],
+
     overseas: [
-      {market:'USA/Canada', val:52},
-      {market:'Gulf',       val:38},
-      {market:'UK',         val:32},
-      {market:'Australia',  val:15},
-      {market:'Other',      val:29},
+        {market:'USA/Canada',val:52},
+        {market:'Gulf',val:38},
+        {market:'UK',val:32},
+        {market:'Australia',val:15},
+        {market:'Other',val:29},
     ],
+
     comparable: [
-      {n:'Jawan (2023)',             ww:1148, col:'#22c55e'},
-      {n:'Pathaan (2023)',           ww:1050, col:'#4fc3f7'},
-      {n:'Animal (2023)',            ww:917,  col:'#ef4444'},
-      {n:'Gadar 2 (2023)',           ww:691,  col:'#f5c518', highlight:true},
-      {n:'Gadar (2001)',             ww:null, col:'#f97316'},
-      {n:'Border 2 (2026)',          ww:464,  col:'#a78bfa'},
+        {n:'Jawan',ww:1148},
+        {n:'Pathaan',ww:1050},
+        {n:'Animal',ww:917},
+        {n:'Gadar 2',ww:691.08,highlight:true},
+        {n:'Gadar',ww:null},
+        {n:'Border 2',ww:464},
     ],
-    trivia: [
-      'Gadar 2 released on Independence Day 2023 alongside Dream Girl 2, and utterly demolished the competition — one of the most one-sided box office clashes in recent memory.',
-      'Sunny Deol was 66 years old at the time of release, making Gadar 2 one of the biggest blockbusters ever headlined by an actor of that age.',
-      'The film\'s ₹7.39× multiplier is among the highest ever for a big-budget Hindi film, reflecting extraordinary word-of-mouth in small towns and single-screen cinemas.',
-      'Gadar 2 revived the single-screen cinema experience — several single-screen theatres across UP, Bihar, and Punjab reported houseful shows for over three weeks.',
-      'The original Gadar (2001) still holds the all-time footfall record for its era at 50.57M; the sequel added another 34M, making the franchise among the most-watched in Indian cinema history.',
-      'Sunny Deol\'s son Karan Deol appeared in a brief cameo, continuing a multi-generational Deol family tradition on screen.',
-    ],
-  },
-  'animal': {
+},
+
+'animal': {
     key: 'animal',
     title: 'Animal',
     year: 2023,
@@ -9340,61 +9964,152 @@ overseas: [
     director: 'Sandeep Reddy Vanga',
     studio: 'Bhadrakali Pictures / T-Series / Cine1 Studios',
     cast: [
-      {name:'Ranbir Kapoor',      role:'Ranvijay Singh'},
-      {name:'Rashmika Mandanna',  role:'Geetanjali'},
-      {name:'Anil Kapoor',        role:'Balbir Singh'},
-      {name:'Bobby Deol',         role:'Abrar Haque'},
-      {name:'Tripti Dimri',       role:'Zoya'},
+        {name: 'Ranbir Kapoor', role: 'Ranvijay Singh'},
+        {name: 'Rashmika Mandanna', role: 'Geetanjali'},
+        {name: 'Anil Kapoor', role: 'Balbir Singh'},
+        {name: 'Bobby Deol', role: 'Abrar Haque'},
+        {name: 'Tripti Dimri', role: 'Zoya'},
     ],
-    synopsis: 'A visceral, operatic tale of a son\'s obsessive love for his father and the darkness it unleashes. Ranvijay Singh, the volatile heir to a powerful business empire, will stop at nothing to protect his father Balbir — even if it means becoming a monster. Sandeep Reddy Vanga\'s follow-up to Kabir Singh is bigger, bloodier, and more uncompromising: a three-and-a-half hour provocation that divided critics and audiences alike while shattering box office records. Ranbir Kapoor\'s ferocious performance is widely regarded as the best of his career.',
+    synopsis: 'A visceral, operatic tale of a son’s obsessive love for his father and the darkness it unleashes. Ranvijay Singh, the volatile heir to a powerful business empire, will stop at nothing to protect his father Balbir — even if it means becoming a monster. Sandeep Reddy Vanga’s follow-up to Kabir Singh is bigger, bloodier, and more uncompromising: a three-and-a-half hour provocation that divided critics and audiences alike while shattering box office records. Ranbir Kapoor’s ferocious performance is widely regarded as the best of his career.',
     release: '2023-12-01',
     runtime: 204,
     budget: 200,
-    india: 556,
+    india: 556.36,
+    indiaGross: 662.33,
     ow: 201.76,
-    ww: 917,
+    ww: 917.82,
+    overseasGross: 255.49,
     ff: 33.2,
-    multiplier: 2.76,
+    get multiplier() { return Math.round(this.india / this.ow * 100) / 100; },
     lb: 2.4,
     ott: 'Netflix',
     music: 'Harshavardhan Rameshwar',
+
     awards: [
-      'Filmfare – Best Actor (Ranbir Kapoor)',
-      'Filmfare – Best Villain (Bobby Deol)',
-      'IIFA – Best Actor (Ranbir Kapoor)',
-      'Screen Awards – Best Film',
+        'Filmfare Best Actor — Ranbir Kapoor',
+        'Filmfare Best Villain — Bobby Deol',
+        'IIFA Best Actor — Ranbir Kapoor',
+        'Screen Awards Best Film',
     ],
+
+    daily: [
+        // Week 1
+        {date:'Fri Dec 1',day:'Fri',gross:63.80,chgDay:null,chgWeek:null,total:63.80,ff:3970061,shows:null,occupancy:null},
+        {date:'Sat Dec 2',day:'Sat',gross:67.27,chgDay:5.44,chgWeek:null,total:131.07,ff:4050671,shows:null,occupancy:null},
+        {date:'Sun Dec 3',day:'Sun',gross:70.69,chgDay:5.08,chgWeek:null,total:201.76,ff:4292847,shows:null,occupancy:null},
+        {date:'Mon Dec 4',day:'Mon',gross:44.47,chgDay:-37.09,chgWeek:null,total:246.23,ff:2940694,shows:null,occupancy:null},
+        {date:'Tue Dec 5',day:'Tue',gross:37.82,chgDay:-14.95,chgWeek:null,total:284.05,ff:2434454,shows:null,occupancy:null},
+        {date:'Wed Dec 6',day:'Wed',gross:30.45,chgDay:-19.49,chgWeek:null,total:314.50,ff:1943006,shows:null,occupancy:null},
+        {date:'Thu Dec 7',day:'Thu',gross:24.13,chgDay:-20.76,chgWeek:null,total:338.63,ff:1377364,shows:null,occupancy:null},
+
+        // Week 2
+        {date:'Fri Dec 8',day:'Fri',gross:23.53,chgDay:-2.49,chgWeek:null,total:362.16,ff:1177419,shows:null,occupancy:null},
+        {date:'Sat Dec 9',day:'Sat',gross:35.33,chgDay:50.15,chgWeek:null,total:397.49,ff:1893044,shows:null,occupancy:null},
+        {date:'Sun Dec 10',day:'Sun',gross:36.53,chgDay:3.40,chgWeek:null,total:434.02,ff:1968079,shows:null,occupancy:null},
+        {date:'Mon Dec 11',day:'Mon',gross:14.32,chgDay:-60.80,chgWeek:null,total:448.34,ff:827797,shows:null,occupancy:null},
+        {date:'Tue Dec 12',day:'Tue',gross:12.37,chgDay:-13.62,chgWeek:null,total:460.71,ff:753651,shows:null,occupancy:null},
+        {date:'Wed Dec 13',day:'Wed',gross:9.87,chgDay:-20.21,chgWeek:null,total:470.58,ff:600498,shows:null,occupancy:null},
+        {date:'Thu Dec 14',day:'Thu',gross:8.56,chgDay:-13.27,chgWeek:null,total:479.14,ff:507398,shows:null,occupancy:null},
+
+        // Week 3
+        {date:'Fri Dec 15',day:'Fri',gross:8.85,chgDay:3.39,chgWeek:null,total:487.99,ff:453074,shows:null,occupancy:null},
+        {date:'Sat Dec 16',day:'Sat',gross:12.80,chgDay:44.63,chgWeek:null,total:500.79,ff:697475,shows:null,occupancy:null},
+        {date:'Sun Dec 17',day:'Sun',gross:13.30,chgDay:3.91,chgWeek:null,total:514.09,ff:800021,shows:null,occupancy:null},
+        {date:'Mon Dec 18',day:'Mon',gross:5.55,chgDay:-58.27,chgWeek:null,total:519.64,ff:369340,shows:null,occupancy:null},
+        {date:'Tue Dec 19',day:'Tue',gross:5.40,chgDay:-2.70,chgWeek:null,total:525.04,ff:356096,shows:null,occupancy:null},
+        {date:'Wed Dec 20',day:'Wed',gross:5.00,chgDay:-7.41,chgWeek:null,total:530.04,ff:338019,shows:null,occupancy:null},
+        {date:'Thu Dec 21',day:'Thu',gross:2.73,chgDay:-45.40,chgWeek:null,total:532.77,ff:165068,shows:null,occupancy:null},
+
+        // Week 4
+        {date:'Fri Dec 22',day:'Fri',gross:1.11,chgDay:-59.34,chgWeek:null,total:533.88,ff:57043,shows:null,occupancy:null},
+        {date:'Sat Dec 23',day:'Sat',gross:1.76,chgDay:58.56,chgWeek:null,total:535.64,ff:85250,shows:null,occupancy:null},
+        {date:'Sun Dec 24',day:'Sun',gross:2.11,chgDay:19.89,chgWeek:null,total:537.75,ff:112228,shows:null,occupancy:null},
+        {date:'Mon Dec 25',day:'Mon',gross:1.92,chgDay:-9.00,chgWeek:null,total:539.67,ff:89184,shows:null,occupancy:null},
+        {date:'Tue Dec 26',day:'Tue',gross:1.14,chgDay:-40.63,chgWeek:null,total:540.81,ff:61339,shows:null,occupancy:null},
+        {date:'Wed Dec 27',day:'Wed',gross:1.07,chgDay:-6.14,chgWeek:null,total:541.88,ff:54563,shows:null,occupancy:null},
+        {date:'Thu Dec 28',day:'Thu',gross:1.05,chgDay:-1.87,chgWeek:null,total:542.93,ff:48026,shows:null,occupancy:null},
+
+        // Week 5
+        {date:'Days 29–31',day:'Grouped',gross:4.25,chgDay:null,chgWeek:null,total:547.18,ff:null,shows:null,occupancy:null},
+
+        // Week 6
+        {date:'Days 32–35',day:'Grouped',gross:3.25,chgDay:null,chgWeek:null,total:550.43,ff:null,shows:null,occupancy:null},
+
+        // Week 7
+        {date:'Days 36–42',day:'Grouped',gross:4.00,chgDay:null,chgWeek:null,total:554.43,ff:null,shows:null,occupancy:null},
+
+        // Week 8
+        {date:'Days 43–49',day:'Grouped',gross:1.50,chgDay:null,chgWeek:null,total:555.93,ff:null,shows:null,occupancy:null},
+
+        // Week 9
+        {date:'Days 50–56',day:'Grouped',gross:0.38,chgDay:null,chgWeek:null,total:556.31,ff:null,shows:null,occupancy:null},
+
+        // Week 10
+        {date:'Days 57–63',day:'Grouped',gross:0.05,chgDay:null,chgWeek:null,total:556.36,ff:null,shows:null,occupancy:null},
+    ],
+
+    wwCum: [
+        {day:1,date:'Dec 1',gross:116.00},
+        {day:2,date:'Dec 2',gross:236.01},
+        {day:3,date:'Dec 3',gross:356.05},
+        {day:4,date:'Dec 4',gross:425.09},
+        {day:5,date:'Dec 5',gross:481.13},
+        {day:6,date:'Dec 6',gross:527.78},
+        {day:7,date:'Dec 7',gross:563.53},
+        {day:8,date:'Dec 8',gross:600.20},
+        {day:9,date:'Dec 9',gross:660.47},
+        {day:10,date:'Dec 10',gross:717.30},
+        {day:11,date:'Dec 11',gross:737.52},
+        {day:12,date:'Dec 12',gross:755.35},
+        {day:13,date:'Dec 13',gross:771.53},
+        {day:14,date:'Dec 14',gross:783.34},
+        {day:15,date:'Dec 15',gross:795.22},
+        {day:16,date:'Dec 16',gross:814.34},
+        {day:17,date:'Dec 17',gross:834.20},
+        {day:18,date:'Dec 18',gross:842.55},
+        {day:19,date:'Dec 19',gross:850.33},
+        {day:20,date:'Dec 20',gross:857.98},
+        {day:21,date:'Dec 21',gross:860.95},
+        {day:22,date:'Dec 22',gross:862.70},
+        {day:23,date:'Dec 23',gross:865.43},
+        {day:24,date:'Dec 24',gross:869.04},
+        {day:25,date:'Dec 25',gross:873.25},
+        {day:26,date:'Dec 26',gross:880.51},
+        {day:27,date:'Dec 27',gross:881.63},
+        {day:28,date:'Dec 28',gross:884.00},
+        {day:29,date:'Dec 29',gross:885.19},
+        {day:30,date:'Dec 30',gross:887.22},
+    ],
+
     timeline: [
-      {label:'Week 1',           val:338},
-      {label:'Week 2',           val:141},
-      {label:'Week 3',           val:63},
-      {label:'Week 4+',          val:14},
+        {label:'Week 1',val:338.63},
+        {label:'Week 2',val:140.51},
+        {label:'Week 3',val:53.63},
+        {label:'Week 4',val:10.16},
+        {label:'Week 5',val:7.50},
+        {label:'Week 6',val:4.00},
+        {label:'Week 7',val:1.50},
+        {label:'Week 8',val:0.38},
+        {label:'Week 9',val:0.05},
     ],
+
     overseas: [
-      {market:'USA/Canada', val:112},
-      {market:'Gulf',       val:68},
-      {market:'UK',         val:52},
-      {market:'Australia',  val:28},
-      {market:'Other',      val:103},
+        {market:'USA/Canada',val:112},
+        {market:'Gulf',val:68},
+        {market:'UK',val:52},
+        {market:'Australia',val:28},
+        {market:'Other',val:103},
     ],
+
     comparable: [
-      {n:'Bajrangi Bhaijaan (2015)', ww:918,  col:'#22c55e'},
-      {n:'Animal (2023)',            ww:917,  col:'#ef4444', highlight:true},
-      {n:'Stree 2 (2024)',           ww:874,  col:'#a78bfa'},
-      {n:'PK (2014)',                ww:769,  col:'#f97316'},
-      {n:'Gadar 2 (2023)',           ww:691,  col:'#4fc3f7'},
-      {n:'Kabir Singh (2019)',       ww:379,  col:'#f59e0b'},
+        {n:'Bajrangi Bhaijaan',ww:918},
+        {n:'Animal',ww:917.82,highlight:true},
+        {n:'Stree 2',ww:874},
+        {n:'PK',ww:769},
+        {n:'Gadar 2',ww:691},
+        {n:'Kabir Singh',ww:379},
     ],
-    trivia: [
-      'Animal\'s runtime of 204 minutes made it the longest Hindi blockbuster in recent memory — and it still delivered one of the biggest opening weekends of 2023.',
-      'Bobby Deol\'s wordless villain entry set to "Jamal Kudu" became one of the most talked-about sequences in Indian cinema that year, reviving his career spectacularly.',
-      'Ranbir Kapoor reportedly lost and gained weight multiple times during the shoot to portray Ranvijay across different phases of his life.',
-      'The film was deeply divisive — celebrated for its raw intensity and Ranbir\'s performance, and criticised for its portrayal of toxic masculinity and misogyny.',
-      'Animal earned more overseas (₹363 Cr) than its entire India nett in its first two weeks, signalling a dramatic shift in Hindi cinema\'s global footprint.',
-      'Sandeep Reddy Vanga announced a spin-off, Animal Park, focused on Bobby Deol\'s character Abrar, before Animal had even completed its theatrical run.',
-      'The film\'s climax gunfight sequence — choreographed over 22 days — involved over 1,200 rounds of blank ammunition and 400 extras.',
-    ],
-  },
+},
   'stree 2': {
     key: 'stree-2',
     title: 'Stree 2: Sarkate Ka Aatank',
