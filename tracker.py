@@ -67,7 +67,7 @@ class DayParser(html.parser.HTMLParser):
                     r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b",
                     self.row[0],
                 )
-                 amount = re.fullmatch(
+                amount = re.fullmatch(
                  r"₹\s*([\d,]+(?:\.\d+)?)\s*(Cr|L)(?:\s*\*)?",
                  self.row[1],
                  flags=re.IGNORECASE,
