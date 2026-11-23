@@ -19478,6 +19478,36 @@ function findTrajPeriodMatches(resetSelection) {
     results.appendChild(button);
   });
 }
+  function getWorldwideCumulativePoints(film) {
+  if (!film || !Array.isArray(film.wwCum)) return [];
+
+  return film.wwCum.map(function (row, index) {
+    if (typeof row === 'number') {
+      return { d: index + 1, v: row };
+    }
+
+    if (!row || typeof row !== 'object') return null;
+
+    var day = row.d != null ? row.d : row.day;
+
+    // In wwCum, gross is the cumulative worldwide total.
+    var total = row.v != null
+      ? row.v
+      : (row.total != null ? row.total : row.gross);
+
+    if (day == null || total == null) return null;
+
+    return { d: Number(day), v: Number(total) };
+  }).filter(function (point) {
+    return point &&
+      Number.isInteger(point.d) &&
+      point.d > 0 &&
+      Number.isFinite(point.v) &&
+      point.v >= 0;
+  }).sort(function (a, b) {
+    return a.d - b.d;
+  });
+}
 
 function trajSeries(film, metric) {
   var dailyRows = film.daily || [];
@@ -19541,23 +19571,8 @@ function trajSeries(film, metric) {
     return worldwidePoints;
   }
 
-  // Keep supporting films that still use the older wwCum format.
-  if (!film.wwCum || !film.wwCum.length) return null;
+  return getWorldwideCumulativePoints(film);
 
- return film.wwCum
-  .filter(function (row) {
-    return row && row.d != null && row.v != null;
-  })
-  .map(function (row) {
-    return { d: Number(row.d), v: Number(row.v) };
-  })
-  .filter(function (point) {
-    return point.d > 0 && isFinite(point.d) && isFinite(point.v);
-  })
-  .sort(function (a, b) {
-    return a.d - b.d;
-  });
-}
 
 function trajValueAt(points, day) {
   if (!points.length || day < points[0].d || day > points[points.length - 1].d) {
@@ -19603,6 +19618,34 @@ function setTrajMetric(metric, btn) {
 }
   function trajDailySeries(film, metric) {
   var rows = film.daily || [];
+      var hasDailyWorldwide = rows.some(function (row) {
+    return row && !row.bucket &&
+      (row.wwGross != null || row.wwTotal != null);
+  });
+
+  if (metric === 'ww' && !hasDailyWorldwide) {
+    var points = getWorldwideCumulativePoints(film);
+    var totals = {};
+    var daily = [];
+
+    points.forEach(function (point) {
+      totals[point.d] = point.v;
+    });
+
+    points.forEach(function (point) {
+      if (point.d === 1 || totals[point.d - 1] != null) {
+        daily[point.d] = {
+          amount: point.d === 1
+            ? point.v
+            : point.v - totals[point.d - 1],
+          weekday: '',
+          date: ''
+        };
+      }
+    });
+
+    return daily;
+  }
   var data = [];
   var dayNumber = 0;
   var previewCarry = 0;
