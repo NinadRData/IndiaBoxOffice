@@ -17335,6 +17335,7 @@ function predictorEligibleFilm(film, targetDate) {
   }
   return /^\d{4}-\d{2}-\d{2}$/.test(release || '') &&
     Number(release.slice(0, 4)) === year && release < cutoff;
+}
   function autoForecastFromFilmData(target) {
   var year = Number(String(target.date || '').slice(0, 4));
   if (!year) return null;
