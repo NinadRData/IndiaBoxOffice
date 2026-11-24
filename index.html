@@ -23335,484 +23335,212 @@ Object.keys(YR_DATA)
   });
 })();
 </script>
-  <style>
-/* Indian cinema scoreboard homepage */
-#page-main .cinema-scoreboard {
-  position:relative;
-  overflow:hidden;
-  padding:clamp(95px,12vw,145px) clamp(22px,5vw,72px) 42px;
+<style>
+/* Top Grossers visual refresh */
+#page-topgrossers {
+  --rank-accent:#e7c46f;
+  --rank-panel:#17232b;
+  --rank-text:#f3f5f4;
+  --rank-muted:#b7c5cb;
+  background:#0d171d;
+}
+
+#page-topgrossers > .page-hero {
+  min-height:210px !important;
   background:
-    radial-gradient(circle at 90% 15%,#213a4b 0,transparent 42%),
-    linear-gradient(140deg,#0c1a22,#0a1119 72%);
-  color:#f4f7f7;
-  border-bottom:1px solid #394651;
+    radial-gradient(
+      ellipse at 82% 20%,
+      rgba(112,154,169,.16),
+      transparent 43%
+    ),
+    linear-gradient(120deg,#111f27,#0d171d 80%) !important;
+  border-bottom:1px solid rgba(231,196,111,.2);
 }
 
-
-
-.cinema-scoreboard::before {
-  content:'';
-  position:absolute;
-  inset:0;
-  background:repeating-linear-gradient(
-    90deg,
-    transparent 0,
-    transparent 79px,
-    rgba(255,255,255,.025) 80px
-  );
-  pointer-events:none;
+#page-topgrossers .page-hero-inner > div:first-child {
+  color:var(--rank-accent) !important;
 }
 
-.cinema-score-inner {
-  position:relative;
-  max-width:1320px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(300px,.9fr);
-  gap:clamp(28px,6vw,88px);
-  align-items:center;
+#page-topgrossers .page-hero-inner > div:nth-child(2) {
+  font-family:'Barlow',sans-serif !important;
+  font-weight:800 !important;
+  letter-spacing:-.035em;
+  line-height:1.05;
 }
 
-.cinema-score-kicker {
-  display:flex;
-  align-items:center;
-  gap:.65rem;
-  font-size:.68rem;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:#e9c56b;
-  font-weight:800;
+#page-topgrossers .page-hero-inner > div:nth-child(2) span {
+  color:var(--rank-accent) !important;
 }
 
-.cinema-score-kicker::before {
-  content:'';
-  width:28px;
-  height:2px;
-  background:#e9c56b;
+#page-topgrossers .page-hero-inner > div:last-child {
+  color:var(--rank-muted) !important;
 }
 
-.cinema-scoreboard h1 {
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:clamp(3.5rem,7vw,6.3rem);
-  font-weight:900;
-  letter-spacing:-.02em;
-  line-height:.88;
-  margin:1.2rem 0;
+#page-topgrossers #tg-search {
+  border-radius:10px !important;
+  background:var(--rank-panel) !important;
+  border-color:#42535d !important;
 }
 
-.cinema-scoreboard h1 span {
-  color:#e9c56b;
+#page-topgrossers #tg-stats {
+  gap:.75rem;
 }
 
-.cinema-score-description {
-  color:#c7d1d5;
-  max-width:450px;
-  line-height:1.55;
-  font-size:1rem;
+#page-topgrossers .stat-card {
+  background:var(--rank-panel) !important;
+  border:1px solid #35444b !important;
+  border-radius:12px !important;
+  min-height:100px;
 }
 
-.cinema-score-actions {
-  display:flex;
-  gap:.65rem;
-  flex-wrap:wrap;
-  margin-top:1.7rem;
+#page-topgrossers .stat-val {
+  color:var(--rank-accent) !important;
 }
 
-.cinema-score-actions button {
-  font:700 .8rem 'Barlow',sans-serif;
-  border-radius:6px;
-  padding:.8rem 1rem;
-  cursor:pointer;
+#page-topgrossers .stat-lbl,
+#page-topgrossers .stat-sub {
+  color:var(--rank-muted) !important;
 }
 
-.cinema-score-primary {
-  background:#e9c56b;
-  color:#141a1c;
-  border:1px solid #e9c56b;
+#page-topgrossers #tg-list-tabs {
+  display:flex !important;
+  gap:.35rem !important;
+  width:fit-content;
+  max-width:100%;
+  padding:.35rem !important;
+  margin-top:1.5rem;
+  border:1px solid #35444b !important;
+  border-radius:11px;
+  background:#17232b;
 }
 
-.cinema-score-secondary {
-  background:transparent;
-  color:#f2f4f3;
-  border:1px solid #71818a;
+#page-topgrossers #tg-list-tabs .rec-tab,
+#page-topgrossers #tg-sublist-os .rec-tab {
+  border:0 !important;
+  border-radius:8px !important;
+  background:transparent !important;
+  color:#c5d0d3 !important;
+  font-size:.75rem !important;
+  letter-spacing:0 !important;
+  text-transform:none !important;
+  padding:.7rem 1rem !important;
 }
 
-.cinema-score-panel {
-  border:1px solid #40515a;
-  border-radius:12px;
-  background:rgba(8,15,19,.72);
-  box-shadow:0 20px 45px rgba(0,0,0,.22);
-  overflow:hidden;
+#page-topgrossers #tg-list-tabs .rec-tab.on,
+#page-topgrossers #tg-sublist-os .rec-tab.on {
+  background:var(--rank-accent) !important;
+  color:#151c1f !important;
 }
 
-.cinema-score-panel-head {
-  padding:1.05rem 1.2rem;
-  border-bottom:1px solid #33414a;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:1rem;
+#page-topgrossers #tg-lang-filters .lf,
+#page-topgrossers #tg-era-filters .lf {
+  border-radius:999px !important;
+  color:#d4dddf !important;
+  border-color:#53636a !important;
+  padding:.45rem .7rem !important;
 }
 
-.cinema-score-panel-head strong {
-  font-size:.77rem;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:#f3f4f0;
+#page-topgrossers [id^="tg-sublist-"] > div[style*="position:sticky"] {
+  background:#17232b !important;
+  border-bottom:1px solid #46555b !important;
 }
 
-.cinema-score-date {
-  font-size:.72rem;
-  color:#b8c6cd;
-  text-align:right;
+#page-topgrossers [id^="tg-sublist-"] > div[style*="position:sticky"] > div {
+  color:#c5d0d3 !important;
 }
 
-.cinema-score-line {
-  display:grid;
-  grid-template-columns:42px minmax(0,1fr) auto;
-  gap:.7rem;
-  align-items:center;
-  padding:1rem 1.2rem;
-  border-bottom:1px solid #27353c;
+#page-topgrossers #tg-list > div,
+#page-topgrossers #tg-india-list > div,
+#page-topgrossers #tg-ow-list > div,
+#page-topgrossers #tg-os-list > div {
+  min-height:76px;
+  padding:.8rem 12px !important;
+  border-bottom:1px solid #2a383e !important;
 }
 
-.cinema-score-rank {
-  font:800 1.5rem 'Barlow Condensed',sans-serif;
-  color:#e9c56b;
+#page-topgrossers #tg-list > div:hover,
+#page-topgrossers #tg-india-list > div:hover,
+#page-topgrossers #tg-ow-list > div:hover,
+#page-topgrossers #tg-os-list > div:hover {
+  background:#17232b !important;
 }
 
-.cinema-score-name {
-  font-weight:700;
-  font-size:.95rem;
-  overflow-wrap:anywhere;
-  color:#f4f7f7;
+#page-topgrossers #tg-os-list > div > div:nth-child(3),
+#page-topgrossers #tg-os-list > div > div:nth-child(4),
+#page-topgrossers #tg-os-list > div > div:nth-child(5) {
+  color:#c3cdd0 !important;
 }
 
-.cinema-score-number {
-  font-weight:700;
-  color:#e9c56b;
-  white-space:nowrap;
-}
-
-.cinema-score-foot {
-  padding:.85rem 1.2rem;
-  color:#b8c6cd;
-  font-size:.7rem;
+#page-topgrossers #tg-china-note {
+  color:#c3cdd0 !important;
   line-height:1.5;
 }
 
-body.light #page-main .cinema-scoreboard {
-  color:#f4f7f7;
-}
-
-@media (max-width:760px) {
-  nav {
-    flex-wrap:wrap;
-    gap:.6rem;
-    padding:.7rem 1rem;
+@media (max-width:700px) {
+  #page-topgrossers #tg-list-tabs {
+    width:100%;
+    overflow-x:auto;
+    flex-wrap:nowrap !important;
   }
 
-  nav .nav-logo {
+  #page-topgrossers #tg-list-tabs .rec-tab {
     white-space:nowrap;
   }
 
-  nav .nav-links {
-    order:3;
-    width:100%;
+  #page-topgrossers #tg-sublist-os {
     overflow-x:auto;
-    gap:1rem;
-    padding:.4rem 0;
   }
 
-  nav .nav-links li {
-    flex:none;
-  }
-
-  #page-main .cinema-scoreboard {
-    padding:115px 22px 32px;
-  }
-
-  .cinema-score-inner {
-    grid-template-columns:1fr;
-    gap:30px;
-  }
-
-  .cinema-scoreboard h1 {
-    font-size:clamp(3.5rem,15vw,5rem);
+  #page-topgrossers #tg-sublist-os > div[style*="position:sticky"],
+  #page-topgrossers #tg-os-list > div {
+    min-width:680px;
   }
 }
+
+/* Light mode */
+body.light #page-topgrossers {
+  --rank-panel:#e7ecee;
+  --rank-text:#17252b;
+  --rank-muted:#4e6068;
+  background:#f5f7f6;
+}
+
+body.light #page-topgrossers #tg-list-tabs {
+  background:#e7ecee;
+  border-color:#c4cfd2 !important;
+}
+
+body.light #page-topgrossers #tg-list-tabs .rec-tab,
+body.light #page-topgrossers #tg-sublist-os .rec-tab {
+  color:#30434c !important;
+}
+
+body.light #page-topgrossers #tg-list-tabs .rec-tab.on,
+body.light #page-topgrossers #tg-sublist-os .rec-tab.on {
+  color:#151c1f !important;
+}
+
+body.light #page-topgrossers [id^="tg-sublist-"] > div[style*="position:sticky"] {
+  background:#dce4e7 !important;
+}
+
+body.light #page-topgrossers [id^="tg-sublist-"] > div[style*="position:sticky"] > div {
+  color:#3a4c54 !important;
+}
+
+body.light #page-topgrossers #tg-list > div:hover,
+body.light #page-topgrossers #tg-india-list > div:hover,
+body.light #page-topgrossers #tg-ow-list > div:hover,
+body.light #page-topgrossers #tg-os-list > div:hover {
+  background:#e1e8e9 !important;
+}
+
+body.light #page-topgrossers #tg-os-list > div > div:nth-child(3),
+body.light #page-topgrossers #tg-os-list > div > div:nth-child(4),
+body.light #page-topgrossers #tg-os-list > div > div:nth-child(5),
+body.light #page-topgrossers #tg-china-note {
+  color:#40535b !important;
+}
 </style>
-
-<script>
-(function () {
-  document.addEventListener('DOMContentLoaded', function () {
-    var main = document.getElementById('page-main');
-    var hero = main && main.querySelector(':scope > .home-hero');
-
-    if (
-      !main ||
-      !hero ||
-      main.querySelector('.cinema-scoreboard')
-    ) return;
-
-    function make(tag, text, className) {
-      var element = document.createElement(tag);
-
-      if (text != null) element.textContent = text;
-      if (className) element.className = className;
-
-      return element;
-    }
-
-    var section = make('section', null, 'cinema-scoreboard');
-    section.setAttribute('aria-label', 'Latest box office scoreboard');
-
-    var inner = make('div', null, 'cinema-score-inner');
-    var intro = make('div');
-    var panel = make('div', null, 'cinema-score-panel');
-
-    intro.appendChild(make(
-      'div',
-      'Indian cinema · the box office',
-      'cinema-score-kicker'
-    ));
-
-    var title = make('h1');
-    title.append('The numbers.');
-    title.appendChild(document.createElement('br'));
-    title.appendChild(make('span', 'The stories.'));
-    intro.appendChild(title);
-
-    intro.appendChild(make(
-      'p',
-      'Follow the films moving Indian cinema, from today’s collections to the runs that make history.',
-      'cinema-score-description'
-    ));
-
-    var actions = make('div', null, 'cinema-score-actions');
-
-    var daily = make(
-      'button',
-      'Explore box office',
-      'cinema-score-primary'
-    );
-
-    daily.type = 'button';
-
-    daily.addEventListener('click', function () {
-      var box = document.getElementById('box-office-results');
-
-      if (box) {
-        var tab = Array.from(
-          box.querySelectorAll('[role="tab"]')
-        ).find(function (button) {
-          return button.textContent.trim() === 'Daily';
-        });
-
-        if (tab) tab.click();
-
-        box.scrollIntoView({
-          behavior:'smooth',
-          block:'start'
-        });
-      }
-    });
-
-    var tracking = make(
-      'button',
-      'Compare film runs →',
-      'cinema-score-secondary'
-    );
-
-    tracking.type = 'button';
-
-    tracking.addEventListener('click', function () {
-      if (typeof showPage === 'function') {
-        showPage('tracking');
-      }
-    });
-
-    actions.append(daily, tracking);
-    intro.appendChild(actions);
-
-    var head = make('div', null, 'cinema-score-panel-head');
-
-    head.appendChild(make('strong', 'Daily leaderboard'));
-
-    var dateLabel = make('span', 'Loading…', 'cinema-score-date');
-    head.appendChild(dateLabel);
-    panel.appendChild(head);
-
-    var rows = make('div');
-    panel.appendChild(rows);
-
-    var foot = make(
-      'div',
-      'India net · ₹ crore · Source-reported estimates',
-      'cinema-score-foot'
-    );
-
-    panel.appendChild(foot);
-    inner.append(intro, panel);
-    section.appendChild(inner);
-
-    main.insertBefore(section, hero);
-    main.classList.add('scoreboard-ready');
-
-    function load(path, required) {
-      return fetch(path, {cache:'no-cache'})
-        .then(function (response) {
-          if (!response.ok) throw new Error(path);
-          return response.json();
-        })
-        .catch(function (error) {
-          if (required) throw error;
-          return null;
-        });
-    }
-
-    Promise.all([
-      load('data/tracker.json', true),
-      load('data/discovered.json', false)
-    ])
-      .then(function (sources) {
-        var tracker = sources[0];
-        var discovered = sources[1];
-        var byUrl = Object.create(null);
-
-        if (!tracker || !Array.isArray(tracker.films)) {
-          throw new Error('Invalid tracker');
-        }
-
-        tracker.films.forEach(function (film) {
-          if (film && typeof film.url === 'string') {
-            byUrl[film.url] = film;
-          }
-        });
-
-        if (discovered && Array.isArray(discovered.films)) {
-          discovered.films.forEach(function (film) {
-            if (
-              !film ||
-              typeof film.url !== 'string' ||
-              !Array.isArray(film.days)
-            ) return;
-
-            var old = byUrl[film.url];
-            var incoming = Date.parse(film.fetchedAt || '');
-            var previous = Date.parse(
-              (old && old.fetchedAt) || tracker.updatedAt || ''
-            );
-
-            if (
-              !old ||
-              (Number.isFinite(incoming) && incoming > previous)
-            ) {
-              byUrl[film.url] = film;
-            }
-          });
-        }
-
-        var films = Object.keys(byUrl).map(function (url) {
-          return byUrl[url];
-        });
-
-        var latest = '';
-
-        films.forEach(function (film) {
-          var days = Array.isArray(film.days) ? film.days : [];
-
-          days.forEach(function (day) {
-            if (
-              day &&
-              /^\d{4}-\d{2}-\d{2}$/.test(day.date) &&
-              Number.isFinite(day.indiaNet) &&
-              day.indiaNet >= 0 &&
-              day.date > latest
-            ) {
-              latest = day.date;
-            }
-          });
-        });
-
-        if (!latest) {
-          dateLabel.textContent = 'No data yet';
-          foot.textContent =
-            'No daily collections are available yet.';
-          return;
-        }
-
-        dateLabel.textContent = new Date(
-          latest + 'T12:00:00Z'
-        ).toLocaleDateString('en-IN', {
-          day:'numeric',
-          month:'short',
-          year:'numeric',
-          timeZone:'UTC'
-        });
-
-        var ranking = [];
-
-        films.forEach(function (film) {
-          if (
-            typeof film.title !== 'string' ||
-            !Array.isArray(film.days)
-          ) return;
-
-          var day = film.days.find(function (row) {
-            return (
-              row &&
-              row.date === latest &&
-              Number.isFinite(row.indiaNet) &&
-              row.indiaNet >= 0
-            );
-          });
-
-          if (day) {
-            ranking.push({
-              title:film.title,
-              value:day.indiaNet
-            });
-          }
-        });
-
-        ranking.sort(function (a, b) {
-          return b.value - a.value ||
-            a.title.localeCompare(b.title);
-        });
-
-        ranking.slice(0, 3).forEach(function (item, index) {
-          var line = make('div', null, 'cinema-score-line');
-
-          line.append(
-            make(
-              'span',
-              String(index + 1).padStart(2, '0'),
-              'cinema-score-rank'
-            ),
-            make('span', item.title, 'cinema-score-name'),
-            make(
-              'span',
-              '₹' + item.value.toLocaleString('en-IN', {
-                maximumFractionDigits:2
-              }) + ' Cr',
-              'cinema-score-number'
-            )
-          );
-
-          rows.appendChild(line);
-        });
-
-        foot.textContent =
-          'India net · ₹ crore · Source-reported films only; estimates may change.';
-      })
-      .catch(function () {
-        dateLabel.textContent = 'Unavailable';
-        foot.textContent =
-          'Daily collections could not be loaded. Please try again later.';
-      });
-  });
-})();
-</script>
 </body>
 </html>
