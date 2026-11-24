@@ -22994,5 +22994,346 @@ Object.keys(YR_DATA)
   });
 })();
 </script>
+  <style>
+#page-tracking .page-hero {
+  background:
+    radial-gradient(
+      ellipse at 80% 0%,
+      rgba(245,197,24,.15),
+      transparent 52%
+    ),
+    linear-gradient(130deg,#11140f,#15110a 58%,#090c0e)
+    !important;
+}
+
+#page-tracking .chart-box {
+  background:linear-gradient(145deg,var(--bg3),var(--bg2));
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.3rem;
+  margin-bottom:1rem;
+}
+
+#page-tracking #traj-search {
+  border-radius:9px !important;
+  background:var(--bg3) !important;
+  color:var(--text) !important;
+}
+
+#page-tracking #traj-metric {
+  background:var(--bg3);
+  border:1px solid var(--border);
+  padding:.45rem;
+  border-radius:12px;
+  width:fit-content;
+}
+
+#page-tracking #traj-metric .lf.on {
+  background:var(--gold) !important;
+  color:#111 !important;
+  border-color:var(--gold) !important;
+}
+
+.traj-ui-selection {
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:.9rem 1rem;
+  margin-bottom:1rem;
+}
+
+.traj-ui-heading {
+  font-size:.67rem;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  margin-bottom:.65rem;
+}
+
+.traj-ui-picks {
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.traj-ui-pick {
+  display:flex;
+  align-items:center;
+  gap:.45rem;
+  border:1px solid var(--border);
+  background:var(--bg2);
+  color:var(--text);
+  border-radius:9px;
+  padding:.5rem .65rem;
+  cursor:pointer;
+  font:inherit;
+  font-size:.78rem;
+}
+
+.traj-ui-dot {
+  width:9px;
+  height:9px;
+  flex:none;
+  border-radius:50%;
+}
+
+.traj-ui-muted {
+  color:var(--text-dim);
+  font-size:.8rem;
+}
+
+.traj-ui-tabs {
+  display:flex;
+  gap:.4rem;
+  flex-wrap:wrap;
+  margin:0 0 1rem;
+  padding:.35rem;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:11px;
+  width:fit-content;
+}
+
+.traj-ui-tab {
+  border:1px solid transparent;
+  border-radius:8px;
+  padding:.55rem .9rem;
+  background:transparent;
+  color:var(--text-dim);
+  cursor:pointer;
+  font:inherit;
+  font-size:.8rem;
+  font-weight:700;
+}
+
+.traj-ui-tab[aria-pressed="true"] {
+  color:#151515;
+  background:var(--gold);
+}
+
+#page-tracking #traj-chips {
+  max-height:14rem;
+  overflow:auto;
+  padding:.15rem;
+}
+
+#page-tracking #traj-empty {
+  border:1px dashed var(--border);
+  border-radius:12px;
+  color:var(--text-dim) !important;
+}
+</style>
+
+<script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var page = document.getElementById('page-tracking');
+    var search = document.getElementById('traj-search');
+    var wrap = document.getElementById('traj-wrap');
+
+    if (
+      !page ||
+      !search ||
+      !wrap ||
+      typeof renderTraj !== 'function' ||
+      page.querySelector('.traj-ui-selection')
+    ) return;
+
+    var boxes = Array.prototype.slice.call(wrap.children)
+      .filter(function (child) {
+        return child.classList.contains('chart-box');
+      });
+
+    if (boxes.length !== 3) return;
+
+    // Selected-film strip.
+    var selection = document.createElement('div');
+    selection.className = 'traj-ui-selection';
+
+    var heading = document.createElement('div');
+    heading.className = 'traj-ui-heading';
+    heading.textContent = 'Selected films · 0 / 5';
+
+    var picks = document.createElement('div');
+    picks.className = 'traj-ui-picks';
+
+    selection.append(heading, picks);
+
+    search.parentNode.insertBefore(
+      selection,
+      search.previousElementSibling || search
+    );
+
+    // Cumulative / Weekly / Daily view buttons.
+    var tabs = document.createElement('div');
+    tabs.className = 'traj-ui-tabs';
+    tabs.setAttribute('aria-label', 'Tracking chart view');
+
+    var activeView = 0;
+    var buttons = [];
+
+    ['Cumulative', 'Weekly', 'Daily'].forEach(function (name, index) {
+      var button = document.createElement('button');
+
+      button.type = 'button';
+      button.className = 'traj-ui-tab';
+      button.textContent = name;
+
+      button.addEventListener('click', function () {
+        activeView = index;
+        updateView();
+      });
+
+      tabs.appendChild(button);
+      buttons.push(button);
+    });
+
+    wrap.insertBefore(tabs, boxes[0]);
+
+    function updateView() {
+      boxes.forEach(function (box, index) {
+        box.style.display = index === activeView ? '' : 'none';
+      });
+
+      buttons.forEach(function (button, index) {
+        button.setAttribute(
+          'aria-pressed',
+          index === activeView ? 'true' : 'false'
+        );
+      });
+    }
+
+    // Keep a film's colour when another selected film is removed.
+    var baseColors = TRAJ_COLORS.slice();
+    var assigned = Object.create(null);
+
+    function alignColors() {
+      Object.keys(assigned).forEach(function (key) {
+        if (trajSel.indexOf(key) === -1) {
+          delete assigned[key];
+        }
+      });
+
+      var used = Object.keys(assigned).map(function (key) {
+        return assigned[key];
+      });
+
+      trajSel.forEach(function (key) {
+        if (assigned[key]) return;
+
+        var color = baseColors.find(function (candidate) {
+          return used.indexOf(candidate) === -1;
+        });
+
+        if (color) {
+          assigned[key] = color;
+          used.push(color);
+        }
+      });
+
+      var ordered = trajSel.map(function (key) {
+        return assigned[key];
+      }).filter(Boolean);
+
+      baseColors.forEach(function (color) {
+        if (ordered.indexOf(color) === -1) {
+          ordered.push(color);
+        }
+      });
+
+      TRAJ_COLORS.splice.apply(
+        TRAJ_COLORS,
+        [0, TRAJ_COLORS.length].concat(ordered)
+      );
+    }
+
+    function renderSelection() {
+      heading.textContent =
+        'Selected films · ' + trajSel.length +
+        ' / ' + baseColors.length;
+
+      picks.replaceChildren();
+
+      if (!trajSel.length) {
+        var message = document.createElement('span');
+
+        message.className = 'traj-ui-muted';
+        message.textContent = 'Choose up to five films below.';
+
+        picks.appendChild(message);
+        return;
+      }
+
+      var films = trajPool();
+
+      trajSel.forEach(function (key) {
+        var film = films.find(function (item) {
+          return item.key === key;
+        });
+
+        if (!film) return;
+
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'traj-ui-pick';
+
+        var dot = document.createElement('span');
+        dot.className = 'traj-ui-dot';
+        dot.style.background = assigned[key];
+
+        var name = document.createElement('span');
+        name.textContent = film.title;
+
+        var raw = trajMetric === 'india'
+          ? film.india
+          : film.ww;
+
+        var total = document.createElement('span');
+        total.className = 'traj-ui-muted';
+
+        total.textContent =
+          raw != null &&
+          Number.isFinite(Number(raw)) &&
+          Number(raw) >= 0
+            ? '₹' + Number(raw).toLocaleString('en-IN', {
+                maximumFractionDigits: 2
+              }) + ' Cr'
+            : '—';
+
+        var remove = document.createElement('span');
+        remove.textContent = '×';
+        remove.setAttribute('aria-hidden', 'true');
+
+        button.setAttribute('aria-label', 'Remove ' + film.title);
+
+        button.append(dot, name, total, remove);
+
+        button.addEventListener('click', function () {
+          toggleTraj(key);
+        });
+
+        picks.appendChild(button);
+      });
+    }
+
+    var originalRenderTraj = renderTraj;
+
+    window.renderTraj = function () {
+      alignColors();
+
+      var result = originalRenderTraj.apply(this, arguments);
+
+      renderSelection();
+      updateView();
+
+      return result;
+    };
+
+    updateView();
+    renderTraj();
+  });
+})();
+</script>
 </body>
 </html>
