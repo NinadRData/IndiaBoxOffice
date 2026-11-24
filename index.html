@@ -16231,7 +16231,9 @@ var breakeven = page.budget * 2;
             var fri = page.daily[i], sat = page.daily[i+1]||null, sun = page.daily[i+2]||null;
             var wkGross = (fri?fri.gross:0) + (sat?sat.gross:0) + (sun?sun.gross:0);
             var wkTotal = sun ? sun.total : sat ? sat.total : fri.total;
-            var wkLabel = fri.date.replace('Fri ','') + (sun ? '–'+sun.date.split(' ')[2] : sat ? '–'+sat.date.split(' ')[2] : '');
+                        var endDay = sun && sun.day === 'Sun' && !sun.bucket ? sun : sat && sat.day === 'Sat' && !sat.bucket ? sat : null;
+
+            var wkLabel = String(fri.date || '').replace(/^Fri\s+/, '') + (endDay && endDay.date ? ' – ' + String(endDay.date).replace(/^(?:Fri|Sat|Sun)\s+/, '') : '');
             weekends.push({label:wkLabel, gross:wkGross, total:wkTotal, chg:null, wk:weekends.length+1});
             i += 3; continue;
           }
