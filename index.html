@@ -6055,6 +6055,16 @@ function tmdbSearch(title, year, cb) {
     .then(function (data) {
       var wanted = normalizeTMDBTitle(title);
       var wantedYear = year ? String(year).slice(0, 4) : '';
+            // Verified TMDB IDs for titles written differently on the site.
+      var verifiedIds = {
+        'pushpa2|2024': 857598,
+        'baahubali2|2017': 350312,
+        'dhurandhar2|2026': 1582770,
+        'ramayanapart1|2026': 656908,
+        'kgf2|2022': 587412
+      };
+
+      var verifiedId = verifiedIds[wanted + '|' + wantedYear];
 
       var indianLanguages = [
         'hi', 'ta', 'te', 'ml', 'kn', 'bn',
@@ -6064,9 +6074,10 @@ function tmdbSearch(title, year, cb) {
       var matches = (
         Array.isArray(data.results) ? data.results : []
       ).filter(function (movie) {
-        var sameTitle =
-          normalizeTMDBTitle(movie.title) === wanted ||
-          normalizeTMDBTitle(movie.original_title) === wanted;
+                var sameTitle = verifiedId
+          ? movie.id === verifiedId
+          : normalizeTMDBTitle(movie.title) === wanted ||
+            normalizeTMDBTitle(movie.original_title) === wanted;
 
         var movieYear = String(
           movie.release_date || ''
@@ -17573,7 +17584,8 @@ var pr = document.getElementById('posterRow');
 getTopGrossers().slice(0,15).forEach(function(f,i){
   var hasPg = !!getFilmPage(f.n);
   var el = document.createElement('div');
-  el.className = 'pcard';
+   el.className = 'pcard';
+  if (f.y) el.setAttribute('data-film-year', f.y);
   if(hasPg) el.style.cursor='pointer';
   el.innerHTML = '<div class="pcard-img"><div class="pcard-bg" style="background:'+bg(i)+'"><div class="pcard-bg-text">'+f.n.toUpperCase().slice(0,9)+'</div></div>'
     +'<div class="pcard-num'+(i<3?' r':'')+'">&#35;'+(i+1)+'</div>'
