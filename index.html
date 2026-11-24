@@ -3697,21 +3697,54 @@ function getOWMilestones(threshold) {
 
 // Get all films for a given actor (master + supp merged, deduped)
 function getActorFilms(actor) {
-  return FILMS
-    .filter(function (film) {
-      return (film.actors || []).indexOf(actor) !== -1;
-    })
-    .map(function (film) {
-      return {
-        n: film.n,
-        y: film.y,
-        bo: film.ww,
-        ow: film.ow,
-        ow4: film.ow4,
-        india: film.india,
-        ff: film.ff,
-        lb: film.lb
-      };
+  var byFilm = Object.create(null);
+
+  FILMS.forEach(function (film) {
+    if (
+      !film ||
+      !film.n ||
+      !film.y ||
+      !Array.isArray(film.actors)
+    ) return;
+
+    var hasActor = film.actors.some(function (name) {
+      return typeof name === 'string' && name.trim() === actor;
+    });
+
+    if (!hasActor) return;
+
+    // Match the title-and-year approach used by the site's
+    // supplementary filmography merge.
+    var key = String(film.n)
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '') + '|' + film.y;
+
+    var row = {
+      n: film.n,
+      y: film.y,
+      bo: film.ww,
+      ow: film.ow,
+      ow4: film.ow4,
+      india: film.india,
+      ff: film.ff,
+      lb: film.lb
+    };
+
+    if (!byFilm[key]) {
+      byFilm[key] = row;
+    } else {
+      // Fill missing details from another entry for the same film.
+      Object.keys(row).forEach(function (field) {
+        if (byFilm[key][field] == null && row[field] != null) {
+          byFilm[key][field] = row[field];
+        }
+      });
+    }
+  });
+
+  return Object.keys(byFilm)
+    .map(function (key) {
+      return byFilm[key];
     })
     .sort(function (a, b) {
       return Number(a.y) - Number(b.y);
@@ -18202,12 +18235,58 @@ renderFF();
 var curActorSort='year';
 var currentActor='';
 var ALLOWED_ACTORS = ['Akshay Kumar','Amitabh Bachchan','Allu Arjun','Chiranjeevi','Dilip Kumar','Rajesh Khanna','Raj Kapoor','Dharmendra','Vinod Khanna','Sunny Deol','Shah Rukh Khan','Aamir Khan','Salman Khan','Shashi Kapoor','Rajinikanth','Ranbir Kapoor','Ranveer Singh','Kamal Haasan','Prabhas','Hrithik Roshan','Vijay','Ajay Devgn','N. T. Rama Rao Jr.'];
+ function getEligibleActorNames() {
+  var names = Object.create(null);
+  var filmsByActor = Object.create(null);
+
+  // Keep the actors already available on the page.
+  ALLOWED_ACTORS.forEach(function (name) {
+    names[name] = true;
+  });
+
+  FILMS.forEach(function (film) {
+    if (
+      !film ||
+      !film.n ||
+      !film.y ||
+      !Array.isArray(film.actors)
+    ) return;
+
+    var filmKey = String(film.n)
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '') + '|' + film.y;
+
+    film.actors.forEach(function (name) {
+      if (typeof name !== 'string' || !name.trim()) return;
+
+      name = name.trim();
+
+      if (!filmsByActor[name]) {
+        filmsByActor[name] = Object.create(null);
+      }
+
+      filmsByActor[name][filmKey] = true;
+    });
+  });
+
+  Object.keys(filmsByActor).forEach(function (name) {
+    if (Object.keys(filmsByActor[name]).length > 4) {
+      names[name] = true;
+    }
+  });
+
+  return Object.keys(names).sort(function (a, b) {
+    return a.localeCompare(b);
+  });
+}
   function filterActorSearch() {
   var inp = document.getElementById('actorSearch-input');
   var drop = document.getElementById('actorSearch-drop');
   if (!inp || !drop) return;
   var q = inp.value.trim().toLowerCase();
-  var matches = ALLOWED_ACTORS.filter(function(a){ return a.toLowerCase().indexOf(q) >= 0; });
+  var matches = getEligibleActorNames().filter(function(a){
+    return a.toLowerCase().indexOf(q) >= 0;
+  });
   if (!matches.length) { drop.style.display='none'; return; }
   drop.innerHTML = matches.map(function(a){
     return '<div onmousedown="selectActorSearch(\''+a.replace(/'/g,"\\'")+'\')" style="padding:.5rem .8rem;font-size:.8rem;color:rgba(255,255,255,.75);cursor:pointer" onmouseover="this.style.background=\'rgba(192,132,252,.12)\'" onmouseout="this.style.background=\'\'">'+a+'</div>';
