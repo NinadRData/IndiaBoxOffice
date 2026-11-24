@@ -153,7 +153,7 @@ def main():
 
     sources = [
         read_json(ROOT / "data" / name, {"films": []})
-        for name in ("tracker.json", "discovered.json")
+        for name in ("tracker.json", "discovered.json", "historical.json")
     ]
 
     active = {}
@@ -197,7 +197,7 @@ def main():
 
             age = (TODAY - latest).days
 
-            if not 0 <= age <= 90:
+            if age < 0 or (age > 90 and source.get("kind") != "historical"):
                 continue
 
             stamp = (
