@@ -22801,7 +22801,7 @@ Object.keys(YR_DATA)
       if (typeof renderTG === 'function') {
   renderTG();
 }
-
+      document.dispatchEvent(new Event('opening-weekend-data-ready'));
       console.log(
         'Sacnilk database sync:',
         Object.keys(matched).length,
@@ -22816,7 +22816,7 @@ Object.keys(YR_DATA)
 </script>
 <script src="tracker.js?v=3" defer></script>
 <script src="daily-page-sync.js?v=2" defer></script>
-<script src="auto-pages.js?v=3" defer></script>
+<script src="auto-pages.js?v=4" defer></script>
   <script src="daily-chart.js" defer></script>
   <script>
 (function () {
@@ -23542,6 +23542,281 @@ body.light #page-topgrossers #tg-china-note {
   color:#40535b !important;
 }
 </style>
+<script>
+(function () {
+  'use strict';
 
+  var aliases = {
+    '2026:ramayana':'ramayanapart1',
+    '2026:bhoothbangla':'bhootbhangla',
+    '2026:dhurandhar2therevenge':'dhurandhar2',
+    '2026:drishyam3theconclusion':'drishyamtheconclusion',
+    '2025:kantaraalegendchapter1':'kantarachapter1',
+    '2025:mahavatarnarsimha':'mahavtarnarsimha'
+  };
+
+  var documents = null;
+
+  function identity(title, year) {
+    var name = String(title || '')
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]/g, '');
+
+    var key = String(year) + ':' + name;
+
+    return String(year) + ':' + (aliases[key] || name);
+  }
+
+  function parseDate(value) {
+    if (
+      typeof value !== 'string' ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(value)
+    ) return null;
+
+    var date = new Date(value + 'T00:00:00Z');
+
+    return (
+      Number.isFinite(date.getTime()) &&
+      date.toISOString().slice(0, 10) === value
+    ) ? date : null;
+  }
+
+  function opening(film) {
+    if (!film || !Array.isArray(film.days)) return null;
+
+    var dayOne = film.days.filter(function (day) {
+      return day && day.day === 1;
+    });
+
+    if (dayOne.length !== 1) return null;
+
+    var release = parseDate(dayOne[0].date);
+
+    if (
+      !release ||
+      (film.release && film.release !== dayOne[0].date)
+    ) return null;
+
+    var weekday = release.getUTCDay();
+
+    // Saturday and Sunday belong to the weekend that began
+    // on the preceding Friday. Earlier releases use the next Friday.
+    var offset = weekday === 6
+      ? -1
+      : weekday === 0
+        ? -2
+        : 5 - weekday;
+
+    var start = new Date(
+      release.getTime() + offset * 86400000
+    );
+
+    var dates = [0, 1, 2].map(function (index) {
+      return new Date(
+        start.getTime() + index * 86400000
+      ).toISOString().slice(0, 10);
+    });
+
+    var sum = 0;
+
+    for (var i = 0; i < dates.length; i++) {
+      var matches = film.days.filter(function (day) {
+        return day && day.date === dates[i];
+      });
+
+      // Do not calculate with a missing or duplicate date.
+      if (matches.length !== 1) return null;
+
+      var row = matches[0];
+
+      var expectedDay = Math.round(
+        (parseDate(row.date) - release) / 86400000
+      ) + 1;
+
+      if (
+        !Number.isInteger(row.day) ||
+        row.day !== expectedDay ||
+        !Number.isFinite(row.indiaNet) ||
+        row.indiaNet < 0
+      ) return null;
+
+      sum += row.indiaNet;
+    }
+
+    return Math.round(sum * 100) / 100;
+  }
+
+  function sync() {
+    if (
+      !documents ||
+      typeof FILMS === 'undefined' ||
+      !Array.isArray(FILMS) ||
+      typeof FILM_PAGES === 'undefined'
+    ) return;
+
+    var byUrl = Object.create(null);
+
+    documents.forEach(function (doc) {
+      if (!doc || !Array.isArray(doc.films)) return;
+
+      doc.films.forEach(function (film) {
+        if (
+          !film ||
+          typeof film.title !== 'string' ||
+          !Number.isInteger(film.year) ||
+          !/^https:\/\/www\.sacnilk\.com\/movie\/[A-Za-z0-9_-]+$/.test(
+            film.url || ''
+          )
+        ) return;
+
+        var time = Date.parse(
+          film.fetchedAt || doc.updatedAt || ''
+        );
+
+        if (!Number.isFinite(time)) return;
+
+        if (!byUrl[film.url] || time > byUrl[film.url].time) {
+          byUrl[film.url] = {
+            film:film,
+            time:time
+          };
+        }
+      });
+    });
+
+    var records = Object.keys(byUrl).map(function (url) {
+      return byUrl[url].film;
+    });
+
+    var counts = Object.create(null);
+
+    records.forEach(function (film) {
+      var key = identity(film.title, film.year);
+      counts[key] = (counts[key] || 0) + 1;
+    });
+
+    var pages = Object.keys(FILM_PAGES)
+      .map(function (key) {
+        return FILM_PAGES[key];
+      })
+      .filter(function (page, index, all) {
+        return page && all.indexOf(page) === index;
+      });
+
+    var changedPages = [];
+    var changed = 0;
+
+    records.forEach(function (film) {
+      var key = identity(film.title, film.year);
+      var value = opening(film);
+
+      if (counts[key] !== 1 || value == null) return;
+
+      var master = FILMS.filter(function (item) {
+        return (
+          item &&
+          item.y === film.year &&
+          identity(item.n, item.y) === key
+        );
+      });
+
+      var matched = pages.filter(function (page) {
+        return (
+          page.year === film.year &&
+          identity(page.title, page.year) === key
+        );
+      });
+
+      // Do not guess when more than one entry matches.
+      if (master.length > 1 || matched.length > 1) return;
+
+      function compatible(item) {
+        var url = item && (item.sacnilkUrl || item.sourceUrl);
+        return !url || url === film.url;
+      }
+
+      if (
+        (master[0] && !compatible(master[0])) ||
+        (matched[0] && !compatible(matched[0]))
+      ) return;
+
+      if (master[0] && master[0].ow !== value) {
+        master[0].ow = value;
+        changed++;
+      }
+
+      if (matched[0]) {
+        var page = matched[0];
+        var pageChanged = page.ow !== value;
+
+        if (pageChanged) {
+          page.ow = value;
+          changed++;
+        }
+
+        var actuals = page.prediction && page.prediction.actuals;
+
+        if (actuals && actuals.ow !== value) {
+          actuals.ow = value;
+          pageChanged = true;
+          changed++;
+        }
+
+        if (pageChanged) changedPages.push(page);
+      }
+    });
+
+    if (!changed) return;
+
+    if (typeof renderYrTable === 'function') renderYrTable();
+    if (typeof renderTG === 'function') renderTG();
+
+    changedPages.forEach(function (page) {
+      var root = document.getElementById('page-film-' + page.key);
+
+      if (!root || !root.classList.contains('active')) return;
+
+      var scroll = window.scrollY;
+
+      if (
+        page.prediction &&
+        typeof showFilmPageWithPredictions === 'function'
+      ) {
+        showFilmPageWithPredictions(page.key);
+      } else if (typeof showFilmPage === 'function') {
+        showFilmPage(page.key);
+      }
+
+      window.scrollTo(0, scroll);
+    });
+  }
+
+  function load(path) {
+    return fetch(path, {cache:'no-cache'})
+      .then(function (response) {
+        if (!response.ok) throw new Error(path);
+        return response.json();
+      })
+      .catch(function () {
+        return null;
+      });
+  }
+
+  document.addEventListener(
+    'opening-weekend-data-ready',
+    sync
+  );
+
+  Promise.all([
+    load('data/tracker.json'),
+    load('data/discovered.json')
+  ]).then(function (result) {
+    documents = result;
+    sync();
+  });
+})();
+</script>
 </body>
 </html>
