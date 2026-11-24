@@ -696,6 +696,7 @@
       if (typeof renderYrTable === 'function') renderYrTable();
       if (typeof renderTG === 'function') renderTG();
       if (typeof renderTraj === 'function') renderTraj();
+      document.dispatchEvent(new Event('opening-weekend-data-ready'));
     })
     .catch(function (error) {
       console.warn('Automatic film discovery unavailable:', error);
