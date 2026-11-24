@@ -15092,19 +15092,24 @@ multiplier: +(106.77/59.00).toFixed(2), // 1.81  lb: null,
   ],
 
   wwCum: [
-    {day:1, total:128.75},
-    {day:2, total:232.05},
-    {day:3, total:387.25},
-    {day:4, total:510.20},
-    {day:5, total:675.90},
-    {day:6, total:825.00},
-    {day:7, total:944.55},
-    {day:8, total:1028.55},
-    {day:9, total:1110.70},
-    {day:10, total:1255.00},
-    {day:11, total:1389.00},
-    {day:12, total:1437.25},
-  ],
+  {day:1, total:128.75},
+  {day:2, total:232.05},
+  {day:3, total:387.25},
+  {day:4, total:510.20},
+  {day:5, total:675.90},
+  {day:6, total:825.00},
+  {day:7, total:944.55},
+  {day:8, total:1028.55},
+  {day:9, total:1110.70},
+  {day:10, total:1255.00},
+  {day:11, total:1389.00},
+  {day:12, total:1437.25},
+  {day:13, total:1483.40},
+  {day:14, total:1519.05},
+  {day:15, total:1552.15},
+  {day:16, total:1582.95},
+  {day:17, total:1633.00},
+],
 
   comparable: [],
 
@@ -23932,6 +23937,277 @@ body.light #page-topgrossers #tg-china-note {
     load('data/discovered.json')
   ]).then(function (result) {
     documents = result;
+    sync();
+  });
+})();
+</script>
+  <script>
+(function () {
+  'use strict';
+
+  var docs = null;
+
+  var aliases = {
+    '2026:ramayana':'ramayanapart1',
+    '2026:bhoothbangla':'bhootbhangla',
+    '2026:dhurandhar2therevenge':'dhurandhar2',
+    '2026:drishyam3theconclusion':'drishyamtheconclusion',
+    '2025:kantaraalegendchapter1':'kantarachapter1',
+    '2025:mahavatarnarsimha':'mahavtarnarsimha'
+  };
+
+  function identity(title, year) {
+    var name = String(title || '')
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]/g, '');
+
+    var key = String(year) + ':' + name;
+
+    return String(year) + ':' + (aliases[key] || name);
+  }
+
+  function sync() {
+    if (
+      !docs ||
+      typeof FILMS === 'undefined' ||
+      !Array.isArray(FILMS) ||
+      typeof FILM_PAGES === 'undefined'
+    ) return;
+
+    var sources = Object.create(null);
+
+    docs.forEach(function (doc, index) {
+      if (!doc || !Array.isArray(doc.films)) return;
+
+      doc.films.forEach(function (film) {
+        if (
+          !film ||
+          typeof film.title !== 'string' ||
+          !Number.isInteger(film.year) ||
+          film.year < 2025 ||
+          !/^https:\/\/www\.sacnilk\.com\/movie\/[A-Za-z0-9_-]+$/.test(
+            film.url || ''
+          )
+        ) return;
+
+        /*
+         * Tracker totals are copied from the snapshot.
+         * Use the snapshot timestamp for those figures.
+         */
+        var stamp = index === 1
+          ? doc.snapshotUpdatedAt
+          : (film.fetchedAt || doc.updatedAt);
+
+        var time = Date.parse(stamp || '');
+
+        if (!Number.isFinite(time)) return;
+
+        var record = sources[film.url];
+
+        if (!record) {
+          record = {
+            title:film.title,
+            year:film.year,
+            url:film.url,
+            fields:Object.create(null)
+          };
+
+          sources[film.url] = record;
+        }
+
+        if (
+          record.year !== film.year ||
+          identity(record.title, record.year) !==
+            identity(film.title, film.year)
+        ) {
+          record.conflict = true;
+          return;
+        }
+
+        ['indiaNet', 'worldwideGross'].forEach(function (field) {
+          var value = film[field];
+
+          if (!Number.isFinite(value) || value < 0) return;
+
+          if (
+            !record.fields[field] ||
+            time > record.fields[field].time
+          ) {
+            record.fields[field] = {
+              value:value,
+              time:time
+            };
+          }
+        });
+      });
+    });
+
+    var records = Object.keys(sources)
+      .map(function (url) {
+        return sources[url];
+      })
+      .filter(function (film) {
+        return !film.conflict;
+      });
+
+    var counts = Object.create(null);
+
+    records.forEach(function (film) {
+      var key = identity(film.title, film.year);
+      counts[key] = (counts[key] || 0) + 1;
+    });
+
+    var pages = Object.keys(FILM_PAGES)
+      .map(function (key) {
+        return FILM_PAGES[key];
+      })
+      .filter(function (page, index, all) {
+        return (
+          page &&
+          page.key &&
+          page.title &&
+          all.indexOf(page) === index
+        );
+      });
+
+    var changed = 0;
+    var changedPages = [];
+
+    records.forEach(function (film) {
+      var key = identity(film.title, film.year);
+
+      if (counts[key] !== 1) return;
+
+      var masters = FILMS.filter(function (item) {
+        return (
+          item &&
+          item.y === film.year &&
+          identity(item.n, item.y) === key
+        );
+      });
+
+      var matches = pages.filter(function (page) {
+        return (
+          page.year === film.year &&
+          identity(page.title, page.year) === key
+        );
+      });
+
+      // Avoid changing an ambiguous match.
+      if (masters.length > 1 || matches.length > 1) return;
+
+      function compatible(item) {
+        var url = item && (
+          item.sacnilkUrl || item.sourceUrl
+        );
+
+        return !url || url === film.url;
+      }
+
+      if (
+        (masters[0] && !compatible(masters[0])) ||
+        (matches[0] && !compatible(matches[0]))
+      ) return;
+
+      var master = masters[0];
+      var page = matches[0];
+      var pageChanged = false;
+
+      [
+        ['indiaNet', 'india'],
+        ['worldwideGross', 'ww']
+      ].forEach(function (pair) {
+        var field = film.fields[pair[0]];
+
+        if (!field) return;
+
+        if (master && master[pair[1]] !== field.value) {
+          master[pair[1]] = field.value;
+          changed++;
+        }
+
+        if (page && page[pair[1]] !== field.value) {
+          page[pair[1]] = field.value;
+          pageChanged = true;
+          changed++;
+        }
+
+        var actuals = page &&
+          page.prediction &&
+          page.prediction.actuals;
+
+        var actualKey = pair[0] === 'indiaNet'
+          ? 'running_total'
+          : 'running_ww';
+
+        if (actuals && actuals[actualKey] !== field.value) {
+          actuals[actualKey] = field.value;
+          pageChanged = true;
+          changed++;
+        }
+      });
+
+      if (pageChanged) changedPages.push(page);
+    });
+
+    if (!changed) return;
+
+    if (typeof _lookupPool !== 'undefined') {
+      _lookupPool = null;
+    }
+
+    if (typeof renderYrTable === 'function') renderYrTable();
+    if (typeof renderTG === 'function') renderTG();
+    if (typeof renderAction === 'function') renderAction();
+    if (typeof renderTraj === 'function') renderTraj();
+
+    // Refresh a film page if the visitor already has it open.
+    changedPages.forEach(function (page) {
+      var root = document.getElementById(
+        'page-film-' + page.key
+      );
+
+      if (!root || !root.classList.contains('active')) return;
+
+      var scroll = window.scrollY;
+
+      if (
+        page.prediction &&
+        typeof showFilmPageWithPredictions === 'function'
+      ) {
+        showFilmPageWithPredictions(page.key);
+      } else if (typeof showFilmPage === 'function') {
+        showFilmPage(page.key);
+      }
+
+      window.scrollTo(0, scroll);
+    });
+  }
+
+  function load(path) {
+    return fetch(path, {cache:'no-cache'})
+      .then(function (response) {
+        if (!response.ok) throw new Error(path);
+        return response.json();
+      })
+      .catch(function () {
+        return null;
+      });
+  }
+
+  document.addEventListener(
+    'opening-weekend-data-ready',
+    sync
+  );
+
+  Promise.all([
+    load('data/sacnilk.json'),
+    load('data/tracker.json'),
+    load('data/discovered.json')
+  ]).then(function (result) {
+    docs = result;
     sync();
   });
 })();
