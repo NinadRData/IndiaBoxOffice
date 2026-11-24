@@ -196,7 +196,59 @@ def main():
     saved = {film["url"]: film for film in old["films"]}
     updated = 0
 
-    for source in SOURCES:
+        # Begin with the manually verified seed films.
+    sources = list(SOURCES)
+    known_urls = {film["url"] for film in sources}
+
+    # Discover 2025 films from the existing box-office snapshot.
+    snapshot_path = ROOT / "data" / "sacnilk.json"
+
+    try:
+        if snapshot_path.exists():
+            snapshot = json.loads(
+                snapshot_path.read_text(encoding="utf-8")
+            )
+
+            films = snapshot.get("films", [])
+
+            if not isinstance(films, list):
+                raise ValueError("Snapshot films must be a list")
+
+            for film in films:
+                if not isinstance(film, dict):
+                    continue
+
+                title = film.get("title")
+                year = film.get("year")
+                url = film.get("url")
+
+                if (
+                    year != 2025
+                    or not isinstance(title, str)
+                    or not title.strip()
+                    or not isinstance(url, str)
+                    or not re.fullmatch(
+                        r"https://www\.sacnilk\.com/movie/[A-Za-z0-9_-]+",
+                        url,
+                    )
+                    or url in known_urls
+                ):
+                    continue
+
+                sources.append({
+                    "title": title,
+                    "year": year,
+                    "url": url,
+                })
+
+                known_urls.add(url)
+
+    except (OSError, ValueError, TypeError, AttributeError) as error:
+        print("Could not read snapshot candidates:", str(error))
+
+    print("Historical candidates:", len(sources))
+
+    for source in sources:
         previous = saved.get(source["url"])
 
         # Recheck existing historical films roughly every 30 days.
