@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-23T17:57:45.072589+00:00",
-  "snapshotUpdatedAt": "2026-11-23T17:57:41.964074+00:00",
+  "updatedAt": "2026-11-24T15:04:15.753855+00:00",
+  "snapshotUpdatedAt": "2026-11-24T15:04:10.506849+00:00",
   "films": [
     {
       "title": "Ramayana",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "year": 2026,
       "indiaNet": 955.45,
-      "worldwideGross": 1704.65,
+      "worldwideGross": 1709.65,
       "days": [
         {
           "date": "2026-11-05",
@@ -103,6 +103,489 @@
           "date": "2026-11-23",
           "day": 19,
           "indiaNet": 12.7
+        }
+      ]
+    },
+    {
+      "title": "Jailer 2",
+      "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
+      "year": 2026,
+      "indiaNet": 475.44,
+      "worldwideGross": 836.0,
+      "days": [
+        {
+          "date": "2026-10-15",
+          "day": 1,
+          "indiaNet": 59.7
+        },
+        {
+          "date": "2026-10-16",
+          "day": 2,
+          "indiaNet": 37.1
+        },
+        {
+          "date": "2026-10-17",
+          "day": 3,
+          "indiaNet": 47.25
+        },
+        {
+          "date": "2026-10-18",
+          "day": 4,
+          "indiaNet": 55.85
+        },
+        {
+          "date": "2026-10-19",
+          "day": 5,
+          "indiaNet": 42.35
+        },
+        {
+          "date": "2026-10-20",
+          "day": 6,
+          "indiaNet": 46.8
+        },
+        {
+          "date": "2026-10-21",
+          "day": 7,
+          "indiaNet": 28.15
+        },
+        {
+          "date": "2026-10-22",
+          "day": 8,
+          "indiaNet": 17.15
+        },
+        {
+          "date": "2026-10-23",
+          "day": 9,
+          "indiaNet": 14.5
+        },
+        {
+          "date": "2026-10-24",
+          "day": 10,
+          "indiaNet": 24.15
+        },
+        {
+          "date": "2026-10-25",
+          "day": 11,
+          "indiaNet": 25.7
+        },
+        {
+          "date": "2026-10-26",
+          "day": 12,
+          "indiaNet": 9.45
+        },
+        {
+          "date": "2026-10-27",
+          "day": 13,
+          "indiaNet": 8.3
+        },
+        {
+          "date": "2026-10-28",
+          "day": 14,
+          "indiaNet": 7.2
+        },
+        {
+          "date": "2026-10-29",
+          "day": 15,
+          "indiaNet": 6.25
+        },
+        {
+          "date": "2026-10-30",
+          "day": 16,
+          "indiaNet": 5.5
+        },
+        {
+          "date": "2026-10-31",
+          "day": 17,
+          "indiaNet": 9.7
+        },
+        {
+          "date": "2026-11-01",
+          "day": 18,
+          "indiaNet": 11.2
+        },
+        {
+          "date": "2026-11-02",
+          "day": 19,
+          "indiaNet": 3.4
+        },
+        {
+          "date": "2026-11-03",
+          "day": 20,
+          "indiaNet": 3.35
+        },
+        {
+          "date": "2026-11-04",
+          "day": 21,
+          "indiaNet": 3.0
+        },
+        {
+          "date": "2026-11-05",
+          "day": 22,
+          "indiaNet": 1.6
+        },
+        {
+          "date": "2026-11-06",
+          "day": 23,
+          "indiaNet": 0.6
+        },
+        {
+          "date": "2026-11-07",
+          "day": 24,
+          "indiaNet": 1.0
+        },
+        {
+          "date": "2026-11-08",
+          "day": 25,
+          "indiaNet": 1.15
+        },
+        {
+          "date": "2026-11-09",
+          "day": 26,
+          "indiaNet": 1.25
+        },
+        {
+          "date": "2026-11-10",
+          "day": 27,
+          "indiaNet": 0.88
+        },
+        {
+          "date": "2026-11-11",
+          "day": 28,
+          "indiaNet": 0.52
+        },
+        {
+          "date": "2026-11-12",
+          "day": 29,
+          "indiaNet": 0.35
+        },
+        {
+          "date": "2026-11-13",
+          "day": 30,
+          "indiaNet": 0.31
+        },
+        {
+          "date": "2026-11-14",
+          "day": 31,
+          "indiaNet": 0.38
+        },
+        {
+          "date": "2026-11-15",
+          "day": 32,
+          "indiaNet": 0.39
+        },
+        {
+          "date": "2026-11-16",
+          "day": 33,
+          "indiaNet": 0.13
+        },
+        {
+          "date": "2026-11-17",
+          "day": 34,
+          "indiaNet": 0.18
+        },
+        {
+          "date": "2026-11-18",
+          "day": 35,
+          "indiaNet": 0.16
+        },
+        {
+          "date": "2026-11-19",
+          "day": 36,
+          "indiaNet": 0.16
+        },
+        {
+          "date": "2026-11-20",
+          "day": 37,
+          "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-21",
+          "day": 38,
+          "indiaNet": 0.1
+        },
+        {
+          "date": "2026-11-22",
+          "day": 39,
+          "indiaNet": 0.11
+        },
+        {
+          "date": "2026-11-23",
+          "day": 40,
+          "indiaNet": 0.06
+        }
+      ]
+    },
+    {
+      "title": "Drishyam 3: The Conclusion",
+      "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
+      "year": 2026,
+      "indiaNet": 381.13,
+      "worldwideGross": 589.46,
+      "days": [
+        {
+          "date": "2026-10-02",
+          "day": 1,
+          "indiaNet": 62.0
+        },
+        {
+          "date": "2026-10-03",
+          "day": 2,
+          "indiaNet": 53.5
+        },
+        {
+          "date": "2026-10-04",
+          "day": 3,
+          "indiaNet": 61.0
+        },
+        {
+          "date": "2026-10-05",
+          "day": 4,
+          "indiaNet": 21.0
+        },
+        {
+          "date": "2026-10-06",
+          "day": 5,
+          "indiaNet": 19.5
+        },
+        {
+          "date": "2026-10-07",
+          "day": 6,
+          "indiaNet": 15.5
+        },
+        {
+          "date": "2026-10-08",
+          "day": 7,
+          "indiaNet": 13.0
+        },
+        {
+          "date": "2026-10-09",
+          "day": 8,
+          "indiaNet": 14.5
+        },
+        {
+          "date": "2026-10-10",
+          "day": 9,
+          "indiaNet": 26.5
+        },
+        {
+          "date": "2026-10-11",
+          "day": 10,
+          "indiaNet": 22.5
+        },
+        {
+          "date": "2026-10-12",
+          "day": 11,
+          "indiaNet": 6.0
+        },
+        {
+          "date": "2026-10-13",
+          "day": 12,
+          "indiaNet": 8.5
+        },
+        {
+          "date": "2026-10-14",
+          "day": 13,
+          "indiaNet": 5.25
+        },
+        {
+          "date": "2026-10-15",
+          "day": 14,
+          "indiaNet": 4.25
+        },
+        {
+          "date": "2026-10-16",
+          "day": 15,
+          "indiaNet": 3.1
+        },
+        {
+          "date": "2026-10-17",
+          "day": 16,
+          "indiaNet": 5.0
+        },
+        {
+          "date": "2026-10-18",
+          "day": 17,
+          "indiaNet": 6.25
+        },
+        {
+          "date": "2026-10-19",
+          "day": 18,
+          "indiaNet": 3.5
+        },
+        {
+          "date": "2026-10-20",
+          "day": 19,
+          "indiaNet": 6.25
+        },
+        {
+          "date": "2026-10-21",
+          "day": 20,
+          "indiaNet": 2.65
+        },
+        {
+          "date": "2026-10-22",
+          "day": 21,
+          "indiaNet": 2.1
+        },
+        {
+          "date": "2026-10-23",
+          "day": 22,
+          "indiaNet": 1.4
+        },
+        {
+          "date": "2026-10-24",
+          "day": 23,
+          "indiaNet": 2.65
+        },
+        {
+          "date": "2026-10-25",
+          "day": 24,
+          "indiaNet": 3.0
+        },
+        {
+          "date": "2026-10-26",
+          "day": 25,
+          "indiaNet": 1.05
+        },
+        {
+          "date": "2026-10-27",
+          "day": 26,
+          "indiaNet": 1.25
+        },
+        {
+          "date": "2026-10-28",
+          "day": 27,
+          "indiaNet": 0.9
+        },
+        {
+          "date": "2026-10-29",
+          "day": 28,
+          "indiaNet": 0.9
+        },
+        {
+          "date": "2026-10-30",
+          "day": 29,
+          "indiaNet": 1.0
+        },
+        {
+          "date": "2026-10-31",
+          "day": 30,
+          "indiaNet": 1.6
+        },
+        {
+          "date": "2026-11-01",
+          "day": 31,
+          "indiaNet": 1.75
+        },
+        {
+          "date": "2026-11-02",
+          "day": 32,
+          "indiaNet": 0.55
+        },
+        {
+          "date": "2026-11-03",
+          "day": 33,
+          "indiaNet": 0.75
+        },
+        {
+          "date": "2026-11-04",
+          "day": 34,
+          "indiaNet": 0.55
+        },
+        {
+          "date": "2026-11-05",
+          "day": 35,
+          "indiaNet": 0.05
+        },
+        {
+          "date": "2026-11-06",
+          "day": 36,
+          "indiaNet": 0.05
+        },
+        {
+          "date": "2026-11-07",
+          "day": 37,
+          "indiaNet": 0.09
+        },
+        {
+          "date": "2026-11-08",
+          "day": 38,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-09",
+          "day": 39,
+          "indiaNet": 0.2
+        },
+        {
+          "date": "2026-11-10",
+          "day": 40,
+          "indiaNet": 0.2
+        },
+        {
+          "date": "2026-11-11",
+          "day": 41,
+          "indiaNet": 0.18
+        },
+        {
+          "date": "2026-11-12",
+          "day": 42,
+          "indiaNet": 0.14
+        },
+        {
+          "date": "2026-11-13",
+          "day": 43,
+          "indiaNet": 0.12
+        },
+        {
+          "date": "2026-11-14",
+          "day": 44,
+          "indiaNet": 0.17
+        },
+        {
+          "date": "2026-11-15",
+          "day": 45,
+          "indiaNet": 0.17
+        },
+        {
+          "date": "2026-11-16",
+          "day": 46,
+          "indiaNet": 0.07
+        },
+        {
+          "date": "2026-11-17",
+          "day": 47,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-18",
+          "day": 48,
+          "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-19",
+          "day": 49,
+          "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-20",
+          "day": 50,
+          "indiaNet": 0.03
+        },
+        {
+          "date": "2026-11-21",
+          "day": 51,
+          "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-22",
+          "day": 52,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-23",
+          "day": 53,
+          "indiaNet": 0.04
         }
       ]
     },
