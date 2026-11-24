@@ -24,6 +24,11 @@ jobs:
           python-version: '3.12'
 
       - run: python discover.py
+
+      - name: Collect verified historical daily data
+        run: python historical_daily.py
+        continue-on-error: true
+
       - name: Test historical forecast baseline
         run: python backtest_history.py
         continue-on-error: true
