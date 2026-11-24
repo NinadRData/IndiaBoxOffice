@@ -24,6 +24,9 @@ jobs:
           python-version: '3.12'
 
       - run: python discover.py
+      - name: Collect verified historical daily data
+        run: python historical_daily.py
+        continue-on-error: true
       - name: Collect worldwide daily totals
         run: python worldwide_sync.py
         continue-on-error: true
@@ -33,6 +36,9 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/discovered.json
+                    if [ -f data/historical.json ]; then
+            git add data/historical.json
+          fi
           if [ -f data/worldwide.json ]; then
           git add data/worldwide.json
           fi
