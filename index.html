@@ -21654,10 +21654,25 @@ initTrajPeriodSelect();
   var maxDay = 7, maxValue = 0;
 
   items.forEach(function (item) {
-    item.points.forEach(function (point) {
+       item.points.forEach(function (point) {
       if (point.d > maxDay) maxDay = point.d;
       if (point.v > maxValue) maxValue = point.v;
     });
+
+    var reported = trajMetric === 'india'
+      ? item.film.india
+      : item.film.ww;
+
+    item.reportedTotal =
+      reported != null &&
+      Number.isFinite(Number(reported)) &&
+      Number(reported) >= 0
+        ? Number(reported)
+        : null;
+
+    if (item.reportedTotal != null) {
+      maxValue = Math.max(maxValue, item.reportedTotal);
+    }
   });
 
   var step = trajNiceStep(maxValue);
