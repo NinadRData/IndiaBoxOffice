@@ -2658,6 +2658,8 @@ var FILMS = [
 {n:'Bhagavanth Kesari', y:2023, l:'Telugu', director:'Anil Ravipudi', actors:['Nandamuri Balakrishna','Sreeleela','Kajal Aggarwal','Arjun Rampal'], studio:'Shine Screens', india:84.78, ww:114.50, ow:23.4, ff:null, lb:null, budget:null},
 {n:'Veera Simha Reddy', y:2023, l:'Telugu', director:'Gopichand Malineni', actors:['Nandamuri Balakrishna','Shruti Haasan','Honey Rose','Duniya Vijay'], studio:'Mythri Movie Makers', india:97.64, ww:130.00, ow:30.8, ff:null, lb:null, budget:null},
 {n:'Daaku Maharaaj', y:2025, l:'Telugu', director:'Bobby Kolli', actors:['Nandamuri Balakrishna','Bobby Deol','Pragya Jaiswal','Shraddha Srinath'], studio:'Sithara Entertainments', india:91.23, ww:126.11, ow:50.4, ff:null, lb:null, budget:null},
+{n:'Hichki',y:2018,l:'Hindi',director:'Siddharth P. Malhotra',actors:['Rani Mukerji'],studio:'Yash Raj Films',india:46.21,ww:215.3,ow:15.35,ff:null,lb:null,budget:null},
+{n:'Hindi Medium',y:2017,l:'Hindi',director:'Saket Chaudhary',actors:['Irrfan Khan','Saba Qamar'],studio:'Maddock',india:69.59,ww:322.4,ow:12.56,ff:null,lb:null,budget:null},
   
 {n:'Teri Baaton Mein Aisa Uljha Jiya',y:2024,l:'Hindi',director:'Amit Joshi & Aradhana Sah',actors:['Shahid Kapoor','Kriti Sanon'],studio:'Maddock',india:81,ww:134,ow:27,ff:null,lb:3.1,budget:75},
 {n:'Awarapan 2',y:2026,l:'Hindi',director:'Nitin Kakkar',actors:['Emraan Hashmi','Disha Patani'],studio:'Vishesh Films',india:150.58,ww:213,ow:81.75,ff:null,lb:null,budget:50},
@@ -4779,6 +4781,28 @@ if (Number.isInteger(film.reportedDay)) {
     </div>
     <!-- OVERSEAS GROSS LIST -->
 <div id="tg-sublist-os" style="display:none">
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.75rem">
+    <button
+      type="button"
+      class="rec-tab on"
+      id="tg-os-with-china"
+      onclick="setTGChinaMode('with')">
+      With China
+    </button>
+
+    <button
+      type="button"
+      class="rec-tab"
+      id="tg-os-without-china"
+      onclick="setTGChinaMode('without')">
+      Without China
+    </button>
+  </div>
+
+  <p id="tg-china-note"
+     style="font-size:.7rem;color:rgba(255,255,255,.55);margin:0 0 .75rem">
+    Overseas totals include China where available.
+  </p>
   <div style="position:sticky;top:44px;z-index:10;display:grid;grid-template-columns:40px 1fr 70px 90px 90px 70px;gap:0;padding:.4rem 8px;background:#0a0a0a;border-bottom:1px solid rgba(249,115,22,.18);backdrop-filter:blur(8px)">
     <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">#</div>
     <div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Film</div>
@@ -17819,6 +17843,53 @@ function tgRow(f, rank, valKey, valCol, secKey, secLabel, maxVal){
     estimated: !!split.est
   };
 }
+  // China gross figures supplied for the overseas comparison, in ₹ crore.
+// Match by title AND release year to avoid changing another film.
+var TG_CHINA_GROSS = {
+  'dangal|2016': 1227,
+  'secret superstar|2017': 760,
+  'andhadhun|2018': 335,
+  'bajrangi bhaijaan|2015': 296,
+  'hindi medium|2017': 215,
+  'hichki|2018': 155,
+  'pk|2014': 120
+};
+
+var tgChinaMode = 'with';
+
+function setTGChinaMode(mode) {
+  tgChinaMode = mode === 'without' ? 'without' : 'with';
+
+  var withButton = document.getElementById('tg-os-with-china');
+  var withoutButton = document.getElementById('tg-os-without-china');
+  var note = document.getElementById('tg-china-note');
+
+  if (withButton) {
+    withButton.classList.toggle('on', tgChinaMode === 'with');
+  }
+
+  if (withoutButton) {
+    withoutButton.classList.toggle('on', tgChinaMode === 'without');
+  }
+
+  if (note) {
+    note.textContent = tgChinaMode === 'with'
+      ? 'Overseas totals include China where available.'
+      : 'Films without a listed China figure are assumed to have ₹0 from China. Overseas estimates remain approximate.';
+  }
+
+  renderTG();
+}
+
+function getTGChinaGross(film) {
+  if (!film || typeof film.n !== 'string') return null;
+
+  var key = film.n.trim().toLowerCase() + '|' + film.y;
+
+  return Object.prototype.hasOwnProperty.call(TG_CHINA_GROSS, key)
+    ? TG_CHINA_GROSS[key]
+    : null;
+}
 
 function renderTG(){
   var emptyHtml = '<div style="padding:3rem;text-align:center;color:rgba(255,255,255,.2)">No films match this filter.</div>';
@@ -17924,12 +17995,36 @@ function applyFilters(arr, cap){
       return tgRow(f, f._rank, 'ow', '#22c55e', 'india', 'India Net', maxOW);
     }).join('');
 
-  // ── Overseas list ──
-  var osPool = extendedPool.filter(function(film){
-    return film.os != null && isFinite(Number(film.os));
-  }).slice().sort(function(a, b){
-    return b.os - a.os;
-  });
+   var osPool = extendedPool
+    .filter(function (film) {
+      return film.os != null && isFinite(Number(film.os));
+    })
+    .map(function (film) {
+      // Work on a copy: keep the original overseas figure intact.
+      var copy = Object.assign({}, film);
+
+      if (tgChinaMode === 'without') {
+             var china = getTGChinaGross(film);
+
+        // Assume zero when no China figure is listed.
+        if (china == null) china = 0;
+
+        // Do not show a negative result when the stored overseas
+        // total conflicts with a supplied China figure.
+        if (Number(film.os) < china) {
+          return null;
+        }
+
+        copy.os = Math.round((Number(film.os) - china) * 100) / 100;
+
+      return copy;
+    })
+    .filter(function (film) {
+      return film !== null;
+    })
+    .sort(function (a, b) {
+      return b.os - a.os;
+    });
 
   var listOS = applyFilters(osPool, 75);
   var maxOS = listOS.length ? listOS[0].os : 1;
