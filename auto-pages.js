@@ -13,9 +13,13 @@
   var weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   var originalShow = window.showFilmPage;
 
-  var aliases = {
+    var aliases = {
     '2026:ramayana': 'ramayanapart1',
-    '2026:bhoothbangla': 'bhootbhangla'
+    '2026:bhoothbangla': 'bhootbhangla',
+    '2026:dhurandhar2therevenge': 'dhurandhar2',
+    '2026:drishyam3theconclusion': 'drishyamtheconclusion',
+    '2025:kantaraalegendchapter1': 'kantarachapter1',
+    '2025:mahavatarnarsimha': 'mahavtarnarsimha'
   };
 
   function norm(value) {
@@ -538,7 +542,7 @@
             similar(item.n, film.title);
         });
 
-        if (possibleDuplicate) return;
+        if (existing.length === 0 && possibleDuplicate) return;
 
         if (existing.length === 0) {
           FILMS.push({
@@ -565,6 +569,30 @@
           });
 
         if (pages.length > 1) return;
+
+        // Link a unique match to its source without overwriting
+        // a source URL that was already chosen.
+        var master = existing.length === 1 ? existing[0] : null;
+        var matchedPage = pages.length === 1 ? pages[0] : null;
+
+        var masterUrl = master &&
+          (master.sacnilkUrl || master.sourceUrl);
+
+        var pageUrl = matchedPage &&
+          (matchedPage.sacnilkUrl || matchedPage.sourceUrl);
+
+        if (
+          (masterUrl && masterUrl !== film.url) ||
+          (pageUrl && pageUrl !== film.url)
+        ) return;
+
+        if (master && !masterUrl) {
+          master.sourceUrl = film.url;
+        }
+
+        if (matchedPage && !pageUrl) {
+          matchedPage.sourceUrl = film.url;
+        }
 
         if (pages.length === 0) {
           var near = Object.keys(FILM_PAGES).some(function (item) {
