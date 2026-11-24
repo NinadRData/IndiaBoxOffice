@@ -18275,9 +18275,21 @@ var ALLOWED_ACTORS = ['Akshay Kumar','Amitabh Bachchan','Allu Arjun','Chiranjeev
     }
   });
 
-  return Object.keys(names).sort(function (a, b) {
-    return a.localeCompare(b);
-  });
+   var actressNames = Object.create(null);
+
+  if (typeof ACTRESS_DATA !== 'undefined' && ACTRESS_DATA) {
+    Object.keys(ACTRESS_DATA).forEach(function (name) {
+      actressNames[name.trim().toLowerCase()] = true;
+    });
+  }
+
+  return Object.keys(names)
+    .filter(function (name) {
+      return !actressNames[name.trim().toLowerCase()];
+    })
+    .sort(function (a, b) {
+      return a.localeCompare(b);
+    });
 }
   function filterActorSearch() {
   var inp = document.getElementById('actorSearch-input');
