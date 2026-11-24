@@ -69,6 +69,17 @@
     var rows = source.days.slice().sort(function (a, b) {
       return a.day - b.day;
     });
+        // Historical reports can have missing days. Only use the
+    // consecutive run so cumulative totals don't skip those gaps.
+    if (source.historical) {
+      var end = rows.findIndex(function (row, i) {
+        return !row || row.day !== i + 1;
+      });
+
+      if (end !== -1) {
+        rows = rows.slice(0, end);
+      }
+    }
 
     var oldRows = page.daily == null ? [] : page.daily;
 
@@ -162,7 +173,8 @@
 
   Promise.all([
     load('data/tracker.json'),
-    load('data/discovered.json')
+    load('data/discovered.json'),
+    load('data/historical.json')
   ])
     .then(function (sources) {
       if (typeof FILM_PAGES === 'undefined') return;
@@ -184,6 +196,9 @@
             typeof film.title !== 'string' ||
             !Number.isInteger(film.year)
           ) return;
+            if (documentData.kind === 'historical') {
+             film.historical = true;
+          }
 
           var time = Date.parse(
             film.fetchedAt || documentData.updatedAt || ''
