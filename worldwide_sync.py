@@ -195,7 +195,9 @@ def main():
             except (ValueError, TypeError):
                 continue
 
-            if not 0 <= (TODAY - latest).days <= 14:
+            age = (TODAY - latest).days
+
+            if not 0 <= age <= 90:
                 continue
 
             stamp = (
@@ -216,12 +218,12 @@ def main():
                 continue
 
             if url not in active or when > active[url][0]:
-                active[url] = (when, film)
+                active[url] = (when, film, age)
 
     jobs_recent = []
     jobs_missing = []
 
-    for _, film in active.values():
+    for _, film, age in active.values():
         url = film["url"]
 
         if (
@@ -281,8 +283,9 @@ def main():
         if not available:
             continue
 
-        # Refresh recent reports to pick up source corrections.
-        recent = set(available[-3:])
+        # Refresh recent reports for active films. For older films,
+        # use the request budget to fill missing historical days.
+        recent = set(available[-3:]) if age <= 14 else set()
 
         for day in available:
             job = (
