@@ -23335,5 +23335,486 @@ Object.keys(YR_DATA)
   });
 })();
 </script>
+  <style>
+/* Indian cinema scoreboard homepage */
+#page-main .cinema-scoreboard {
+  position:relative;
+  overflow:hidden;
+  padding:clamp(95px,12vw,145px) clamp(22px,5vw,72px) 42px;
+  background:
+    radial-gradient(circle at 90% 15%,#213a4b 0,transparent 42%),
+    linear-gradient(140deg,#0c1a22,#0a1119 72%);
+  color:#f4f7f7;
+  border-bottom:1px solid #394651;
+}
+
+#page-main.scoreboard-ready > .home-hero {
+  display:none;
+}
+
+.cinema-scoreboard::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 79px,
+    rgba(255,255,255,.025) 80px
+  );
+  pointer-events:none;
+}
+
+.cinema-score-inner {
+  position:relative;
+  max-width:1320px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(300px,.9fr);
+  gap:clamp(28px,6vw,88px);
+  align-items:center;
+}
+
+.cinema-score-kicker {
+  display:flex;
+  align-items:center;
+  gap:.65rem;
+  font-size:.68rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#e9c56b;
+  font-weight:800;
+}
+
+.cinema-score-kicker::before {
+  content:'';
+  width:28px;
+  height:2px;
+  background:#e9c56b;
+}
+
+.cinema-scoreboard h1 {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3.5rem,7vw,6.3rem);
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:.88;
+  margin:1.2rem 0;
+}
+
+.cinema-scoreboard h1 span {
+  color:#e9c56b;
+}
+
+.cinema-score-description {
+  color:#c7d1d5;
+  max-width:450px;
+  line-height:1.55;
+  font-size:1rem;
+}
+
+.cinema-score-actions {
+  display:flex;
+  gap:.65rem;
+  flex-wrap:wrap;
+  margin-top:1.7rem;
+}
+
+.cinema-score-actions button {
+  font:700 .8rem 'Barlow',sans-serif;
+  border-radius:6px;
+  padding:.8rem 1rem;
+  cursor:pointer;
+}
+
+.cinema-score-primary {
+  background:#e9c56b;
+  color:#141a1c;
+  border:1px solid #e9c56b;
+}
+
+.cinema-score-secondary {
+  background:transparent;
+  color:#f2f4f3;
+  border:1px solid #71818a;
+}
+
+.cinema-score-panel {
+  border:1px solid #40515a;
+  border-radius:12px;
+  background:rgba(8,15,19,.72);
+  box-shadow:0 20px 45px rgba(0,0,0,.22);
+  overflow:hidden;
+}
+
+.cinema-score-panel-head {
+  padding:1.05rem 1.2rem;
+  border-bottom:1px solid #33414a;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+}
+
+.cinema-score-panel-head strong {
+  font-size:.77rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#f3f4f0;
+}
+
+.cinema-score-date {
+  font-size:.72rem;
+  color:#b8c6cd;
+  text-align:right;
+}
+
+.cinema-score-line {
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr) auto;
+  gap:.7rem;
+  align-items:center;
+  padding:1rem 1.2rem;
+  border-bottom:1px solid #27353c;
+}
+
+.cinema-score-rank {
+  font:800 1.5rem 'Barlow Condensed',sans-serif;
+  color:#e9c56b;
+}
+
+.cinema-score-name {
+  font-weight:700;
+  font-size:.95rem;
+  overflow-wrap:anywhere;
+  color:#f4f7f7;
+}
+
+.cinema-score-number {
+  font-weight:700;
+  color:#e9c56b;
+  white-space:nowrap;
+}
+
+.cinema-score-foot {
+  padding:.85rem 1.2rem;
+  color:#b8c6cd;
+  font-size:.7rem;
+  line-height:1.5;
+}
+
+body.light #page-main .cinema-scoreboard {
+  color:#f4f7f7;
+}
+
+@media (max-width:760px) {
+  nav {
+    flex-wrap:wrap;
+    gap:.6rem;
+    padding:.7rem 1rem;
+  }
+
+  nav .nav-logo {
+    white-space:nowrap;
+  }
+
+  nav .nav-links {
+    order:3;
+    width:100%;
+    overflow-x:auto;
+    gap:1rem;
+    padding:.4rem 0;
+  }
+
+  nav .nav-links li {
+    flex:none;
+  }
+
+  #page-main .cinema-scoreboard {
+    padding:115px 22px 32px;
+  }
+
+  .cinema-score-inner {
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .cinema-scoreboard h1 {
+    font-size:clamp(3.5rem,15vw,5rem);
+  }
+}
+</style>
+
+<script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var main = document.getElementById('page-main');
+    var hero = main && main.querySelector(':scope > .home-hero');
+
+    if (
+      !main ||
+      !hero ||
+      main.querySelector('.cinema-scoreboard')
+    ) return;
+
+    function make(tag, text, className) {
+      var element = document.createElement(tag);
+
+      if (text != null) element.textContent = text;
+      if (className) element.className = className;
+
+      return element;
+    }
+
+    var section = make('section', null, 'cinema-scoreboard');
+    section.setAttribute('aria-label', 'Latest box office scoreboard');
+
+    var inner = make('div', null, 'cinema-score-inner');
+    var intro = make('div');
+    var panel = make('div', null, 'cinema-score-panel');
+
+    intro.appendChild(make(
+      'div',
+      'Indian cinema · the box office',
+      'cinema-score-kicker'
+    ));
+
+    var title = make('h1');
+    title.append('The numbers.');
+    title.appendChild(document.createElement('br'));
+    title.appendChild(make('span', 'The stories.'));
+    intro.appendChild(title);
+
+    intro.appendChild(make(
+      'p',
+      'Follow the films moving Indian cinema, from today’s collections to the runs that make history.',
+      'cinema-score-description'
+    ));
+
+    var actions = make('div', null, 'cinema-score-actions');
+
+    var daily = make(
+      'button',
+      'Explore box office',
+      'cinema-score-primary'
+    );
+
+    daily.type = 'button';
+
+    daily.addEventListener('click', function () {
+      var box = document.getElementById('box-office-results');
+
+      if (box) {
+        var tab = Array.from(
+          box.querySelectorAll('[role="tab"]')
+        ).find(function (button) {
+          return button.textContent.trim() === 'Daily';
+        });
+
+        if (tab) tab.click();
+
+        box.scrollIntoView({
+          behavior:'smooth',
+          block:'start'
+        });
+      }
+    });
+
+    var tracking = make(
+      'button',
+      'Compare film runs →',
+      'cinema-score-secondary'
+    );
+
+    tracking.type = 'button';
+
+    tracking.addEventListener('click', function () {
+      if (typeof showPage === 'function') {
+        showPage('tracking');
+      }
+    });
+
+    actions.append(daily, tracking);
+    intro.appendChild(actions);
+
+    var head = make('div', null, 'cinema-score-panel-head');
+
+    head.appendChild(make('strong', 'Daily leaderboard'));
+
+    var dateLabel = make('span', 'Loading…', 'cinema-score-date');
+    head.appendChild(dateLabel);
+    panel.appendChild(head);
+
+    var rows = make('div');
+    panel.appendChild(rows);
+
+    var foot = make(
+      'div',
+      'India net · ₹ crore · Source-reported estimates',
+      'cinema-score-foot'
+    );
+
+    panel.appendChild(foot);
+    inner.append(intro, panel);
+    section.appendChild(inner);
+
+    main.insertBefore(section, hero);
+    main.classList.add('scoreboard-ready');
+
+    function load(path, required) {
+      return fetch(path, {cache:'no-cache'})
+        .then(function (response) {
+          if (!response.ok) throw new Error(path);
+          return response.json();
+        })
+        .catch(function (error) {
+          if (required) throw error;
+          return null;
+        });
+    }
+
+    Promise.all([
+      load('data/tracker.json', true),
+      load('data/discovered.json', false)
+    ])
+      .then(function (sources) {
+        var tracker = sources[0];
+        var discovered = sources[1];
+        var byUrl = Object.create(null);
+
+        if (!tracker || !Array.isArray(tracker.films)) {
+          throw new Error('Invalid tracker');
+        }
+
+        tracker.films.forEach(function (film) {
+          if (film && typeof film.url === 'string') {
+            byUrl[film.url] = film;
+          }
+        });
+
+        if (discovered && Array.isArray(discovered.films)) {
+          discovered.films.forEach(function (film) {
+            if (
+              !film ||
+              typeof film.url !== 'string' ||
+              !Array.isArray(film.days)
+            ) return;
+
+            var old = byUrl[film.url];
+            var incoming = Date.parse(film.fetchedAt || '');
+            var previous = Date.parse(
+              (old && old.fetchedAt) || tracker.updatedAt || ''
+            );
+
+            if (
+              !old ||
+              (Number.isFinite(incoming) && incoming > previous)
+            ) {
+              byUrl[film.url] = film;
+            }
+          });
+        }
+
+        var films = Object.keys(byUrl).map(function (url) {
+          return byUrl[url];
+        });
+
+        var latest = '';
+
+        films.forEach(function (film) {
+          var days = Array.isArray(film.days) ? film.days : [];
+
+          days.forEach(function (day) {
+            if (
+              day &&
+              /^\d{4}-\d{2}-\d{2}$/.test(day.date) &&
+              Number.isFinite(day.indiaNet) &&
+              day.indiaNet >= 0 &&
+              day.date > latest
+            ) {
+              latest = day.date;
+            }
+          });
+        });
+
+        if (!latest) {
+          dateLabel.textContent = 'No data yet';
+          foot.textContent =
+            'No daily collections are available yet.';
+          return;
+        }
+
+        dateLabel.textContent = new Date(
+          latest + 'T12:00:00Z'
+        ).toLocaleDateString('en-IN', {
+          day:'numeric',
+          month:'short',
+          year:'numeric',
+          timeZone:'UTC'
+        });
+
+        var ranking = [];
+
+        films.forEach(function (film) {
+          if (
+            typeof film.title !== 'string' ||
+            !Array.isArray(film.days)
+          ) return;
+
+          var day = film.days.find(function (row) {
+            return (
+              row &&
+              row.date === latest &&
+              Number.isFinite(row.indiaNet) &&
+              row.indiaNet >= 0
+            );
+          });
+
+          if (day) {
+            ranking.push({
+              title:film.title,
+              value:day.indiaNet
+            });
+          }
+        });
+
+        ranking.sort(function (a, b) {
+          return b.value - a.value ||
+            a.title.localeCompare(b.title);
+        });
+
+        ranking.slice(0, 3).forEach(function (item, index) {
+          var line = make('div', null, 'cinema-score-line');
+
+          line.append(
+            make(
+              'span',
+              String(index + 1).padStart(2, '0'),
+              'cinema-score-rank'
+            ),
+            make('span', item.title, 'cinema-score-name'),
+            make(
+              'span',
+              '₹' + item.value.toLocaleString('en-IN', {
+                maximumFractionDigits:2
+              }) + ' Cr',
+              'cinema-score-number'
+            )
+          );
+
+          rows.appendChild(line);
+        });
+
+        foot.textContent =
+          'India net · ₹ crore · Source-reported films only; estimates may change.';
+      })
+      .catch(function () {
+        dateLabel.textContent = 'Unavailable';
+        foot.textContent =
+          'Daily collections could not be loaded. Please try again later.';
+      });
+  });
+})();
+</script>
 </body>
 </html>
