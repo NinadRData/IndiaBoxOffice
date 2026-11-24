@@ -24,8 +24,8 @@ jobs:
           python-version: '3.12'
 
       - run: python discover.py
-      - name: Collect verified historical daily data
-        run: python historical_daily.py
+      - name: Test historical forecast baseline
+        run: python backtest_history.py
         continue-on-error: true
       - name: Collect worldwide daily totals
         run: python worldwide_sync.py
