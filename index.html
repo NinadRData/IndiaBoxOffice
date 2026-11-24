@@ -21406,42 +21406,68 @@ function trajSeries(film, metric) {
     return indiaPoints;
   }
 
-  var hasDailyWorldwide = dailyRows.some(function (row) {
-    return row && !row.bucket &&
-      (row.wwGross != null || row.wwTotal != null);
+  // Merge manual and sourced worldwide cumulative points.
+  // Count each release day even when a worldwide value is missing.
+  var byDay = Object.create(null);
+
+  getWorldwideCumulativePoints(film).forEach(function (point) {
+    byDay[point.d] = point.v;
   });
 
-  if (hasDailyWorldwide) {
-    var worldwidePoints = [];
-    var worldwideRunningTotal = 0;
-    var releaseDay = 0;
+  var running = 0;
+  var releaseDay = 0;
 
-    dailyRows.forEach(function (row) {
-      if (!row || row.bucket) return;
+  dailyRows.forEach(function (row) {
+    if (!row || row.bucket) return;
 
-      if (row.wwTotal != null && isFinite(Number(row.wwTotal))) {
-        worldwideRunningTotal = Number(row.wwTotal);
-      } else if (row.wwGross != null && isFinite(Number(row.wwGross))) {
-        worldwideRunningTotal += Number(row.wwGross);
-      } else {
-        return;
-      }
+    var preview = isPreview(row);
 
-      if (isPreview(row)) return;
+    if (!preview) releaseDay++;
 
-      releaseDay++;
-      worldwidePoints.push({d:releaseDay, v:worldwideRunningTotal});
+    if (
+      row.wwTotal != null &&
+      Number.isFinite(Number(row.wwTotal)) &&
+      Number(row.wwTotal) >= 0
+    ) {
+      running = Number(row.wwTotal);
+    } else if (
+      row.wwGross != null &&
+      Number.isFinite(Number(row.wwGross)) &&
+      Number(row.wwGross) >= 0 &&
+      running != null
+    ) {
+      running += Number(row.wwGross);
+    } else {
+      running = null;
+    }
+
+    if (!preview && running != null) {
+      byDay[releaseDay] = running;
+    }
+  });
+
+  return Object.keys(byDay)
+    .map(function (day) {
+      return {
+        d:Number(day),
+        v:byDay[day]
+      };
+    })
+    .sort(function (a, b) {
+      return a.d - b.d;
     });
-
-    return worldwidePoints;
-  }
-
-  return getWorldwideCumulativePoints(film);
 
 }
 function trajValueAt(points, day) {
   if (!points.length || day < points[0].d || day > points[points.length - 1].d) {
     return null;
+  }
+    if (trajMetric === 'ww') {
+    var exact = points.find(function (point) {
+      return point.d === day;
+    });
+
+    return exact ? exact.v : null;
   }
 
   for (var i = 1; i < points.length; i++) {
@@ -21488,8 +21514,8 @@ function setTrajMetric(metric, btn) {
       (row.wwGross != null || row.wwTotal != null);
   });
 
-  if (metric === 'ww' && !hasDailyWorldwide) {
-    var points = getWorldwideCumulativePoints(film);
+   if (metric === 'ww') {
+    var points = trajSeries(film, 'ww');
     var totals = {};
     var daily = [];
 
@@ -21828,14 +21854,19 @@ initTrajPeriodSelect();
     var points = item.points;
     var last = points[points.length - 1];
     var path = points.map(function (point, index) {
-      return (index ? 'L' : 'M') +
+            var gap =
+        trajMetric === 'ww' &&
+        index &&
+        point.d !== points[index - 1].d + 1;
+
+      return (index && !gap ? 'L' : 'M') +
         trajR1(X(point.d)) + ',' + trajR1(Y(point.v));
     }).join(' ');
 
     svg += '<path d="' + path + '" fill="none" stroke="' + item.color +
       '" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
 
-    if (last.d < maxDay) {
+        if (last.d < maxDay && trajMetric !== 'ww') {
       svg += '<line x1="' + trajR1(X(last.d)) + '" x2="' + (W - R) +
         '" y1="' + trajR1(Y(last.v)) + '" y2="' + trajR1(Y(last.v)) +
         '" stroke="' + item.color + '" stroke-width="1.2" opacity=".35"/>';
@@ -21845,7 +21876,13 @@ initTrajPeriodSelect();
       '" y1="' + trajR1(Y(last.v)) + '" y2="' + trajR1(Y(last.v)) +
       '" stroke="' + item.color + '" stroke-width="2"/>';
 
-    if (points.length === 1) {
+       if (trajMetric === 'ww') {
+      points.forEach(function (point) {
+        svg += '<circle cx="' + trajR1(X(point.d)) +
+          '" cy="' + trajR1(Y(point.v)) +
+          '" r="3" fill="' + item.color + '"/>';
+      });
+    } else if (points.length === 1) {
       svg += '<circle cx="' + trajR1(X(points[0].d)) +
         '" cy="' + trajR1(Y(points[0].v)) +
         '" r="3.5" fill="' + item.color + '"/>';
@@ -22817,6 +22854,7 @@ Object.keys(YR_DATA)
 <script src="tracker.js?v=3" defer></script>
 <script src="daily-page-sync.js?v=2" defer></script>
 <script src="auto-pages.js?v=4" defer></script>
+  <script src="worldwide-sync.js?v=1" defer></script>
   <script src="daily-chart.js" defer></script>
   <script>
 (function () {
