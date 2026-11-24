@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T15:25:57.861794+00:00",
+  "updatedAt": "2026-11-24T15:20:13.783251+00:00",
   "films": [
     {
       "title": "O.M Operation Mole",
@@ -7,8 +7,8 @@
       "language": "Tamil",
       "url": "https://www.sacnilk.com/movie/OM_Chapter_1_Udhiram_2026",
       "release": "2026-11-20",
-      "indiaNet": 50.25,
-      "worldwideGross": 85.3,
+      "indiaNet": 55.95,
+      "worldwideGross": 93.4,
       "days": [
         {
           "date": "2026-11-20",
@@ -18,15 +18,20 @@
         {
           "date": "2026-11-21",
           "day": 2,
-          "indiaNet": 16.25
+          "indiaNet": 15.75
         },
         {
           "date": "2026-11-22",
           "day": 3,
           "indiaNet": 15.9
+        },
+        {
+          "date": "2026-11-23",
+          "day": 4,
+          "indiaNet": 6.2
         }
       ],
-      "fetchedAt": "2026-11-23T15:25:15.505172+00:00"
+      "fetchedAt": "2026-11-24T15:19:32.002550+00:00"
     },
     {
       "title": "Ramayana",
@@ -34,8 +39,8 @@
       "language": "Hindi",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "release": "2026-11-05",
-      "indiaNet": 942.75,
-      "worldwideGross": 1693.5,
+      "indiaNet": 955.45,
+      "worldwideGross": 1709.65,
       "days": [
         {
           "date": "2026-11-05",
@@ -126,9 +131,14 @@
           "date": "2026-11-22",
           "day": 18,
           "indiaNet": 35.6
+        },
+        {
+          "date": "2026-11-23",
+          "day": 19,
+          "indiaNet": 12.7
         }
       ],
-      "fetchedAt": "2026-11-23T15:25:13.958226+00:00"
+      "fetchedAt": "2026-11-24T15:19:30.495006+00:00"
     },
     {
       "title": "ENE Repeat",
@@ -136,8 +146,8 @@
       "language": "Telugu",
       "url": "https://www.sacnilk.com/movie/ENE_Repeat_2026",
       "release": "2026-11-19",
-      "indiaNet": 18.0,
-      "worldwideGross": 35.45,
+      "indiaNet": 20.0,
+      "worldwideGross": 39.15,
       "days": [
         {
           "date": "2026-11-19",
@@ -158,9 +168,14 @@
           "date": "2026-11-22",
           "day": 4,
           "indiaNet": 4.6
+        },
+        {
+          "date": "2026-11-23",
+          "day": 5,
+          "indiaNet": 2.0
         }
       ],
-      "fetchedAt": "2026-11-23T15:25:18.537601+00:00"
+      "fetchedAt": "2026-11-24T15:19:34.744504+00:00"
     },
     {
       "title": "Scene",
@@ -168,8 +183,8 @@
       "language": "Tamil",
       "url": "https://www.sacnilk.com/movie/Scene_2026",
       "release": "2026-11-06",
-      "indiaNet": 147.72,
-      "worldwideGross": 260.6,
+      "indiaNet": 151.22,
+      "worldwideGross": 265.15,
       "days": [
         {
           "date": "2026-11-06",
@@ -240,9 +255,29 @@
           "date": "2026-11-19",
           "day": 14,
           "indiaNet": 1.9
+        },
+        {
+          "date": "2026-11-20",
+          "day": 15,
+          "indiaNet": 0.77
+        },
+        {
+          "date": "2026-11-21",
+          "day": 16,
+          "indiaNet": 1.35
+        },
+        {
+          "date": "2026-11-22",
+          "day": 17,
+          "indiaNet": 1.58
+        },
+        {
+          "date": "2026-11-23",
+          "day": 18,
+          "indiaNet": 0.57
         }
       ],
-      "fetchedAt": "2026-11-21T13:03:51.784970+00:00"
+      "fetchedAt": "2026-11-24T15:19:36.290821+00:00"
     },
     {
       "title": "Bachelor Party D'eux",
@@ -250,16 +285,36 @@
       "language": "Malayalam",
       "url": "https://www.sacnilk.com/movie/Bachelor_Party_Deux_2026",
       "release": "2026-11-19",
-      "indiaNet": 3.78,
-      "worldwideGross": 3.67,
+      "indiaNet": 3.95,
+      "worldwideGross": 6.59,
       "days": [
         {
           "date": "2026-11-19",
           "day": 1,
           "indiaNet": 2.55
+        },
+        {
+          "date": "2026-11-20",
+          "day": 2,
+          "indiaNet": 0.57
+        },
+        {
+          "date": "2026-11-21",
+          "day": 3,
+          "indiaNet": 0.4
+        },
+        {
+          "date": "2026-11-22",
+          "day": 4,
+          "indiaNet": 0.33
+        },
+        {
+          "date": "2026-11-23",
+          "day": 5,
+          "indiaNet": 0.1
         }
       ],
-      "fetchedAt": "2026-11-23T15:25:35.218474+00:00"
+      "fetchedAt": "2026-11-24T15:19:50.710173+00:00"
     },
     {
       "title": "Donga Naa Koduku",
@@ -267,8 +322,8 @@
       "language": "Telugu",
       "url": "https://www.sacnilk.com/movie/Donga_Naa_Koduku_2026",
       "release": "2026-11-13",
-      "indiaNet": 8.85,
-      "worldwideGross": 8.86,
+      "indiaNet": 8.92,
+      "worldwideGross": 8.94,
       "days": [
         {
           "date": "2026-11-13",
@@ -284,9 +339,49 @@
           "date": "2026-11-15",
           "day": 3,
           "indiaNet": 1.95
+        },
+        {
+          "date": "2026-11-16",
+          "day": 4,
+          "indiaNet": 0.78
+        },
+        {
+          "date": "2026-11-17",
+          "day": 5,
+          "indiaNet": 0.8
+        },
+        {
+          "date": "2026-11-18",
+          "day": 6,
+          "indiaNet": 0.66
+        },
+        {
+          "date": "2026-11-19",
+          "day": 7,
+          "indiaNet": 0.5
+        },
+        {
+          "date": "2026-11-20",
+          "day": 8,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-21",
+          "day": 9,
+          "indiaNet": 0.11
+        },
+        {
+          "date": "2026-11-22",
+          "day": 10,
+          "indiaNet": 0.12
+        },
+        {
+          "date": "2026-11-23",
+          "day": 11,
+          "indiaNet": 0.07
         }
       ],
-      "fetchedAt": "2026-11-23T15:25:51.862550+00:00"
+      "fetchedAt": "2026-11-24T15:19:56.742089+00:00"
     },
     {
       "title": "Aakasamlo Oka Tara",
@@ -294,8 +389,8 @@
       "language": "Telugu",
       "url": "https://www.sacnilk.com/movie/Aakasamlo_Oka_Tara_2026",
       "release": "2026-11-20",
-      "indiaNet": 13.1,
-      "worldwideGross": 22.7,
+      "indiaNet": 16.3,
+      "worldwideGross": 27.45,
       "days": [
         {
           "date": "2026-11-20",
@@ -311,9 +406,1119 @@
           "date": "2026-11-22",
           "day": 3,
           "indiaNet": 5.75
+        },
+        {
+          "date": "2026-11-23",
+          "day": 4,
+          "indiaNet": 3.2
         }
       ],
-      "fetchedAt": "2026-11-23T15:25:17.020369+00:00"
+      "fetchedAt": "2026-11-24T15:19:33.506419+00:00"
+    },
+    {
+      "title": "Brindavihari",
+      "year": 2026,
+      "language": "Kannada",
+      "url": "https://www.sacnilk.com/movie/Brindavihari_2026",
+      "release": "2026-11-20",
+      "indiaNet": 2.37,
+      "worldwideGross": 70.0,
+      "days": [
+        {
+          "date": "2026-11-20",
+          "day": 1,
+          "indiaNet": 0.6
+        },
+        {
+          "date": "2026-11-21",
+          "day": 2,
+          "indiaNet": 0.64
+        },
+        {
+          "date": "2026-11-22",
+          "day": 3,
+          "indiaNet": 0.83
+        },
+        {
+          "date": "2026-11-23",
+          "day": 4,
+          "indiaNet": 0.3
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:19:39.263802+00:00"
+    },
+    {
+      "title": "Appakutty",
+      "year": 2026,
+      "language": "Tamil",
+      "url": "https://www.sacnilk.com/movie/Appakutty_2026",
+      "release": "2026-11-20",
+      "indiaNet": 1.84,
+      "worldwideGross": 34.0,
+      "days": [
+        {
+          "date": "2026-11-20",
+          "day": 1,
+          "indiaNet": 0.3
+        },
+        {
+          "date": "2026-11-21",
+          "day": 2,
+          "indiaNet": 0.5
+        },
+        {
+          "date": "2026-11-22",
+          "day": 3,
+          "indiaNet": 0.75
+        },
+        {
+          "date": "2026-11-23",
+          "day": 4,
+          "indiaNet": 0.29
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:19:40.776785+00:00"
+    },
+    {
+      "title": "Aadi Anant",
+      "year": 2026,
+      "language": "Marathi",
+      "url": "https://www.sacnilk.com/movie/Aadi_Anant_2026",
+      "release": "2026-11-12",
+      "indiaNet": 3.95,
+      "worldwideGross": 4.42,
+      "days": [
+        {
+          "date": "2026-11-12",
+          "day": 1,
+          "indiaNet": 0.15
+        },
+        {
+          "date": "2026-11-13",
+          "day": 2,
+          "indiaNet": 0.19
+        },
+        {
+          "date": "2026-11-14",
+          "day": 3,
+          "indiaNet": 0.38
+        },
+        {
+          "date": "2026-11-15",
+          "day": 4,
+          "indiaNet": 0.53
+        },
+        {
+          "date": "2026-11-16",
+          "day": 5,
+          "indiaNet": 0.27
+        },
+        {
+          "date": "2026-11-17",
+          "day": 6,
+          "indiaNet": 0.35
+        },
+        {
+          "date": "2026-11-18",
+          "day": 7,
+          "indiaNet": 0.29
+        },
+        {
+          "date": "2026-11-19",
+          "day": 8,
+          "indiaNet": 0.27
+        },
+        {
+          "date": "2026-11-20",
+          "day": 9,
+          "indiaNet": 0.19
+        },
+        {
+          "date": "2026-11-21",
+          "day": 10,
+          "indiaNet": 0.46
+        },
+        {
+          "date": "2026-11-22",
+          "day": 11,
+          "indiaNet": 0.67
+        },
+        {
+          "date": "2026-11-23",
+          "day": 12,
+          "indiaNet": 0.2
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:19:44.978506+00:00"
+    },
+    {
+      "title": "Bouma",
+      "year": 2026,
+      "language": "Malayalam",
+      "url": "https://www.sacnilk.com/movie/Bouma_2026",
+      "release": "2026-11-12",
+      "indiaNet": 7.66,
+      "worldwideGross": 7.85,
+      "days": [
+        {
+          "date": "2026-11-12",
+          "day": 1,
+          "indiaNet": 0.5
+        },
+        {
+          "date": "2026-11-13",
+          "day": 2,
+          "indiaNet": 0.83
+        },
+        {
+          "date": "2026-11-14",
+          "day": 3,
+          "indiaNet": 1.32
+        },
+        {
+          "date": "2026-11-15",
+          "day": 4,
+          "indiaNet": 1.5
+        },
+        {
+          "date": "2026-11-16",
+          "day": 5,
+          "indiaNet": 0.83
+        },
+        {
+          "date": "2026-11-17",
+          "day": 6,
+          "indiaNet": 0.7
+        },
+        {
+          "date": "2026-11-18",
+          "day": 7,
+          "indiaNet": 0.54
+        },
+        {
+          "date": "2026-11-19",
+          "day": 8,
+          "indiaNet": 0.33
+        },
+        {
+          "date": "2026-11-20",
+          "day": 9,
+          "indiaNet": 0.23
+        },
+        {
+          "date": "2026-11-21",
+          "day": 10,
+          "indiaNet": 0.33
+        },
+        {
+          "date": "2026-11-22",
+          "day": 11,
+          "indiaNet": 0.41
+        },
+        {
+          "date": "2026-11-23",
+          "day": 12,
+          "indiaNet": 0.14
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:19:46.484834+00:00"
+    },
+    {
+      "title": "Sathyavan Savithiri",
+      "year": 2026,
+      "language": "Tamil",
+      "url": "https://www.sacnilk.com/movie/Sathyavan_Savithiri_2026",
+      "release": "2026-11-20",
+      "indiaNet": 1.16,
+      "worldwideGross": 1.29,
+      "days": [
+        {
+          "date": "2026-11-20",
+          "day": 1,
+          "indiaNet": 0.21
+        },
+        {
+          "date": "2026-11-21",
+          "day": 2,
+          "indiaNet": 0.39
+        },
+        {
+          "date": "2026-11-22",
+          "day": 3,
+          "indiaNet": 0.42
+        },
+        {
+          "date": "2026-11-23",
+          "day": 4,
+          "indiaNet": 0.14
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:19:47.987105+00:00"
+    },
+    {
+      "title": "Udta Teer",
+      "year": 2026,
+      "language": "Hindi",
+      "url": "https://www.sacnilk.com/movie/Udta_Teer_2026",
+      "release": "2026-10-23",
+      "indiaNet": 50.23,
+      "worldwideGross": 69.82,
+      "days": [
+        {
+          "date": "2026-10-23",
+          "day": 1,
+          "indiaNet": 4.1
+        },
+        {
+          "date": "2026-10-24",
+          "day": 2,
+          "indiaNet": 7.25
+        },
+        {
+          "date": "2026-10-25",
+          "day": 3,
+          "indiaNet": 8.2
+        },
+        {
+          "date": "2026-10-26",
+          "day": 4,
+          "indiaNet": 3.2
+        },
+        {
+          "date": "2026-10-27",
+          "day": 5,
+          "indiaNet": 3.25
+        },
+        {
+          "date": "2026-10-28",
+          "day": 6,
+          "indiaNet": 2.65
+        },
+        {
+          "date": "2026-10-29",
+          "day": 7,
+          "indiaNet": 2.25
+        },
+        {
+          "date": "2026-10-30",
+          "day": 8,
+          "indiaNet": 2.85
+        },
+        {
+          "date": "2026-10-31",
+          "day": 9,
+          "indiaNet": 4.0
+        },
+        {
+          "date": "2026-11-01",
+          "day": 10,
+          "indiaNet": 4.35
+        },
+        {
+          "date": "2026-11-02",
+          "day": 11,
+          "indiaNet": 1.45
+        },
+        {
+          "date": "2026-11-03",
+          "day": 12,
+          "indiaNet": 1.7
+        },
+        {
+          "date": "2026-11-04",
+          "day": 13,
+          "indiaNet": 1.25
+        },
+        {
+          "date": "2026-11-05",
+          "day": 14,
+          "indiaNet": 0.15
+        },
+        {
+          "date": "2026-11-06",
+          "day": 15,
+          "indiaNet": 0.15
+        },
+        {
+          "date": "2026-11-07",
+          "day": 16,
+          "indiaNet": 0.25
+        },
+        {
+          "date": "2026-11-08",
+          "day": 17,
+          "indiaNet": 0.18
+        },
+        {
+          "date": "2026-11-09",
+          "day": 18,
+          "indiaNet": 0.4
+        },
+        {
+          "date": "2026-11-10",
+          "day": 19,
+          "indiaNet": 0.4
+        },
+        {
+          "date": "2026-11-11",
+          "day": 20,
+          "indiaNet": 0.3
+        },
+        {
+          "date": "2026-11-12",
+          "day": 21,
+          "indiaNet": 0.24
+        },
+        {
+          "date": "2026-11-13",
+          "day": 22,
+          "indiaNet": 0.17
+        },
+        {
+          "date": "2026-11-14",
+          "day": 23,
+          "indiaNet": 0.25
+        },
+        {
+          "date": "2026-11-15",
+          "day": 24,
+          "indiaNet": 0.3
+        },
+        {
+          "date": "2026-11-16",
+          "day": 25,
+          "indiaNet": 0.13
+        },
+        {
+          "date": "2026-11-17",
+          "day": 26,
+          "indiaNet": 0.15
+        },
+        {
+          "date": "2026-11-18",
+          "day": 27,
+          "indiaNet": 0.12
+        },
+        {
+          "date": "2026-11-19",
+          "day": 28,
+          "indiaNet": 0.1
+        },
+        {
+          "date": "2026-11-20",
+          "day": 29,
+          "indiaNet": 0.07
+        },
+        {
+          "date": "2026-11-21",
+          "day": 30,
+          "indiaNet": 0.12
+        },
+        {
+          "date": "2026-11-22",
+          "day": 31,
+          "indiaNet": 0.18
+        },
+        {
+          "date": "2026-11-23",
+          "day": 32,
+          "indiaNet": 0.07
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:19:53.698288+00:00"
+    },
+    {
+      "title": "Pyre",
+      "year": 2026,
+      "language": "Hindi",
+      "url": "https://www.sacnilk.com/movie/Pyre_2026",
+      "release": "2026-10-30",
+      "indiaNet": 3.66,
+      "worldwideGross": 4.38,
+      "days": [
+        {
+          "date": "2026-10-30",
+          "day": 1,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-10-31",
+          "day": 2,
+          "indiaNet": 0.22
+        },
+        {
+          "date": "2026-11-01",
+          "day": 3,
+          "indiaNet": 0.43
+        },
+        {
+          "date": "2026-11-02",
+          "day": 4,
+          "indiaNet": 0.15
+        },
+        {
+          "date": "2026-11-03",
+          "day": 5,
+          "indiaNet": 0.2
+        },
+        {
+          "date": "2026-11-04",
+          "day": 6,
+          "indiaNet": 0.17
+        },
+        {
+          "date": "2026-11-05",
+          "day": 7,
+          "indiaNet": 0.05
+        },
+        {
+          "date": "2026-11-06",
+          "day": 8,
+          "indiaNet": 0.05
+        },
+        {
+          "date": "2026-11-07",
+          "day": 9,
+          "indiaNet": 0.09
+        },
+        {
+          "date": "2026-11-08",
+          "day": 10,
+          "indiaNet": 0.04
+        },
+        {
+          "date": "2026-11-09",
+          "day": 11,
+          "indiaNet": 0.17
+        },
+        {
+          "date": "2026-11-10",
+          "day": 12,
+          "indiaNet": 0.19
+        },
+        {
+          "date": "2026-11-11",
+          "day": 13,
+          "indiaNet": 0.18
+        },
+        {
+          "date": "2026-11-12",
+          "day": 14,
+          "indiaNet": 0.1
+        },
+        {
+          "date": "2026-11-13",
+          "day": 15,
+          "indiaNet": 0.09
+        },
+        {
+          "date": "2026-11-14",
+          "day": 16,
+          "indiaNet": 0.21
+        },
+        {
+          "date": "2026-11-15",
+          "day": 17,
+          "indiaNet": 0.28
+        },
+        {
+          "date": "2026-11-16",
+          "day": 18,
+          "indiaNet": 0.1
+        },
+        {
+          "date": "2026-11-17",
+          "day": 19,
+          "indiaNet": 0.12
+        },
+        {
+          "date": "2026-11-18",
+          "day": 20,
+          "indiaNet": 0.1
+        },
+        {
+          "date": "2026-11-19",
+          "day": 21,
+          "indiaNet": 0.09
+        },
+        {
+          "date": "2026-11-20",
+          "day": 22,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-21",
+          "day": 23,
+          "indiaNet": 0.18
+        },
+        {
+          "date": "2026-11-22",
+          "day": 24,
+          "indiaNet": 0.22
+        },
+        {
+          "date": "2026-11-23",
+          "day": 25,
+          "indiaNet": 0.07
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:19:55.218831+00:00"
+    },
+    {
+      "title": "Jailer 2",
+      "year": 2026,
+      "language": "Tamil",
+      "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
+      "release": "2026-10-15",
+      "indiaNet": 475.44,
+      "worldwideGross": 836.0,
+      "days": [
+        {
+          "date": "2026-10-15",
+          "day": 1,
+          "indiaNet": 59.7
+        },
+        {
+          "date": "2026-10-16",
+          "day": 2,
+          "indiaNet": 37.1
+        },
+        {
+          "date": "2026-10-17",
+          "day": 3,
+          "indiaNet": 47.25
+        },
+        {
+          "date": "2026-10-18",
+          "day": 4,
+          "indiaNet": 55.85
+        },
+        {
+          "date": "2026-10-19",
+          "day": 5,
+          "indiaNet": 42.35
+        },
+        {
+          "date": "2026-10-20",
+          "day": 6,
+          "indiaNet": 46.8
+        },
+        {
+          "date": "2026-10-21",
+          "day": 7,
+          "indiaNet": 28.15
+        },
+        {
+          "date": "2026-10-22",
+          "day": 8,
+          "indiaNet": 17.15
+        },
+        {
+          "date": "2026-10-23",
+          "day": 9,
+          "indiaNet": 14.5
+        },
+        {
+          "date": "2026-10-24",
+          "day": 10,
+          "indiaNet": 24.15
+        },
+        {
+          "date": "2026-10-25",
+          "day": 11,
+          "indiaNet": 25.7
+        },
+        {
+          "date": "2026-10-26",
+          "day": 12,
+          "indiaNet": 9.45
+        },
+        {
+          "date": "2026-10-27",
+          "day": 13,
+          "indiaNet": 8.3
+        },
+        {
+          "date": "2026-10-28",
+          "day": 14,
+          "indiaNet": 7.2
+        },
+        {
+          "date": "2026-10-29",
+          "day": 15,
+          "indiaNet": 6.25
+        },
+        {
+          "date": "2026-10-30",
+          "day": 16,
+          "indiaNet": 5.5
+        },
+        {
+          "date": "2026-10-31",
+          "day": 17,
+          "indiaNet": 9.7
+        },
+        {
+          "date": "2026-11-01",
+          "day": 18,
+          "indiaNet": 11.2
+        },
+        {
+          "date": "2026-11-02",
+          "day": 19,
+          "indiaNet": 3.4
+        },
+        {
+          "date": "2026-11-03",
+          "day": 20,
+          "indiaNet": 3.35
+        },
+        {
+          "date": "2026-11-04",
+          "day": 21,
+          "indiaNet": 3.0
+        },
+        {
+          "date": "2026-11-05",
+          "day": 22,
+          "indiaNet": 1.6
+        },
+        {
+          "date": "2026-11-06",
+          "day": 23,
+          "indiaNet": 0.6
+        },
+        {
+          "date": "2026-11-07",
+          "day": 24,
+          "indiaNet": 1.0
+        },
+        {
+          "date": "2026-11-08",
+          "day": 25,
+          "indiaNet": 1.15
+        },
+        {
+          "date": "2026-11-09",
+          "day": 26,
+          "indiaNet": 1.25
+        },
+        {
+          "date": "2026-11-10",
+          "day": 27,
+          "indiaNet": 0.88
+        },
+        {
+          "date": "2026-11-11",
+          "day": 28,
+          "indiaNet": 0.52
+        },
+        {
+          "date": "2026-11-12",
+          "day": 29,
+          "indiaNet": 0.35
+        },
+        {
+          "date": "2026-11-13",
+          "day": 30,
+          "indiaNet": 0.31
+        },
+        {
+          "date": "2026-11-14",
+          "day": 31,
+          "indiaNet": 0.38
+        },
+        {
+          "date": "2026-11-15",
+          "day": 32,
+          "indiaNet": 0.39
+        },
+        {
+          "date": "2026-11-16",
+          "day": 33,
+          "indiaNet": 0.13
+        },
+        {
+          "date": "2026-11-17",
+          "day": 34,
+          "indiaNet": 0.18
+        },
+        {
+          "date": "2026-11-18",
+          "day": 35,
+          "indiaNet": 0.16
+        },
+        {
+          "date": "2026-11-19",
+          "day": 36,
+          "indiaNet": 0.16
+        },
+        {
+          "date": "2026-11-20",
+          "day": 37,
+          "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-21",
+          "day": 38,
+          "indiaNet": 0.1
+        },
+        {
+          "date": "2026-11-22",
+          "day": 39,
+          "indiaNet": 0.11
+        },
+        {
+          "date": "2026-11-23",
+          "day": 40,
+          "indiaNet": 0.06
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:19:59.891623+00:00"
+    },
+    {
+      "title": "Drishyam 3: The Conclusion",
+      "year": 2026,
+      "language": "Hindi",
+      "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
+      "release": "2026-10-02",
+      "indiaNet": 381.13,
+      "worldwideGross": 589.46,
+      "days": [
+        {
+          "date": "2026-10-02",
+          "day": 1,
+          "indiaNet": 62.0
+        },
+        {
+          "date": "2026-10-03",
+          "day": 2,
+          "indiaNet": 53.5
+        },
+        {
+          "date": "2026-10-04",
+          "day": 3,
+          "indiaNet": 61.0
+        },
+        {
+          "date": "2026-10-05",
+          "day": 4,
+          "indiaNet": 21.0
+        },
+        {
+          "date": "2026-10-06",
+          "day": 5,
+          "indiaNet": 19.5
+        },
+        {
+          "date": "2026-10-07",
+          "day": 6,
+          "indiaNet": 15.5
+        },
+        {
+          "date": "2026-10-08",
+          "day": 7,
+          "indiaNet": 13.0
+        },
+        {
+          "date": "2026-10-09",
+          "day": 8,
+          "indiaNet": 14.5
+        },
+        {
+          "date": "2026-10-10",
+          "day": 9,
+          "indiaNet": 26.5
+        },
+        {
+          "date": "2026-10-11",
+          "day": 10,
+          "indiaNet": 22.5
+        },
+        {
+          "date": "2026-10-12",
+          "day": 11,
+          "indiaNet": 6.0
+        },
+        {
+          "date": "2026-10-13",
+          "day": 12,
+          "indiaNet": 8.5
+        },
+        {
+          "date": "2026-10-14",
+          "day": 13,
+          "indiaNet": 5.25
+        },
+        {
+          "date": "2026-10-15",
+          "day": 14,
+          "indiaNet": 4.25
+        },
+        {
+          "date": "2026-10-16",
+          "day": 15,
+          "indiaNet": 3.1
+        },
+        {
+          "date": "2026-10-17",
+          "day": 16,
+          "indiaNet": 5.0
+        },
+        {
+          "date": "2026-10-18",
+          "day": 17,
+          "indiaNet": 6.25
+        },
+        {
+          "date": "2026-10-19",
+          "day": 18,
+          "indiaNet": 3.5
+        },
+        {
+          "date": "2026-10-20",
+          "day": 19,
+          "indiaNet": 6.25
+        },
+        {
+          "date": "2026-10-21",
+          "day": 20,
+          "indiaNet": 2.65
+        },
+        {
+          "date": "2026-10-22",
+          "day": 21,
+          "indiaNet": 2.1
+        },
+        {
+          "date": "2026-10-23",
+          "day": 22,
+          "indiaNet": 1.4
+        },
+        {
+          "date": "2026-10-24",
+          "day": 23,
+          "indiaNet": 2.65
+        },
+        {
+          "date": "2026-10-25",
+          "day": 24,
+          "indiaNet": 3.0
+        },
+        {
+          "date": "2026-10-26",
+          "day": 25,
+          "indiaNet": 1.05
+        },
+        {
+          "date": "2026-10-27",
+          "day": 26,
+          "indiaNet": 1.25
+        },
+        {
+          "date": "2026-10-28",
+          "day": 27,
+          "indiaNet": 0.9
+        },
+        {
+          "date": "2026-10-29",
+          "day": 28,
+          "indiaNet": 0.9
+        },
+        {
+          "date": "2026-10-30",
+          "day": 29,
+          "indiaNet": 1.0
+        },
+        {
+          "date": "2026-10-31",
+          "day": 30,
+          "indiaNet": 1.6
+        },
+        {
+          "date": "2026-11-01",
+          "day": 31,
+          "indiaNet": 1.75
+        },
+        {
+          "date": "2026-11-02",
+          "day": 32,
+          "indiaNet": 0.55
+        },
+        {
+          "date": "2026-11-03",
+          "day": 33,
+          "indiaNet": 0.75
+        },
+        {
+          "date": "2026-11-04",
+          "day": 34,
+          "indiaNet": 0.55
+        },
+        {
+          "date": "2026-11-05",
+          "day": 35,
+          "indiaNet": 0.05
+        },
+        {
+          "date": "2026-11-06",
+          "day": 36,
+          "indiaNet": 0.05
+        },
+        {
+          "date": "2026-11-07",
+          "day": 37,
+          "indiaNet": 0.09
+        },
+        {
+          "date": "2026-11-08",
+          "day": 38,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-09",
+          "day": 39,
+          "indiaNet": 0.2
+        },
+        {
+          "date": "2026-11-10",
+          "day": 40,
+          "indiaNet": 0.2
+        },
+        {
+          "date": "2026-11-11",
+          "day": 41,
+          "indiaNet": 0.18
+        },
+        {
+          "date": "2026-11-12",
+          "day": 42,
+          "indiaNet": 0.14
+        },
+        {
+          "date": "2026-11-13",
+          "day": 43,
+          "indiaNet": 0.12
+        },
+        {
+          "date": "2026-11-14",
+          "day": 44,
+          "indiaNet": 0.17
+        },
+        {
+          "date": "2026-11-15",
+          "day": 45,
+          "indiaNet": 0.17
+        },
+        {
+          "date": "2026-11-16",
+          "day": 46,
+          "indiaNet": 0.07
+        },
+        {
+          "date": "2026-11-17",
+          "day": 47,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-18",
+          "day": 48,
+          "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-19",
+          "day": 49,
+          "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-20",
+          "day": 50,
+          "indiaNet": 0.03
+        },
+        {
+          "date": "2026-11-21",
+          "day": 51,
+          "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-22",
+          "day": 52,
+          "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-23",
+          "day": 53,
+          "indiaNet": 0.04
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:20:06.188974+00:00"
+    },
+    {
+      "title": "John Doe",
+      "year": 2026,
+      "language": "Tamil",
+      "url": "https://www.sacnilk.com/movie/John_Doe_2026",
+      "release": "2026-11-13",
+      "indiaNet": 2.84,
+      "worldwideGross": 3.18,
+      "days": [
+        {
+          "date": "2026-11-13",
+          "day": 1,
+          "indiaNet": 0.21
+        },
+        {
+          "date": "2026-11-14",
+          "day": 2,
+          "indiaNet": 0.41
+        },
+        {
+          "date": "2026-11-15",
+          "day": 3,
+          "indiaNet": 0.5
+        },
+        {
+          "date": "2026-11-16",
+          "day": 4,
+          "indiaNet": 0.36
+        },
+        {
+          "date": "2026-11-17",
+          "day": 5,
+          "indiaNet": 0.35
+        },
+        {
+          "date": "2026-11-18",
+          "day": 6,
+          "indiaNet": 0.3
+        },
+        {
+          "date": "2026-11-19",
+          "day": 7,
+          "indiaNet": 0.25
+        },
+        {
+          "date": "2026-11-20",
+          "day": 8,
+          "indiaNet": 0.09
+        },
+        {
+          "date": "2026-11-21",
+          "day": 9,
+          "indiaNet": 0.17
+        },
+        {
+          "date": "2026-11-22",
+          "day": 10,
+          "indiaNet": 0.16
+        },
+        {
+          "date": "2026-11-23",
+          "day": 11,
+          "indiaNet": 0.04
+        }
+      ],
+      "fetchedAt": "2026-11-24T15:20:09.269805+00:00"
     }
   ]
 }
