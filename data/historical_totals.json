@@ -122,7 +122,7 @@
     }
   ],
   "source": "https://www.sacnilk.com/box-office-records/indian-100cr-club-india-net",
-  "updatedAt": "2026-11-25T18:41:14.642259+00:00",
+  "updatedAt": "2026-11-25T18:51:29.819091+00:00",
   "metric": "India net",
   "unit": "INR crore",
   "films": [
@@ -265,10 +265,31 @@
       "indiaNet": 252.25
     },
     {
+      "title": "Lokah: Chapter 1 - Chandra",
+      "year": 2025,
+      "url": "https://www.sacnilk.com/movie/Lokah_Chapter_1_2025",
+      "indiaNet": 157.04,
+      "industry": "Malayalam"
+    },
+    {
+      "title": "L2: Empuraan",
+      "year": 2025,
+      "url": "https://www.sacnilk.com/movie/Lucifer_2_2023",
+      "indiaNet": 106.77,
+      "industry": "Malayalam"
+    },
+    {
       "title": "Manjummel Boys",
       "year": 2024,
       "url": "https://www.sacnilk.com/movie/Manjummel_Boys_2024",
       "indiaNet": 142.08,
+      "industry": "Malayalam"
+    },
+    {
+      "title": "Thudarum",
+      "year": 2025,
+      "url": "https://www.sacnilk.com/movie/Thudarum_2025",
+      "indiaNet": 122.0,
       "industry": "Malayalam"
     },
     {
@@ -293,6 +314,13 @@
       "industry": "Malayalam"
     },
     {
+      "title": "Sarvam Maya",
+      "year": 2025,
+      "url": "https://www.sacnilk.com/movie/Sarvam_Maya_2025",
+      "indiaNet": 76.84,
+      "industry": "Malayalam"
+    },
+    {
       "title": "Premalu",
       "year": 2024,
       "url": "https://www.sacnilk.com/movie/Premalu_2024",
@@ -312,6 +340,13 @@
       "url": "https://www.sacnilk.com/movie/Marco_2024",
       "indiaNet": 60.27,
       "industry": "Malayalam"
+    },
+    {
+      "title": "Su From So",
+      "year": 2025,
+      "url": "https://www.sacnilk.com/movie/Su_From_So_2025",
+      "indiaNet": 92.33,
+      "industry": "Kannada"
     },
     {
       "title": "777 Charlie",
