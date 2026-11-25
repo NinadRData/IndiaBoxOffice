@@ -128,14 +128,30 @@
         }
       });
 
-      // Keep manually entered points. Replace previous points
-      // supplied by this automatic sync with the latest saved data.
-      var merged = old.filter(function (point) {
-        return !(
-          point &&
-          typeof point === 'object' &&
-          point.source === 'sacnilk-report'
+            // Keep existing reports if the latest file omits them.
+      // A manual point takes priority over an automatic point
+      // for the same day.
+      //
+      // Null placeholders preserve the day positions of older
+      // manually entered numeric values.
+      var merged = old.slice();
+
+      merged.forEach(function (point, index) {
+        if (
+          !point ||
+          typeof point !== 'object' ||
+          point.source !== 'sacnilk-report'
+        ) {
+          return;
+        }
+
+        var day = Number(
+          point.d != null ? point.d : point.day
         );
+
+        if (manual[day]) {
+          merged[index] = null;
+        }
       });
 
       var seen = Object.create(null);
@@ -160,12 +176,38 @@
 
         seen[point.day] = true;
 
-        merged.push({
-          d:point.day,
-          v:point.worldwideGross,
-          source:'sacnilk-report',
-          reportUrl:point.reportUrl
+                var replacement = {
+          d: point.day,
+          v: point.worldwideGross,
+          source: 'sacnilk-report',
+          reportUrl: point.reportUrl
+        };
+
+        var replaced = false;
+
+        merged.forEach(function (oldPoint, index) {
+          if (
+            !oldPoint ||
+            typeof oldPoint !== 'object' ||
+            oldPoint.source !== 'sacnilk-report'
+          ) {
+            return;
+          }
+
+          var oldDay = Number(
+            oldPoint.d != null ? oldPoint.d : oldPoint.day
+          );
+
+          if (oldDay !== point.day) return;
+
+          // Replace the first old automatic point and clear duplicates.
+          merged[index] = replaced ? null : replacement;
+          replaced = true;
         });
+
+        if (!replaced) {
+          merged.push(replacement);
+        }
       });
 
       if (JSON.stringify(merged) !== JSON.stringify(old)) {
