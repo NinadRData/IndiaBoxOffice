@@ -43,10 +43,6 @@ def main():
 
             matches = totals.get((film["url"], year), [])
 
-            # Skip films with missing or duplicate snapshot matches.
-            if len(matches) != 1:
-                continue
-
             release = dt.date.fromisoformat(film["release"])
 
             if release.year != year:
@@ -82,16 +78,22 @@ def main():
                 continue
 
             week1 = sum(rows[day] for day in range(1, 8))
-            actual = matches[0]
-
-            if week1 <= 0 or actual < week1:
-                continue
-
             last_day = max(rows)
 
             # Do not sum across gaps as though missing days were zero.
             continuous = len(rows) == last_day
             reported_sum = sum(rows.values()) if continuous else None
+
+            if len(matches) == 1:
+                actual = matches[0]
+            elif len(matches) == 0 and continuous:
+                # Use the reported daily sum as a provisional outcome.
+                actual = reported_sum
+            else:
+                continue
+
+            if week1 <= 0 or actual < week1:
+                continue
 
             samples.append({
                 "title": film["title"],
