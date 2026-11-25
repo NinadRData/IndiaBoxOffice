@@ -265,6 +265,86 @@ def main():
 
     except (OSError, ValueError, TypeError, AttributeError) as error:
         print("Could not read snapshot candidates:", str(error))
+            # Find older films that already have an unambiguous title and year
+    # in the site's existing film data.
+    totals_path = ROOT / "data" / "historical_totals.json"
+    index_path = ROOT / "index.html"
+
+    try:
+        if totals_path.exists() and index_path.exists():
+            totals_data = json.loads(
+                totals_path.read_text(encoding="utf-8")
+            )
+
+            index_text = index_path.read_text(encoding="utf-8")
+            candidates = []
+
+            for film in totals_data.get("films", []):
+                if not isinstance(film, dict):
+                    continue
+
+                title = film.get("title")
+                year = film.get("year")
+                url = film.get("url")
+
+                if (
+                    not isinstance(title, str)
+                    or not title.strip()
+                    or not isinstance(year, int)
+                    or not 2021 <= year <= 2024
+                    or not isinstance(url, str)
+                    or not re.fullmatch(
+                        r"https://www\.sacnilk\.com/movie/[A-Za-z0-9_-]+",
+                        url,
+                    )
+                    or url in known_urls
+                    or url in saved
+                ):
+                    continue
+
+                # Match a title followed by its year in the same
+                # simple film object. Skip uncertain or duplicate matches.
+                pattern = (
+                    r"\btitle\s*:\s*([\"'])"
+                    + re.escape(title)
+                    + r"\1[^{}]{0,200}\byear\s*:\s*"
+                    + str(year)
+                    + r"\b"
+                )
+
+                if len(re.findall(pattern, index_text, re.I)) != 1:
+                    continue
+
+                candidates.append({
+                    "title": title,
+                    "year": year,
+                    "url": url,
+                })
+
+            # Rotate the starting point each day so a failing source
+            # does not permanently block later candidates.
+            candidates.sort(key=lambda item: item["url"])
+
+            if candidates:
+                offset = (
+                    dt.datetime.now(dt.timezone.utc).date().toordinal() * 5
+                ) % len(candidates)
+
+                candidates = candidates[offset:] + candidates[:offset]
+
+            for film in candidates[:5]:
+                if film["url"] not in known_urls:
+                    sources.append(film)
+                    known_urls.add(film["url"])
+
+            print(
+                "Older database matches queued:",
+                min(5, len(candidates)),
+            )
+
+    except (OSError, ValueError, TypeError, AttributeError) as error:
+        print("Could not select older database matches:", str(error))
+
 
     print("Historical candidates:", len(sources))
 
