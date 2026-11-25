@@ -4,6 +4,7 @@ import datetime as dt
 import json
 import math
 import re
+import pathlib
 import statistics
 
 DATA = pathlib.Path(__file__).resolve().parent / "data"
@@ -12,7 +13,7 @@ DATA = pathlib.Path(__file__).resolve().parent / "data"
 def load(name):
     with (DATA / name).open(encoding="utf-8") as file:
         return json.load(file)
-        def find_language(title, year, text):
+def find_language(title, year, text):
     pattern = (
         r"\btitle\s*:\s*([\"'])"
         + re.escape(title)
@@ -214,7 +215,7 @@ def main():
 
         if len(closest_hold) >= 2:
             methods["scale_and_hold"] = closest_hold
-            same_language = [
+        same_language = [
             peer
             for peer in peers
             if (
