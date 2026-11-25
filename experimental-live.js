@@ -335,6 +335,8 @@
             title: other.title,
             year: other.year,
             estimate: estimate,
+            firstWeek: comparableWeek,
+            daySevenHold: comparableHold,
             distance: distance
           });
         });
@@ -355,6 +357,8 @@
           day: days.length,
           date: lastDate,
           banked: banked,
+          firstWeek: firstWeek,
+          daySevenHold: hold,
           low: Math.min.apply(null, estimates),
           middle: median(estimates),
           high: Math.max.apply(null, estimates),
@@ -457,9 +461,12 @@
             );
           }).join('');
 
-          var comparisons = result.peers.map(function (peer) {
-            return safe(peer.title) + ' (' + peer.year + ')';
-          }).join(', ');
+            var comparisons = result.peers.map(function (peer) {
+            return safe(peer.title) + ' (' + peer.year + ')' +
+              ' — first 7 days ' + money(peer.firstWeek) +
+              ', day 7 vs day 1 ' +
+              Math.round(peer.daySevenHold * 100) + '%';
+          }).join('<br>');
 
           box.innerHTML =
             '<div style="display:flex;gap:12px;align-items:center;' +
@@ -483,7 +490,11 @@
             '</div>' +
 
             '<p style="font-size:.85rem;color:#c7cdd1">' +
-              'Comparisons: ' + comparisons + '.' +
+              'Current film: first 7 days ' +
+              money(result.firstWeek) +
+              ', day 7 vs day 1 ' +
+              Math.round(result.daySevenHold * 100) + '%.' +
+              '<br><br>Comparisons:<br>' + comparisons +
             '</p>' +
 
             '<p style="font-size:.75rem;color:#9aa4aa">' +
