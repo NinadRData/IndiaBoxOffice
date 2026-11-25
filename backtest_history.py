@@ -1,11 +1,12 @@
-"""Test a simple day-7 India-net forecast against historical films."""
+"""Retrospective day-7 India-net forecast comparison."""
 
+import datetime as dt
 import json
+import math
 import pathlib
 import statistics
 
-ROOT = pathlib.Path(__file__).resolve().parent
-DATA = ROOT / "data"
+DATA = pathlib.Path(__file__).resolve().parent / "data"
 
 
 def load(name):
@@ -17,124 +18,216 @@ def main():
     historical = load("historical.json")
     snapshot = load("sacnilk.json")
 
-    # Match records by their Sacnilk URL and release year.
     totals = {}
 
     for film in snapshot.get("films", []):
-        url = film.get("url")
-        year = film.get("year")
-        total = film.get("indiaNet")
+        key = (film.get("url"), film.get("year"))
+        value = film.get("indiaNet")
 
         if (
-            isinstance(url, str)
-            and isinstance(year, int)
-            and isinstance(total, (int, float))
-            and not isinstance(total, bool)
-            and total > 0
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(value)
+            and value > 0
         ):
-            key = (url, year)
-
-            # Skip ambiguous duplicate entries.
-            if key in totals:
-                totals[key] = None
-            else:
-                totals[key] = float(total)
+            totals.setdefault(key, []).append(value)
 
     samples = []
 
     for film in historical.get("films", []):
-        if not isinstance(film, dict):
-            continue
+        try:
+            year = film["year"]
 
-        year = film.get("year")
-        url = film.get("url")
-        days = film.get("days")
-
-        # Keep the test to post-2020 films.
-        if not isinstance(year, int) or year < 2021:
-            continue
-
-        actual = totals.get((url, year))
-
-        if actual is None or not isinstance(days, list):
-            continue
-
-        first_week = {}
-        invalid = False
-
-        for row in days:
-            if not isinstance(row, dict):
+            if not isinstance(year, int) or year < 2021:
                 continue
 
-            day = row.get("day")
-            amount = row.get("indiaNet")
+            matches = totals.get((film["url"], year), [])
 
-            if isinstance(day, int) and 1 <= day <= 7:
+            # Skip films with missing or duplicate snapshot matches.
+            if len(matches) != 1:
+                continue
+
+            release = dt.date.fromisoformat(film["release"])
+
+            if release.year != year:
+                continue
+
+            rows = {}
+
+            for row in film["days"]:
+                day = row["day"]
+                amount = row["indiaNet"]
+
                 if (
-                    day in first_week
+                    not isinstance(day, int)
+                    or day < 1
+                    or day in rows
                     or not isinstance(amount, (int, float))
                     or isinstance(amount, bool)
+                    or not math.isfinite(amount)
                     or amount < 0
                 ):
-                    invalid = True
-                    break
+                    raise ValueError("Invalid daily row")
 
-                first_week[day] = float(amount)
+                date = dt.date.fromisoformat(row["date"])
+                expected = release + dt.timedelta(days=day - 1)
 
-        if invalid or set(first_week) != set(range(1, 8)):
+                if date != expected:
+                    raise ValueError("Date mismatch")
+
+                rows[day] = float(amount)
+
+            # The target must have all seven opening days.
+            if not all(day in rows for day in range(1, 8)):
+                continue
+
+            week1 = sum(rows[day] for day in range(1, 8))
+            actual = matches[0]
+
+            if week1 <= 0 or actual < week1:
+                continue
+
+            last_day = max(rows)
+
+            # Do not sum across gaps as though missing days were zero.
+            continuous = len(rows) == last_day
+            reported_sum = sum(rows.values()) if continuous else None
+
+            samples.append({
+                "title": film["title"],
+                "release": release,
+                "last_day": last_day,
+                "week1": week1,
+                "actual": actual,
+                "continuous": continuous,
+                "reported_sum": reported_sum,
+                "hold": rows[7] / rows[1] if rows[1] else None,
+            })
+
+        except (KeyError, TypeError, ValueError, OverflowError):
             continue
 
-        week1 = sum(first_week.values())
+    errors = {
+        "pooled": [],
+        "scale": [],
+        "scale_and_hold": [],
+    }
 
-        if week1 <= 0 or actual < week1:
-            continue
+    print("\nDAY-7 FORECAST TEST: EARLIER FILMS ONLY")
+    print(
+        "Comparable outcomes are sums of consecutive reported daily rows; "
+        "they may not be complete lifetime totals."
+    )
+    print(
+        "Target results use current snapshot totals, which may have "
+        "been revised since release.\n"
+    )
 
-        samples.append({
-            "title": film.get("title", "Unknown"),
-            "year": year,
-            "week1": week1,
-            "actual": actual,
-            "multiplier": actual / week1,
-        })
+    for target in sorted(samples, key=lambda item: item["release"]):
+        forecast_date = target["release"] + dt.timedelta(days=6)
 
-    print("\nDAY-7 INDIA-NET FORECAST TEST")
-    print("Totals are the latest snapshot figures, not guaranteed final totals.")
-    print("Each forecast uses the median multiplier from the other films.\n")
-
-    if len(samples) < 4:
-        print("Not enough matching films to run the test.")
-        print("Usable films:", len(samples))
-        return
-
-    errors = []
-
-    for sample in samples:
+        # Require the last reported day to be at least 30 days before
+        # the target forecast date. This is a conservative filter, but
+        # it does not prove the comparable's run was finished.
         peers = [
-            other["multiplier"]
-            for other in samples
-            if other is not sample
+            peer
+            for peer in samples
+            if (
+                peer is not target
+                and peer["continuous"]
+                and (
+                    peer["release"]
+                    + dt.timedelta(days=peer["last_day"] - 1 + 30)
+                    <= forecast_date
+                )
+            )
         ]
 
-        multiplier = statistics.median(peers)
-        estimate = sample["week1"] * multiplier
-        error = abs(estimate - sample["actual"]) / sample["actual"] * 100
+        if len(peers) < 2:
+            print(
+                target["title"],
+                ": skipped — fewer than two eligible earlier films",
+            )
+            continue
 
-        errors.append(error)
+        def distance(peer, use_hold):
+            score = abs(math.log(peer["week1"] / target["week1"]))
+
+            if use_hold and peer["hold"] and target["hold"]:
+                score += abs(math.log(peer["hold"] / target["hold"]))
+
+            return score
+
+        closest_scale = sorted(
+            peers,
+            key=lambda peer: distance(peer, False),
+        )[:3]
+
+        hold_peers = [
+            peer
+            for peer in peers
+            if peer["hold"] and target["hold"]
+        ]
+
+        closest_hold = sorted(
+            hold_peers,
+            key=lambda peer: distance(peer, True),
+        )[:3]
+
+        methods = {
+            "pooled": peers,
+            "scale": closest_scale,
+        }
+
+        if len(closest_hold) >= 2:
+            methods["scale_and_hold"] = closest_hold
 
         print(
-            f'{sample["title"]} ({sample["year"]}): '
-            f'day 7 ₹{sample["week1"]:.2f} Cr | '
-            f'forecast ₹{estimate:.2f} Cr | '
-            f'reported ₹{sample["actual"]:.2f} Cr | '
-            f'error {error:.1f}%'
+            "\n{} · reported ₹{:.2f} Cr".format(
+                target["title"],
+                target["actual"],
+            )
         )
 
-    print("\nFilms tested:", len(samples))
-    print(f"Median absolute percentage error: {statistics.median(errors):.1f}%")
-    print(f"Average absolute percentage error: {statistics.mean(errors):.1f}%")
+        for name, group in methods.items():
+            multipliers = [
+                peer["reported_sum"] / peer["week1"]
+                for peer in group
+            ]
+
+            multiplier = statistics.median(multipliers)
+            estimate = target["week1"] * multiplier
+            error = abs(estimate - target["actual"]) / target["actual"] * 100
+
+            errors[name].append(error)
+
+            print(
+                "  {}: ₹{:.2f} Cr · error {:.1f}% · peers: {}".format(
+                    name,
+                    estimate,
+                    error,
+                    ", ".join(peer["title"] for peer in group),
+                )
+            )
+
+    print("\nRESULTS")
+    print("Methods can have different sample sizes.")
+
+    for name, values in errors.items():
+        if values:
+            print(
+                "{}: {} films · median absolute error {:.1f}%".format(
+                    name,
+                    len(values),
+                    statistics.median(values),
+                )
+            )
+        else:
+            print(name + ": not enough eligible comparisons")
+
     print(
-        "\nThis is a pooled baseline. It does not yet account for "
-        "language, scale, weekday holds, or whether a film's run is complete."
+        "\nExperimental only: no language, actor, director or clash "
+        "matching yet, and no calibrated probabilities."
     )
 
 
