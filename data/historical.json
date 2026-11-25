@@ -1,6 +1,6 @@
 {
   "kind": "historical",
-  "updatedAt": "2026-11-25T04:38:10.575925+00:00",
+  "updatedAt": "2026-11-25T05:00:14.194562+00:00",
   "films": [
     {
       "title": "Lokah: Chapter 1 – Chandra",
@@ -6131,6 +6131,309 @@
         }
       ],
       "fetchedAt": "2026-11-25T04:38:10.075804+00:00"
+    },
+    {
+      "title": "Tiger 3",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Tiger_3",
+      "release": "2023-11-12",
+      "days": [
+        {
+          "day": 1,
+          "date": "2023-11-12",
+          "indiaNet": 44.5
+        },
+        {
+          "day": 2,
+          "date": "2023-11-13",
+          "indiaNet": 59.25
+        },
+        {
+          "day": 3,
+          "date": "2023-11-14",
+          "indiaNet": 44.3
+        },
+        {
+          "day": 4,
+          "date": "2023-11-15",
+          "indiaNet": 21.1
+        },
+        {
+          "day": 5,
+          "date": "2023-11-16",
+          "indiaNet": 18.5
+        },
+        {
+          "day": 6,
+          "date": "2023-11-17",
+          "indiaNet": 13.25
+        },
+        {
+          "day": 7,
+          "date": "2023-11-18",
+          "indiaNet": 18.5
+        },
+        {
+          "day": 8,
+          "date": "2023-11-19",
+          "indiaNet": 10.5
+        },
+        {
+          "day": 9,
+          "date": "2023-11-20",
+          "indiaNet": 7.35
+        },
+        {
+          "day": 10,
+          "date": "2023-11-21",
+          "indiaNet": 6.7
+        },
+        {
+          "day": 11,
+          "date": "2023-11-22",
+          "indiaNet": 5.8
+        },
+        {
+          "day": 12,
+          "date": "2023-11-23",
+          "indiaNet": 5.12
+        },
+        {
+          "day": 13,
+          "date": "2023-11-24",
+          "indiaNet": 3.81
+        },
+        {
+          "day": 14,
+          "date": "2023-11-25",
+          "indiaNet": 5.77
+        },
+        {
+          "day": 15,
+          "date": "2023-11-26",
+          "indiaNet": 6.75
+        },
+        {
+          "day": 16,
+          "date": "2023-11-27",
+          "indiaNet": 2.8
+        },
+        {
+          "day": 17,
+          "date": "2023-11-28",
+          "indiaNet": 2.15
+        },
+        {
+          "day": 18,
+          "date": "2023-11-29",
+          "indiaNet": 2.09
+        },
+        {
+          "day": 19,
+          "date": "2023-11-30",
+          "indiaNet": 2.0
+        },
+        {
+          "day": 20,
+          "date": "2023-12-01",
+          "indiaNet": 0.25
+        },
+        {
+          "day": 21,
+          "date": "2023-12-02",
+          "indiaNet": 0.45
+        },
+        {
+          "day": 22,
+          "date": "2023-12-03",
+          "indiaNet": 0.6
+        },
+        {
+          "day": 23,
+          "date": "2023-12-04",
+          "indiaNet": 0.2
+        },
+        {
+          "day": 24,
+          "date": "2023-12-05",
+          "indiaNet": 0.17
+        },
+        {
+          "day": 25,
+          "date": "2023-12-06",
+          "indiaNet": 0.17
+        },
+        {
+          "day": 26,
+          "date": "2023-12-07",
+          "indiaNet": 0.15
+        },
+        {
+          "day": 27,
+          "date": "2023-12-08",
+          "indiaNet": 0.05
+        },
+        {
+          "day": 28,
+          "date": "2023-12-09",
+          "indiaNet": 0.13
+        },
+        {
+          "day": 29,
+          "date": "2023-12-10",
+          "indiaNet": 0.2
+        },
+        {
+          "day": 30,
+          "date": "2023-12-11",
+          "indiaNet": 0.05
+        },
+        {
+          "day": 31,
+          "date": "2023-12-12",
+          "indiaNet": 0.05
+        },
+        {
+          "day": 32,
+          "date": "2023-12-13",
+          "indiaNet": 0.04
+        },
+        {
+          "day": 33,
+          "date": "2023-12-14",
+          "indiaNet": 0.04
+        }
+      ],
+      "fetchedAt": "2026-11-25T05:00:12.670080+00:00"
+    },
+    {
+      "title": "Adipurush",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Adipurush_2022",
+      "release": "2023-06-16",
+      "days": [
+        {
+          "day": 1,
+          "date": "2023-06-16",
+          "indiaNet": 86.75
+        },
+        {
+          "day": 2,
+          "date": "2023-06-17",
+          "indiaNet": 65.25
+        },
+        {
+          "day": 3,
+          "date": "2023-06-18",
+          "indiaNet": 69.1
+        },
+        {
+          "day": 4,
+          "date": "2023-06-19",
+          "indiaNet": 16.0
+        },
+        {
+          "day": 5,
+          "date": "2023-06-20",
+          "indiaNet": 10.7
+        },
+        {
+          "day": 6,
+          "date": "2023-06-21",
+          "indiaNet": 7.25
+        },
+        {
+          "day": 7,
+          "date": "2023-06-22",
+          "indiaNet": 4.85
+        },
+        {
+          "day": 8,
+          "date": "2023-06-23",
+          "indiaNet": 3.4
+        },
+        {
+          "day": 9,
+          "date": "2023-06-24",
+          "indiaNet": 5.25
+        },
+        {
+          "day": 10,
+          "date": "2023-06-25",
+          "indiaNet": 7.2
+        },
+        {
+          "day": 11,
+          "date": "2023-06-26",
+          "indiaNet": 2.13
+        },
+        {
+          "day": 12,
+          "date": "2023-06-27",
+          "indiaNet": 1.65
+        },
+        {
+          "day": 13,
+          "date": "2023-06-28",
+          "indiaNet": 1.55
+        },
+        {
+          "day": 14,
+          "date": "2023-06-29",
+          "indiaNet": 1.25
+        },
+        {
+          "day": 15,
+          "date": "2023-06-30",
+          "indiaNet": 0.82
+        },
+        {
+          "day": 16,
+          "date": "2023-07-01",
+          "indiaNet": 1.07
+        },
+        {
+          "day": 17,
+          "date": "2023-07-02",
+          "indiaNet": 1.1
+        },
+        {
+          "day": 18,
+          "date": "2023-07-03",
+          "indiaNet": 0.3
+        },
+        {
+          "day": 19,
+          "date": "2023-07-04",
+          "indiaNet": 0.3
+        },
+        {
+          "day": 20,
+          "date": "2023-07-05",
+          "indiaNet": 0.25
+        },
+        {
+          "day": 21,
+          "date": "2023-07-06",
+          "indiaNet": 0.2
+        },
+        {
+          "day": 28,
+          "date": "2023-07-13",
+          "indiaNet": 1.6
+        },
+        {
+          "day": 35,
+          "date": "2023-07-20",
+          "indiaNet": 0.15
+        },
+        {
+          "day": 42,
+          "date": "2023-07-27",
+          "indiaNet": 0.03
+        }
+      ],
+      "fetchedAt": "2026-11-25T05:00:13.694415+00:00"
     }
   ]
 }
