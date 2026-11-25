@@ -25,6 +25,26 @@ SOURCES = [
         "year": 2026,
         "url": HOST + "/movie/Vaazha_2_Biopic_of_a_Billion_Bros_2026",
     },
+        {
+        "title": "Jawan",
+        "year": 2023,
+        "url": HOST + "/movie/Jawan_2023",
+    },
+    {
+        "title": "Pathaan",
+        "year": 2023,
+        "url": HOST + "/movie/Pathan_2022",
+    },
+    {
+        "title": "RRR",
+        "year": 2022,
+        "url": HOST + "/movie/RRR_2020",
+    },
+    {
+        "title": "KGF Chapter 2",
+        "year": 2022,
+        "url": HOST + "/movie/KGF_Chapter_2_2020",
+    },
 ]
 
 
