@@ -345,6 +345,71 @@ def main():
     except (OSError, ValueError, TypeError, AttributeError) as error:
         print("Could not select older database matches:", str(error))
 
+    # Queue older Malayalam films from the verified industry list.
+    malayalam_candidates = []
+
+    try:
+        totals_path = ROOT / "data" / "historical_totals.json"
+
+        if totals_path.exists():
+            reference = json.loads(
+                totals_path.read_text(encoding="utf-8")
+            )
+
+            for film in reference.get("films", []):
+                if not isinstance(film, dict):
+                    continue
+
+                title = film.get("title")
+                year = film.get("year")
+                url = film.get("url")
+
+                if (
+                    film.get("industry") != "Malayalam"
+                    or not isinstance(title, str)
+                    or not title.strip()
+                    or not isinstance(year, int)
+                    or not 2021 <= year <= 2024
+                    or not isinstance(url, str)
+                    or not re.fullmatch(
+                        r"https://www\.sacnilk\.com/movie/[A-Za-z0-9_-]+",
+                        url,
+                    )
+                    or url in known_urls
+                    or url in saved
+                ):
+                    continue
+
+                malayalam_candidates.append({
+                    "title": title,
+                    "year": year,
+                    "url": url,
+                })
+
+            malayalam_candidates.sort(key=lambda film: film["url"])
+
+            if malayalam_candidates:
+                offset = (
+                    dt.datetime.now(dt.timezone.utc).date().toordinal() * 3
+                ) % len(malayalam_candidates)
+
+                malayalam_candidates = (
+                    malayalam_candidates[offset:]
+                    + malayalam_candidates[:offset]
+                )
+
+            for film in malayalam_candidates[:3]:
+                if film["url"] not in known_urls:
+                    sources.append(film)
+                    known_urls.add(film["url"])
+
+            print(
+                "Malayalam candidates queued:",
+                min(3, len(malayalam_candidates)),
+            )
+
+    except (OSError, ValueError, TypeError, AttributeError) as error:
+        print("Could not select Malayalam candidates:", str(error))
 
     print("Historical candidates:", len(sources))
 
