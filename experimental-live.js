@@ -186,8 +186,14 @@
       (documents[3].films || [])
         .concat(documents[3].industryFilms || [])
         .forEach(function (film) {
-          if (film && film.industry === 'Malayalam') {
-            industries[film.url + '|' + film.year] = 'malayalam';
+          if (
+            film &&
+            (film.industry === 'Malayalam' || film.industry === 'Kannada')
+          ) {
+            var key = film.url + '|' + film.year;
+
+            if (!industries[key]) industries[key] = new Set();
+            industries[key].add(film.industry.toLowerCase());
           }
         });
 
@@ -203,7 +209,11 @@
 
         var industry = industries[film.url + '|' + film.year];
 
-        if (industry) values.add(industry);
+        if (industry) {
+          industry.forEach(function (item) {
+            values.add(item);
+          });
+        }
 
         return values.size === 1 ? Array.from(values)[0] : null;
       }
