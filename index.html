@@ -20052,8 +20052,13 @@ function renderAction(){
     if (!f.liveKey) return;
     var live = LIVE_FILMS.find(function(lf){ return lf.key === f.liveKey; });
     if (!live) return;
-    if (live.indiaRunning) f.india = live.indiaRunning;
-    if (live.wwRunning)    f.ww    = live.wwRunning;
+        if (f.india == null && Number.isFinite(live.indiaRunning)) {
+      f.india = live.indiaRunning;
+    }
+
+    if (f.ww == null && Number.isFinite(live.wwRunning)) {
+      f.ww = live.wwRunning;
+    }
   });
 
   var list = getActionFilms().filter(function(f){
