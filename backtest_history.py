@@ -62,16 +62,18 @@ def main():
                 # Use the Malayalam label from the verified historical records.
     source_languages = {}
 
-        for film in (
+    for film in (
         older_totals.get("films", [])
         + older_totals.get("industryFilms", [])
     ):
         if not isinstance(film, dict):
             continue
 
-        if film.get("industry") == "Malayalam":
+        if film.get("industry") in ("Malayalam", "Kannada"):
             key = (film.get("url"), film.get("year"))
-            source_languages.setdefault(key, set()).add("malayalam")
+            source_languages.setdefault(key, set()).add(
+                film["industry"].lower()
+            )
 
     def resolved_language(film, year):
         key = (film.get("url"), year)
