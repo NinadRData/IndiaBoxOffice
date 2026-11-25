@@ -375,9 +375,61 @@
             return;
           }
 
-          var result = forecast(page);
+                    var result = forecast(page);
 
-          if (!result) return;
+          if (!result) {
+            var source = targetFor(page);
+
+            if (
+              !source ||
+              !Array.isArray(source.days) ||
+              !source.days.length
+            ) {
+              return;
+            }
+
+            var lastDay = source.days.slice().sort(function (a, b) {
+              return a.day - b.day;
+            }).pop();
+
+            var lastTime = Date.parse(
+              (lastDay && lastDay.date) + 'T00:00:00Z'
+            );
+
+            var today = Date.parse(
+              new Date().toISOString().slice(0, 10) + 'T00:00:00Z'
+            );
+
+            if (
+              !Number.isFinite(lastTime) ||
+              today - lastTime > 14 * 86400000 ||
+              lastTime - today > 86400000
+            ) {
+              return;
+            }
+
+            var notice = document.createElement('section');
+
+            notice.setAttribute(
+              'data-experimental-live-forecast',
+              ''
+            );
+
+            notice.style.cssText =
+              'margin:24px auto;padding:20px;max-width:960px;' +
+              'border:1px solid #414850;border-radius:12px;' +
+              'background:#151c21;color:#c7cdd1;font-family:inherit';
+
+            notice.textContent = source.days.length < 7
+              ? 'Experimental live forecast: waiting for at least ' +
+                'seven complete days of India-net data.'
+              : 'Experimental live forecast unavailable: complete ' +
+                'daily data, a confirmed language and three suitable ' +
+                'earlier films are required.';
+
+            node.appendChild(notice);
+            return;
+          }
 
           var box = document.createElement('section');
           box.setAttribute('data-experimental-live-forecast', '');
