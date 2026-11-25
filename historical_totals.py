@@ -133,6 +133,40 @@ def main():
         raise ValueError(
             "Too few historical records found; previous file retained"
         )
+    # Add a 2025 industry total only if the main snapshot
+    # does not already contain the same film.
+    snapshot_urls = None
+
+    try:
+        snapshot = json.loads(
+            (ROOT / "data" / "sacnilk.json").read_text(encoding="utf-8")
+        )
+
+        films = snapshot.get("films")
+
+        if isinstance(films, list):
+            snapshot_urls = {
+                film["url"]
+                for film in films
+                if (
+                    isinstance(film, dict)
+                    and film.get("year") == 2025
+                    and isinstance(film.get("url"), str)
+                )
+            }
+
+    except (OSError, ValueError, AttributeError):
+        pass
+
+    def eligible_total(film):
+        if film.get("year", 0) <= 2024:
+            return True
+
+        return (
+            film.get("year") == 2025
+            and snapshot_urls is not None
+            and film.get("url") not in snapshot_urls
+        )
 
     # Preserve last successful industry data if either source is unavailable.
     previous_path = ROOT / "data" / "historical_totals.json"
@@ -155,6 +189,7 @@ def main():
             if (
                 not isinstance(film, dict)
                 or film.get("industry") != industry
+                or not eligible_total(film)
             ):
                 continue
 
@@ -211,7 +246,7 @@ def main():
             film["industry"] = "Malayalam"
 
             if (
-                film["year"] <= 2024
+                eligible_total(film)
                 and film["url"] not in known_urls
             ):
                 parser.films.append(film)
@@ -263,7 +298,7 @@ def main():
             film["industry"] = "Kannada"
 
             if (
-                film["year"] <= 2024
+                eligible_total(film)
                 and film["url"] not in known_urls
             ):
                 parser.films.append(film)
