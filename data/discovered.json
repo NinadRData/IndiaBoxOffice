@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T15:00:13.098122+00:00",
+  "updatedAt": "2026-11-25T17:38:42.969131+00:00",
   "films": [
     {
       "title": "O.M Operation Mole",
@@ -7,8 +7,8 @@
       "language": "Tamil",
       "url": "https://www.sacnilk.com/movie/OM_Chapter_1_Udhiram_2026",
       "release": "2026-11-20",
-      "indiaNet": 61.45,
-      "worldwideGross": 100.75,
+      "indiaNet": 65.55,
+      "worldwideGross": 106.25,
       "days": [
         {
           "date": "2026-11-20",
@@ -34,9 +34,14 @@
           "date": "2026-11-24",
           "day": 5,
           "indiaNet": 5.4
+        },
+        {
+          "date": "2026-11-25",
+          "day": 6,
+          "indiaNet": 4.1
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:34.916068+00:00"
+      "fetchedAt": "2026-11-25T17:38:40.681053+00:00"
     },
     {
       "title": "Ramayana",
@@ -44,8 +49,8 @@
       "language": "Hindi",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "release": "2026-11-05",
-      "indiaNet": 972.95,
-      "worldwideGross": 1737.15,
+      "indiaNet": 982.55,
+      "worldwideGross": 1755.6,
       "days": [
         {
           "date": "2026-11-05",
@@ -146,9 +151,14 @@
           "date": "2026-11-24",
           "day": 20,
           "indiaNet": 17.5
+        },
+        {
+          "date": "2026-11-25",
+          "day": 21,
+          "indiaNet": 9.6
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:33.788374+00:00"
+      "fetchedAt": "2026-11-25T17:38:39.544632+00:00"
     },
     {
       "title": "ENE Repeat",
@@ -156,8 +166,8 @@
       "language": "Telugu",
       "url": "https://www.sacnilk.com/movie/ENE_Repeat_2026",
       "release": "2026-11-19",
-      "indiaNet": 21.8,
-      "worldwideGross": 42.25,
+      "indiaNet": 23.15,
+      "worldwideGross": 44.55,
       "days": [
         {
           "date": "2026-11-19",
@@ -188,9 +198,14 @@
           "date": "2026-11-24",
           "day": 6,
           "indiaNet": 1.8
+        },
+        {
+          "date": "2026-11-25",
+          "day": 7,
+          "indiaNet": 1.35
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:37.984754+00:00"
+      "fetchedAt": "2026-11-25T17:38:42.969117+00:00"
     },
     {
       "title": "Scene",
@@ -419,8 +434,8 @@
       "language": "Telugu",
       "url": "https://www.sacnilk.com/movie/Aakasamlo_Oka_Tara_2026",
       "release": "2026-11-20",
-      "indiaNet": 19.65,
-      "worldwideGross": 32.3,
+      "indiaNet": 22.35,
+      "worldwideGross": 36.45,
       "days": [
         {
           "date": "2026-11-20",
@@ -446,9 +461,14 @@
           "date": "2026-11-24",
           "day": 5,
           "indiaNet": 3.25
+        },
+        {
+          "date": "2026-11-25",
+          "day": 6,
+          "indiaNet": 2.7
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:36.369995+00:00"
+      "fetchedAt": "2026-11-25T17:38:41.812486+00:00"
     },
     {
       "title": "Brindavihari",
