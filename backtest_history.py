@@ -123,8 +123,8 @@ def main():
 
     print("\nDAY-7 FORECAST TEST: EARLIER FILMS ONLY")
     print(
-        "Comparable outcomes are sums of consecutive reported daily rows; "
-        "they may not be complete lifetime totals."
+        "Comparable outcomes use current reference totals when available, "
+        "or a provisional sum of consecutive daily rows."
     )
     print(
         "Target results use current snapshot totals, which may have "
@@ -142,7 +142,7 @@ def main():
             for peer in samples
             if (
                 peer is not target
-                and peer["continuous"]
+                
                 and (
                     peer["release"]
                     + dt.timedelta(days=peer["last_day"] - 1 + 30)
@@ -199,7 +199,7 @@ def main():
 
         for name, group in methods.items():
             multipliers = [
-                peer["reported_sum"] / peer["week1"]
+                peer["actual"] / peer["week1"]
                 for peer in group
             ]
 
