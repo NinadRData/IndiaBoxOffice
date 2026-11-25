@@ -191,7 +191,7 @@ def main():
                     abs(math.log(peer["week"] / target["week"]))
                     + abs(math.log(peer["hold"] / target["hold"]))
                 )
-                                if (
+                if (
                     forecast_day >= 14
                     and os.environ.get("FORECAST_USE_WEEK_HOLD") == "1"
                 ):
