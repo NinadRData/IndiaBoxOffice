@@ -260,7 +260,7 @@ def main():
                     ", ".join(peer["title"] for peer in group),
                 )
             )
-       if all(name in target_errors for name in paired_errors):
+    if all(name in target_errors for name in paired_errors):
             for name in paired_errors:
                 paired_errors[name].append(target_errors[name])
     print("\nRESULTS")
