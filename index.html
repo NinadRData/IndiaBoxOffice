@@ -17707,8 +17707,13 @@ function getYearFilms(yr) {
         var live = getLiveFilmData(f.liveKey);
         if (live) {
           if (live.ow    != null) merged.ow    = live.ow;
-          if (live.india != null) merged.india = live.india;
-          if (live.ww    != null) merged.ww    = live.ww;
+                    if (merged.india == null && live.india != null) {
+            merged.india = live.india;
+          }
+
+          if (merged.ww == null && live.ww != null) {
+            merged.ww = live.ww;
+          }
         }
       }
       return merged;
