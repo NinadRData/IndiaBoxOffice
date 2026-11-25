@@ -138,7 +138,7 @@ def main():
         "https://www.sacnilk.com/"
         "box-office-records/mollywood-100cr-club-worldwide"
     )
-        malayalam = Records(include_recent=True)
+    malayalam = Records(include_recent=True)
 
 
     try:
@@ -201,7 +201,7 @@ def main():
                 print("Could not read previous reference records")
 
 
-        output = {
+    output = {
         "industryFilms": [
             {
                 "url": film["url"],
