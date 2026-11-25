@@ -3,7 +3,7 @@
 import datetime as dt
 import json
 import math
-import pathlib
+import re
 import statistics
 
 DATA = pathlib.Path(__file__).resolve().parent / "data"
@@ -12,9 +12,30 @@ DATA = pathlib.Path(__file__).resolve().parent / "data"
 def load(name):
     with (DATA / name).open(encoding="utf-8") as file:
         return json.load(file)
+        def find_language(title, year, text):
+    pattern = (
+        r"\btitle\s*:\s*([\"'])"
+        + re.escape(title)
+        + r"\1[^{}]{0,200}\byear\s*:\s*"
+        + str(year)
+        + r"\b[^{}]{0,200}\blang\s*:\s*"
+        + r"([\"'])(Hindi|Tamil|Telugu|Malayalam|Kannada)\2"
+    )
+
+    languages = {
+        match.group(3).lower()
+        for match in re.finditer(pattern, text, re.I)
+    }
+
+    return next(iter(languages)) if len(languages) == 1 else None
+
+
 
 
 def main():
+    index_text = (DATA.parent / "index.html").read_text(
+        encoding="utf-8"
+    )
     historical = load("historical.json")
     snapshot = load("sacnilk.json")
     try:
@@ -103,6 +124,9 @@ def main():
 
             samples.append({
                 "title": film["title"],
+                    "language": find_language(
+                    film["title"], year, index_text
+                ),
                 "release": release,
                 "last_day": last_day,
                 "week1": week1,
@@ -119,6 +143,7 @@ def main():
         "pooled": [],
         "scale": [],
         "scale_and_hold": [],
+        "same_language": [],
     }
 
     print("\nDAY-7 FORECAST TEST: EARLIER FILMS ONLY")
@@ -189,6 +214,22 @@ def main():
 
         if len(closest_hold) >= 2:
             methods["scale_and_hold"] = closest_hold
+            same_language = [
+            peer
+            for peer in peers
+            if (
+                target["language"]
+                and peer["language"] == target["language"]
+                and peer["hold"]
+                and target["hold"]
+            )
+        ]
+
+        if len(same_language) >= 2:
+            methods["same_language"] = sorted(
+                same_language,
+                key=lambda peer: distance(peer, True),
+            )[:3]
 
         print(
             "\n{} · reported ₹{:.2f} Cr".format(
@@ -234,8 +275,9 @@ def main():
             print(name + ": not enough eligible comparisons")
 
     print(
-        "\nExperimental only: no language, actor, director or clash "
-        "matching yet, and no calibrated probabilities."
+        "\nExperimental only: language is used only where matched; "
+        "actor, director and clash matching and calibrated probabilities "
+        "are not implemented."
     )
 
 
