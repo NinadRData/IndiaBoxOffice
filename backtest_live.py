@@ -39,14 +39,18 @@ def main():
             key = (film.get("url"), film.get("year"))
             totals.setdefault(key, []).append(amount)
 
-    malayalam = set()
+        industry_languages = {}
 
     for film in (
         older_totals.get("films", [])
         + older_totals.get("industryFilms", [])
     ):
-        if film.get("industry") == "Malayalam":
-            malayalam.add((film.get("url"), film.get("year")))
+        if film.get("industry") in ("Malayalam", "Kannada"):
+            key = (film.get("url"), film.get("year"))
+
+            industry_languages.setdefault(key, set()).add(
+                film["industry"].lower()
+            )
 
     films = []
 
@@ -70,8 +74,7 @@ def main():
             if page_language:
                 labels.add(page_language)
 
-            if key in malayalam:
-                labels.add("malayalam")
+                labels.update(industry_languages.get(key, set()))
 
             if len(labels) != 1:
                 continue
