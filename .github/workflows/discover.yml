@@ -46,10 +46,6 @@ jobs:
       - name: Collect worldwide daily totals
         run: python worldwide_sync.py
         continue-on-error: true
-      - name: Check collector and predictor syntax
-        run: |
-          python -m py_compile historical_totals.py historical_daily.py backtest_history.py backtest_live.py worldwide_sync.py
-          node --check experimental-live.js
 
       - name: Save discovered films
         run: |
@@ -59,14 +55,19 @@ jobs:
           if [ -f data/historical_totals.json ]; then
             git add data/historical_totals.json
           fi
-                    if [ -f data/historical.json ]; then
+          if [ -f data/historical.json ]; then
             git add data/historical.json
           fi
           if [ -f data/worldwide.json ]; then
-          git add data/worldwide.json
+            git add data/worldwide.json
           fi
           if ! git diff --cached --quiet; then
             git commit -m 'Update discovered films'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+
+      - name: Check collector and predictor syntax
+        run: |
+          python -m py_compile historical_totals.py historical_daily.py backtest_history.py backtest_live.py worldwide_sync.py
+          node --check experimental-live.js
