@@ -162,6 +162,7 @@ def main():
         known_urls = {film["url"] for film in parser.films}
 
         for film in malayalam.films:
+            film["industry"] = "Malayalam"
             if film["url"] not in known_urls:
                 parser.films.append(film)
                 known_urls.add(film["url"])
