@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T21:15:43.340376+00:00",
+  "updatedAt": "2026-11-25T00:09:16.524548+00:00",
   "films": [
     {
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
@@ -47,6 +47,30 @@
           "worldwideGross": 944.55,
           "reportUrl": "https://www.sacnilk.com/quicknews/ramayana_part_1_2026_Box_Office_Collection_Day_7",
           "fetchedAt": "2026-11-24T18:35:59.030459+00:00"
+        },
+        {
+          "day": 8,
+          "worldwideGross": 1030.55,
+          "reportUrl": "https://www.sacnilk.com/quicknews/ramayana_part_1_2026_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:45.440495+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 1118.0,
+          "reportUrl": "https://www.sacnilk.com/quicknews/ramayana_part_1_2026_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:54.082393+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 1255.0,
+          "reportUrl": "https://www.sacnilk.com/quicknews/ramayana_part_1_2026_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:09:04.155917+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 1389.0,
+          "reportUrl": "https://www.sacnilk.com/quicknews/ramayana_part_1_2026_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:15.438065+00:00"
         },
         {
           "day": 18,
@@ -116,6 +140,30 @@
           "fetchedAt": "2026-11-24T18:36:00.317631+00:00"
         },
         {
+          "day": 8,
+          "worldwideGross": 606.05,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Jailer_2_2026_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:38.069442+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 631.55,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Jailer_2_2026_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:46.633795+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 676.2,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Jailer_2_2026_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:08:57.083352+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 720.25,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Jailer_2_2026_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:07.092349+00:00"
+        },
+        {
           "day": 28,
           "worldwideGross": 833.2,
           "reportUrl": "https://www.sacnilk.com/quicknews/Jailer_2_2026_Box_Office_Collection_Day_28",
@@ -183,6 +231,30 @@
           "fetchedAt": "2026-11-24T18:35:58.129478+00:00"
         },
         {
+          "day": 8,
+          "worldwideGross": 407.0,
+          "reportUrl": "https://www.sacnilk.com/quicknews/drishyam_3_hindi_2026_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:44.877323+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 446.8,
+          "reportUrl": "https://www.sacnilk.com/quicknews/drishyam_3_hindi_2026_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:53.470889+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 479.8,
+          "reportUrl": "https://www.sacnilk.com/quicknews/drishyam_3_hindi_2026_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:09:03.559443+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 490.44,
+          "reportUrl": "https://www.sacnilk.com/quicknews/drishyam_3_hindi_2026_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:12.767382+00:00"
+        },
+        {
           "day": 32,
           "worldwideGross": 585.49,
           "reportUrl": "https://www.sacnilk.com/quicknews/drishyam_3_hindi_2026_Box_Office_Collection_Day_32",
@@ -248,6 +320,30 @@
           "worldwideGross": 200.25,
           "reportUrl": "https://www.sacnilk.com/quicknews/Scene_2026_Box_Office_Collection_Day_7",
           "fetchedAt": "2026-11-24T21:15:37.550325+00:00"
+        },
+        {
+          "day": 8,
+          "worldwideGross": 211.2,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Scene_2026_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:42.303450+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 227.25,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Scene_2026_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:50.548291+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 243.05,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Scene_2026_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:09:00.941592+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 248.1,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Scene_2026_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:11.006531+00:00"
         },
         {
           "day": 17,
@@ -333,7 +429,7 @@
           "day": 4,
           "worldwideGross": 35.85,
           "reportUrl": "https://www.sacnilk.com/quicknews/ENE_Repeat_2026_Box_Office_Collection_Day_4",
-          "fetchedAt": "2026-11-24T21:14:55.253356+00:00"
+          "fetchedAt": "2026-11-25T00:08:28.462966+00:00"
         },
         {
           "day": 5,
@@ -513,6 +609,24 @@
           "fetchedAt": "2026-11-24T21:15:38.102250+00:00"
         },
         {
+          "day": 8,
+          "worldwideGross": 48.38,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Udta_Teer_2026_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:43.147789+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 53.73,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Udta_Teer_2026_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:51.723345+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 59.55,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Udta_Teer_2026_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:09:01.800797+00:00"
+        },
+        {
           "day": 11,
           "worldwideGross": 61.45,
           "reportUrl": "https://www.sacnilk.com/quicknews/Udta_Teer_2026_Box_Office_Collection_Day_11",
@@ -602,6 +716,30 @@
           "worldwideGross": 105.86,
           "reportUrl": "https://www.sacnilk.com/quicknews/Lokah_Chapter_1_2025_Box_Office_Collection_Day_7",
           "fetchedAt": "2026-11-24T21:15:32.937619+00:00"
+        },
+        {
+          "day": 8,
+          "worldwideGross": 122.91,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Lokah_Chapter_1_2025_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:40.303376+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 143.03,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Lokah_Chapter_1_2025_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:48.826175+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 167.41,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Lokah_Chapter_1_2025_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:08:59.210344+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 186.27,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Lokah_Chapter_1_2025_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:09.238340+00:00"
         }
       ]
     },
@@ -651,6 +789,30 @@
           "worldwideGross": 104.33,
           "reportUrl": "https://www.sacnilk.com/quicknews/Vaazha_2_Biopic_of_a_Billion_Bros_2026_Box_Office_Collection_Day_7",
           "fetchedAt": "2026-11-24T21:15:38.945607+00:00"
+        },
+        {
+          "day": 8,
+          "worldwideGross": 116.76,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vaazha_2_Biopic_of_a_Billion_Bros_2026_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:43.906599+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 130.12,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vaazha_2_Biopic_of_a_Billion_Bros_2026_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:52.491989+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 147.89,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vaazha_2_Biopic_of_a_Billion_Bros_2026_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:09:02.592211+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 163.5,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vaazha_2_Biopic_of_a_Billion_Bros_2026_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:11.780128+00:00"
         }
       ]
     },
@@ -706,6 +868,18 @@
           "worldwideGross": 372.7,
           "reportUrl": "https://www.sacnilk.com/quicknews/Dhurandhar_2025_Box_Office_Collection_Day_8",
           "fetchedAt": "2026-11-24T21:15:43.090243+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 446.3,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Dhurandhar_2025_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:55.858034+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 544.15,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Dhurandhar_2025_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:09:05.897540+00:00"
         }
       ]
     },
@@ -755,6 +929,30 @@
           "worldwideGross": 441.91,
           "reportUrl": "https://www.sacnilk.com/quicknews/Kantara_2_2024_Box_Office_Collection_Day_7",
           "fetchedAt": "2026-11-24T21:15:32.076292+00:00"
+        },
+        {
+          "day": 8,
+          "worldwideGross": 471.14,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Kantara_2_2024_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:39.337344+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 503.45,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Kantara_2_2024_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:47.925167+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 554.94,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Kantara_2_2024_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:08:58.320509+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 608.63,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Kantara_2_2024_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:08.349138+00:00"
         }
       ]
     },
@@ -810,6 +1008,24 @@
           "worldwideGross": 338.53,
           "reportUrl": "https://www.sacnilk.com/quicknews/Chaava_2024_Box_Office_Collection_Day_8",
           "fetchedAt": "2026-11-24T21:15:41.102945+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 393.33,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Chaava_2024_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:54.916064+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 444.47,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Chaava_2024_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:09:04.979282+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 476.75,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Chaava_2024_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:16.274392+00:00"
         }
       ]
     },
@@ -859,6 +1075,30 @@
           "worldwideGross": 246.32,
           "reportUrl": "https://www.sacnilk.com/quicknews/Saiyaara_2025_Box_Office_Collection_Day_7",
           "fetchedAt": "2026-11-24T21:15:36.162055+00:00"
+        },
+        {
+          "day": 8,
+          "worldwideGross": 277.59,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Saiyaara_2025_Box_Office_Collection_Day_8",
+          "fetchedAt": "2026-11-25T00:08:41.092019+00:00"
+        },
+        {
+          "day": 9,
+          "worldwideGross": 322.27,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Saiyaara_2025_Box_Office_Collection_Day_9",
+          "fetchedAt": "2026-11-25T00:08:49.629169+00:00"
+        },
+        {
+          "day": 10,
+          "worldwideGross": 368.97,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Saiyaara_2025_Box_Office_Collection_Day_10",
+          "fetchedAt": "2026-11-25T00:09:00.041817+00:00"
+        },
+        {
+          "day": 11,
+          "worldwideGross": 388.8,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Saiyaara_2025_Box_Office_Collection_Day_11",
+          "fetchedAt": "2026-11-25T00:09:10.058357+00:00"
         }
       ]
     },
