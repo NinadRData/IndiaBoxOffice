@@ -1,0 +1,146 @@
+{
+  "source": "https://www.sacnilk.com/box-office-records/indian-100cr-club-india-net",
+  "updatedAt": "2026-11-25T00:13:57.362072+00:00",
+  "metric": "India net",
+  "unit": "INR crore",
+  "films": [
+    {
+      "title": "Pushpa: The Rule - Part 2",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Pushpa_The_Rule_2021",
+      "indiaNet": 1234.1
+    },
+    {
+      "title": "KGF Chapter 2",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/KGF_Chapter_2_2020",
+      "indiaNet": 859.7
+    },
+    {
+      "title": "RRR",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/RRR_2020",
+      "indiaNet": 782.2
+    },
+    {
+      "title": "Kalki 2898 AD",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Project_K_2024",
+      "indiaNet": 646.31
+    },
+    {
+      "title": "Jawan",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Jawan_2023",
+      "indiaNet": 640.25
+    },
+    {
+      "title": "Stree 2",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Stree_2_2024",
+      "indiaNet": 597.99
+    },
+    {
+      "title": "Animal",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Animal_2022",
+      "indiaNet": 553.87
+    },
+    {
+      "title": "Pathaan",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Pathan_2022",
+      "indiaNet": 543.09
+    },
+    {
+      "title": "Gadar 2",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Gadar_2_2022",
+      "indiaNet": 525.7
+    },
+    {
+      "title": "Salaar: Cease Fire - Part 1",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Salaar_2022",
+      "indiaNet": 406.45
+    },
+    {
+      "title": "Avatar: The Way of Water",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/Avatar_2_2021",
+      "indiaNet": 391.4
+    },
+    {
+      "title": "Jailer",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Thalaivar_169_2023",
+      "indiaNet": 348.55
+    },
+    {
+      "title": "Leo",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Thalapathy_67_2023",
+      "indiaNet": 341.04
+    },
+    {
+      "title": "Kantara",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/Kantara_2022",
+      "indiaNet": 309.64
+    },
+    {
+      "title": "Devara - Part 1",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/NTR_30_2022",
+      "indiaNet": 292.47
+    },
+    {
+      "title": "Adipurush",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Adipurush_2022",
+      "indiaNet": 288.15
+    },
+    {
+      "title": "Tiger 3",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Tiger_3",
+      "indiaNet": 282.79
+    },
+    {
+      "title": "Pushpa: The Rise (Part 1)",
+      "year": 2021,
+      "url": "https://www.sacnilk.com/movie/Pushpa_2020",
+      "indiaNet": 267.55
+    },
+    {
+      "title": "Brahmastra Part One: Shiva",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/Brahmastra",
+      "indiaNet": 267.2
+    },
+    {
+      "title": "Ponniyin Selvan - Part 1",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/Ponniyin_Selvan_2022",
+      "indiaNet": 266.54
+    },
+    {
+      "title": "Bhool Bhulaiyaa 3",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Bhool_Bhulaiyaa_3_2024",
+      "indiaNet": 260.11
+    },
+    {
+      "title": "The Greatest of All Time",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/The_Greatest_of_All_Time_2024",
+      "indiaNet": 252.71
+    },
+    {
+      "title": "The Kashmir Files",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/The_Kashmir_Files_2021",
+      "indiaNet": 252.25
+    }
+  ]
+}
