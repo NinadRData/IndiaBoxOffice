@@ -59,6 +59,33 @@ def main():
             and value > 0
         ):
             totals.setdefault(key, []).append(value)
+                # Use the Malayalam label from the verified historical records.
+    source_languages = {}
+
+    for film in older_totals.get("films", []):
+        if not isinstance(film, dict):
+            continue
+
+        if film.get("industry") == "Malayalam":
+            key = (film.get("url"), film.get("year"))
+            source_languages.setdefault(key, set()).add("malayalam")
+
+    def resolved_language(film, year):
+        key = (film.get("url"), year)
+        values = set(source_languages.get(key, set()))
+
+        page_language = find_language(
+            film.get("title", ""),
+            year,
+            index_text,
+        )
+
+        if page_language:
+            values.add(page_language)
+
+        # Skip the language if the page and reference disagree.
+        return next(iter(values)) if len(values) == 1 else None
+
 
     samples = []
 
@@ -125,9 +152,7 @@ def main():
 
             samples.append({
                 "title": film["title"],
-                    "language": find_language(
-                    film["title"], year, index_text
-                ),
+                "language": resolved_language(film, year),
                 "release": release,
                 "last_day": last_day,
                 "week1": week1,
