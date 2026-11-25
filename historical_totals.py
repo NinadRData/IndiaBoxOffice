@@ -17,8 +17,9 @@ URL = (
 
 
 class Records(html.parser.HTMLParser):
-    def __init__(self):
+    def __init__(self, include_recent=False):
         super().__init__()
+        self.include_recent = include_recent
         self.row = None
         self.depth = 0
         self.in_title = False
@@ -77,7 +78,7 @@ class Records(html.parser.HTMLParser):
         title = " ".join(" ".join(row["title"]).split())
 
         year = re.search(
-            r"\b(20(?:21|22|23|24))\s+(?:India net|Worldwide gross)\s+₹",
+            r"\b(20\d{2})\s+(?:India net|Worldwide gross)\s+₹",
             text,
         )
 
@@ -91,6 +92,8 @@ class Records(html.parser.HTMLParser):
         if (
             year
             and net
+            and int(year.group(1)) >= 2021
+            and (int(year.group(1)) <= 2024 or self.include_recent)
             and title
             and re.fullmatch(
                 r"https://www\.sacnilk\.com/movie/[A-Za-z0-9_-]+",
@@ -135,6 +138,8 @@ def main():
         "https://www.sacnilk.com/"
         "box-office-records/mollywood-100cr-club-worldwide"
     )
+        malayalam = Records(include_recent=True)
+
 
     try:
         request = urllib.request.Request(
@@ -153,7 +158,7 @@ def main():
         if len(content) > 10_000_000:
             raise ValueError("Malayalam records page too large")
 
-        malayalam = Records()
+    
         malayalam.feed(content.decode("utf-8"))
 
         if not malayalam.films:
@@ -163,7 +168,7 @@ def main():
 
         for film in malayalam.films:
             film["industry"] = "Malayalam"
-            if film["url"] not in known_urls:
+            if film["year"] <= 2024 and film["url"] not in known_urls:
                 parser.films.append(film)
                 known_urls.add(film["url"])
 
@@ -196,7 +201,15 @@ def main():
                 print("Could not read previous reference records")
 
 
-    output = {
+        output = {
+        "industryFilms": [
+            {
+                "url": film["url"],
+                "year": film["year"],
+                "industry": "Malayalam",
+            }
+            for film in malayalam.films
+        ],
         "source": URL,
         "updatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
         "metric": "India net",
