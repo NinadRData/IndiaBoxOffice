@@ -365,7 +365,7 @@ def main():
                 url = film.get("url")
 
                 if (
-                    film.get("industry") != "Malayalam"
+                    film.get("industry") not in ("Malayalam", "Kannada")
                     or not isinstance(title, str)
                     or not title.strip()
                     or not isinstance(year, int)
