@@ -146,7 +146,7 @@ def main():
         "scale_and_hold": [],
         "same_language": [],
     }
-
+    paired_errors = {name: [] for name in errors}
     print("\nDAY-7 FORECAST TEST: EARLIER FILMS ONLY")
     print(
         "Comparable outcomes use current reference totals when available, "
@@ -238,7 +238,7 @@ def main():
                 target["actual"],
             )
         )
-
+        target_errors = {}
         for name, group in methods.items():
             multipliers = [
                 peer["actual"] / peer["week1"]
@@ -250,6 +250,7 @@ def main():
             error = abs(estimate - target["actual"]) / target["actual"] * 100
 
             errors[name].append(error)
+            target_errors[name] = error
 
             print(
                 "  {}: ₹{:.2f} Cr · error {:.1f}% · peers: {}".format(
@@ -259,7 +260,9 @@ def main():
                     ", ".join(peer["title"] for peer in group),
                 )
             )
-
+       if all(name in target_errors for name in paired_errors):
+            for name in paired_errors:
+                paired_errors[name].append(target_errors[name])
     print("\nRESULTS")
     print("Methods can have different sample sizes.")
 
@@ -274,7 +277,19 @@ def main():
             )
         else:
             print(name + ": not enough eligible comparisons")
+    print("\nPAIRED COMPARISON: SAME FILMS")
 
+    for name, values in paired_errors.items():
+        if values:
+            print(
+                "{}: {} films · median error {:.1f}%".format(
+                    name,
+                    len(values),
+                    statistics.median(values),
+                )
+            )
+        else:
+            print(name + ": not enough matched films")
     print(
         "\nExperimental only: language is used only where matched; "
         "actor, director and clash matching and calibrated probabilities "
