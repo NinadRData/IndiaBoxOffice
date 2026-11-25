@@ -5625,9 +5625,38 @@ function lookupPool() {
     if (!p.title || !p.year) return;
     add(p.title, p.year, p.lang, p.ww, p.india, p.ff, p.lb, p.ow, p.budget, p.multiplier, (p.cast||[]).map(function(c){return c.name;}), p.director, p.studio, p.synopsis, p.ott, p.awards||[], p.trivia||[], p.cast||[], p.music, p.runtime);
   });
-  // From FILMS master
-  FILMS.forEach(function(f) {
-add(f.n, f.y, f.l, f.ww, f.india, f.ff, f.lb, f.ow, null, null, f.actors||[], f.director || null, f.studio, null, null, [], [], [], null, null);  });
+    // From FILMS master; use its totals for unambiguous matches.
+  var masterCounts = Object.create(null);
+
+  FILMS.forEach(function (film) {
+    if (!film || typeof film.n !== 'string') return;
+
+    var key = film.n.toLowerCase().trim() + '|' + film.y;
+    masterCounts[key] = (masterCounts[key] || 0) + 1;
+  });
+
+  FILMS.forEach(function (f) {
+    if (!f || typeof f.n !== 'string') return;
+
+    add(
+      f.n, f.y, f.l, f.ww, f.india, f.ff, f.lb, f.ow,
+      null, null, f.actors || [], f.director || null,
+      f.studio, null, null, [], [], [], null, null
+    );
+
+    var key = f.n.toLowerCase().trim() + '|' + f.y;
+
+    if (masterCounts[key] !== 1) return;
+
+    var entry = out.find(function (item) {
+      return item.key === key;
+    });
+
+    if (!entry) return;
+
+    if (Number.isFinite(f.ww)) entry.ww = f.ww;
+    if (Number.isFinite(f.india)) entry.india = f.india;
+  });
   // From FF_SORTED
   FF_SORTED.forEach(function(f) {
     add(f.n, f.y, f.l, null, null, f.ff, null, null, null, null, f.actors||[], null, null, null, null, [], [], [], null, null);
@@ -5727,8 +5756,8 @@ function openLookupResult(f) {
   var fp = getFilmPage(f.n);
   if (fp) {
     f = Object.assign({}, f, {
-      ww: fp.ww || f.ww,
-      india: fp.india || f.india,
+      ww: f.ww != null ? f.ww : fp.ww,
+      india: f.india != null ? f.india : fp.india,
       ff: fp.ff || f.ff,
       lb: fp.lb || f.lb,
       ow: fp.ow || f.ow,
