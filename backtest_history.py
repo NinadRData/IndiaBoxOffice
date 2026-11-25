@@ -62,7 +62,10 @@ def main():
                 # Use the Malayalam label from the verified historical records.
     source_languages = {}
 
-    for film in older_totals.get("films", []):
+        for film in (
+        older_totals.get("films", [])
+        + older_totals.get("industryFilms", [])
+    ):
         if not isinstance(film, dict):
             continue
 
