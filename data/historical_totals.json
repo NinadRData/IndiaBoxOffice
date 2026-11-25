@@ -74,10 +74,55 @@
       "url": "https://www.sacnilk.com/movie/Marco_2024",
       "year": 2024,
       "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/KGF_Chapter_2_2020",
+      "year": 2022,
+      "industry": "Kannada"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Kantara_2_2024",
+      "year": 2025,
+      "industry": "Kannada"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Kantara_2022",
+      "year": 2022,
+      "industry": "Kannada"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/toxic_2026",
+      "year": 2026,
+      "industry": "Kannada"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Mahavatar_Narsimha_2025",
+      "year": 2025,
+      "industry": "Kannada"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Premada_Oorali_2026",
+      "year": 2026,
+      "industry": "Kannada"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Su_From_So_2025",
+      "year": 2025,
+      "industry": "Kannada"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/777_Charlie_2021",
+      "year": 2022,
+      "industry": "Kannada"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Phantom_2021",
+      "year": 2022,
+      "industry": "Kannada"
     }
   ],
   "source": "https://www.sacnilk.com/box-office-records/indian-100cr-club-india-net",
-  "updatedAt": "2026-11-25T15:00:14.757094+00:00",
+  "updatedAt": "2026-11-25T17:43:28.592677+00:00",
   "metric": "India net",
   "unit": "INR crore",
   "films": [
@@ -267,6 +312,20 @@
       "url": "https://www.sacnilk.com/movie/Marco_2024",
       "indiaNet": 60.27,
       "industry": "Malayalam"
+    },
+    {
+      "title": "777 Charlie",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/777_Charlie_2021",
+      "indiaNet": 84.79,
+      "industry": "Kannada"
+    },
+    {
+      "title": "Vikrant Rona",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/Phantom_2021",
+      "indiaNet": 80.14,
+      "industry": "Kannada"
     }
   ]
 }
