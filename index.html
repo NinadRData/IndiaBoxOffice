@@ -5753,7 +5753,25 @@ function renderLookupResults(q) {
 
 function openLookupResult(f) {
   // Enrich from FILM_PAGES if available
-  var fp = getFilmPage(f.n);
+    var fp = getFilmPage(f.n);
+
+  // If the first page is from a different year, look for an
+  // unambiguous exact-title match in the requested year.
+  if (fp && Number(fp.year) !== Number(f.y)) {
+    var titleMatches = Object.keys(FILM_PAGES)
+      .map(function (key) {
+        return FILM_PAGES[key];
+      })
+      .filter(function (page, index, all) {
+        return page &&
+          page.title &&
+          Number(page.year) === Number(f.y) &&
+          page.title.trim().toLowerCase() === f.n.trim().toLowerCase() &&
+          all.indexOf(page) === index;
+      });
+
+    fp = titleMatches.length === 1 ? titleMatches[0] : null;
+  }
   if (fp) {
     f = Object.assign({}, f, {
       ww: f.ww != null ? f.ww : fp.ww,
@@ -5781,8 +5799,8 @@ function openLookupResult(f) {
   var legs = (f.ow && f.india) ? Math.round(f.india/f.ow*100)/100 : (f.multiplier || null);
   var hasFullPage = !!fp;
   var roi  = (f.ww && f.budget) ? (f.ww/f.budget).toFixed(2) : null;
-  var breakeven = f.budget ? f.budget*2.5 : null;
-  var profitable = roi && parseFloat(roi) >= 2.5;
+    var breakeven = f.budget ? f.budget*2 : null;
+  var profitable = roi && parseFloat(roi) >= 2;
 
   // ★ new: look up sourced gross/overseas on FILMS, estimate if missing
   var src = FILMS.find(function(x){ return x.n.toLowerCase().trim()===f.n.toLowerCase().trim() && x.y===f.y; }) || f;
@@ -15677,6 +15695,39 @@ if (t === 'kgf 2') return FILM_PAGES['kgf-2'] || null;
   }
   return best;
 }
+function getFilmPageForYear(title, year) {
+  if (
+    typeof title !== 'string' ||
+    !Number.isInteger(Number(year))
+  ) {
+    return null;
+  }
+
+  var wanted = title.trim().toLowerCase();
+
+  var exact = Object.keys(FILM_PAGES)
+    .map(function (key) {
+      return FILM_PAGES[key];
+    })
+    .filter(function (page, index, all) {
+      return page &&
+        typeof page.title === 'string' &&
+        Number(page.year) === Number(year) &&
+        page.title.trim().toLowerCase() === wanted &&
+        all.indexOf(page) === index;
+    });
+
+  // Don't choose between multiple matching pages.
+  if (exact.length > 1) return null;
+  if (exact.length === 1) return exact[0];
+
+  // Keep existing aliases, but only if the page has the right year.
+  var candidate = getFilmPage(title);
+
+  return candidate && Number(candidate.year) === Number(year)
+    ? candidate
+    : null;
+}
 
 // Make every film card / row clickable if it has a page
 function maybeOpenFilm(title, e) {
@@ -16353,7 +16404,7 @@ var maxTL = Math.max.apply(null, page.timeline.map(function (t) {
         var roi = Math.round(page.ww / page.budget * 100) / 100;
 var breakeven = page.budget * 2;
         var profitable = page.ww >= breakeven;
-        var roiCol = roi >= 4 ? '#4ade80' : roi >= 2.5 ? '#facc15' : '#f87171';
+        var roiCol = roi >= 4 ? '#4ade80' : roi >= 2 ? '#facc15' : '#f87171';
         var maxBar = Math.max(page.ww, breakeven) * 1.05;
         function pct(v){ return Math.min(100, Math.round(v / maxBar * 100)); }
         return '<div style="grid-column:1/-1;background:#111;border:0.5px solid rgba(255,255,255,.1);border-radius:10px;padding:1.5rem 1.75rem">' +
@@ -16966,7 +17017,7 @@ function buildLiveCard(f) {
 
   // ROI
   var roi = f.wwRunning && f.budget ? (f.wwRunning / f.budget).toFixed(2) : null;
-  var roiCol = !roi ? '#888' : roi >= 4 ? '#4ade80' : roi >= 2.5 ? '#f5c518' : '#f87171';
+    var roiCol = !roi ? '#888' : roi >= 4 ? '#4ade80' : roi >= 2 ? '#f5c518' : '#f87171';
 
   // Breakeven
   var breakeven = f.budget * 2;
@@ -17787,7 +17838,7 @@ function renderYrTable() {
           '</div>' +
           '<div class="yr-film-copy">' +
             '<div class="yr-film-title">' + name +
-              (getFilmPage(film.n)
+                  (getFilmPageForYear(film.n, year)
                 ? ' <span style="color:var(--gold);font-size:.55rem">●</span>'
                 : '') +
             '</div>' +
@@ -17823,8 +17874,16 @@ function renderYrTable() {
       var title = row.getAttribute('data-film-name');
       var year = Number(row.getAttribute('data-film-year'));
 
-      function openFilm() {
-        maybeOpenFilm(title);
+            function openFilm() {
+        var filmPage = getFilmPageForYear(title, year);
+
+        if (!filmPage) return;
+
+        if (filmPage.prediction) {
+          showFilmPageWithPredictions(filmPage.key);
+        } else {
+          showFilmPage(filmPage.key);
+        }
       }
 
       row.addEventListener('click', openFilm);
