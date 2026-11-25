@@ -1,6 +1,6 @@
 {
   "source": "https://www.sacnilk.com/box-office-records/indian-100cr-club-india-net",
-  "updatedAt": "2026-11-25T05:29:28.651675+00:00",
+  "updatedAt": "2026-11-25T05:32:55.554529+00:00",
   "metric": "India net",
   "unit": "INR crore",
   "films": [
@@ -141,6 +141,48 @@
       "year": 2022,
       "url": "https://www.sacnilk.com/movie/The_Kashmir_Files_2021",
       "indiaNet": 252.25
+    },
+    {
+      "title": "Manjummel Boys",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Manjummel_Boys_2024",
+      "indiaNet": 142.08
+    },
+    {
+      "title": "2018",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/2018_2023",
+      "indiaNet": 92.85
+    },
+    {
+      "title": "Aadujeevitham - The Goat Life",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Aadujeevitham__The_Goat_Life_2024",
+      "indiaNet": 85.26
+    },
+    {
+      "title": "Aavesham",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Aavesham_2024",
+      "indiaNet": 85.16
+    },
+    {
+      "title": "Premalu",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Premalu_2024",
+      "indiaNet": 75.64
+    },
+    {
+      "title": "Aayante Randam Moshanam (ARM)",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/ARM_2024",
+      "indiaNet": 64.01
+    },
+    {
+      "title": "Marco",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Marco_2024",
+      "indiaNet": 60.27
     }
   ]
 }
