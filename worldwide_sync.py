@@ -17,7 +17,7 @@ from zoneinfo import ZoneInfo
 ROOT = pathlib.Path(__file__).resolve().parent
 HOST = "https://www.sacnilk.com"
 TODAY = dt.datetime.now(ZoneInfo("Asia/Kolkata")).date()
-MAX_REPORTS = 90
+MAX_REPORTS = 30
 
 
 def fetch(url, prefix):
@@ -330,7 +330,7 @@ def main():
         )
     )
 
-    recent_limit = min(60, len(jobs_recent))
+    recent_limit = min(20, MAX_REPORTS, len(jobs_recent))
 
     chosen = (
         jobs_recent[:recent_limit]
