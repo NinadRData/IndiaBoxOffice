@@ -77,7 +77,7 @@ class Records(html.parser.HTMLParser):
         title = " ".join(" ".join(row["title"]).split())
 
         year = re.search(
-            r"\b(20(?:21|22|23|24))\s+India net\s+₹",
+            r"\b(20(?:21|22|23|24))\s+(?:India net|Worldwide gross)\s+₹",
             text,
         )
 
@@ -130,6 +130,70 @@ def main():
         raise ValueError(
             "Too few historical records found; previous file retained"
         )
+    # Add 2021–2024 Malayalam films from Sacnilk's worldwide list.
+    malayalam_url = (
+        "https://www.sacnilk.com/"
+        "box-office-records/mollywood-100cr-club-worldwide"
+    )
+
+    try:
+        request = urllib.request.Request(
+            malayalam_url,
+            headers={"User-Agent": "BoxOfficeIndiaFeed/1.0"},
+        )
+
+        with urllib.request.urlopen(request, timeout=30) as response:
+            final_url = response.geturl().split("?", 1)[0].rstrip("/")
+
+            if final_url != malayalam_url.rstrip("/"):
+                raise ValueError("Unexpected Malayalam-list redirect")
+
+            content = response.read(10_000_001)
+
+        if len(content) > 10_000_000:
+            raise ValueError("Malayalam records page too large")
+
+        malayalam = Records()
+        malayalam.feed(content.decode("utf-8"))
+
+        if not malayalam.films:
+            raise ValueError("No supported Malayalam records found")
+
+        known_urls = {film["url"] for film in parser.films}
+
+        for film in malayalam.films:
+            if film["url"] not in known_urls:
+                parser.films.append(film)
+                known_urls.add(film["url"])
+
+        print(
+            "Malayalam reference records found:",
+            len(malayalam.films),
+        )
+
+    except (OSError, ValueError, UnicodeError) as error:
+        print("Malayalam reference list unavailable:", str(error))
+
+        # Preserve previously saved reference rows if this source fails.
+        previous_path = ROOT / "data" / "historical_totals.json"
+
+        if previous_path.exists():
+            try:
+                previous = json.loads(
+                    previous_path.read_text(encoding="utf-8")
+                )
+                known_urls = {film["url"] for film in parser.films}
+
+                for film in previous.get("films", []):
+                    url = film.get("url")
+
+                    if url and url not in known_urls:
+                        parser.films.append(film)
+                        known_urls.add(url)
+
+            except (OSError, ValueError, AttributeError):
+                print("Could not read previous reference records")
+
 
     output = {
         "source": URL,
