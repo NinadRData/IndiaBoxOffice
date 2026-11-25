@@ -1,6 +1,83 @@
 {
+  "industryFilms": [
+    {
+      "url": "https://www.sacnilk.com/movie/Bethlehem_Kudumba_Unit_2026",
+      "year": 2026,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Lokah_Chapter_1_2025",
+      "year": 2025,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Lucifer_2_2023",
+      "year": 2025,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Manjummel_Boys_2024",
+      "year": 2024,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/drishyam_3_malayalam_2026",
+      "year": 2026,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Thudarum_2025",
+      "year": 2025,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Vaazha_2_Biopic_of_a_Billion_Bros_2026",
+      "year": 2026,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/2018_2023",
+      "year": 2023,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Aadujeevitham__The_Goat_Life_2024",
+      "year": 2024,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Aavesham_2024",
+      "year": 2024,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Sarvam_Maya_2025",
+      "year": 2025,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Premalu_2024",
+      "year": 2024,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Aadu_3_2026",
+      "year": 2026,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/ARM_2024",
+      "year": 2024,
+      "industry": "Malayalam"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Marco_2024",
+      "year": 2024,
+      "industry": "Malayalam"
+    }
+  ],
   "source": "https://www.sacnilk.com/box-office-records/indian-100cr-club-india-net",
-  "updatedAt": "2026-11-25T05:52:42.504480+00:00",
+  "updatedAt": "2026-11-25T06:30:25.690003+00:00",
   "metric": "India net",
   "unit": "INR crore",
   "films": [
