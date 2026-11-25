@@ -46,6 +46,10 @@ jobs:
       - name: Collect worldwide daily totals
         run: python worldwide_sync.py
         continue-on-error: true
+      - name: Check collector and predictor syntax
+        run: |
+          python -m py_compile historical_totals.py historical_daily.py backtest_history.py backtest_live.py worldwide_sync.py
+          node --check experimental-live.js
 
       - name: Save discovered films
         run: |
