@@ -199,6 +199,50 @@ def main():
 
             except (OSError, ValueError, AttributeError):
                 print("Could not read previous reference records")
+    # Import Kannada industry records without replacing existing totals.
+    kannada = Records(include_recent=True)
+
+    kannada_url = (
+        "https://www.sacnilk.com/"
+        "box-office-records/sandalwood-100cr-club-worldwide"
+    )
+
+    try:
+        request = urllib.request.Request(
+            kannada_url,
+            headers={"User-Agent": "BoxOfficeIndiaFeed/1.0"},
+        )
+
+        with urllib.request.urlopen(request, timeout=30) as response:
+            final_url = response.geturl().split("?", 1)[0].rstrip("/")
+
+            if final_url != kannada_url.rstrip("/"):
+                raise ValueError("Unexpected Kannada-list redirect")
+
+            content = response.read(10_000_001)
+
+        if len(content) > 10_000_000:
+            raise ValueError("Kannada records page too large")
+
+        kannada.feed(content.decode("utf-8"))
+
+        if not kannada.films:
+            raise ValueError("No supported Kannada records found")
+
+        known_urls = {film["url"] for film in parser.films}
+
+        for film in kannada.films:
+            film["industry"] = "Kannada"
+
+            if film["year"] <= 2024 and film["url"] not in known_urls:
+                parser.films.append(film)
+                known_urls.add(film["url"])
+
+        print("Kannada reference records found:", len(kannada.films))
+
+    except (OSError, ValueError, UnicodeError) as error:
+        print("Kannada reference list unavailable:", str(error))
+        kannada.films = []
 
 
     output = {
@@ -209,6 +253,14 @@ def main():
                 "industry": "Malayalam",
             }
             for film in malayalam.films
+        ] + [
+            {
+                "url": film["url"],
+                "year": film["year"],
+                "industry": "Kannada",
+            }
+            for film in kannada.films
+        ],
         ],
         "source": URL,
         "updatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
