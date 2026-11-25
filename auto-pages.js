@@ -478,12 +478,33 @@
 
     return result;
   };
-  fetch('data/discovered.json', { cache: 'no-cache' })
-    .then(function (response) {
-      if (!response.ok) throw new Error('Discovery unavailable');
-      return response.json();
-    })
-    .then(function (data) {
+    Promise.all([
+       fetch('data/discovered.json', { cache: 'no-cache' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Discovery unavailable');
+        return response.json();
+      }),
+
+    Promise.race([
+      fetch('data/tracker.json', { cache: 'no-cache' })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Tracker unavailable');
+          return response.json();
+        })
+        .catch(function () {
+          return null;
+        }),
+
+      new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve(null);
+        }, 4000);
+      })
+    ])
+  ])
+    .then(function (results) {
+      var data = results[0];
+      var tracker = results[1];
       if (
         !Array.isArray(data.films) ||
         !Array.isArray(FILMS) ||
@@ -510,6 +531,54 @@
 
         var release = new Date(film.release + 'T00:00:00Z');
         if (!Number.isFinite(release.getTime())) return;
+                  // Use tracker rows only for the exact same source film and
+        // only when they are newer and at least as complete.
+        var trackerTime = Date.parse(
+          tracker && tracker.updatedAt || ''
+        );
+
+        var discoveryTime = Date.parse(
+          film.fetchedAt || data.updatedAt || ''
+        );
+
+        var trackerMatches = tracker && Array.isArray(tracker.films)
+          ? tracker.films.filter(function (item) {
+              return item &&
+                item.url === film.url &&
+                item.year === film.year;
+            })
+          : [];
+
+        if (
+          trackerMatches.length === 1 &&
+          Number.isFinite(trackerTime) &&
+          Number.isFinite(discoveryTime) &&
+          trackerTime > discoveryTime &&
+          Array.isArray(trackerMatches[0].days) &&
+          trackerMatches[0].days.length >= days.length
+        ) {
+          var candidate = trackerMatches[0].days.slice().sort(
+            function (a, b) {
+              return (a && a.day || 0) - (b && b.day || 0);
+            }
+          );
+
+          var validCandidate = candidate.every(function (day, index) {
+            var expected = new Date(
+              release.getTime() + index * 86400000
+            );
+
+            return day &&
+              day.day === index + 1 &&
+              Number.isFinite(day.indiaNet) &&
+              day.indiaNet >= 0 &&
+              day.date === expected.toISOString().slice(0, 10);
+          });
+
+          if (validCandidate) {
+            days = candidate;
+          }
+        }
 
         var invalid = days.some(function (day, index) {
           var expected = new Date(
