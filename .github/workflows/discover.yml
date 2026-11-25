@@ -35,6 +35,9 @@ jobs:
       - name: Test historical forecast baseline
         run: python backtest_history.py
         continue-on-error: true
+      - name: Test live forecast at days 7, 14 and 21
+        run: python backtest_live.py
+        continue-on-error: true
       - name: Collect worldwide daily totals
         run: python worldwide_sync.py
         continue-on-error: true
