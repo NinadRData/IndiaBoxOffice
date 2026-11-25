@@ -15866,12 +15866,22 @@ function showFilmPageWithPredictions(key) {
   div.id = 'page-film-'+key;
   div.className = 'page';
 
-  var p = page;
-  // Sync india/ww from live tracker if available
-  var liveEntry = LIVE_FILMS.find(function(lf){ return lf.key === key; });
+    // Work with a copy so opening a page doesn't change saved page data.
+  var p = Object.assign({}, page);
+
+  var liveEntry = LIVE_FILMS.find(function (film) {
+    return film.key === key;
+  });
+
   if (liveEntry) {
-    if (liveEntry.indiaRunning) p.india = liveEntry.indiaRunning;
-    if (liveEntry.wwRunning)    p.ww    = liveEntry.wwRunning;
+    // Use the older live values only when the page has no value.
+    if (p.india == null && liveEntry.indiaRunning != null) {
+      p.india = liveEntry.indiaRunning;
+    }
+
+    if (p.ww == null && liveEntry.wwRunning != null) {
+      p.ww = liveEntry.wwRunning;
+    }
   }
   var pred = p.prediction;
   var act = pred.actuals;
