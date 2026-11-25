@@ -130,6 +130,37 @@ def read_json(path, default):
     with path.open(encoding="utf-8") as file:
         return json.load(file)
 
+def retry_delayed(record, day, now):
+    attempts = record.get("missingReportAttempts", {})
+
+    if not isinstance(attempts, dict):
+        return False
+
+    try:
+        when = dt.datetime.fromisoformat(
+            str(attempts.get(str(day), "")).replace("Z", "+00:00")
+        )
+
+        if when.tzinfo is None:
+            return False
+
+        elapsed = now - when
+
+        return dt.timedelta(0) <= elapsed < dt.timedelta(days=7)
+
+    except (ValueError, TypeError, OverflowError):
+        return False
+
+
+def record_missing_failure(record, day, when):
+    attempts = record.get("missingReportAttempts")
+
+    if not isinstance(attempts, dict):
+        attempts = {}
+        record["missingReportAttempts"] = attempts
+
+    attempts[str(day)] = when.isoformat()
+
 
 def main():
     output_path = ROOT / "data" / "worldwide.json"
@@ -222,6 +253,7 @@ def main():
 
     jobs_recent = []
     jobs_missing = []
+    now = dt.datetime.now(dt.timezone.utc)
 
     for _, film, age in active.values():
         url = film["url"]
@@ -297,7 +329,10 @@ def main():
 
             if day in recent:
                 jobs_recent.append(job)
-            elif day not in existing_days:
+            elif (
+                day not in existing_days
+                and not retry_delayed(existing, day, now)
+            ):
                 jobs_missing.append(job)
 
     # Rotate films so a large release slate does not always
@@ -348,12 +383,21 @@ def main():
 
     for film, day, report, _ in chosen:
         attempted += 1
+        record = saved[film["url"]]
+
+        was_missing = not any(
+            isinstance(point, dict) and point.get("day") == day
+            for point in record["points"]
+        )
 
         try:
             text = fetch(report, HOST + "/quicknews/")
             amount = extract_worldwide(text)
 
             if amount is None:
+                if was_missing:
+                    record_missing_failure(record, day, now)
+
                 print(
                     "No explicit worldwide cumulative figure:",
                     film["title"],
@@ -386,9 +430,17 @@ def main():
                 key=lambda point: point["day"]
             )
 
+            attempts = record.get("missingReportAttempts")
+
+            if isinstance(attempts, dict):
+                attempts.pop(str(day), None)
+
             updated += 1
 
         except (OSError, ValueError, UnicodeError) as error:
+            if was_missing:
+                record_missing_failure(record, day, now)
+
             print(
                 "Worldwide report unavailable:",
                 film["title"],
