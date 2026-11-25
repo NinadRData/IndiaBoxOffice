@@ -17,10 +17,16 @@ def load(name):
 def main():
     historical = load("historical.json")
     snapshot = load("sacnilk.json")
+    try:
+        older_totals = load("historical_totals.json")
+    except (OSError, ValueError):
+        older_totals = {"films": []}
 
     totals = {}
 
-    for film in snapshot.get("films", []):
+    for film in (
+        snapshot.get("films", []) + older_totals.get("films", [])
+    ):
         key = (film.get("url"), film.get("year"))
         value = film.get("indiaNet")
 
