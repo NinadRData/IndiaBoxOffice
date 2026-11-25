@@ -3,6 +3,7 @@
 import datetime as dt
 import json
 import math
+import os
 import pathlib
 import statistics
 
@@ -190,6 +191,42 @@ def main():
                     abs(math.log(peer["week"] / target["week"]))
                     + abs(math.log(peer["hold"] / target["hold"]))
                 )
+                                if (
+                    forecast_day >= 14
+                    and os.environ.get("FORECAST_USE_WEEK_HOLD") == "1"
+                ):
+                    target_recent = sum(
+                        target["rows"][day]
+                        for day in range(forecast_day - 6, forecast_day + 1)
+                    )
+
+                    target_previous = sum(
+                        target["rows"][day]
+                        for day in range(forecast_day - 13, forecast_day - 6)
+                    )
+
+                    peer_recent = sum(
+                        peer["rows"][day]
+                        for day in range(forecast_day - 6, forecast_day + 1)
+                    )
+
+                    peer_previous = sum(
+                        peer["rows"][day]
+                        for day in range(forecast_day - 13, forecast_day - 6)
+                    )
+
+                    if min(
+                        target_recent,
+                        target_previous,
+                        peer_recent,
+                        peer_previous,
+                    ) > 0:
+                        target_hold = target_recent / target_previous
+                        peer_hold = peer_recent / peer_previous
+
+                        distance += abs(
+                            math.log(peer_hold / target_hold)
+                        )
 
                 estimate = max(
                     banked,
