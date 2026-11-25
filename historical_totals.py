@@ -261,7 +261,6 @@ def main():
             }
             for film in kannada.films
         ],
-        ],
         "source": URL,
         "updatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
         "metric": "India net",
