@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T18:21:46.107045+00:00",
+  "updatedAt": "2026-11-25T18:41:11.752433+00:00",
   "films": [
     {
       "title": "O.M Operation Mole",
@@ -41,7 +41,7 @@
           "indiaNet": 4.1
         }
       ],
-      "fetchedAt": "2026-11-25T18:21:42.349475+00:00"
+      "fetchedAt": "2026-11-25T18:41:03.652635+00:00"
     },
     {
       "title": "Ramayana",
@@ -158,7 +158,7 @@
           "indiaNet": 9.6
         }
       ],
-      "fetchedAt": "2026-11-25T18:21:41.017113+00:00"
+      "fetchedAt": "2026-11-25T18:41:02.442433+00:00"
     },
     {
       "title": "ENE Repeat",
@@ -205,7 +205,7 @@
           "indiaNet": 1.35
         }
       ],
-      "fetchedAt": "2026-11-25T18:21:44.999430+00:00"
+      "fetchedAt": "2026-11-25T18:41:06.090901+00:00"
     },
     {
       "title": "Scene",
@@ -317,7 +317,7 @@
           "indiaNet": 0.45
         }
       ],
-      "fetchedAt": "2026-11-25T18:21:46.107030+00:00"
+      "fetchedAt": "2026-11-25T18:41:07.500957+00:00"
     },
     {
       "title": "Bachelor Party D'eux",
@@ -473,7 +473,7 @@
           "indiaNet": 2.7
         }
       ],
-      "fetchedAt": "2026-11-25T18:21:43.673892+00:00"
+      "fetchedAt": "2026-11-25T18:41:04.854836+00:00"
     },
     {
       "title": "Brindavihari",
@@ -510,7 +510,7 @@
           "indiaNet": 0.29
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:46.343868+00:00"
+      "fetchedAt": "2026-11-25T18:41:11.752414+00:00"
     },
     {
       "title": "Appakutty",
@@ -518,7 +518,7 @@
       "language": "Tamil",
       "url": "https://www.sacnilk.com/movie/Appakutty_2026",
       "release": "2026-11-20",
-      "indiaNet": 2.1,
+      "indiaNet": 2.36,
       "worldwideGross": 34.0,
       "days": [
         {
@@ -545,9 +545,14 @@
           "date": "2026-11-24",
           "day": 5,
           "indiaNet": 0.26
+        },
+        {
+          "date": "2026-11-25",
+          "day": 6,
+          "indiaNet": 0.26
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:47.771105+00:00"
+      "fetchedAt": "2026-11-25T18:41:10.298004+00:00"
     },
     {
       "title": "Aadi Anant",
