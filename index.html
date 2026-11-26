@@ -19743,11 +19743,65 @@ function predictorEligibleFilm(film, targetDate) {
     })
     .slice(0, 12);
 
-  if (peers.length < 3) return null;
+   if (peers.length < 3) return null;
 
-  function quantile(getValue, percentile) {
+  // Use an explicitly named predecessor when available.
+  // For titles ending in "2", also try an exact match to the
+  // title before the 2. Ambiguous matches are skipped.
+  var priorName = target.sequelOf || '';
+
+  if (!priorName) {
+    var titleMatch = String(target.title || '').match(
+      /^(.+?)\s+2(?:\s*[:–-].*)?$/i
+    );
+
+    if (titleMatch) priorName = titleMatch[1];
+  }
+
+  var priorKey = schedulePredictionKey(priorName);
+  var predecessorLabel = '';
+
+  var priorCandidates = priorKey
+    ? FILMS.filter(function (film) {
+        return (
+          schedulePredictionKey(film.n) === priorKey &&
+          Number(film.y) >= 2021 &&
+          Number(film.y) < year &&
+          norm(film.l) === language &&
+          predictorEligibleFilm(film, target.date) &&
+          Number.isFinite(Number(film.ow)) &&
+          Number(film.ow) > 0
+        );
+      })
+    : [];
+
+  if (priorCandidates.length === 1) {
+    peers.forEach(function (peer) {
+      if (peer.film !== priorCandidates[0]) return;
+
+      var priorIndia = Number(peer.film.india);
+      var legs = priorIndia / peer.ow;
+
+      if (Number.isFinite(legs) && legs > 0) {
+        // Experimental: cap the extra weight so one film
+        // cannot receive unlimited influence.
+        peer.openingWeight =
+          peer.weight * Math.min(4, Math.max(1, legs));
+
+        predecessorLabel =
+          peer.film.n + ' (' + peer.film.y + ')';
+      }
+    });
+  }
+
+  function quantile(getValue, percentile, useOpeningWeight) {
     var values = peers.map(function (peer) {
-      return {value: getValue(peer), weight: peer.weight};
+            return {
+        value: getValue(peer),
+        weight: useOpeningWeight
+          ? (peer.openingWeight || peer.weight)
+          : peer.weight
+      };
     }).filter(function (item) {
       return isFinite(item.value) && item.value > 0;
     }).sort(function (a, b) {
@@ -19772,9 +19826,9 @@ function predictorEligibleFilm(film, targetDate) {
     return value == null ? null : Math.round(value * 10) / 10;
   }
 
-  var owLow = quantile(function (p) { return p.ow; }, 0.2);
-  var owMid = quantile(function (p) { return p.ow; }, 0.5);
-  var owHigh = quantile(function (p) { return p.ow; }, 0.8);
+    var owLow = quantile(function (p) { return p.ow; }, 0.2, true);
+  var owMid = quantile(function (p) { return p.ow; }, 0.5, true);
+  var owHigh = quantile(function (p) { return p.ow; }, 0.8, true);
 
   var indiaLowLegs = quantile(function (p) { return p.indiaLegs; }, 0.2);
   var indiaMidLegs = quantile(function (p) { return p.indiaLegs; }, 0.5);
@@ -19808,6 +19862,7 @@ function predictorEligibleFilm(film, targetDate) {
             high: round(owHigh * wwHighLegs)
           }
         : null,
+        predecessorLabel: predecessorLabel,
     autoComparableFilms: peers.slice(0, 5).map(function (p) {
       return p.film.n + ' (' + p.film.y + ')';
     })
@@ -19867,8 +19922,9 @@ function getUpcomingAutoPrediction(film) {
     }
   }
 
-  var target = {
+   var target = {
     title: film.n,
+    sequelOf: film.sequelOf || (metadata && metadata.sequelOf) || '',
     lang: film.l || (metadata && metadata.lang) || '',
     actor: actor,
     director: director,
@@ -20133,6 +20189,12 @@ function renderPreds() {
           groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
                 var prediction = getUpcomingAutoPrediction(film);
         var context = upcomingForecastContext(film);
+                if (prediction && prediction.predecessorLabel) {
+          context.push(
+            'Experimental predecessor weighting: ' +
+            prediction.predecessorLabel
+          );
+        }
 
         if (
           prediction &&
