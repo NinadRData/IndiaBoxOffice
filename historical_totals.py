@@ -317,6 +317,7 @@ def main():
     additional_labels = []
 
     for industry, slug in (
+        ("Hindi", "bollywood-100cr-club-worldwide"),
         ("Tamil", "kollywood-100cr-club-worldwide"),
         ("Telugu", "tollywood-100cr-club-worldwide"),
     ):
