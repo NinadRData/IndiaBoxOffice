@@ -360,7 +360,7 @@ def main():
             for item in reference.get("industryFilms", []):
                 if (
                     isinstance(item, dict)
-                    and item.get("industry") in ("Malayalam", "Kannada", "Tamil", "Telugu")
+                    and item.get("industry") in ("Malayalam", "Kannada", "Tamil", "Telugu", "Hindi")
                 ):
                     key = (item.get("url"), item.get("year"))
                     labels.setdefault(key, set()).add(item["industry"])
@@ -375,7 +375,7 @@ def main():
 
                 industries = set(labels.get((url, year), set()))
 
-                if film.get("industry") in ("Malayalam", "Kannada", "Tamil", "Telugu"):
+                if film.get("industry") in ("Malayalam", "Kannada", "Tamil", "Telugu", "Hindi"):
                     industries.add(film["industry"])
 
                 if (
