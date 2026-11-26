@@ -61,6 +61,11 @@
         var director = crew.find(function (p) { return p.job === 'Director'; });
         results.push({n:d.title || item.title, y:Number(date.slice(0,4)), l:names[item.original_language], date:date,
           actor:cast.length ? cast[0].name : '', director:director ? director.name : '',
+          collectionName:
+            d.belongs_to_collection &&
+            typeof d.belongs_to_collection.name === 'string'
+              ? d.belongs_to_collection.name
+              : '',
           note:'TMDB · Indian theatrical release · date subject to change', tmdbAuto:true, tmdbId:item.id});
       }).catch(function () { /* skip a film if its details cannot be checked */ }).then(worker);
     }
