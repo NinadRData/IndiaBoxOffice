@@ -1,6 +1,6 @@
 {
   "kind": "historical",
-  "updatedAt": "2026-11-26T06:36:25.983592+00:00",
+  "updatedAt": "2026-11-26T14:30:49.418126+00:00",
   "films": [
     {
       "title": "Lokah: Chapter 1 – Chandra",
@@ -11768,6 +11768,458 @@
         }
       ],
       "fetchedAt": "2026-11-26T06:36:25.483470+00:00"
+    },
+    {
+      "title": "Doctor",
+      "year": 2021,
+      "url": "https://www.sacnilk.com/movie/Doctor_2021",
+      "release": "2021-10-09",
+      "days": [
+        {
+          "day": 1,
+          "date": "2021-10-09",
+          "indiaNet": 8.81
+        },
+        {
+          "day": 2,
+          "date": "2021-10-10",
+          "indiaNet": 10.67
+        },
+        {
+          "day": 3,
+          "date": "2021-10-11",
+          "indiaNet": 5.33
+        },
+        {
+          "day": 4,
+          "date": "2021-10-12",
+          "indiaNet": 4.6
+        },
+        {
+          "day": 5,
+          "date": "2021-10-13",
+          "indiaNet": 4.28
+        },
+        {
+          "day": 6,
+          "date": "2021-10-14",
+          "indiaNet": 3.8
+        },
+        {
+          "day": 7,
+          "date": "2021-10-15",
+          "indiaNet": 4.25
+        },
+        {
+          "day": 8,
+          "date": "2021-10-16",
+          "indiaNet": 4.25
+        },
+        {
+          "day": 9,
+          "date": "2021-10-17",
+          "indiaNet": 4.45
+        },
+        {
+          "day": 10,
+          "date": "2021-10-18",
+          "indiaNet": 2.15
+        },
+        {
+          "day": 11,
+          "date": "2021-10-19",
+          "indiaNet": 2.28
+        },
+        {
+          "day": 12,
+          "date": "2021-10-20",
+          "indiaNet": 1.55
+        },
+        {
+          "day": 13,
+          "date": "2021-10-21",
+          "indiaNet": 1.38
+        },
+        {
+          "day": 14,
+          "date": "2021-10-22",
+          "indiaNet": 1.25
+        },
+        {
+          "day": 15,
+          "date": "2021-10-23",
+          "indiaNet": 2.0
+        },
+        {
+          "day": 16,
+          "date": "2021-10-24",
+          "indiaNet": 1.9
+        },
+        {
+          "day": 17,
+          "date": "2021-10-25",
+          "indiaNet": 0.76
+        },
+        {
+          "day": 18,
+          "date": "2021-10-26",
+          "indiaNet": 0.7
+        },
+        {
+          "day": 19,
+          "date": "2021-10-27",
+          "indiaNet": 0.64
+        },
+        {
+          "day": 20,
+          "date": "2021-10-28",
+          "indiaNet": 0.73
+        },
+        {
+          "day": 21,
+          "date": "2021-10-29",
+          "indiaNet": 0.66
+        },
+        {
+          "day": 22,
+          "date": "2021-10-30",
+          "indiaNet": 0.9
+        },
+        {
+          "day": 23,
+          "date": "2021-10-31",
+          "indiaNet": 1.03
+        },
+        {
+          "day": 24,
+          "date": "2021-11-01",
+          "indiaNet": 0.32
+        },
+        {
+          "day": 25,
+          "date": "2021-11-02",
+          "indiaNet": 0.29
+        },
+        {
+          "day": 26,
+          "date": "2021-11-03",
+          "indiaNet": 0.33
+        },
+        {
+          "day": 27,
+          "date": "2021-11-04",
+          "indiaNet": 0.05
+        }
+      ],
+      "fetchedAt": "2026-11-26T14:30:47.146542+00:00"
+    },
+    {
+      "title": "Don",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/Don_2022",
+      "release": "2022-05-13",
+      "days": [
+        {
+          "day": 1,
+          "date": "2022-05-13",
+          "indiaNet": 9.3
+        },
+        {
+          "day": 2,
+          "date": "2022-05-14",
+          "indiaNet": 10.7
+        },
+        {
+          "day": 3,
+          "date": "2022-05-15",
+          "indiaNet": 11.3
+        },
+        {
+          "day": 4,
+          "date": "2022-05-16",
+          "indiaNet": 4.45
+        },
+        {
+          "day": 5,
+          "date": "2022-05-17",
+          "indiaNet": 3.54
+        },
+        {
+          "day": 6,
+          "date": "2022-05-18",
+          "indiaNet": 3.15
+        },
+        {
+          "day": 7,
+          "date": "2022-05-19",
+          "indiaNet": 2.69
+        },
+        {
+          "day": 8,
+          "date": "2022-05-20",
+          "indiaNet": 2.88
+        },
+        {
+          "day": 9,
+          "date": "2022-05-21",
+          "indiaNet": 5.23
+        },
+        {
+          "day": 10,
+          "date": "2022-05-22",
+          "indiaNet": 6.11
+        },
+        {
+          "day": 11,
+          "date": "2022-05-23",
+          "indiaNet": 2.14
+        },
+        {
+          "day": 12,
+          "date": "2022-05-24",
+          "indiaNet": 1.91
+        },
+        {
+          "day": 13,
+          "date": "2022-05-25",
+          "indiaNet": 1.7
+        },
+        {
+          "day": 14,
+          "date": "2022-05-26",
+          "indiaNet": 1.38
+        },
+        {
+          "day": 15,
+          "date": "2022-05-27",
+          "indiaNet": 1.47
+        },
+        {
+          "day": 16,
+          "date": "2022-05-28",
+          "indiaNet": 2.63
+        },
+        {
+          "day": 17,
+          "date": "2022-05-29",
+          "indiaNet": 2.91
+        },
+        {
+          "day": 18,
+          "date": "2022-05-30",
+          "indiaNet": 1.18
+        },
+        {
+          "day": 19,
+          "date": "2022-05-31",
+          "indiaNet": 1.16
+        },
+        {
+          "day": 20,
+          "date": "2022-06-01",
+          "indiaNet": 1.04
+        },
+        {
+          "day": 21,
+          "date": "2022-06-02",
+          "indiaNet": 0.99
+        }
+      ],
+      "fetchedAt": "2026-11-26T14:30:48.025901+00:00"
+    },
+    {
+      "title": "Dunki",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Dunki_2023",
+      "release": "2023-12-21",
+      "days": [
+        {
+          "day": 1,
+          "date": "2023-12-21",
+          "indiaNet": 29.2
+        },
+        {
+          "day": 2,
+          "date": "2023-12-22",
+          "indiaNet": 20.12
+        },
+        {
+          "day": 3,
+          "date": "2023-12-23",
+          "indiaNet": 25.61
+        },
+        {
+          "day": 4,
+          "date": "2023-12-24",
+          "indiaNet": 30.7
+        },
+        {
+          "day": 5,
+          "date": "2023-12-25",
+          "indiaNet": 24.32
+        },
+        {
+          "day": 6,
+          "date": "2023-12-26",
+          "indiaNet": 11.56
+        },
+        {
+          "day": 7,
+          "date": "2023-12-27",
+          "indiaNet": 10.5
+        },
+        {
+          "day": 8,
+          "date": "2023-12-28",
+          "indiaNet": 8.21
+        },
+        {
+          "day": 9,
+          "date": "2023-12-29",
+          "indiaNet": 7.0
+        },
+        {
+          "day": 10,
+          "date": "2023-12-30",
+          "indiaNet": 9.0
+        },
+        {
+          "day": 11,
+          "date": "2023-12-31",
+          "indiaNet": 11.5
+        },
+        {
+          "day": 12,
+          "date": "2024-01-01",
+          "indiaNet": 9.05
+        },
+        {
+          "day": 13,
+          "date": "2024-01-02",
+          "indiaNet": 3.85
+        },
+        {
+          "day": 14,
+          "date": "2024-01-03",
+          "indiaNet": 3.25
+        },
+        {
+          "day": 15,
+          "date": "2024-01-04",
+          "indiaNet": 2.6
+        },
+        {
+          "day": 16,
+          "date": "2024-01-05",
+          "indiaNet": 2.25
+        },
+        {
+          "day": 17,
+          "date": "2024-01-06",
+          "indiaNet": 3.5
+        },
+        {
+          "day": 18,
+          "date": "2024-01-07",
+          "indiaNet": 4.25
+        },
+        {
+          "day": 19,
+          "date": "2024-01-08",
+          "indiaNet": 1.5
+        },
+        {
+          "day": 20,
+          "date": "2024-01-09",
+          "indiaNet": 1.4
+        },
+        {
+          "day": 21,
+          "date": "2024-01-10",
+          "indiaNet": 1.35
+        },
+        {
+          "day": 22,
+          "date": "2024-01-11",
+          "indiaNet": 1.15
+        },
+        {
+          "day": 23,
+          "date": "2024-01-12",
+          "indiaNet": 0.55
+        },
+        {
+          "day": 24,
+          "date": "2024-01-13",
+          "indiaNet": 0.8
+        },
+        {
+          "day": 25,
+          "date": "2024-01-14",
+          "indiaNet": 1.1
+        },
+        {
+          "day": 26,
+          "date": "2024-01-15",
+          "indiaNet": 0.45
+        },
+        {
+          "day": 27,
+          "date": "2024-01-16",
+          "indiaNet": 0.35
+        },
+        {
+          "day": 28,
+          "date": "2024-01-17",
+          "indiaNet": 0.3
+        },
+        {
+          "day": 29,
+          "date": "2024-01-18",
+          "indiaNet": 0.25
+        },
+        {
+          "day": 30,
+          "date": "2024-01-19",
+          "indiaNet": 0.15
+        },
+        {
+          "day": 31,
+          "date": "2024-01-20",
+          "indiaNet": 0.3
+        },
+        {
+          "day": 32,
+          "date": "2024-01-21",
+          "indiaNet": 0.35
+        },
+        {
+          "day": 33,
+          "date": "2024-01-22",
+          "indiaNet": 0.13
+        },
+        {
+          "day": 34,
+          "date": "2024-01-23",
+          "indiaNet": 0.13
+        },
+        {
+          "day": 35,
+          "date": "2024-01-24",
+          "indiaNet": 0.1
+        },
+        {
+          "day": 36,
+          "date": "2024-01-25",
+          "indiaNet": 0.02
+        },
+        {
+          "day": 43,
+          "date": "2024-02-01",
+          "indiaNet": 0.15
+        }
+      ],
+      "fetchedAt": "2026-11-26T14:30:48.917975+00:00"
     }
   ]
 }
