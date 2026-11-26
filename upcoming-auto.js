@@ -22,7 +22,9 @@
       if (film.tmdbAuto) {
         var actor = norm(film.actor), director = norm(film.director);
         var peers = FILMS.filter(function (f) {
-          return f && predictorEligibleFilm(f, film.date) && Number(f.ow) > 0 && Number(f.india) > 0 && Number(f.ww) > 0 &&
+                   return f && Number(f.y) >= 2021 &&
+            predictorEligibleFilm(f, film.date) &&
+            Number.isFinite(Number(f.ow)) && Number(f.ow) > 0 &&
             ((actor && Array.isArray(f.actors) && f.actors.some(function(a){return norm(a) === actor;})) ||
              (director && norm(f.director) === director));
         });
