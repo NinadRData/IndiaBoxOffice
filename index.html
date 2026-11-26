@@ -19924,6 +19924,12 @@ function getUpcomingAutoPrediction(film) {
   } else if (film.sequel === true) {
     items.push('Marked as a sequel');
   }
+    if (
+    typeof film.collectionName === 'string' &&
+    film.collectionName.trim()
+  ) {
+    items.push('TMDB collection: ' + film.collectionName.trim());
+  }
 
   return items;
 }
@@ -23213,7 +23219,8 @@ Object.keys(YR_DATA)
     });
 })();
 </script>
-<script src="upcoming-auto.js?v=2" defer></script>  <script>
+<script src="upcoming-auto.js?v=3" defer></script>
+  <script>
 (function () {
   /*
    * Keep a reference before tracker.js replaces the weekly chart's
