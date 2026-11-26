@@ -95,16 +95,22 @@
     }) + ' Cr';
   }
 
-  var paths = [
-    'data/tracker.json',
-    'data/discovered.json',
-    'data/historical.json',
-    'data/historical_totals.json',
-    'data/sacnilk.json'
-  ];
+    Promise.all([
+    window.loadDailyFeeds(),
+    fetchJson('data/historical.json'),
+    fetchJson('data/historical_totals.json'),
+    fetchJson('data/sacnilk.json')
+  ])
+    .then(function (results) {
+      var liveFeeds = results[0];
 
-  Promise.all(paths.map(fetchJson))
-    .then(function (documents) {
+      var documents = [
+        liveFeeds[0],
+        liveFeeds[1],
+        results[1],
+        results[2],
+        results[3]
+      ];
       if (typeof FILM_PAGES === 'undefined') return;
 
       var pages = [];
@@ -139,28 +145,12 @@
         });
       }
 
-      var byUrl = {};
-
-      (documents[0].films || [])
-        .concat(documents[1].films || [])
-        .forEach(function (film) {
-          if (!film || !film.url) return;
-
-          var previous = byUrl[film.url];
-          var timestamp = Date.parse(film.fetchedAt || '') || 0;
-
-          if (!previous || timestamp > previous.timestamp) {
-            byUrl[film.url] = {
-              film: film,
-              timestamp: timestamp
-            };
-          }
-        });
-
-      var targets = Object.keys(byUrl).map(function (url) {
-        return byUrl[url].film;
+            var targets = window.resolveDailyFeeds(
+        liveFeeds[0],
+        liveFeeds[1]
+      ).map(function (record) {
+        return record.film;
       });
-
       var totals = {};
 
       (documents[3].films || [])
