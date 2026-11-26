@@ -121,6 +121,126 @@
       "industry": "Kannada"
     },
     {
+      "url": "https://www.sacnilk.com/movie/Dhurandhar_2_2026",
+      "year": 2026,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
+      "year": 2026,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Dhurandhar_2025",
+      "year": 2025,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Jawan_2023",
+      "year": 2023,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Pathan_2022",
+      "year": 2023,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Animal_2022",
+      "year": 2023,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Stree_2_2024",
+      "year": 2024,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Chaava_2024",
+      "year": 2025,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Gadar_2_2022",
+      "year": 2023,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
+      "year": 2026,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Saiyaara_2025",
+      "year": 2025,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Tiger_3",
+      "year": 2023,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Dunki_2023",
+      "year": 2023,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Hanuman_Ansh_2026",
+      "year": 2026,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Border_2_2026",
+      "year": 2026,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Brahmastra",
+      "year": 2022,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Bhool_Bhulaiyaa_3_2024",
+      "year": 2024,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Adipurush_2022",
+      "year": 2023,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Singham_3_2023",
+      "year": 2024,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/War_2_2024",
+      "year": 2025,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Fighter_2022",
+      "year": 2024,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Rocky_Aur_Rani_Ki_Prem_Kahani_2022",
+      "year": 2023,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/The_Kashmir_Files_2021",
+      "year": 2022,
+      "industry": "Hindi"
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Mirzapur_The_Movie_2026",
+      "year": 2026,
+      "industry": "Hindi"
+    },
+    {
       "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
       "year": 2026,
       "industry": "Tamil"
@@ -477,7 +597,7 @@
     }
   ],
   "source": "https://www.sacnilk.com/box-office-records/indian-100cr-club-india-net",
-  "updatedAt": "2026-11-26T05:49:18.063519+00:00",
+  "updatedAt": "2026-11-26T05:58:28.466948+00:00",
   "metric": "India net",
   "unit": "INR crore",
   "films": [
@@ -716,6 +836,34 @@
       "url": "https://www.sacnilk.com/movie/Phantom_2021",
       "indiaNet": 80.14,
       "industry": "Kannada"
+    },
+    {
+      "title": "Dunki",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Dunki_2023",
+      "indiaNet": 227.0,
+      "industry": "Hindi"
+    },
+    {
+      "title": "Singham Again",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Singham_3_2023",
+      "indiaNet": 247.86,
+      "industry": "Hindi"
+    },
+    {
+      "title": "Fighter",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/Fighter_2022",
+      "indiaNet": 212.79,
+      "industry": "Hindi"
+    },
+    {
+      "title": "Rocky Aur Rani Ki Prem Kahani",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Rocky_Aur_Rani_Ki_Prem_Kahani_2022",
+      "indiaNet": 153.55,
+      "industry": "Hindi"
     },
     {
       "title": "Vikram",

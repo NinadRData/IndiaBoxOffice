@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T05:50:09.167186+00:00",
+  "updatedAt": "2026-11-26T05:59:00.420706+00:00",
   "films": [
     {
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
@@ -807,7 +807,7 @@
       "year": 2026,
       "points": [],
       "missingReportAttempts": {
-        "7": "2026-11-26T05:49:26.096613+00:00",
+        "7": "2026-11-26T05:58:39.326445+00:00",
         "1": "2026-11-26T05:28:51.139013+00:00",
         "2": "2026-11-26T05:28:51.139013+00:00",
         "3": "2026-11-26T05:28:51.139013+00:00",
@@ -863,7 +863,7 @@
       "year": 2026,
       "points": [],
       "missingReportAttempts": {
-        "6": "2026-11-26T05:49:26.096613+00:00",
+        "6": "2026-11-26T05:58:39.326445+00:00",
         "1": "2026-11-26T05:28:51.139013+00:00",
         "2": "2026-11-26T05:28:51.139013+00:00",
         "3": "2026-11-26T05:28:51.139013+00:00"
@@ -875,8 +875,8 @@
       "year": 2026,
       "points": [],
       "missingReportAttempts": {
-        "6": "2026-11-26T05:49:26.096613+00:00",
-        "5": "2026-11-26T05:49:26.096613+00:00",
+        "6": "2026-11-26T05:58:39.326445+00:00",
+        "5": "2026-11-26T05:58:39.326445+00:00",
         "1": "2026-11-26T05:28:51.139013+00:00",
         "2": "2026-11-26T05:28:51.139013+00:00",
         "3": "2026-11-26T05:28:51.139013+00:00"
@@ -894,7 +894,7 @@
       "year": 2026,
       "points": [],
       "missingReportAttempts": {
-        "8": "2026-11-26T05:49:26.096613+00:00",
+        "8": "2026-11-26T05:58:39.326445+00:00",
         "3": "2026-11-26T05:28:51.139013+00:00",
         "4": "2026-11-26T05:46:22.007155+00:00",
         "5": "2026-11-26T05:46:22.007155+00:00"
@@ -2886,8 +2886,25 @@
           "worldwideGross": 204.53,
           "reportUrl": "https://www.sacnilk.com/quicknews/Sankranthiki_Vasthunam_2025_Box_Office_Collection_Day_12",
           "fetchedAt": "2026-11-25T04:32:38.812669+00:00"
+        },
+        {
+          "day": 16,
+          "worldwideGross": 225.48,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Sankranthiki_Vasthunam_2025_Box_Office_Collection_Day_16",
+          "fetchedAt": "2026-11-26T05:58:57.215865+00:00"
+        },
+        {
+          "day": 17,
+          "worldwideGross": 227.3,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Sankranthiki_Vasthunam_2025_Box_Office_Collection_Day_17",
+          "fetchedAt": "2026-11-26T05:58:59.138666+00:00"
         }
-      ]
+      ],
+      "missingReportAttempts": {
+        "13": "2026-11-26T05:58:39.326445+00:00",
+        "14": "2026-11-26T05:58:39.326445+00:00",
+        "15": "2026-11-26T05:58:39.326445+00:00"
+      }
     },
     {
       "url": "https://www.sacnilk.com/movie/Jawan_2023",
@@ -2965,8 +2982,25 @@
           "worldwideGross": 878.8,
           "reportUrl": "https://www.sacnilk.com/quicknews/Jawan_2023_Box_Office_Collection_Day_12",
           "fetchedAt": "2026-11-25T04:32:31.103477+00:00"
+        },
+        {
+          "day": 16,
+          "worldwideGross": 948.88,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Jawan_2023_Box_Office_Collection_Day_16",
+          "fetchedAt": "2026-11-26T05:58:58.272140+00:00"
+        },
+        {
+          "day": 17,
+          "worldwideGross": 972.71,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Jawan_2023_Box_Office_Collection_Day_17",
+          "fetchedAt": "2026-11-26T05:59:00.170573+00:00"
         }
-      ]
+      ],
+      "missingReportAttempts": {
+        "13": "2026-11-26T05:58:39.326445+00:00",
+        "14": "2026-11-26T05:58:39.326445+00:00",
+        "15": "2026-11-26T05:58:39.326445+00:00"
+      }
     },
     {
       "url": "https://www.sacnilk.com/movie/Pathan_2022",
