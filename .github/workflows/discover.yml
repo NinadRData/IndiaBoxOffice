@@ -31,6 +31,10 @@ jobs:
       - name: Collect verified historical daily data
         run: python historical_daily.py
         continue-on-error: true
+      - name: Report release-date conflicts
+        run: python audit_release_dates.py
+        continue-on-error: true
+
 
       - name: Test historical forecast baseline
         run: python backtest_history.py
