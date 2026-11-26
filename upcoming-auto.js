@@ -71,12 +71,83 @@
     }
     return Promise.all(Array.from({length:6}, worker)).then(function () { return results; });
   }).then(function (films) {
-    var existing = {};
-    UPCOMING.forEach(function (f) { existing[norm(f.n)] = true; });
-    films.sort(function (a,b) {return a.date.localeCompare(b.date);}).forEach(function (film) {
+        var existing = {};
+
+    UPCOMING.forEach(function (f) {
+      var key = norm(f.n);
+
+      if (!existing[key]) existing[key] = [];
+      existing[key].push(f);
+    });
+
+    var incomingCounts = {};
+
+    films.forEach(function (film) {
+      var id = norm(film.n) + '|' + film.y + '|' + norm(film.l);
+      incomingCounts[id] = (incomingCounts[id] || 0) + 1;
+    });
+
+    films.sort(function (a, b) {
+      return a.date.localeCompare(b.date);
+    }).forEach(function (film) {
       var key = norm(film.n);
-      if (!key || existing[key]) return;
-      existing[key] = true; UPCOMING.push(film);
+
+      if (!key) return;
+
+      var matches = existing[key] || [];
+
+      if (matches.length) {
+        // Skip ambiguous existing titles.
+        if (matches.length !== 1) return;
+
+        var manual = matches[0];
+        var manualYear = Number(
+          manual.y || String(manual.date || '').slice(0, 4)
+        );
+
+        var incomingId =
+          key + '|' + film.y + '|' + norm(film.l);
+
+        // Require matching year and language. If the manual entry
+        // has a date, require that to match too.
+        if (
+          incomingCounts[incomingId] !== 1 ||
+          manualYear !== film.y ||
+          !manual.l ||
+          norm(manual.l) !== norm(film.l) ||
+          (manual.date && manual.date !== film.date)
+        ) {
+          return;
+        }
+
+        var metadata =
+          typeof PREDS !== 'undefined' && Array.isArray(PREDS)
+            ? PREDS.filter(function (p) {
+                return p && norm(p.title) === key;
+              })
+            : [];
+
+        if (metadata.length > 1) return;
+
+        var details = metadata[0] || {};
+
+        if (!manual.actor && !details.actor && film.actor) {
+          manual.actor = film.actor;
+        }
+
+        if (!manual.director && !details.director && film.director) {
+          manual.director = film.director;
+        }
+
+        if (!manual.collectionName && film.collectionName) {
+          manual.collectionName = film.collectionName;
+        }
+
+        return;
+      }
+
+      UPCOMING.push(film);
+      existing[key] = [film];
     });
     if (typeof renderPreds === 'function') renderPreds();
     console.info('[upcoming] TMDB discovery complete:', films.length, 'verified upcoming entries');
