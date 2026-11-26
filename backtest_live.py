@@ -141,6 +141,8 @@ def main():
 
     for forecast_day in (7, 14, 21):
         errors = []
+        by_language = {}
+        covered = 0
 
         print("\nDAY", forecast_day)
 
@@ -260,6 +262,12 @@ def main():
             )
 
             errors.append(error)
+            by_language.setdefault(target["language"], []).append(error)
+
+            estimates = [item[2] for item in peers]
+
+            if min(estimates) <= target["total"] <= max(estimates):
+                covered += 1
 
             print(
                 "{}: forecast ₹{:.2f} Cr; reference ₹{:.2f} Cr; "
@@ -279,6 +287,22 @@ def main():
                     statistics.median(errors),
                 )
             )
+
+            print(
+                "Range contained reference: {}/{} films".format(
+                    covered,
+                    len(errors),
+                )
+            )
+
+            for language, values in sorted(by_language.items()):
+                print(
+                    "  {}: {} films; median error {:.1f}%".format(
+                        language.title(),
+                        len(values),
+                        statistics.median(values),
+                    )
+                )
         else:
             print("Not enough eligible historical films.")
 
