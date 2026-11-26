@@ -171,53 +171,74 @@
       });
   }
 
-  Promise.all([
-    load('data/tracker.json'),
-    load('data/discovered.json'),
+    Promise.all([
+    window.loadDailyFeeds(),
     load('data/historical.json')
   ])
-    .then(function (sources) {
+    .then(function (results) {
       if (typeof FILM_PAGES === 'undefined') return;
 
-      var byUrl = Object.create(null);
+      var liveFeeds = results[0];
+      var historical = results[1];
+      var liveUrls = Object.create(null);
 
-      sources.forEach(function (documentData) {
+      // An older historical record must not bypass an ambiguous
+      // or conflicting record in either live feed.
+      liveFeeds.forEach(function (documentData) {
         if (!documentData || !Array.isArray(documentData.films)) {
           return;
         }
 
         documentData.films.forEach(function (film) {
-          if (
-            !film ||
-            typeof film.url !== 'string' ||
-            !/^https:\/\/www\.sacnilk\.com\/movie\/[A-Za-z0-9_-]+$/.test(
-              film.url
-            ) ||
-            typeof film.title !== 'string' ||
-            !Number.isInteger(film.year)
-          ) return;
-            if (documentData.kind === 'historical') {
-             film.historical = true;
-          }
-
-          var time = Date.parse(
-            film.fetchedAt || documentData.updatedAt || ''
-          );
-
-          if (!Number.isFinite(time)) return;
-
-          if (!byUrl[film.url] || time > byUrl[film.url].time) {
-            byUrl[film.url] = {
-              film: film,
-              time: time
-            };
+          if (film && typeof film.url === 'string') {
+            liveUrls[film.url] = true;
           }
         });
       });
 
-      var sourceList = Object.keys(byUrl).map(function (url) {
-        return byUrl[url].film;
-      });
+      // Use the same live-feed selection as the chart and tracker.
+      var sourceList = window.resolveDailyFeeds(
+        liveFeeds[0],
+        liveFeeds[1]
+      )
+        .filter(function (record) {
+          return Number.isFinite(record.stamp);
+        })
+        .map(function (record) {
+          return record.film;
+        });
+
+      // Use saved historical data only when neither live feed
+      // contains that source URL.
+      if (
+        historical &&
+        historical.kind === 'historical' &&
+        Array.isArray(historical.films)
+      ) {
+        historical.films.forEach(function (film) {
+          if (
+            !film ||
+            liveUrls[film.url] ||
+            typeof film.title !== 'string' ||
+            !Number.isInteger(film.year) ||
+            !/^https:\/\/www\.sacnilk\.com\/movie\/[A-Za-z0-9_-]+$/.test(
+              film.url || ''
+            ) ||
+            !Number.isFinite(
+              Date.parse(
+                film.fetchedAt || historical.updatedAt || ''
+              )
+            )
+          ) {
+            return;
+          }
+
+          sourceList.push(
+            Object.assign({}, film, { historical: true })
+          );
+        });
+      }
+
 
       var pages = Object.keys(FILM_PAGES)
         .map(function (key) {
