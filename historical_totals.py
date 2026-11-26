@@ -313,7 +313,59 @@ def main():
         print("Kannada reference list unavailable:", str(error))
         kannada.films = []
         previous_labels.extend(preserve_industry("Kannada"))
+    # Add Tamil and Telugu industry records.
+    additional_labels = []
 
+    for industry, slug in (
+        ("Tamil", "kollywood-100cr-club-worldwide"),
+        ("Telugu", "tollywood-100cr-club-worldwide"),
+    ):
+        industry_url = (
+            "https://www.sacnilk.com/box-office-records/" + slug
+        )
+
+        try:
+            request = urllib.request.Request(
+                industry_url,
+                headers={"User-Agent": "BoxOfficeIndiaFeed/1.0"},
+            )
+
+            with urllib.request.urlopen(request, timeout=30) as response:
+                final_url = response.geturl().split("?", 1)[0].rstrip("/")
+
+                if final_url != industry_url.rstrip("/"):
+                    raise ValueError("Unexpected industry-list redirect")
+
+                content = response.read(10_000_001)
+
+            if len(content) > 10_000_000:
+                raise ValueError("Industry records page too large")
+
+            records = Records(include_recent=True)
+            records.feed(content.decode("utf-8"))
+
+            if not records.films:
+                raise ValueError("No supported industry records found")
+
+            known_urls = {film["url"] for film in parser.films}
+
+            for film in records.films:
+                additional_labels.append({
+                    "url": film["url"],
+                    "year": film["year"],
+                    "industry": industry,
+                })
+
+                if film["year"] <= 2024 and film["url"] not in known_urls:
+                    film["industry"] = industry
+                    parser.films.append(film)
+                    known_urls.add(film["url"])
+
+            print(industry, "reference records found:", len(records.films))
+
+        except (OSError, ValueError, UnicodeError) as error:
+            print(industry, "reference list unavailable:", str(error))
+            additional_labels.extend(preserve_industry(industry))
     output = {
         "industryFilms": [
             {
@@ -329,7 +381,7 @@ def main():
                 "industry": "Kannada",
             }
             for film in kannada.films
-        ] + previous_labels,
+        ] + previous_labels + additional_labels,
         "source": URL,
         "updatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
         "metric": "India net",
