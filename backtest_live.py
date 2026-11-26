@@ -24,6 +24,7 @@ def main():
     html = (ROOT / "index.html").read_text(encoding="utf-8")
 
     totals = {}
+    industry_languages = {}
 
     for film in (
         older_totals.get("films", []) + snapshot.get("films", [])
@@ -39,7 +40,6 @@ def main():
             key = (film.get("url"), film.get("year"))
             totals.setdefault(key, []).append(amount)
 
-        industry_languages = {}
 
     for film in (
         older_totals.get("films", [])
@@ -74,7 +74,14 @@ def main():
             if page_language:
                 labels.add(page_language)
 
-                labels.update(industry_languages.get(key, set()))
+            reported = str(film.get("language") or "").lower()
+
+            if reported in (
+                "hindi", "tamil", "telugu", "malayalam", "kannada"
+            ):
+                labels.add(reported)
+
+            labels.update(industry_languages.get(key, set()))
 
             if len(labels) != 1:
                 continue
