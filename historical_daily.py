@@ -355,7 +355,7 @@ def main():
             reference = json.loads(
                 totals_path.read_text(encoding="utf-8")
             )
-                        labels = {}
+            labels = {}
 
             for item in reference.get("industryFilms", []):
                 if (
