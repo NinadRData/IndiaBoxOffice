@@ -42,6 +42,10 @@
   function validRows(film) {
     if (!film || !Array.isArray(film.days)) return null;
 
+    if (film.days.some(function (row) {
+      return !row || typeof row !== 'object';
+    })) return null;
+
     var days = film.days.slice().sort(function (a, b) {
       return a.day - b.day;
     });
@@ -272,7 +276,10 @@
             other.url === film.url ||
             other.year < 2021 ||
             languageFor(other) !== language ||
-            !Array.isArray(other.days)
+            !Array.isArray(other.days) ||
+            other.days.some(function (row) {
+              return !row || typeof row !== 'object';
+            })
           ) {
             return;
           }
@@ -392,7 +399,9 @@
               return;
             }
 
-            var lastDay = source.days.slice().sort(function (a, b) {
+            var lastDay = source.days.filter(function (day) {
+              return day && typeof day === 'object';
+            }).sort(function (a, b) {
               return a.day - b.day;
             }).pop();
 
