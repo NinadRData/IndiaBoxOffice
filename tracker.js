@@ -62,24 +62,15 @@
   reset(weekly, 'Last week at the box office', 'Loading collections…');
   reset(live, 'Live tracker', 'Loading collections…');
 
-  Promise.all([
-    fetch('data/tracker.json', { cache: 'no-cache' })
-      .then(function (response) {
-        if (!response.ok) throw new Error('Tracker unavailable');
-        return response.json();
-      }),
-
-    fetch('data/discovered.json', { cache: 'no-cache' })
-      .then(function (response) {
-        return response.ok ? response.json() : null;
-      })
-      .catch(function () {
-        return null;
-      })
-  ])
+   window.loadDailyFeeds()
     .then(function (results) {
-      var data = results[0];
+      // Keep the shared feed objects unchanged for the other views.
+      var data = results[0]
+        ? Object.assign({}, results[0])
+        : null;
+
       var discovered = results[1];
+
       if (data) {
         data.discoveryFeed = discovered && Array.isArray(discovered.films)
           ? { updatedAt: discovered.updatedAt }
@@ -90,41 +81,10 @@
         throw new Error('Invalid tracker');
       }
 
-      var byUrl = Object.create(null);
-
-      data.films.forEach(function (film) {
-        if (film && typeof film.url === 'string') {
-          byUrl[film.url] = film;
-        }
-      });
-
-      if (discovered && Array.isArray(discovered.films)) {
-        discovered.films.forEach(function (film) {
-          if (
-            !film ||
-            typeof film.url !== 'string' ||
-            !Array.isArray(film.days)
-          ) return;
-
-          var previous = byUrl[film.url];
-          var incomingTime = Date.parse(film.fetchedAt || '');
-          var previousTime = Date.parse(
-            (previous && previous.fetchedAt) || data.updatedAt
-          );
-
-          if (
-            !previous ||
-            (Number.isFinite(incomingTime) &&
-             incomingTime > previousTime)
-          ) {
-            byUrl[film.url] = film;
-          }
+      data.films = window.resolveDailyFeeds(data, discovered)
+        .map(function (record) {
+          return record.film;
         });
-      }
-
-      data.films = Object.keys(byUrl).map(function (url) {
-        return byUrl[url];
-      });
 
       return data;
     })
