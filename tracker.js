@@ -80,6 +80,11 @@
     .then(function (results) {
       var data = results[0];
       var discovered = results[1];
+      if (data) {
+        data.discoveryFeed = discovered && Array.isArray(discovered.films)
+          ? { updatedAt: discovered.updatedAt }
+          : null;
+      }
 
       if (!data || !Array.isArray(data.films)) {
         throw new Error('Invalid tracker');
@@ -160,20 +165,46 @@
       var stale = Date.now() - Date.parse(data.updatedAt) >
         48 * 3600000;
 
-      var updated = new Date(data.updatedAt).toLocaleString();
-      var staleText = stale ? ' · Data may be out of date' : '';
+            var updated = new Date(data.updatedAt).toLocaleString();
+      var staleText = stale ? ' (may be out of date)' : '';
+      var feedText = 'Tracker saved ' + updated + staleText;
+
+      if (!data.discoveryFeed) {
+        feedText += ' · Discovery feed unavailable';
+      } else {
+        var discoveryTime = Date.parse(
+          data.discoveryFeed.updatedAt || ''
+        );
+
+        var discoveryAge = Date.now() - discoveryTime;
+
+        if (
+          !Number.isFinite(discoveryTime) ||
+          discoveryAge < -5 * 60000
+        ) {
+          feedText += ' · Discovery feed timestamp unavailable';
+        } else {
+          feedText += ' · Discovery feed saved ' +
+            new Date(discoveryTime).toLocaleString() +
+            (
+              discoveryAge > 48 * 3600000
+                ? ' (may be out of date)'
+                : ''
+            );
+        }
+      }
 
       reset(
         weekly,
         'Last week at the box office',
         'India net · ' + showDate(start) + ' – ' + showDate(end) +
-        ' · Friday–Thursday · Refreshed ' + updated + staleText
+        ' · Friday–Thursday · ' + feedText
       );
 
       reset(
         live,
         'Live tracker',
-        'Latest reported figures · Refreshed ' + updated + staleText
+        'Latest reported figures · ' + feedText
       );
 
       var rows = [];
