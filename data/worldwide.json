@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T05:46:34.608187+00:00",
+  "updatedAt": "2026-11-26T05:50:09.167186+00:00",
   "films": [
     {
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
@@ -122,15 +122,15 @@
         },
         {
           "day": 20,
-          "worldwideGross": 1737.15,
+          "worldwideGross": 1738.15,
           "reportUrl": "https://www.sacnilk.com/quicknews/ramayana_part_1_2026_Box_Office_Collection_Day_20",
-          "fetchedAt": "2026-11-25T15:00:49.118243+00:00"
+          "fetchedAt": "2026-11-26T05:49:56.031314+00:00"
         },
         {
           "day": 21,
-          "worldwideGross": 1755.6,
+          "worldwideGross": 1755.5,
           "reportUrl": "https://www.sacnilk.com/quicknews/ramayana_part_1_2026_Box_Office_Collection_Day_21",
-          "fetchedAt": "2026-11-25T18:41:46.494556+00:00"
+          "fetchedAt": "2026-11-26T05:49:45.859520+00:00"
         }
       ]
     },
@@ -317,7 +317,7 @@
           "day": 30,
           "worldwideGross": 834.0,
           "reportUrl": "https://www.sacnilk.com/quicknews/Jailer_2_2026_Box_Office_Collection_Day_30",
-          "fetchedAt": "2026-11-25T18:41:43.389551+00:00"
+          "fetchedAt": "2026-11-26T05:49:52.184616+00:00"
         }
       ]
     },
@@ -522,13 +522,13 @@
           "day": 33,
           "worldwideGross": 586.5,
           "reportUrl": "https://www.sacnilk.com/quicknews/drishyam_3_hindi_2026_Box_Office_Collection_Day_33",
-          "fetchedAt": "2026-11-25T19:02:25.343121+00:00"
+          "fetchedAt": "2026-11-26T05:49:55.386222+00:00"
         },
         {
           "day": 34,
           "worldwideGross": 587.3,
           "reportUrl": "https://www.sacnilk.com/quicknews/drishyam_3_hindi_2026_Box_Office_Collection_Day_34",
-          "fetchedAt": "2026-11-25T19:02:19.348495+00:00"
+          "fetchedAt": "2026-11-26T05:49:45.188781+00:00"
         }
       ]
     },
@@ -649,13 +649,13 @@
           "day": 19,
           "worldwideGross": 265.75,
           "reportUrl": "https://www.sacnilk.com/quicknews/Scene_2026_Box_Office_Collection_Day_19",
-          "fetchedAt": "2026-11-25T18:41:54.805497+00:00"
+          "fetchedAt": "2026-11-26T05:49:53.430620+00:00"
         },
         {
           "day": 20,
           "worldwideGross": 266.27,
           "reportUrl": "https://www.sacnilk.com/quicknews/Scene_2026_Box_Office_Collection_Day_20",
-          "fetchedAt": "2026-11-25T19:02:18.139018+00:00"
+          "fetchedAt": "2026-11-26T05:49:43.656851+00:00"
         }
       ]
     },
@@ -692,13 +692,13 @@
           "day": 5,
           "worldwideGross": 100.75,
           "reportUrl": "https://www.sacnilk.com/quicknews/OM_Chapter_1_Udhiram_2026_Box_Office_Collection_Day_5",
-          "fetchedAt": "2026-11-25T19:02:23.064264+00:00"
+          "fetchedAt": "2026-11-26T05:49:52.816576+00:00"
         },
         {
           "day": 6,
           "worldwideGross": 106.25,
           "reportUrl": "https://www.sacnilk.com/quicknews/OM_Chapter_1_Udhiram_2026_Box_Office_Collection_Day_6",
-          "fetchedAt": "2026-11-25T19:02:17.541538+00:00"
+          "fetchedAt": "2026-11-26T05:49:43.012464+00:00"
         }
       ]
     },
@@ -747,7 +747,7 @@
           "day": 7,
           "worldwideGross": 44.55,
           "reportUrl": "https://www.sacnilk.com/quicknews/ENE_Repeat_2026_Box_Office_Collection_Day_7",
-          "fetchedAt": "2026-11-25T18:41:42.204975+00:00"
+          "fetchedAt": "2026-11-26T05:49:51.102437+00:00"
         }
       ]
     },
@@ -791,11 +791,15 @@
           "worldwideGross": 6.68,
           "reportUrl": "https://www.sacnilk.com/quicknews/Bachelor_Party_Deux_2026_Box_Office_Collection_Day_6",
           "fetchedAt": "2026-11-25T18:41:48.967821+00:00"
+        },
+        {
+          "day": 7,
+          "worldwideGross": 6.75,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Bachelor_Party_Deux_2026_Box_Office_Collection_Day_7",
+          "fetchedAt": "2026-11-26T05:49:47.653960+00:00"
         }
       ],
-      "missingReportAttempts": {
-        "7": "2026-11-26T05:46:22.007155+00:00"
-      }
+      "missingReportAttempts": {}
     },
     {
       "url": "https://www.sacnilk.com/movie/Donga_Naa_Koduku_2026",
@@ -803,7 +807,7 @@
       "year": 2026,
       "points": [],
       "missingReportAttempts": {
-        "7": "2026-11-26T05:46:22.007155+00:00",
+        "7": "2026-11-26T05:49:26.096613+00:00",
         "1": "2026-11-26T05:28:51.139013+00:00",
         "2": "2026-11-26T05:28:51.139013+00:00",
         "3": "2026-11-26T05:28:51.139013+00:00",
@@ -843,13 +847,13 @@
           "day": 5,
           "worldwideGross": 32.3,
           "reportUrl": "https://www.sacnilk.com/quicknews/Aakasamlo_Oka_Tara_2026_Box_Office_Collection_Day_5",
-          "fetchedAt": "2026-11-25T15:00:49.539219+00:00"
+          "fetchedAt": "2026-11-26T05:49:56.863899+00:00"
         },
         {
           "day": 6,
           "worldwideGross": 36.45,
           "reportUrl": "https://www.sacnilk.com/quicknews/Aakasamlo_Oka_Tara_2026_Box_Office_Collection_Day_6",
-          "fetchedAt": "2026-11-25T18:41:47.292770+00:00"
+          "fetchedAt": "2026-11-26T05:49:46.450538+00:00"
         }
       ]
     },
@@ -859,7 +863,7 @@
       "year": 2026,
       "points": [],
       "missingReportAttempts": {
-        "6": "2026-11-26T05:46:22.007155+00:00",
+        "6": "2026-11-26T05:49:26.096613+00:00",
         "1": "2026-11-26T05:28:51.139013+00:00",
         "2": "2026-11-26T05:28:51.139013+00:00",
         "3": "2026-11-26T05:28:51.139013+00:00"
@@ -871,8 +875,8 @@
       "year": 2026,
       "points": [],
       "missingReportAttempts": {
-        "6": "2026-11-26T05:46:22.007155+00:00",
-        "5": "2026-11-26T05:46:22.007155+00:00",
+        "6": "2026-11-26T05:49:26.096613+00:00",
+        "5": "2026-11-26T05:49:26.096613+00:00",
         "1": "2026-11-26T05:28:51.139013+00:00",
         "2": "2026-11-26T05:28:51.139013+00:00",
         "3": "2026-11-26T05:28:51.139013+00:00"
@@ -890,7 +894,7 @@
       "year": 2026,
       "points": [],
       "missingReportAttempts": {
-        "8": "2026-11-26T05:46:22.007155+00:00",
+        "8": "2026-11-26T05:49:26.096613+00:00",
         "3": "2026-11-26T05:28:51.139013+00:00",
         "4": "2026-11-26T05:46:22.007155+00:00",
         "5": "2026-11-26T05:46:22.007155+00:00"
@@ -977,13 +981,13 @@
           "day": 12,
           "worldwideGross": 63.65,
           "reportUrl": "https://www.sacnilk.com/quicknews/Udta_Teer_2026_Box_Office_Collection_Day_12",
-          "fetchedAt": "2026-11-25T19:02:24.285226+00:00"
+          "fetchedAt": "2026-11-26T05:49:54.788622+00:00"
         },
         {
           "day": 13,
           "worldwideGross": 65.3,
           "reportUrl": "https://www.sacnilk.com/quicknews/Udta_Teer_2026_Box_Office_Collection_Day_13",
-          "fetchedAt": "2026-11-25T18:41:45.335621+00:00"
+          "fetchedAt": "2026-11-26T05:49:44.597274+00:00"
         }
       ]
     },
@@ -3723,6 +3727,12 @@
           "worldwideGross": 9.83,
           "reportUrl": "https://www.sacnilk.com/quicknews/Premalu_2024_Box_Office_Collection_Day_3",
           "fetchedAt": "2026-11-25T17:39:25.910836+00:00"
+        },
+        {
+          "day": 4,
+          "worldwideGross": 12.47,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Premalu_2024_Box_Office_Collection_Day_4",
+          "fetchedAt": "2026-11-26T05:50:04.646402+00:00"
         }
       ]
     },
@@ -3748,6 +3758,12 @@
           "worldwideGross": 25.79,
           "reportUrl": "https://www.sacnilk.com/quicknews/2018_2023_Box_Office_Collection_Day_3",
           "fetchedAt": "2026-11-25T17:44:09.167507+00:00"
+        },
+        {
+          "day": 4,
+          "worldwideGross": 32.22,
+          "reportUrl": "https://www.sacnilk.com/quicknews/2018_2023_Box_Office_Collection_Day_4",
+          "fetchedAt": "2026-11-26T05:50:06.640300+00:00"
         }
       ]
     },
@@ -3773,6 +3789,12 @@
           "worldwideGross": 22.67,
           "reportUrl": "https://www.sacnilk.com/quicknews/ARM_2024_Box_Office_Collection_Day_3",
           "fetchedAt": "2026-11-25T17:44:10.312060+00:00"
+        },
+        {
+          "day": 4,
+          "worldwideGross": 33.61,
+          "reportUrl": "https://www.sacnilk.com/quicknews/ARM_2024_Box_Office_Collection_Day_4",
+          "fetchedAt": "2026-11-26T05:50:07.813083+00:00"
         }
       ]
     },
@@ -3798,6 +3820,18 @@
           "worldwideGross": 31.28,
           "reportUrl": "https://www.sacnilk.com/quicknews/Marco_2024_Box_Office_Collection_Day_3",
           "fetchedAt": "2026-11-25T17:39:24.898596+00:00"
+        },
+        {
+          "day": 4,
+          "worldwideGross": 36.91,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Marco_2024_Box_Office_Collection_Day_4",
+          "fetchedAt": "2026-11-26T05:50:03.277673+00:00"
+        },
+        {
+          "day": 5,
+          "worldwideGross": 42.79,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Marco_2024_Box_Office_Collection_Day_5",
+          "fetchedAt": "2026-11-26T05:50:08.917014+00:00"
         }
       ]
     },
@@ -3812,6 +3846,62 @@
       "title": "777 Charlie",
       "year": 2022,
       "points": []
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Vikram_2021",
+      "title": "Vikram",
+      "year": 2022,
+      "points": []
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Vaathi_2022",
+      "title": "Vaathi/SIR",
+      "year": 2023,
+      "points": [
+        {
+          "day": 1,
+          "worldwideGross": 14.16,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vaathi_2022_Box_Office_Collection_Day_1",
+          "fetchedAt": "2026-11-26T05:49:59.118772+00:00"
+        }
+      ]
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Valimai_2021",
+      "title": "Valimai",
+      "year": 2022,
+      "points": []
+    },
+    {
+      "url": "https://www.sacnilk.com/movie/Vettaiyan_2024",
+      "title": "Vettaiyan",
+      "year": 2024,
+      "points": [
+        {
+          "day": 1,
+          "worldwideGross": 64.02,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vettaiyan_2024_Box_Office_Collection_Day_1",
+          "fetchedAt": "2026-11-26T05:50:00.206947+00:00"
+        },
+        {
+          "day": 2,
+          "worldwideGross": 105.84,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vettaiyan_2024_Box_Office_Collection_Day_2",
+          "fetchedAt": "2026-11-26T05:50:01.275780+00:00"
+        },
+        {
+          "day": 3,
+          "worldwideGross": 149.84,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vettaiyan_2024_Box_Office_Collection_Day_3",
+          "fetchedAt": "2026-11-26T05:50:02.358742+00:00"
+        },
+        {
+          "day": 4,
+          "worldwideGross": 188.68,
+          "reportUrl": "https://www.sacnilk.com/quicknews/Vettaiyan_2024_Box_Office_Collection_Day_4",
+          "fetchedAt": "2026-11-26T05:50:05.704215+00:00"
+        }
+      ]
     }
   ]
 }
