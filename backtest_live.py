@@ -45,7 +45,7 @@ def main():
         older_totals.get("films", [])
         + older_totals.get("industryFilms", [])
     ):
-        if film.get("industry") in ("Malayalam", "Kannada"):
+        if film.get("industry") in ("Malayalam", "Kannada", "Tamil", "Telugu"):
             key = (film.get("url"), film.get("year"))
 
             industry_languages.setdefault(key, set()).add(
