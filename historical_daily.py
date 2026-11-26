@@ -355,6 +355,15 @@ def main():
             reference = json.loads(
                 totals_path.read_text(encoding="utf-8")
             )
+                        labels = {}
+
+            for item in reference.get("industryFilms", []):
+                if (
+                    isinstance(item, dict)
+                    and item.get("industry") in ("Malayalam", "Kannada")
+                ):
+                    key = (item.get("url"), item.get("year"))
+                    labels.setdefault(key, set()).add(item["industry"])
 
             for film in reference.get("films", []):
                 if not isinstance(film, dict):
@@ -364,8 +373,13 @@ def main():
                 year = film.get("year")
                 url = film.get("url")
 
+                industries = set(labels.get((url, year), set()))
+
+                if film.get("industry") in ("Malayalam", "Kannada"):
+                    industries.add(film["industry"])
+
                 if (
-                    film.get("industry") not in ("Malayalam", "Kannada")
+                    len(industries) != 1
                     or not isinstance(title, str)
                     or not title.strip()
                     or not isinstance(year, int)
