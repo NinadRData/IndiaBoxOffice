@@ -182,7 +182,12 @@
         .forEach(function (film) {
           if (
             film &&
-            (film.industry === 'Malayalam' || film.industry === 'Kannada')
+                        (
+              film.industry === 'Malayalam' ||
+              film.industry === 'Kannada' ||
+              film.industry === 'Tamil' ||
+              film.industry === 'Telugu'
+            )
           ) {
             var key = film.url + '|' + film.year;
 
