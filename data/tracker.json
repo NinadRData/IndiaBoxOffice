@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-25T14:44:34.618481+00:00",
-  "snapshotUpdatedAt": "2026-11-25T14:44:29.174251+00:00",
+  "updatedAt": "2026-11-26T14:08:34.821780+00:00",
+  "snapshotUpdatedAt": "2026-11-26T14:08:28.283749+00:00",
   "films": [
     {
       "title": "Ramayana",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "year": 2026,
-      "indiaNet": 972.95,
-      "worldwideGross": 1737.15,
+      "indiaNet": 982.45,
+      "worldwideGross": 1755.5,
       "days": [
         {
           "date": "2026-11-05",
@@ -108,6 +108,11 @@
           "date": "2026-11-24",
           "day": 20,
           "indiaNet": 17.5
+        },
+        {
+          "date": "2026-11-25",
+          "day": 21,
+          "indiaNet": 9.5
         }
       ]
     },
@@ -115,8 +120,8 @@
       "title": "Jailer 2",
       "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
       "year": 2026,
-      "indiaNet": 475.5,
-      "worldwideGross": 836.07,
+      "indiaNet": 475.55,
+      "worldwideGross": 836.13,
       "days": [
         {
           "date": "2026-10-15",
@@ -322,6 +327,11 @@
           "date": "2026-11-24",
           "day": 41,
           "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-25",
+          "day": 42,
+          "indiaNet": 0.05
         }
       ]
     },
@@ -329,8 +339,8 @@
       "title": "Drishyam 3: The Conclusion",
       "url": "https://www.sacnilk.com/movie/drishyam_3_hindi_2026",
       "year": 2026,
-      "indiaNet": 381.18,
-      "worldwideGross": 589.51,
+      "indiaNet": 381.21,
+      "worldwideGross": 589.54,
       "days": [
         {
           "date": "2026-10-02",
@@ -601,6 +611,11 @@
           "date": "2026-11-24",
           "day": 54,
           "indiaNet": 0.05
+        },
+        {
+          "date": "2026-11-25",
+          "day": 55,
+          "indiaNet": 0.03
         }
       ]
     },
@@ -608,8 +623,8 @@
       "title": "Scene",
       "url": "https://www.sacnilk.com/movie/Scene_2026",
       "year": 2026,
-      "indiaNet": 151.7,
-      "worldwideGross": 265.75,
+      "indiaNet": 152.15,
+      "worldwideGross": 266.27,
       "days": [
         {
           "date": "2026-11-06",
@@ -705,6 +720,11 @@
           "date": "2026-11-24",
           "day": 19,
           "indiaNet": 0.48
+        },
+        {
+          "date": "2026-11-25",
+          "day": 20,
+          "indiaNet": 0.45
         }
       ]
     }
