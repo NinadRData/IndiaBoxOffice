@@ -186,7 +186,8 @@
               film.industry === 'Malayalam' ||
               film.industry === 'Kannada' ||
               film.industry === 'Tamil' ||
-              film.industry === 'Telugu'
+              film.industry === 'Telugu' ||
+              film.industry === 'Hindi'
             )
           ) {
             var key = film.url + '|' + film.year;
