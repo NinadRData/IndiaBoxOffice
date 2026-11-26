@@ -19680,12 +19680,8 @@ function predictorEligibleFilm(film, targetDate) {
     if (
       filmYear < 2021 ||
       !predictorEligibleFilm(film, target.date) ||
-      !Number.isFinite(ow) ||
-      !Number.isFinite(india) ||
-      !Number.isFinite(ww) ||
-      ow <= 0 ||
-      india <= 0 ||
-      ww <= 0
+            !Number.isFinite(ow) ||
+      ow <= 0
     ) {
       return null;
     }
@@ -19705,9 +19701,19 @@ function predictorEligibleFilm(film, targetDate) {
       actorMatch: Boolean(actorMatch),
       weight: score / (1 + (year - filmYear) / 8),
       ow: ow,
-      indiaLegs: india / ow,
-      wwLegs: ww / ow,
-      ffPerIndia: film.ff > 0 ? Number(film.ff) / india : null
+           indiaLegs: Number.isFinite(india) && india > 0
+        ? india / ow
+        : null,
+      wwLegs: Number.isFinite(ww) && ww > 0
+        ? ww / ow
+        : null,
+      ffPerIndia:
+        Number.isFinite(india) &&
+        india > 0 &&
+        Number.isFinite(Number(film.ff)) &&
+        Number(film.ff) > 0
+          ? Number(film.ff) / india
+          : null
     };
     }).filter(Boolean);
 
@@ -19748,7 +19754,7 @@ function predictorEligibleFilm(film, targetDate) {
       return a.value - b.value;
     });
 
-    if (!values.length) return null;
+       if (values.length < 3) return null;
 
     var threshold = values.reduce(function (sum, item) {
       return sum + item.weight;
@@ -19778,20 +19784,30 @@ function predictorEligibleFilm(film, targetDate) {
   var wwMidLegs = quantile(function (p) { return p.wwLegs; }, 0.5);
   var wwHighLegs = quantile(function (p) { return p.wwLegs; }, 0.8);
 
-  var india = {
-    low: round(owLow * indiaLowLegs),
-    mid: round(owMid * indiaMidLegs),
-    high: round(owHigh * indiaHighLegs)
-  };
+    var india =
+    indiaLowLegs != null &&
+    indiaMidLegs != null &&
+    indiaHighLegs != null
+      ? {
+          low: round(owLow * indiaLowLegs),
+          mid: round(owMid * indiaMidLegs),
+          high: round(owHigh * indiaHighLegs)
+        }
+      : null;
 
   var result = {
     ow: {low: round(owLow), mid: round(owMid), high: round(owHigh)},
     india: india,
-    bo: {
-      low: round(owLow * wwLowLegs),
-      mid: round(owMid * wwMidLegs),
-      high: round(owHigh * wwHighLegs)
-    },
+       bo:
+      wwLowLegs != null &&
+      wwMidLegs != null &&
+      wwHighLegs != null
+        ? {
+            low: round(owLow * wwLowLegs),
+            mid: round(owMid * wwMidLegs),
+            high: round(owHigh * wwHighLegs)
+          }
+        : null,
     autoComparableFilms: peers.slice(0, 5).map(function (p) {
       return p.film.n + ' (' + p.film.y + ')';
     })
@@ -19801,7 +19817,7 @@ function predictorEligibleFilm(film, targetDate) {
   var ffMid = quantile(function (p) { return p.ffPerIndia; }, 0.5);
   var ffHigh = quantile(function (p) { return p.ffPerIndia; }, 0.8);
 
-  if (ffLow && ffMid && ffHigh) {
+    if (india && ffLow && ffMid && ffHigh) {
     result.ff = {
       low: round(india.low * ffLow),
       mid: round(india.mid * ffMid),
