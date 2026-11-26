@@ -19879,6 +19879,54 @@ function getUpcomingAutoPrediction(film) {
 
   return autoForecastFromFilmData(target);
 } 
+  function upcomingForecastContext(film) {
+  var items = [];
+  var date = String(film.date || '');
+  var titleKey = schedulePredictionKey(film.n);
+
+  var parsed = /^\d{4}-\d{2}-\d{2}$/.test(date)
+    ? new Date(date + 'T00:00:00Z')
+    : null;
+
+  if (
+    parsed &&
+    !isNaN(parsed.getTime()) &&
+    parsed.toISOString().slice(0, 10) === date
+  ) {
+    var seen = {};
+
+    var clashes = (Array.isArray(UPCOMING) ? UPCOMING : [])
+      .filter(function (other) {
+        if (!other || other === film || other.date !== date) {
+          return false;
+        }
+
+        var key = schedulePredictionKey(other.n);
+
+        if (!key || key === titleKey || seen[key]) {
+          return false;
+        }
+
+        seen[key] = true;
+        return true;
+      })
+      .map(function (other) {
+        return other.n;
+      });
+
+    if (clashes.length) {
+      items.push('Same-day releases: ' + clashes.join(', '));
+    }
+  }
+
+  if (typeof film.sequelOf === 'string' && film.sequelOf.trim()) {
+    items.push('Sequel to: ' + film.sequelOf.trim());
+  } else if (film.sequel === true) {
+    items.push('Marked as a sequel');
+  }
+
+  return items;
+}
 function renderPreds() {
   var grid = document.getElementById('pred-grid');
   var monthSelect = document.getElementById('schedule-month');
@@ -20077,7 +20125,19 @@ function renderPreds() {
         var film = item.film;
         var posterId = 'schedule-poster-' +
           groupKey.replace(/[^a-z0-9]/gi, '') + '-' + index;
-        var prediction = getUpcomingAutoPrediction(film);
+                var prediction = getUpcomingAutoPrediction(film);
+        var context = upcomingForecastContext(film);
+
+        if (
+          prediction &&
+          Array.isArray(prediction.autoComparableFilms) &&
+          prediction.autoComparableFilms.length
+        ) {
+          context.push(
+            'Comparisons: ' + prediction.autoComparableFilms.join(', ')
+          );
+        }
+
         var forecast = prediction && prediction.ow
           ? '₹' + prediction.ow.low + '–₹' +
               prediction.ow.high + ' Cr'
@@ -20092,11 +20152,16 @@ function renderPreds() {
               '<div class="schedule-film-title">' +
                 escapeScheduleText(film.n) +
               '</div>' +
-              '<div class="schedule-film-meta">' +
+                            '<div class="schedule-film-meta">' +
                 escapeScheduleText(
                   film.note || film.l || 'Release details to be announced'
                 ) +
               '</div>' +
+              (context.length
+                ? '<div class="schedule-film-meta">' +
+                    escapeScheduleText(context.join(' · ')) +
+                  '</div>'
+                : '') +
             '</div>' +
             '<div class="schedule-forecast">' +
               (forecast
