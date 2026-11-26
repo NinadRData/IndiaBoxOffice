@@ -144,53 +144,12 @@
 
   section.append(title, detail, dateLabel, table, note);
 
-  function get(path) {
-    return fetch(path, { cache: 'no-cache' })
-      .then(function (response) {
-        if (!response.ok) throw new Error(path);
-        return response.json();
-      })
-      .catch(function () {
-        return null;
-      });
-  }
-
-  Promise.all([
-    get('data/tracker.json'),
-    get('data/discovered.json')
-  ])
+   window.loadDailyFeeds()
     .then(function (sources) {
-      var byUrl = Object.create(null);
-
-      sources.forEach(function (source) {
-        if (!source || !Array.isArray(source.films)) return;
-
-        source.films.forEach(function (film) {
-          if (
-            !film ||
-            typeof film.title !== 'string' ||
-            !/^https:\/\/www\.sacnilk\.com\/movie\/[A-Za-z0-9_-]+$/.test(
-              film.url
-            ) ||
-            !Array.isArray(film.days)
-          ) return;
-
-          var stamp = Date.parse(
-            film.fetchedAt || source.updatedAt || ''
-          ) || 0;
-
-          if (!byUrl[film.url] || stamp > byUrl[film.url].stamp) {
-            byUrl[film.url] = {
-              film: film,
-              stamp: stamp
-            };
-          }
-        });
-      });
-
-      var films = Object.keys(byUrl).map(function (key) {
-        return byUrl[key];
-      });
+      var films = window.resolveDailyFeeds(
+        sources[0],
+        sources[1]
+      );
 
       var dates = {};
 
