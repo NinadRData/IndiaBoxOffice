@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T19:02:33.656357+00:00",
+  "updatedAt": "2026-11-26T05:29:05.362356+00:00",
   "films": [
     {
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
@@ -792,13 +792,22 @@
           "reportUrl": "https://www.sacnilk.com/quicknews/Bachelor_Party_Deux_2026_Box_Office_Collection_Day_6",
           "fetchedAt": "2026-11-25T18:41:48.967821+00:00"
         }
-      ]
+      ],
+      "missingReportAttempts": {
+        "7": "2026-11-26T05:28:51.139013+00:00"
+      }
     },
     {
       "url": "https://www.sacnilk.com/movie/Donga_Naa_Koduku_2026",
       "title": "Donga Naa Koduku",
       "year": 2026,
-      "points": []
+      "points": [],
+      "missingReportAttempts": {
+        "7": "2026-11-26T05:28:51.139013+00:00",
+        "1": "2026-11-26T05:28:51.139013+00:00",
+        "2": "2026-11-26T05:28:51.139013+00:00",
+        "3": "2026-11-26T05:28:51.139013+00:00"
+      }
     },
     {
       "url": "https://www.sacnilk.com/movie/Aakasamlo_Oka_Tara_2026",
@@ -847,13 +856,26 @@
       "url": "https://www.sacnilk.com/movie/Brindavihari_2026",
       "title": "Brindavihari",
       "year": 2026,
-      "points": []
+      "points": [],
+      "missingReportAttempts": {
+        "6": "2026-11-26T05:28:51.139013+00:00",
+        "1": "2026-11-26T05:28:51.139013+00:00",
+        "2": "2026-11-26T05:28:51.139013+00:00",
+        "3": "2026-11-26T05:28:51.139013+00:00"
+      }
     },
     {
       "url": "https://www.sacnilk.com/movie/Appakutty_2026",
       "title": "Appakutty",
       "year": 2026,
-      "points": []
+      "points": [],
+      "missingReportAttempts": {
+        "6": "2026-11-26T05:28:51.139013+00:00",
+        "5": "2026-11-26T05:28:51.139013+00:00",
+        "1": "2026-11-26T05:28:51.139013+00:00",
+        "2": "2026-11-26T05:28:51.139013+00:00",
+        "3": "2026-11-26T05:28:51.139013+00:00"
+      }
     },
     {
       "url": "https://www.sacnilk.com/movie/Aadi_Anant_2026",
@@ -865,7 +887,11 @@
       "url": "https://www.sacnilk.com/movie/Bouma_2026",
       "title": "Bouma",
       "year": 2026,
-      "points": []
+      "points": [],
+      "missingReportAttempts": {
+        "8": "2026-11-26T05:28:51.139013+00:00",
+        "3": "2026-11-26T05:28:51.139013+00:00"
+      }
     },
     {
       "url": "https://www.sacnilk.com/movie/Sathyavan_Savithiri_2026",

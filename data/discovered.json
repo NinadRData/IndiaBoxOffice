@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T19:01:59.119388+00:00",
+  "updatedAt": "2026-11-26T05:28:45.416694+00:00",
   "films": [
     {
       "title": "O.M Operation Mole",
@@ -41,7 +41,7 @@
           "indiaNet": 4.1
         }
       ],
-      "fetchedAt": "2026-11-25T19:01:51.434552+00:00"
+      "fetchedAt": "2026-11-26T05:28:12.032775+00:00"
     },
     {
       "title": "Ramayana",
@@ -49,8 +49,8 @@
       "language": "Hindi",
       "url": "https://www.sacnilk.com/movie/ramayana_part_1_2026",
       "release": "2026-11-05",
-      "indiaNet": 982.55,
-      "worldwideGross": 1755.6,
+      "indiaNet": 982.45,
+      "worldwideGross": 1755.5,
       "days": [
         {
           "date": "2026-11-05",
@@ -155,10 +155,10 @@
         {
           "date": "2026-11-25",
           "day": 21,
-          "indiaNet": 9.6
+          "indiaNet": 9.5
         }
       ],
-      "fetchedAt": "2026-11-25T19:01:50.336556+00:00"
+      "fetchedAt": "2026-11-26T05:28:10.944617+00:00"
     },
     {
       "title": "ENE Repeat",
@@ -205,7 +205,7 @@
           "indiaNet": 1.35
         }
       ],
-      "fetchedAt": "2026-11-25T19:01:54.047381+00:00"
+      "fetchedAt": "2026-11-26T05:28:14.216625+00:00"
     },
     {
       "title": "Scene",
@@ -317,7 +317,7 @@
           "indiaNet": 0.45
         }
       ],
-      "fetchedAt": "2026-11-25T19:01:55.398135+00:00"
+      "fetchedAt": "2026-11-26T05:28:15.580002+00:00"
     },
     {
       "title": "Bachelor Party D'eux",
@@ -325,8 +325,8 @@
       "language": "Malayalam",
       "url": "https://www.sacnilk.com/movie/Bachelor_Party_Deux_2026",
       "release": "2026-11-19",
-      "indiaNet": 4.03,
-      "worldwideGross": 6.68,
+      "indiaNet": 4.09,
+      "worldwideGross": 6.75,
       "days": [
         {
           "date": "2026-11-19",
@@ -357,9 +357,14 @@
           "date": "2026-11-24",
           "day": 6,
           "indiaNet": 0.08
+        },
+        {
+          "date": "2026-11-25",
+          "day": 7,
+          "indiaNet": 0.06
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:58.245453+00:00"
+      "fetchedAt": "2026-11-26T05:28:31.575174+00:00"
     },
     {
       "title": "Donga Naa Koduku",
@@ -367,8 +372,8 @@
       "language": "Telugu",
       "url": "https://www.sacnilk.com/movie/Donga_Naa_Koduku_2026",
       "release": "2026-11-13",
-      "indiaNet": 8.99,
-      "worldwideGross": 9.02,
+      "indiaNet": 9.06,
+      "worldwideGross": 9.1,
       "days": [
         {
           "date": "2026-11-13",
@@ -429,9 +434,14 @@
           "date": "2026-11-24",
           "day": 12,
           "indiaNet": 0.07
+        },
+        {
+          "date": "2026-11-25",
+          "day": 13,
+          "indiaNet": 0.07
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:59.761466+00:00"
+      "fetchedAt": "2026-11-26T05:28:30.495748+00:00"
     },
     {
       "title": "Aakasamlo Oka Tara",
@@ -473,7 +483,7 @@
           "indiaNet": 2.7
         }
       ],
-      "fetchedAt": "2026-11-25T19:01:52.944705+00:00"
+      "fetchedAt": "2026-11-26T05:28:13.113469+00:00"
     },
     {
       "title": "Brindavihari",
@@ -481,7 +491,7 @@
       "language": "Kannada",
       "url": "https://www.sacnilk.com/movie/Brindavihari_2026",
       "release": "2026-11-20",
-      "indiaNet": 2.66,
+      "indiaNet": 2.9,
       "worldwideGross": 70.0,
       "days": [
         {
@@ -508,9 +518,14 @@
           "date": "2026-11-24",
           "day": 5,
           "indiaNet": 0.29
+        },
+        {
+          "date": "2026-11-25",
+          "day": 6,
+          "indiaNet": 0.24
         }
       ],
-      "fetchedAt": "2026-11-25T19:01:59.119372+00:00"
+      "fetchedAt": "2026-11-26T05:28:20.350705+00:00"
     },
     {
       "title": "Appakutty",
@@ -552,7 +567,7 @@
           "indiaNet": 0.26
         }
       ],
-      "fetchedAt": "2026-11-25T19:01:58.033893+00:00"
+      "fetchedAt": "2026-11-26T05:28:19.270909+00:00"
     },
     {
       "title": "Aadi Anant",
@@ -560,8 +575,8 @@
       "language": "Marathi",
       "url": "https://www.sacnilk.com/movie/Aadi_Anant_2026",
       "release": "2026-11-12",
-      "indiaNet": 4.27,
-      "worldwideGross": 4.78,
+      "indiaNet": 4.46,
+      "worldwideGross": 4.99,
       "days": [
         {
           "date": "2026-11-12",
@@ -627,9 +642,14 @@
           "date": "2026-11-24",
           "day": 13,
           "indiaNet": 0.32
+        },
+        {
+          "date": "2026-11-25",
+          "day": 14,
+          "indiaNet": 0.19
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:43.610283+00:00"
+      "fetchedAt": "2026-11-26T05:28:22.507850+00:00"
     },
     {
       "title": "Bouma",
@@ -637,8 +657,8 @@
       "language": "Malayalam",
       "url": "https://www.sacnilk.com/movie/Bouma_2026",
       "release": "2026-11-12",
-      "indiaNet": 7.81,
-      "worldwideGross": 8.02,
+      "indiaNet": 7.93,
+      "worldwideGross": 8.15,
       "days": [
         {
           "date": "2026-11-12",
@@ -704,9 +724,14 @@
           "date": "2026-11-24",
           "day": 13,
           "indiaNet": 0.15
+        },
+        {
+          "date": "2026-11-25",
+          "day": 14,
+          "indiaNet": 0.12
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:50.616493+00:00"
+      "fetchedAt": "2026-11-26T05:28:24.883287+00:00"
     },
     {
       "title": "Sathyavan Savithiri",
@@ -714,8 +739,8 @@
       "language": "Tamil",
       "url": "https://www.sacnilk.com/movie/Sathyavan_Savithiri_2026",
       "release": "2026-11-20",
-      "indiaNet": 1.31,
-      "worldwideGross": 1.45,
+      "indiaNet": 1.46,
+      "worldwideGross": 1.62,
       "days": [
         {
           "date": "2026-11-20",
@@ -741,9 +766,14 @@
           "date": "2026-11-24",
           "day": 5,
           "indiaNet": 0.15
+        },
+        {
+          "date": "2026-11-25",
+          "day": 6,
+          "indiaNet": 0.15
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:51.887456+00:00"
+      "fetchedAt": "2026-11-26T05:28:23.798418+00:00"
     },
     {
       "title": "Udta Teer",
@@ -751,8 +781,8 @@
       "language": "Hindi",
       "url": "https://www.sacnilk.com/movie/Udta_Teer_2026",
       "release": "2026-10-23",
-      "indiaNet": 50.33,
-      "worldwideGross": 69.93,
+      "indiaNet": 50.38,
+      "worldwideGross": 69.99,
       "days": [
         {
           "date": "2026-10-23",
@@ -918,9 +948,14 @@
           "date": "2026-11-24",
           "day": 33,
           "indiaNet": 0.1
+        },
+        {
+          "date": "2026-11-25",
+          "day": 34,
+          "indiaNet": 0.05
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:55.520034+00:00"
+      "fetchedAt": "2026-11-26T05:28:35.257098+00:00"
     },
     {
       "title": "Pyre",
@@ -928,8 +963,8 @@
       "language": "Hindi",
       "url": "https://www.sacnilk.com/movie/Pyre_2026",
       "release": "2026-10-30",
-      "indiaNet": 3.78,
-      "worldwideGross": 4.52,
+      "indiaNet": 3.85,
+      "worldwideGross": 4.59,
       "days": [
         {
           "date": "2026-10-30",
@@ -1060,9 +1095,14 @@
           "date": "2026-11-24",
           "day": 26,
           "indiaNet": 0.12
+        },
+        {
+          "date": "2026-11-25",
+          "day": 27,
+          "indiaNet": 0.07
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:52.996062+00:00"
+      "fetchedAt": "2026-11-26T05:28:29.404797+00:00"
     },
     {
       "title": "Jailer 2",
@@ -1070,8 +1110,8 @@
       "language": "Tamil",
       "url": "https://www.sacnilk.com/movie/Jailer_2_2026",
       "release": "2026-10-15",
-      "indiaNet": 475.5,
-      "worldwideGross": 836.07,
+      "indiaNet": 475.55,
+      "worldwideGross": 836.13,
       "days": [
         {
           "date": "2026-10-15",
@@ -1277,9 +1317,14 @@
           "date": "2026-11-24",
           "day": 41,
           "indiaNet": 0.06
+        },
+        {
+          "date": "2026-11-25",
+          "day": 42,
+          "indiaNet": 0.05
         }
       ],
-      "fetchedAt": "2026-11-25T15:00:03.820594+00:00"
+      "fetchedAt": "2026-11-26T05:28:33.967661+00:00"
     },
     {
       "title": "Drishyam 3: The Conclusion",
@@ -1569,8 +1614,8 @@
       "language": "Tamil",
       "url": "https://www.sacnilk.com/movie/John_Doe_2026",
       "release": "2026-11-13",
-      "indiaNet": 2.84,
-      "worldwideGross": 3.18,
+      "indiaNet": 2.92,
+      "worldwideGross": 3.26,
       "days": [
         {
           "date": "2026-11-13",
@@ -1626,9 +1671,19 @@
           "date": "2026-11-23",
           "day": 11,
           "indiaNet": 0.04
+        },
+        {
+          "date": "2026-11-24",
+          "day": 12,
+          "indiaNet": 0.04
+        },
+        {
+          "date": "2026-11-25",
+          "day": 13,
+          "indiaNet": 0.04
         }
       ],
-      "fetchedAt": "2026-11-24T15:20:09.269805+00:00"
+      "fetchedAt": "2026-11-26T05:28:42.857267+00:00"
     },
     {
       "title": "Sadhak Bamakhyapa",
@@ -1636,8 +1691,8 @@
       "language": "Bengali",
       "url": "https://www.sacnilk.com/movie/Sadhak_Bamakhyapa_2026",
       "release": "2026-11-20",
-      "indiaNet": 1.27,
-      "worldwideGross": 1.42,
+      "indiaNet": 1.61,
+      "worldwideGross": 1.8,
       "days": [
         {
           "date": "2026-11-20",
@@ -1663,9 +1718,14 @@
           "date": "2026-11-24",
           "day": 5,
           "indiaNet": 0.4
+        },
+        {
+          "date": "2026-11-25",
+          "day": 6,
+          "indiaNet": 0.34
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:42.176387+00:00"
+      "fetchedAt": "2026-11-26T05:28:16.873264+00:00"
     },
     {
       "title": "Kaali Kheti",
@@ -1673,8 +1733,8 @@
       "language": "Hindi",
       "url": "https://www.sacnilk.com/movie/Kaali_Kheti_2026",
       "release": "2026-11-20",
-      "indiaNet": 1.06,
-      "worldwideGross": 1.2,
+      "indiaNet": 1.15,
+      "worldwideGross": 1.3,
       "days": [
         {
           "date": "2026-11-20",
@@ -1700,9 +1760,14 @@
           "date": "2026-11-24",
           "day": 5,
           "indiaNet": 0.16
+        },
+        {
+          "date": "2026-11-25",
+          "day": 6,
+          "indiaNet": 0.09
         }
       ],
-      "fetchedAt": "2026-11-25T14:59:49.053401+00:00"
+      "fetchedAt": "2026-11-26T05:28:25.963622+00:00"
     }
   ]
 }
