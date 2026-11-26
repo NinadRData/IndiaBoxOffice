@@ -65,6 +65,10 @@
 
     var release = new Date(page.release + 'T00:00:00Z');
     if (!Number.isFinite(release.getTime())) return null;
+    // A malformed row must not prevent other film pages from syncing.
+    if (source.days.some(function (row) {
+      return !row || typeof row !== 'object';
+    })) return null;
 
     var rows = source.days.slice().sort(function (a, b) {
       return a.day - b.day;
@@ -278,6 +282,20 @@
                 id(page.title, page.year);
           }).length !== 1
         ) return;
+        var sourceRelease = matches[0].release;
+
+        if (
+          /^\d{4}-\d{2}-\d{2}$/.test(sourceRelease || '') &&
+          /^\d{4}-\d{2}-\d{2}$/.test(page.release || '') &&
+          sourceRelease !== page.release
+        ) {
+          console.warn(
+            'Daily sync skipped: release-date conflict for',
+            page.title,
+            '(manual:', page.release + '; source:', sourceRelease + ').'
+          );
+          return;
+        }
 
         var merged = prepare(matches[0], page);
         if (!merged) return;
