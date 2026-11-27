@@ -396,17 +396,17 @@
       "industry": "Tamil"
     },
     {
+      "url": "https://www.sacnilk.com/movie/OM_Chapter_1_Udhiram_2026",
+      "year": 2026,
+      "industry": "Tamil"
+    },
+    {
       "url": "https://www.sacnilk.com/movie/Suriya_42_2023",
       "year": 2024,
       "industry": "Tamil"
     },
     {
       "url": "https://www.sacnilk.com/movie/DC_2026",
-      "year": 2026,
-      "industry": "Tamil"
-    },
-    {
-      "url": "https://www.sacnilk.com/movie/OM_Chapter_1_Udhiram_2026",
       "year": 2026,
       "industry": "Tamil"
     },
@@ -597,7 +597,7 @@
     }
   ],
   "source": "https://www.sacnilk.com/box-office-records/indian-100cr-club-india-net",
-  "updatedAt": "2026-11-26T14:30:44.534433+00:00",
+  "updatedAt": "2026-11-27T14:25:09.860300+00:00",
   "metric": "India net",
   "unit": "INR crore",
   "films": [

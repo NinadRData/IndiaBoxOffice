@@ -1,6 +1,6 @@
 {
   "kind": "historical",
-  "updatedAt": "2026-11-26T14:30:49.418126+00:00",
+  "updatedAt": "2026-11-27T14:25:14.545505+00:00",
   "films": [
     {
       "title": "Lokah: Chapter 1 – Chandra",
@@ -12220,6 +12220,753 @@
         }
       ],
       "fetchedAt": "2026-11-26T14:30:48.917975+00:00"
+    },
+    {
+      "title": "Varisu",
+      "year": 2023,
+      "url": "https://www.sacnilk.com/movie/Thalapathy_66_2022",
+      "release": "2023-01-11",
+      "days": [
+        {
+          "day": 1,
+          "date": "2023-01-11",
+          "indiaNet": 26.7
+        },
+        {
+          "day": 2,
+          "date": "2023-01-12",
+          "indiaNet": 11.55
+        },
+        {
+          "day": 3,
+          "date": "2023-01-13",
+          "indiaNet": 10.1
+        },
+        {
+          "day": 4,
+          "date": "2023-01-14",
+          "indiaNet": 18.4
+        },
+        {
+          "day": 5,
+          "date": "2023-01-15",
+          "indiaNet": 20.5
+        },
+        {
+          "day": 6,
+          "date": "2023-01-16",
+          "indiaNet": 17.0
+        },
+        {
+          "day": 7,
+          "date": "2023-01-17",
+          "indiaNet": 15.55
+        },
+        {
+          "day": 8,
+          "date": "2023-01-18",
+          "indiaNet": 7.45
+        },
+        {
+          "day": 9,
+          "date": "2023-01-19",
+          "indiaNet": 5.05
+        },
+        {
+          "day": 10,
+          "date": "2023-01-20",
+          "indiaNet": 4.7
+        },
+        {
+          "day": 11,
+          "date": "2023-01-21",
+          "indiaNet": 6.85
+        },
+        {
+          "day": 12,
+          "date": "2023-01-22",
+          "indiaNet": 8.85
+        },
+        {
+          "day": 13,
+          "date": "2023-01-23",
+          "indiaNet": 2.5
+        },
+        {
+          "day": 14,
+          "date": "2023-01-24",
+          "indiaNet": 2.0
+        },
+        {
+          "day": 15,
+          "date": "2023-01-25",
+          "indiaNet": 1.4
+        },
+        {
+          "day": 16,
+          "date": "2023-01-26",
+          "indiaNet": 3.0
+        },
+        {
+          "day": 17,
+          "date": "2023-01-27",
+          "indiaNet": 1.28
+        },
+        {
+          "day": 18,
+          "date": "2023-01-28",
+          "indiaNet": 2.24
+        },
+        {
+          "day": 19,
+          "date": "2023-01-29",
+          "indiaNet": 2.83
+        },
+        {
+          "day": 20,
+          "date": "2023-01-30",
+          "indiaNet": 1.13
+        },
+        {
+          "day": 21,
+          "date": "2023-01-31",
+          "indiaNet": 0.94
+        },
+        {
+          "day": 22,
+          "date": "2023-02-01",
+          "indiaNet": 0.74
+        },
+        {
+          "day": 23,
+          "date": "2023-02-02",
+          "indiaNet": 0.6
+        },
+        {
+          "day": 24,
+          "date": "2023-02-03",
+          "indiaNet": 0.51
+        },
+        {
+          "day": 25,
+          "date": "2023-02-04",
+          "indiaNet": 0.94
+        },
+        {
+          "day": 26,
+          "date": "2023-02-05",
+          "indiaNet": 1.2
+        },
+        {
+          "day": 27,
+          "date": "2023-02-06",
+          "indiaNet": 0.4
+        },
+        {
+          "day": 28,
+          "date": "2023-02-07",
+          "indiaNet": 0.33
+        },
+        {
+          "day": 29,
+          "date": "2023-02-08",
+          "indiaNet": 0.4
+        },
+        {
+          "day": 30,
+          "date": "2023-02-09",
+          "indiaNet": 0.31
+        },
+        {
+          "day": 31,
+          "date": "2023-02-10",
+          "indiaNet": 0.22
+        },
+        {
+          "day": 32,
+          "date": "2023-02-11",
+          "indiaNet": 0.49
+        },
+        {
+          "day": 33,
+          "date": "2023-02-12",
+          "indiaNet": 0.56
+        },
+        {
+          "day": 34,
+          "date": "2023-02-13",
+          "indiaNet": 0.25
+        },
+        {
+          "day": 35,
+          "date": "2023-02-14",
+          "indiaNet": 0.35
+        },
+        {
+          "day": 36,
+          "date": "2023-02-15",
+          "indiaNet": 0.31
+        },
+        {
+          "day": 37,
+          "date": "2023-02-16",
+          "indiaNet": 0.3
+        },
+        {
+          "day": 38,
+          "date": "2023-02-17",
+          "indiaNet": 0.03
+        },
+        {
+          "day": 39,
+          "date": "2023-02-18",
+          "indiaNet": 0.04
+        },
+        {
+          "day": 40,
+          "date": "2023-02-19",
+          "indiaNet": 0.06
+        },
+        {
+          "day": 41,
+          "date": "2023-02-20",
+          "indiaNet": 0.02
+        },
+        {
+          "day": 42,
+          "date": "2023-02-21",
+          "indiaNet": 0.02
+        },
+        {
+          "day": 43,
+          "date": "2023-02-22",
+          "indiaNet": 0.02
+        },
+        {
+          "day": 44,
+          "date": "2023-02-23",
+          "indiaNet": 0.02
+        }
+      ],
+      "fetchedAt": "2026-11-27T14:25:12.338012+00:00"
+    },
+    {
+      "title": "The Greatest of All Time",
+      "year": 2024,
+      "url": "https://www.sacnilk.com/movie/The_Greatest_of_All_Time_2024",
+      "release": "2024-09-05",
+      "days": [
+        {
+          "day": 1,
+          "date": "2024-09-05",
+          "indiaNet": 44.0
+        },
+        {
+          "day": 2,
+          "date": "2024-09-06",
+          "indiaNet": 25.5
+        },
+        {
+          "day": 3,
+          "date": "2024-09-07",
+          "indiaNet": 33.5
+        },
+        {
+          "day": 4,
+          "date": "2024-09-08",
+          "indiaNet": 34.0
+        },
+        {
+          "day": 5,
+          "date": "2024-09-09",
+          "indiaNet": 14.75
+        },
+        {
+          "day": 6,
+          "date": "2024-09-10",
+          "indiaNet": 11.0
+        },
+        {
+          "day": 7,
+          "date": "2024-09-11",
+          "indiaNet": 8.5
+        },
+        {
+          "day": 8,
+          "date": "2024-09-12",
+          "indiaNet": 6.75
+        },
+        {
+          "day": 9,
+          "date": "2024-09-13",
+          "indiaNet": 6.75
+        },
+        {
+          "day": 10,
+          "date": "2024-09-14",
+          "indiaNet": 13.5
+        },
+        {
+          "day": 11,
+          "date": "2024-09-15",
+          "indiaNet": 15.0
+        },
+        {
+          "day": 12,
+          "date": "2024-09-16",
+          "indiaNet": 6.35
+        },
+        {
+          "day": 13,
+          "date": "2024-09-17",
+          "indiaNet": 7.0
+        },
+        {
+          "day": 14,
+          "date": "2024-09-18",
+          "indiaNet": 2.85
+        },
+        {
+          "day": 15,
+          "date": "2024-09-19",
+          "indiaNet": 2.5
+        },
+        {
+          "day": 16,
+          "date": "2024-09-20",
+          "indiaNet": 2.4
+        },
+        {
+          "day": 17,
+          "date": "2024-09-21",
+          "indiaNet": 3.9
+        },
+        {
+          "day": 18,
+          "date": "2024-09-22",
+          "indiaNet": 5.1
+        },
+        {
+          "day": 19,
+          "date": "2024-09-23",
+          "indiaNet": 1.15
+        },
+        {
+          "day": 20,
+          "date": "2024-09-24",
+          "indiaNet": 1.1
+        },
+        {
+          "day": 21,
+          "date": "2024-09-25",
+          "indiaNet": 1.1
+        },
+        {
+          "day": 22,
+          "date": "2024-09-26",
+          "indiaNet": 1.05
+        },
+        {
+          "day": 23,
+          "date": "2024-09-27",
+          "indiaNet": 0.4
+        },
+        {
+          "day": 24,
+          "date": "2024-09-28",
+          "indiaNet": 0.7
+        },
+        {
+          "day": 25,
+          "date": "2024-09-29",
+          "indiaNet": 0.9
+        },
+        {
+          "day": 26,
+          "date": "2024-09-30",
+          "indiaNet": 0.35
+        },
+        {
+          "day": 27,
+          "date": "2024-10-01",
+          "indiaNet": 0.35
+        },
+        {
+          "day": 28,
+          "date": "2024-10-02",
+          "indiaNet": 0.6
+        },
+        {
+          "day": 29,
+          "date": "2024-10-03",
+          "indiaNet": 0.2
+        },
+        {
+          "day": 30,
+          "date": "2024-10-04",
+          "indiaNet": 0.19
+        },
+        {
+          "day": 31,
+          "date": "2024-10-05",
+          "indiaNet": 0.25
+        },
+        {
+          "day": 32,
+          "date": "2024-10-06",
+          "indiaNet": 0.37
+        },
+        {
+          "day": 33,
+          "date": "2024-10-07",
+          "indiaNet": 0.09
+        },
+        {
+          "day": 34,
+          "date": "2024-10-08",
+          "indiaNet": 0.06
+        },
+        {
+          "day": 35,
+          "date": "2024-10-09",
+          "indiaNet": 0.06
+        },
+        {
+          "day": 36,
+          "date": "2024-10-10",
+          "indiaNet": 0.06
+        },
+        {
+          "day": 37,
+          "date": "2024-10-11",
+          "indiaNet": 0.05
+        },
+        {
+          "day": 38,
+          "date": "2024-10-12",
+          "indiaNet": 0.04
+        },
+        {
+          "day": 39,
+          "date": "2024-10-13",
+          "indiaNet": 0.05
+        },
+        {
+          "day": 40,
+          "date": "2024-10-14",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 41,
+          "date": "2024-10-15",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 42,
+          "date": "2024-10-16",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 43,
+          "date": "2024-10-17",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 44,
+          "date": "2024-10-18",
+          "indiaNet": 0.02
+        },
+        {
+          "day": 45,
+          "date": "2024-10-19",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 46,
+          "date": "2024-10-20",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 47,
+          "date": "2024-10-21",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 48,
+          "date": "2024-10-22",
+          "indiaNet": 0.02
+        },
+        {
+          "day": 49,
+          "date": "2024-10-23",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 50,
+          "date": "2024-10-24",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 51,
+          "date": "2024-10-25",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 52,
+          "date": "2024-10-26",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 53,
+          "date": "2024-10-27",
+          "indiaNet": 0.02
+        },
+        {
+          "day": 54,
+          "date": "2024-10-28",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 55,
+          "date": "2024-10-29",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 56,
+          "date": "2024-10-30",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 59,
+          "date": "2024-11-02",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 62,
+          "date": "2024-11-05",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 71,
+          "date": "2024-11-14",
+          "indiaNet": 0.01
+        },
+        {
+          "day": 92,
+          "date": "2024-12-05",
+          "indiaNet": 0.01
+        }
+      ],
+      "fetchedAt": "2026-11-27T14:25:13.179987+00:00"
+    },
+    {
+      "title": "The Kashmir Files",
+      "year": 2022,
+      "url": "https://www.sacnilk.com/movie/The_Kashmir_Files_2021",
+      "release": "2022-03-11",
+      "days": [
+        {
+          "day": 1,
+          "date": "2022-03-11",
+          "indiaNet": 3.55
+        },
+        {
+          "day": 2,
+          "date": "2022-03-12",
+          "indiaNet": 8.5
+        },
+        {
+          "day": 3,
+          "date": "2022-03-13",
+          "indiaNet": 15.1
+        },
+        {
+          "day": 4,
+          "date": "2022-03-14",
+          "indiaNet": 15.05
+        },
+        {
+          "day": 5,
+          "date": "2022-03-15",
+          "indiaNet": 18.0
+        },
+        {
+          "day": 6,
+          "date": "2022-03-16",
+          "indiaNet": 19.05
+        },
+        {
+          "day": 7,
+          "date": "2022-03-17",
+          "indiaNet": 18.05
+        },
+        {
+          "day": 8,
+          "date": "2022-03-18",
+          "indiaNet": 19.15
+        },
+        {
+          "day": 9,
+          "date": "2022-03-19",
+          "indiaNet": 24.8
+        },
+        {
+          "day": 10,
+          "date": "2022-03-20",
+          "indiaNet": 26.2
+        },
+        {
+          "day": 11,
+          "date": "2022-03-21",
+          "indiaNet": 12.4
+        },
+        {
+          "day": 12,
+          "date": "2022-03-22",
+          "indiaNet": 10.25
+        },
+        {
+          "day": 13,
+          "date": "2022-03-23",
+          "indiaNet": 8.97
+        },
+        {
+          "day": 14,
+          "date": "2022-03-24",
+          "indiaNet": 7.2
+        },
+        {
+          "day": 15,
+          "date": "2022-03-25",
+          "indiaNet": 4.5
+        },
+        {
+          "day": 16,
+          "date": "2022-03-26",
+          "indiaNet": 7.6
+        },
+        {
+          "day": 17,
+          "date": "2022-03-27",
+          "indiaNet": 8.75
+        },
+        {
+          "day": 18,
+          "date": "2022-03-28",
+          "indiaNet": 3.1
+        },
+        {
+          "day": 19,
+          "date": "2022-03-29",
+          "indiaNet": 2.75
+        },
+        {
+          "day": 20,
+          "date": "2022-03-30",
+          "indiaNet": 2.25
+        },
+        {
+          "day": 21,
+          "date": "2022-03-31",
+          "indiaNet": 2.0
+        },
+        {
+          "day": 22,
+          "date": "2022-04-01",
+          "indiaNet": 1.5
+        },
+        {
+          "day": 23,
+          "date": "2022-04-02",
+          "indiaNet": 2.25
+        },
+        {
+          "day": 24,
+          "date": "2022-04-03",
+          "indiaNet": 3.0
+        },
+        {
+          "day": 25,
+          "date": "2022-04-04",
+          "indiaNet": 1.0
+        },
+        {
+          "day": 26,
+          "date": "2022-04-05",
+          "indiaNet": 0.8
+        },
+        {
+          "day": 27,
+          "date": "2022-04-06",
+          "indiaNet": 0.75
+        },
+        {
+          "day": 28,
+          "date": "2022-04-07",
+          "indiaNet": 0.65
+        },
+        {
+          "day": 29,
+          "date": "2022-04-08",
+          "indiaNet": 0.5
+        },
+        {
+          "day": 30,
+          "date": "2022-04-09",
+          "indiaNet": 0.85
+        },
+        {
+          "day": 31,
+          "date": "2022-04-10",
+          "indiaNet": 1.15
+        },
+        {
+          "day": 32,
+          "date": "2022-04-11",
+          "indiaNet": 0.3
+        },
+        {
+          "day": 33,
+          "date": "2022-04-12",
+          "indiaNet": 0.32
+        },
+        {
+          "day": 34,
+          "date": "2022-04-13",
+          "indiaNet": 0.25
+        },
+        {
+          "day": 35,
+          "date": "2022-04-14",
+          "indiaNet": 0.15
+        },
+        {
+          "day": 42,
+          "date": "2022-04-21",
+          "indiaNet": 1.1
+        },
+        {
+          "day": 49,
+          "date": "2022-04-28",
+          "indiaNet": 0.35
+        },
+        {
+          "day": 56,
+          "date": "2022-05-05",
+          "indiaNet": 0.05
+        },
+        {
+          "day": 63,
+          "date": "2022-05-12",
+          "indiaNet": 0.04
+        },
+        {
+          "day": 70,
+          "date": "2022-05-19",
+          "indiaNet": 0.02
+        }
+      ],
+      "fetchedAt": "2026-11-27T14:25:14.045350+00:00"
     }
   ]
 }
